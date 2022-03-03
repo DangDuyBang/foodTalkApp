@@ -6,4 +6,5 @@ export default {
     textBlue: '#2714A6',
     textButton: '#FFFFFF',
     post: '#F5E7E7',
+    inputColor: '#E9E9E9'
 }
