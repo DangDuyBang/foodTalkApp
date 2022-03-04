@@ -4,9 +4,9 @@ import color from '../contains/color'
 
 const SubmitNoLogo = (props) => {
   return (
-    <TouchableOpacity>
-      <View style={styles.containerButton}>
-        <Text style={styles.nameStyle}>{props.nameButton}</Text>
+    <TouchableOpacity onPress={props.eventButton}>
+      <View style={[styles.containerButton, {borderWidth: props.widthBorder}, {borderColor: props.colorBorder}]} backgroundColor={props.colorView}>
+        <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -22,11 +22,10 @@ const styles = StyleSheet.create({
     width: 340,
     height: 50,
     borderRadius: 50,
-    backgroundColor: color.primary,
   },
   nameStyle: {
-    color: color.background,
     fontWeight: 'bold',
     fontSize: 16,
+    fontFamily: 'Roboto',
   }
 })  

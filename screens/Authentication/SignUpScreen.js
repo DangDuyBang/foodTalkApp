@@ -61,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={{ color: color.textBlue, fontWeight: 'bold', marginBottom: 10 }}>Terms of service </Text>
           </TouchableOpacity>
-          <SubmitNoLogo nameButton='SIGN UP' />
+          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} />
         </View>
       </ScrollView>
 
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   tittle: {
-    marginTop: 20,
+    marginTop: 10,
     fontFamily: 'Roboto',
     fontSize: 24,
     color: color.textGray,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 120,
     backgroundColor: color.inputColor,
-    marginTop: 25,
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     color: color.primary,
   },
   inputContain: {
-    marginTop: 30,
+    marginTop: 15,
   },
   bot: {
     justifyContent: 'center',
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
   checkBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: -12,
+    marginBottom: -15,
+    marginTop: -15,
   }
 })

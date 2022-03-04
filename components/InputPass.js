@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     },
     iconRightStyle: {
         color: color.textGray,
+        width: '10%'
     },
 })
