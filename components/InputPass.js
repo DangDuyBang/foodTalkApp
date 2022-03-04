@@ -1,13 +1,36 @@
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import color from '../contains/color'
 
 const InputPass = (props) => {
+
+    const [data, setData] = React.useState({
+        email: '',
+        password: '',
+        check_textInputChange: false,
+        secureTextEntry: true,
+    })
+
+    const handlePasswordChange = (val) => {
+        setData({
+            ...data,
+            password: val,
+            check_textInputChange: false
+        });
+    }
+
+    const updateSecureTextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        });
+    }
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={20} 
+            keyboardVerticalOffset={20}
             style={styles.container}
         >
             <Entypo
@@ -16,15 +39,30 @@ const InputPass = (props) => {
                 style={styles.iconLeftStyle}
             ></Entypo>
             <TextInput
-                style={styles.inputStyle}
+                style={[styles.inputStyle]}
                 placeholder={props.inputName}
-                secureTextEntry={true}
+                secureTextEntry={data.secureTextEntry ? true : false}
+                onChangeText={(val) => handlePasswordChange(val)}
             />
-            <Entypo
-                name={props.inputIconRight}
-                size={20}
-                style={styles.iconRightStyle}
-            ></Entypo>
+
+            <TouchableOpacity
+                onPress={updateSecureTextEntry}
+            >
+                {data.secureTextEntry ?
+                <Entypo
+                    name='eye-with-line'
+                    size={20}
+                    style={styles.iconRightStyle}
+                ></Entypo>
+                :
+                <Entypo
+                    name='eye'
+                    size={20}
+                    style={styles.iconRightStyle}
+                ></Entypo>
+                }
+            </TouchableOpacity>
+
         </KeyboardAvoidingView>
     )
 }
@@ -53,6 +91,6 @@ const styles = StyleSheet.create({
     },
     iconRightStyle: {
         color: color.textGray,
-        width: '10%'
+        width: '100%'
     },
 })

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import color from '../../contains/color'
 import InputText from '../../components/InputText'
 import InputPass from '../../components/InputPass'
@@ -41,7 +41,7 @@ const SignInScreen = ({ navigation }) => {
           <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
           <InputText inputIcon='mail' inputName='Email' />
-          <InputPass inputIconLeft='lock' inputName='Password' inputIconRight='eye-with-line' />
+          <InputPass inputIconLeft='lock' inputName='Password'/>
           <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
           <View style={styles.lineView}>
@@ -52,7 +52,7 @@ const SignInScreen = ({ navigation }) => {
 
           <SubmitLogo eventButton={eventSignIn} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
 
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={eventSignUp}>
             <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold'}}>New Account ?</Text>
           </TouchableOpacity>
 
