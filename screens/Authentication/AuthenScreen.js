@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import HomePageScreen from '../HomePage/HomePageScreen';
+import StartScreen from '../Onboarding/StartScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +13,10 @@ const AuthenScreen = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="SignIn"
+        initialRouteName="Start"
         screenOptions={{header: () => null}}
       >
+        <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="HomePage" component={HomePageScreen} />

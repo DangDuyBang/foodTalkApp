@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import color from '../../contains/color'
 import InputText from '../../components/InputText'
 import InputPass from '../../components/InputPass'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import SubmitLogo from '../../components/SubmitLogo'
+import * as Animatable from 'react-native-animatable';
 
 const SignInScreen = ({ navigation }) => {
 
@@ -23,42 +24,44 @@ const SignInScreen = ({ navigation }) => {
           style={styles.logo}
           resizeMode='contain'
           source={{
-            uri: 'https://i.pinimg.com/564x/84/23/1b/84231b3f5ae082664d9161aec06bfc1b.jpg',
+            uri: 'https://i.pinimg.com/564x/57/da/ba/57daba61aad2b83b6f8ccbfb6168a0f6.jpg',
           }}
         />
       </View>
+
       <ScrollView>
-        <View style={styles.footer}>
-          <Image
-            source={require('../../contains//assetImages//logoIcon_foodtalk.png')}
-            style={styles.logoIcon}
-            resizeMode='stretch'
-          />
+        <Animatable.View animation="fadeInUp" duration={1000}>
+          <View style={styles.footer}>
+            <Image
+              source={require('../../contains//assetImages//logoIcon_foodtalk.png')}
+              style={styles.logoIcon}
+              resizeMode='stretch'
+            />
 
-          <Text style={styles.tittle}>TALK - SHARE FOOD WITH</Text>
-          <Text style={[styles.tittle, { marginBottom: 15 }]}>WITH EVERYONE</Text>
+            <Text style={styles.tittle}>TALK - SHARE FOOD </Text>
+            <Text style={[styles.tittle, { marginBottom: 15 }]}>WITH EVERYONE</Text>
 
-          <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
+            <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
-          <InputText inputIcon='mail' inputName='Email' />
-          <InputPass inputIconLeft='lock' inputName='Password'/>
-          <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
+            <InputText inputIcon='mail' inputName='Email' />
+            <InputPass inputIconLeft='lock' inputName='Password' />
+            <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
-          <View style={styles.lineView}>
-            <View style={styles.lineFirst}></View>
-            <Text style={styles.lineText}> or </Text>
-            <View style={styles.lineSecond}></View>
+            <View style={styles.lineView}>
+              <View style={styles.lineFirst}></View>
+              <Text style={styles.lineText}> or </Text>
+              <View style={styles.lineSecond}></View>
+            </View>
+
+            <SubmitLogo eventButton={eventSignIn} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
+
+            <TouchableOpacity onPress={eventSignUp}>
+              <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>New Account ?</Text>
+            </TouchableOpacity>
+
           </View>
-
-          <SubmitLogo eventButton={eventSignIn} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
-
-          <TouchableOpacity onPress={eventSignUp}>
-            <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold'}}>New Account ?</Text>
-          </TouchableOpacity>
-
-        </View>
+        </Animatable.View>
       </ScrollView>
-
     </View>
   )
 }
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
   logoIcon: {
     height: 71 * 1.2,
     width: 98 * 1.2,
-    marginTop: 25 ,
+    marginTop: 25,
   },
   footer: {
     flex: 5,
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
   },
   tittle: {
     color: color.textGray,
-    fontSize: 23,
+    fontSize: 26,
     fontFamily: 'Roboto'
   },
   intro: {
