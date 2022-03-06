@@ -6,6 +6,7 @@ const NotificationScreen = () => {
   return (
     <View style={styles.container}>
       <Text>NotificationScreen</Text>
+
     </View>
   )
 }
@@ -13,10 +14,10 @@ const NotificationScreen = () => {
 export default NotificationScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: color.background,
-    }
+  container: {
+    flex: 1,
+    backgroundColor: color.background,
+    alignItems: 'center',
+    marginVertical: 40,
+  }
 })

@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons'
 import color from '../contains/color'
 
 const InputText = (props) => {
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -18,6 +19,7 @@ const InputText = (props) => {
             <TextInput
                 style={styles.inputStyle}
                 placeholder={props.inputName}
+                onChangeText={props.setNameText}
             />
         </KeyboardAvoidingView>
     )

@@ -9,7 +9,14 @@ import * as Animatable from 'react-native-animatable';
 
 const SignInScreen = ({ navigation }) => {
 
+  const [email, setEmail] = useState('')
+
   const eventSignIn = () => {
+    if(email.length === 0) {
+      alert("Please fill email !")
+      return false;
+    }
+    alert(email)
     navigation.navigate('HomePage')
   }
   const eventSignUp = () => {
@@ -43,7 +50,7 @@ const SignInScreen = ({ navigation }) => {
 
             <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
-            <InputText inputIcon='mail' inputName='Email' />
+            <InputText inputIcon='mail' inputName='Email' setNameText={(text) => setEmail(text)}/>
             <InputPass inputIconLeft='lock' inputName='Password' />
             <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
