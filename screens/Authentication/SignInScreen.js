@@ -10,14 +10,37 @@ import * as Animatable from 'react-native-animatable';
 const SignInScreen = ({ navigation }) => {
 
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
 
-  const eventSignIn = () => {
-    if(email.length === 0) {
-      alert("Please fill email !")
+  const eventSignIn = async () => {
+    if (email.length === 0 || password.length === 0) {
+      alert("Email or Password should be not empty !")
       return false;
+    } else if (password.length < 8) {
+      alert('Password must be 8 characters long !')
+    } else {
+      await fetch('https://dcb-backend-deploy.herokuapp.com/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          'email': email,
+          'password': password
+        })
+      }).then(res => res.json())
+        .then(resData => {
+          alert(resData.message);
+          if (resData.message != 'Login successfully') {
+            alert('Email or Password is wrong');
+            return false;
+          } else {
+            navigation.navigate('HomePage');
+          }
+        })
     }
-    alert(email)
-    navigation.navigate('HomePage')
   }
   const eventSignUp = () => {
     navigation.navigate('SignUp')
@@ -50,8 +73,8 @@ const SignInScreen = ({ navigation }) => {
 
             <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
-            <InputText inputIcon='mail' inputName='Email' setNameText={(text) => setEmail(text)}/>
-            <InputPass inputIconLeft='lock' inputName='Password' />
+            <InputText inputIcon='mail' inputName='Email' setNameText={(text) => setEmail(text)} />
+            <InputPass inputIconLeft='lock' inputName='Password' setPassText={(text) => setPassword(text)} />
             <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
             <View style={styles.lineView}>

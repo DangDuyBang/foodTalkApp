@@ -7,7 +7,6 @@ import * as Animatable from 'react-native-animatable';
 const InputPass = (props) => {
 
     const [data, setData] = React.useState({
-        email: '',
         password: '',
         check_textInputChange: false,
         secureTextEntry: true,
@@ -27,7 +26,7 @@ const InputPass = (props) => {
                 password: val,
                 isValidPassword: false
             });
-        }
+        } 
     }
 
     const updateSecureTextEntry = () => {
@@ -53,7 +52,7 @@ const InputPass = (props) => {
                     style={[styles.inputStyle]}
                     placeholder={props.inputName}
                     secureTextEntry={data.secureTextEntry ? true : false}
-                    onChangeText={(val) => handlePasswordChange(val)}
+                    onChangeText={props.setPassText} //(val)  => handlePasswordChange(val)
                 />
 
                 <TouchableOpacity
