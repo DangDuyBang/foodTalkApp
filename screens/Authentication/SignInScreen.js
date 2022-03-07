@@ -17,7 +17,7 @@ const SignInScreen = ({ navigation }) => {
     if (email.length === 0 || password.length === 0) {
       alert("Email or Password should be not empty !")
       return false;
-    } else if (password.length < 8) {
+    } else if (password.trim().length < 8) {
       alert('Password must be 8 characters long !')
     } else {
       await fetch('https://dcb-backend-deploy.herokuapp.com/api/auth/login', {
@@ -75,6 +75,12 @@ const SignInScreen = ({ navigation }) => {
 
             <InputText inputIcon='mail' inputName='Email' setNameText={(text) => setEmail(text)} />
             <InputPass inputIconLeft='lock' inputName='Password' setPassText={(text) => setPassword(text)} />
+            {password.length >= 1 && password.length <= 8 ? 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorPassword}>Password must be 8 characters long !</Text>
+              </Animatable.View>
+              : null
+            }
             <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
             <View style={styles.lineView}>
@@ -90,9 +96,9 @@ const SignInScreen = ({ navigation }) => {
             </TouchableOpacity>
 
           </View>
-        </Animatable.View>
-      </ScrollView>
-    </View>
+        </Animatable.View >
+      </ScrollView >
+    </View >
   )
 }
 
@@ -159,5 +165,11 @@ const styles = StyleSheet.create({
     width: '38%',
     height: 1,
     backgroundColor: color.textIconSmall,
+  },
+  errorPassword: {
+    color: color.errorColor,
+    marginLeft: -30,
+    marginTop: -10,
+    marginBottom: 10
   }
 })

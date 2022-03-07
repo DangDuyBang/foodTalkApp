@@ -20,13 +20,18 @@ const InputPass = (props) => {
                 password: val,
                 isValidPassword: true
             });
+            val = props.passwordInital
         } else {
             setData({
                 ...data,
                 password: val,
                 isValidPassword: false
             });
-        } 
+        }
+    }
+
+    const onChange_handle = () => {
+        (val)  => handlePasswordChange(val)
     }
 
     const updateSecureTextEntry = () => {
@@ -52,7 +57,8 @@ const InputPass = (props) => {
                     style={[styles.inputStyle]}
                     placeholder={props.inputName}
                     secureTextEntry={data.secureTextEntry ? true : false}
-                    onChangeText={props.setPassText} //(val)  => handlePasswordChange(val)
+                    //onChangeText = {onChange_handle}   
+                    onChangeText = { props.setPassText }        
                 />
 
                 <TouchableOpacity
@@ -111,7 +117,7 @@ const styles = StyleSheet.create({
         color: color.textGray,
         width: '100%'
     },
-    errorPassword: {                                                                                                                                                                                                                                                                                                                                    
+    errorPassword: {
         color: color.errorColor,
         marginLeft: 20,
     }
