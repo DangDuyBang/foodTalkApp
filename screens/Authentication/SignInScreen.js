@@ -42,6 +42,11 @@ const SignInScreen = ({ navigation }) => {
         })
     }
   }
+
+  const eventSignInWithGoogle = () => {
+    navigation.navigate('HomePage')
+  }
+
   const eventSignUp = () => {
     navigation.navigate('SignUp')
   }
@@ -89,7 +94,7 @@ const SignInScreen = ({ navigation }) => {
               <View style={styles.lineSecond}></View>
             </View>
 
-            <SubmitLogo eventButton={eventSignIn} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
+            <SubmitLogo eventButton={eventSignInWithGoogle} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
 
             <TouchableOpacity onPress={eventSignUp}>
               <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>New Account ?</Text>

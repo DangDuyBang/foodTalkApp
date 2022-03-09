@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import color from '../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
+import CreatePostScreen from './CreatePostScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -15,21 +16,14 @@ const HomePageScreen = () => {
 
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
-  function CreatePostScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      </View>
-    );
-  }
-
   return (
     <Tab.Navigator tabBarOptions={{
       showLabel: false,
 
       style: {
-        backgroundColor: color.post,
+        backgroundColor: color.background,
         position: 'absolute',
-        bottom: 15,
+        bottom: 10,
         marginHorizontal: 15,
 
         height: 60,
@@ -57,7 +51,7 @@ const HomePageScreen = () => {
               <View style={{
                 width: 65,
                 height: 2,
-                backgroundColor: focused ? color.textBlue : color.post,
+                backgroundColor: focused ? color.textBlue : color.background,
                 marginBottom: 15,
               }}></View>
               <FontAwesome
@@ -83,7 +77,7 @@ const HomePageScreen = () => {
               <View style={{
                 width: 65,
                 height: 2,
-                backgroundColor: focused ? color.textBlue : color.post,
+                backgroundColor: focused ? color.textBlue : color.background,
                 marginBottom: 12,
               }}></View>
               <FontAwesome
@@ -98,6 +92,7 @@ const HomePageScreen = () => {
       }} />
 
       < Tab.Screen name="CreatePost" component={CreatePostScreen} options={{
+        tabBarVisible: false,
         tabBarIcon: ({ focused }) => (
 
           <TouchableOpacity>
@@ -107,8 +102,8 @@ const HomePageScreen = () => {
               borderRadius: 55,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: color.primary,
-              bottom: '50%'
+              backgroundColor:focused ? color.background : color.primary,
+              bottom: '50%',
             }}>
               <Text style={{
                 fontSize: 25,
@@ -133,7 +128,7 @@ const HomePageScreen = () => {
               <View style={{
                 width: 65,
                 height: 2,
-                backgroundColor: focused ? color.textBlue : color.post,
+                backgroundColor: focused ? color.textBlue : color.background,
                 marginBottom: 14,
               }}></View>
               <FontAwesome
@@ -159,7 +154,7 @@ const HomePageScreen = () => {
               <View style={{
                 width: 65,
                 height: 2,
-                backgroundColor: focused ? color.textBlue : color.post,
+                backgroundColor: focused ? color.textBlue : color.background,
                 marginBottom: 14,
               }}></View>
               <FontAwesome

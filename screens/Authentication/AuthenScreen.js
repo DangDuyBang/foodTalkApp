@@ -6,6 +6,7 @@ import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import HomePageScreen from '../HomePage/HomePageScreen';
 import StartScreen from '../Onboarding/StartScreen';
+import SplashScreen from '../Onboarding/SplashScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ const AuthenScreen = () => {
         initialRouteName="Start"
         screenOptions={{header: () => null}}
       >
+        <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />

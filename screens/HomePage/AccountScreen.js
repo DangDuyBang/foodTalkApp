@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
@@ -37,13 +37,18 @@ const AccountScreen = () => {
                 }}
               />
             </View>
+
             <View style={styles.fullNameFrame}>
               <Text style={styles.fullName}>Dang Duy Bang</Text>
-              <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
+              <TouchableOpacity>
+                <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.chatFrame}>
-            <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
+            <TouchableOpacity>
+              <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.bot}>
@@ -70,7 +75,7 @@ const AccountScreen = () => {
           showLabel: false,
           showIcon: true,
           style: {
-            
+
           },
           paddingHorizontal: 15,
         }}>
@@ -111,7 +116,7 @@ const AccountScreen = () => {
                 </View>
               </View>
             )
-          }}/>
+          }} />
         </Tab.Navigator>
       </ScrollView>
     </View>
@@ -150,9 +155,9 @@ const styles = StyleSheet.create({
     height: 250,
   },
   chatFrame: {
-    width: 60,
-    height: 60,
-    borderRadius: 60,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: color.post,
