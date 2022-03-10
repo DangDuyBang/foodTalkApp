@@ -14,7 +14,7 @@ const AuthenScreen = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Start"
+        initialRouteName="Spash"
         screenOptions={{header: () => null}}
       >
         <Stack.Screen name="Splash" component={SplashScreen} />

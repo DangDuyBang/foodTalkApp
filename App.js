@@ -9,6 +9,8 @@ import SplashScreen from './screens/Onboarding/SplashScreen';
 import LoadingScreen from './screens/Onboarding/LoadingScreen';
 
 export default function App() {
+
+  
   return (
       <AuthenScreen/>
   );

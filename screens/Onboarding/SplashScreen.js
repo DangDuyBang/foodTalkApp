@@ -62,6 +62,7 @@ const SplashScreen = ({ navigation }) => {
         )
       ])
         .start();
+      navigation.navigate('SignIn');
     }, 1000);
   }, [])
 
@@ -73,7 +74,7 @@ const SplashScreen = ({ navigation }) => {
       left: 0,
       right: 0,
     }}>
-      <Animated.View style={[styles.container, {zIndex: 1}, {flex: 1}, {
+      <Animated.View style={[styles.container, { zIndex: 1 }, { flex: 1 }, {
         transform: [
           { translateY: startAnimation }
         ]
@@ -113,7 +114,7 @@ const SplashScreen = ({ navigation }) => {
         backgroundColor: color.post,
         zIndex: 0
       }}>
-        
+
       </Animated.View>
     </View>
   )
