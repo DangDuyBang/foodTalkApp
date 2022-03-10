@@ -1,39 +1,68 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 
-const Post = () => {
+const Post = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.topPost}>
                 <View style={styles.avatarAndNameView}>
-                    <View style={styles.avatarFrame}></View>
+                    <View style={styles.avatarFrame}>
+                        <Image
+                            style={styles.avatar}
+                            source={{
+                                uri: props.avatar,
+                            }}
+                        />
+                    </View>
                     <View style={styles.nameAndTimeView}>
-                        <Text>tan_food_talk</Text>
-                        <Text>2 hours ago</Text>
+                        <Text style={styles.nameUserText}>{props.nameUser}</Text>
+                        <Text style={styles.timePost}>{props.timePost}</Text>
                     </View>
                 </View>
-                <Text>Follow</Text>
+                <Text style={styles.followText}>Follow</Text>
             </View>
             <View style={styles.contentPost}>
                 <View style={styles.imageFrame}>
-
+                    <Image
+                        style={styles.imagePost}
+                        source={{
+                            uri: props.imagePost,
+                        }}
+                    />
                 </View>
             </View>
-            <View style={styles.botPost}>
-                <Text>It's delicous</Text>
+            <View style={styles.midPost}>
+                <Text>{props.caption}</Text>
                 <View style={styles.heartCommentShareAndBookView}>
                     <View style={styles.heartCommentShareView}>
                         <FontAwesome style={styles.heartIcon} name='heart-o' size={23} color={color.textIconSmall}></FontAwesome>
-                        <Text style={styles.heartNumber}>26</Text>
+                        <Text style={styles.heartNumber}>{props.heartCount}</Text>
                         <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>
-                        <Text style={styles.commentNumber}>11</Text>
+                        <Text style={styles.commentNumber}>{props.commentCount}</Text>
                         <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                     </View>
                     <AntDesign name='book' size={22} color={color.textIconSmall}></AntDesign>
                 </View>
+            </View>
+            <View style={styles.botPost}>
+                <View style={styles.avatarAndNameViewCommenter}>
+                    <View style={styles.avatarFrameCommenter}>
+                        <Image
+                            style={styles.avatarCommenter}
+                            source={{
+                                uri: props.avatarCommenter,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.nameAndTimeViewCommenter}>
+                        <Text style={styles.nameUserCommenter}>{props.nameCommenter}</Text>
+                        <Text style={styles.timeComment}>{props.timeComment}</Text>
+                    </View>
+                </View>
+                <Text style={styles.firstCommentText}>{props.contentComment}</Text>
             </View>
         </View>
     )
@@ -44,7 +73,7 @@ export default Post
 const styles = StyleSheet.create({
     container: {
         backgroundColor: color.post,
-        marginVertical: 10,
+        marginVertical: 5,
         paddingVertical: 5
     },
     topPost: {
@@ -60,7 +89,32 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 40,
         backgroundColor: color.textGray,
-        marginRight: 10
+        marginRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    avatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    nameUserText: {
+        fontFamily: 'Roboto',
+        color: color.textGray,
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    timePost: {
+        fontFamily: 'Roboto',
+        color: color.textIconSmall,
+        fontSize: 12
+    },
+    followText: {
+        fontFamily: 'Roboto',
+        color: color.textBlue,
+        fontWeight: 'bold',
+        fontSize: 16
     },
     contentPost: {
         marginVertical: 10
@@ -68,9 +122,15 @@ const styles = StyleSheet.create({
     imageFrame: {
         width: '100%',
         height: 250,
-        backgroundColor: color.textIconSmall
+        backgroundColor: color.textIconSmall,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    botPost: {
+    imagePost: {
+        width: '100%',
+        height: 250,
+    },
+    midPost: {
         marginHorizontal: 20
     },
     heartCommentShareAndBookView: {
@@ -100,5 +160,40 @@ const styles = StyleSheet.create({
     heartCommentShareView: {
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    botPost: {
+        justifyContent: 'space-between',
+        marginHorizontal: 20
+    },
+    avatarAndNameViewCommenter: {
+        flexDirection: 'row'
+    },
+    avatarFrameCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+        backgroundColor: color.textGray,
+        marginRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center', 
+    },
+    avatarCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    nameUserCommenter: {
+        fontFamily: 'Roboto',
+        color: color.textGray,
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    timeComment: {
+        fontFamily: 'Roboto',
+        color: color.textIconSmall,
+        fontSize: 12,
+    },
+    firstCommentText: {
+        marginHorizontal: 50
     }
 })

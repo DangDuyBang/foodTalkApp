@@ -10,7 +10,7 @@ import LoadingScreen from './screens/Onboarding/LoadingScreen';
 
 export default function App() {
 
-  
+
   return (
       <AuthenScreen/>
   );

@@ -23,8 +23,8 @@ const HomePageScreen = () => {
       style: {
         backgroundColor: color.background,
         position: 'absolute',
-        bottom: 10,
-        marginHorizontal: 15,
+        bottom: 5,
+        marginHorizontal: 10,
 
         height: 60,
         borderRadius: 10,
