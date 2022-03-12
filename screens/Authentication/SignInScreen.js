@@ -6,6 +6,7 @@ import InputPass from '../../components/InputPass'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import SubmitLogo from '../../components/SubmitLogo'
 import * as Animatable from 'react-native-animatable';
+import useSignIn from './hooks/useSignIn'
 
 const SignInScreen = ({ navigation }) => {
 
@@ -13,34 +14,43 @@ const SignInScreen = ({ navigation }) => {
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
 
-  const eventSignIn = async () => {
-    if (email.length === 0 || password.length === 0) {
-      alert("Email or Password should be not empty !")
-      return false;
-    } else if (password.trim().length < 8) {
-      alert('Password must be 8 characters long !')
-    } else {
-      await fetch('https://dcb-backend-deploy.herokuapp.com/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          'email': email,
-          'password': password
-        })
-      }).then(res => res.json())
-        .then(resData => {
-          alert(resData.message);
-          if (resData.message != 'Login successfully') {
-            alert('Email or Password is wrong');
-            return false;
-          } else {
-            navigation.navigate('HomePage');
-          }
-        })
-    }
+  const {
+    loading,
+    error,
+    handleLoginUser,
+    handlePasswordChange,
+    handleEmailChange,
+} = useSignIn()
+
+  const eventSignIn = () => {
+    // if (email.length === 0 || password.length === 0) {
+    //   alert("Email or Password should be not empty !")
+    //   return false;
+    // } else if (password.trim().length < 8) {
+    //   alert('Password must be 8 characters long !')
+    // } else {
+    //   await fetch('https://dcb-backend-deploy.herokuapp.com/api/auth/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       'email': email,
+    //       'password': password
+    //     })
+    //   }).then(res => res.json())
+    //     .then(resData => {
+    //       alert(resData.message);
+    //       if (resData.message != 'Login successfully') {
+    //         alert('Email or Password is wrong');
+    //         return false;
+    //       } else {
+    //         navigation.navigate('HomePage');
+    //       }
+    //     })
+    // }
+    navigation.navigate('HomePage');
   }
 
   const eventSignInWithGoogle = () => {
@@ -50,6 +60,8 @@ const SignInScreen = ({ navigation }) => {
   const eventSignUp = () => {
     navigation.navigate('SignUp')
   }
+
+  console.log(loading);
 
   return (
     <View style={styles.container}>
@@ -78,15 +90,15 @@ const SignInScreen = ({ navigation }) => {
 
             <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
-            <InputText inputIcon='mail' inputName='Email' setNameText={(text) => setEmail(text)} />
-            <InputPass inputIconLeft='lock' inputName='Password' setPassText={(text) => setPassword(text)} />
-            {password.length >= 1 && password.length <= 8 ? 
+            <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
+            <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
+            {error ? 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={styles.errorPassword}>Password must be 8 characters long !</Text>
+                <Text style={styles.errorPassword}>{error}</Text>
               </Animatable.View>
               : null
             }
-            <SubmitNoLogo eventButton={eventSignIn} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
+            <SubmitNoLogo loading = {loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
             <View style={styles.lineView}>
               <View style={styles.lineFirst}></View>

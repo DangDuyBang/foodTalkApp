@@ -42,11 +42,11 @@ const HomeScreen = () => {
         <View style={styles.iconRightTop}>
           <View style={styles.searchUserFrame}>
             <TouchableOpacity>
-              <Ionicons name='search-outline' size={42} color={color.primary}></Ionicons>
+              <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
             </TouchableOpacity></View>
           <View style={styles.chatFrame}>
             <TouchableOpacity>
-              <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
+              <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
             </TouchableOpacity></View>
         </View>
       </View>

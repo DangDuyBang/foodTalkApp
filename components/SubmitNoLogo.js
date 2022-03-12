@@ -4,7 +4,7 @@ import color from '../contains/color'
 
 const SubmitNoLogo = (props) => {
   return (
-    <TouchableOpacity onPress={props.eventButton}>
+    <TouchableOpacity disabled = {props.loading} onPress={props.eventButton}>
       <View style={[styles.containerButton, {borderWidth: props.widthBorder}, {borderColor: props.colorBorder}]} backgroundColor={props.colorView}>
         <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>
       </View>

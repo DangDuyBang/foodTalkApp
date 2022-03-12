@@ -1,18 +1,22 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { UserContext } from '../../App'
+
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
+  const {userState, userDispatch} = useContext(UserContext)
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.nameUser}>bang_food_talk</Text>
+        <Text style={styles.nameUser}>{userState.currentUser.username}</Text>
         <Ionicons name='settings' size={24} color={color.textGray} />
       </View>
       <ScrollView>
@@ -39,7 +43,7 @@ const AccountScreen = () => {
             </View>
 
             <View style={styles.fullNameFrame}>
-              <Text style={styles.fullName}>Dang Duy Bang</Text>
+              <Text style={styles.fullName}>{userState.currentUser.first_name + " " + userState.currentUser.last_name}</Text>
               <TouchableOpacity>
                 <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
               </TouchableOpacity>
@@ -55,11 +59,11 @@ const AccountScreen = () => {
           <View style={styles.followView}>
             <View style={styles.followingView}>
               <Text style={styles.followText}>Following</Text>
-              <Text style={styles.followNumberText}>0</Text>
+              <Text style={styles.followNumberText}>{userState.currentUser.following.length || "0"}</Text>
             </View>
             <View style={styles.followingView}>
               <Text style={styles.followText}>Follower</Text>
-              <Text style={styles.followNumberText}>0</Text>
+              <Text style={styles.followNumberText}>{userState.currentUser.follower.length || "0"}</Text>
             </View>
             <View style={styles.followingView}>
               <Text style={styles.followText}>Like</Text>
