@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
-import { UserContext } from '../../../App'
+import { UserContext } from '../../../providers/UserProvider'
 import {loginUser, fetchCurrentUser } from '../../../services/AuthServices'
 import { saveStorage } from '../../../utils/Storage'
 

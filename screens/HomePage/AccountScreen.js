@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { UserContext } from '../../App'
+import { UserContext } from '../../providers/UserProvider'
 
 
 const Tab = createMaterialTopTabNavigator();

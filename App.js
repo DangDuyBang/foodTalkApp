@@ -9,19 +9,16 @@ import SplashScreen from './screens/Onboarding/SplashScreen';
 import LoadingScreen from './screens/Onboarding/LoadingScreen';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import {useReducer, useState, useEffect, createContext} from 'react'
-import { UserReducer, initialUserState } from './context/UserContext';
+import {useReducer, useState, useEffect, createContext, useContext} from 'react'
+import {UserContext} from './providers/UserProvider'
 
-
-
-export const UserContext = createContext()
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
 
 export default function App() {
 
-  const [userState, userDispatch] = useReducer(UserReducer, initialUserState);
+  const {userState, userDispatch} = useContext(UserContext)
 
   useEffect(() => {
     if (userState.isLoggedIn) {
@@ -44,11 +41,11 @@ export default function App() {
 }, [userState.isLoggedIn])
 
   return (
-    <UserContext.Provider value = {{userState, userDispatch}}>
+    <>
 
       <AuthenScreen/>
 
-    </UserContext.Provider>
+    </>
   );
 }
 
