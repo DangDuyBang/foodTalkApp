@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import color from '../contains/color'
@@ -12,28 +12,30 @@ const ImagePic = {
     imagePost_fith: 'https://i.pinimg.com/564x/fd/c9/c4/fdc9c4dc5ac319f37d2072054acec0b2.jpg',
     imagePost_sixth: 'https://i.pinimg.com/564x/3b/38/bc/3b38bc462ced2aab576dc3965515fda7.jpg',
     imagePost_seventh: 'https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg',
-  }
+}
 
 const ExploreItem = (props) => {
     return (
         <View style={styles.container}>
-            <View style={styles.topTittleView}>
-                <View style={styles.leftTittleView}>
-                    <View style={styles.iconTittleFrame}>
-                        <Ionicons name={props.iconLeft} size={28} color={color.primary}></Ionicons>
+            <TouchableOpacity>
+                <View style={styles.topTittleView}>
+                    <View style={styles.leftTittleView}>
+                        <View style={styles.iconTittleFrame}>
+                            <Ionicons name={props.iconLeft} size={28} color={color.primary}></Ionicons>
+                        </View>
+                        <Text style={styles.tittleText}>{props.tittleLeft}</Text>
                     </View>
-                    <Text style={styles.tittleText}>{props.tittleLeft}</Text>
+                    <Text style={styles.rightText}>></Text>
                 </View>
-                <Text style={styles.rightText}>></Text>
-            </View>
+            </TouchableOpacity>
             <ScrollView horizontal={true} style={styles.scrollExploreView}>
-                <RectangleItem imageRectangle={ImagePic.imagePost_first}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_second}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_third}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_fouth}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_fith}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_sixth}/>
-                <RectangleItem imageRectangle={ImagePic.imagePost_seventh}/>
+                <RectangleItem imageRectangle={ImagePic.imagePost_first} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_second} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_third} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_fouth} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_fith} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_sixth} />
+                <RectangleItem imageRectangle={ImagePic.imagePost_seventh} />
             </ScrollView>
         </View>
     )
