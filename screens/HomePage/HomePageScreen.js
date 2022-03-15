@@ -18,8 +18,9 @@ const HomePageScreen = () => {
 
   return (
     <Tab.Navigator tabBarOptions={{
+      keyboardHidesTabBar: true,
       showLabel: false,
-
+      
       style: {
         backgroundColor: color.background,
         position: 'absolute',
@@ -37,7 +38,9 @@ const HomePageScreen = () => {
         },
         paddingHorizontal: 15,
       }
-    }}>
+
+    }}
+    >
       <Tab.Screen name="Home" component={HomeScreen} options={{
         tabBarIcon: ({ focused }) => (
           <View style={{
@@ -102,7 +105,7 @@ const HomePageScreen = () => {
               borderRadius: 55,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor:focused ? color.background : color.primary,
+              backgroundColor: focused ? color.background : color.primary,
               bottom: '50%',
             }}>
               <Text style={{

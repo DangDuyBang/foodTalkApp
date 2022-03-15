@@ -7,7 +7,6 @@ import HeartedPostScreen from './HeartedPostScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { UserContext } from '../../providers/UserProvider'
 
-
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
@@ -134,6 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.background,
     paddingTop: 50,
+    paddingBottom: 75
   },
   top: {
     flexDirection: 'row',
