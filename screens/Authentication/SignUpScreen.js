@@ -40,8 +40,8 @@ const SignUpScreen = ({ navigation }) => {
             <InputText inputIcon='pencil' inputName='First Name' />
             <InputText inputIcon='pencil' inputName='Last Name' />
             <InputText inputIcon='mail' inputName='Email' />
-            <InputPass inputIconLeft='lock' inputName='Password'/>
-            <InputPass inputIconLeft='lock' inputName='Confirm Password'/>
+            <InputPass inputIconLeft='lock' inputName='Password' />
+            <InputPass inputIconLeft='lock' inputName='Confirm Password' />
           </View>
         </View>
 

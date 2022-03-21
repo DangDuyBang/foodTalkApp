@@ -1,36 +1,70 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import SwipeSlide from '../../components/SwipeSlide'
+import SubmitNoLogo from '../../components/SubmitNoLogo'
 
-const CreatePostScreen = ({navigation}) => {
+const CreatePostScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
-                <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Home') }}>
                     <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
                 </TouchableOpacity>
                 <Text style={styles.topText}>Create A New Post</Text>
             </View>
-            <View style={styles.bodyView}>
-                <View style={styles.infoPostUser}>
-                    <View style={styles.avatarFrame}>
-                        <Image
-                            style={styles.avatarImage}
-                            resizeMode='stretch'
-                            source={{
-                                uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
-                            }}
-                        />
-                    </View>
-                    <View style={styles.nameUserView}>
-                        <Text style={styles.nameUserText}>nntan_food_talk</Text>
-                        <View style={styles.modeFrame}>
-                            <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
-                            <Text style={styles.textModePost}>Public</Text>
-                            <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+            <ScrollView>
+                <View style={styles.bodyView}>
+                    <View style={styles.infoPostUser}>
+                        <View style={styles.avatarFrame}>
+                            <Image
+                                style={styles.avatarImage}
+                                resizeMode='stretch'
+                                source={{
+                                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                                }}
+                            />
+                        </View>
+                        <View style={styles.nameUserView}>
+                            <Text style={styles.nameUserText}>nntan_food_talk</Text>
+                            <View style={styles.modeFrame}>
+                                <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
+                                <Text style={styles.textModePost}>Public</Text>
+                                <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+                            </View>
                         </View>
                     </View>
+                    <TextInput
+                        style={[styles.inputCaption]}
+                        placeholder="Let's share your food"
+                        multiline={true}
+                    />
+                    <SwipeSlide />
+                </View>
+            </ScrollView>
+            <View style={styles.botView}>
+                <TouchableOpacity>
+                    <View style={styles.addRecipeView}>
+                        <MaterialIcons style={styles.iconModePost} name='post-add' size={32} color={color.primary}></MaterialIcons>
+                        <Text style={styles.textFunct}>Recipe</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <View style={styles.addPictureView}>
+                        <MaterialIcons style={styles.iconModePost} name='image-search' size={28} color={color.iconGreen}></MaterialIcons>
+                        <Text style={styles.textFunct}>Picture</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style={styles.addPositionView}>
+                        <MaterialIcons style={styles.iconModePost} name='place' size={30} color={color.errorColor}></MaterialIcons>
+                        <Text style={styles.textFunct}>Check in</Text>
+                    </View>
+                </TouchableOpacity>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <SubmitNoLogo nameButton='POST' colorView={color.primary} colorName={color.background} />
                 </View>
             </View>
         </View>
@@ -44,7 +78,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.background,
         paddingTop: 35,
-        paddingBottom: 65
+        paddingBottom: 65,
     },
     topView: {
         flexDirection: 'row',
@@ -62,7 +96,7 @@ const styles = StyleSheet.create({
         marginLeft: 15
     },
     bodyView: {
-        marginTop: 10
+        marginTop: 10,
     },
     infoPostUser: {
         flexDirection: 'row',
@@ -70,16 +104,16 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     avatarFrame: {
-        width: 55,
-        height: 55,
-        borderRadius: 55,
+        width: 57,
+        height: 57,
+        borderRadius: 100,
         backgroundColor: color.primary,
         marginRight: 15
     },
     avatarImage: {
-        width: 55,
-        height: 55,
-        borderRadius: 155,
+        width: 57,
+        height: 57,
+        borderRadius: 150,
     },
     nameUserView: {
 
@@ -93,7 +127,7 @@ const styles = StyleSheet.create({
     },
     modeFrame: {
         width: 90,
-        height: 25,
+        height: 22,
         borderWidth: 0.5,
         borderRadius: 15,
         flexDirection: 'row',
@@ -112,5 +146,45 @@ const styles = StyleSheet.create({
     },
     downModePost: {
 
+    },
+    inputCaption: {
+        marginTop: 15,
+        marginBottom: 10,
+        paddingLeft: 22,
+        fontFamily: 'Roboto',
+        fontSize: 18,
+        color: color.textGray
+    },
+    botView: {
+
+    },
+    addRecipeView: {
+        flexDirection: 'row',
+        paddingLeft: 20,
+        alignItems: 'center',
+        marginBottom: 5,
+        borderBottomWidth: 0.5,
+        paddingVertical: 5,
+    },
+    addPictureView: {
+        flexDirection: 'row',
+        paddingLeft: 20,
+        alignItems: 'center',
+        marginBottom: 5,
+        borderBottomWidth: 0.5,
+        paddingVertical: 5,
+    },
+    addPositionView: {
+        flexDirection: 'row',
+        paddingLeft: 20,
+        alignItems: 'center',
+        paddingVertical: 5,
+    },
+    textFunct: {
+        fontFamily: 'Roboto',
+        fontSize: 16,
+        color: color.textGray,
+        fontWeight: 'bold',
+        marginLeft: 10
     }
 })
