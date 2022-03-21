@@ -9,9 +9,13 @@ import { UserContext } from '../../providers/UserProvider'
 
 const Tab = createMaterialTopTabNavigator();
 
-const AccountScreen = () => {
+const AccountScreen = ({ navigation }) => {
   const { userState, userDispatch } = useContext(UserContext)
 
+  const eventChat = () => {
+    navigation.navigate('Chat')
+  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -51,7 +55,7 @@ const AccountScreen = () => {
             </View>
           </View>
           <View style={styles.chatFrame}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={eventChat}>
               <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
             </TouchableOpacity>
           </View>

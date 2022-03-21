@@ -32,13 +32,18 @@ const ImagePic = {
   imageRecipe_seventh: 'https://i.pinimg.com/564x/d8/26/da/d826da1074a62f23e3b0e1e86b0593d5.jpg',
 }
 
-const ExploreScreen = () => {
+const ExploreScreen = ({ navigation }) => {
+
+  const eventChat = () => {
+    navigation.navigate('Chat')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topView}>
         <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
         <View style={styles.chatFrame}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={eventChat}>
             <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
           </TouchableOpacity>
         </View>

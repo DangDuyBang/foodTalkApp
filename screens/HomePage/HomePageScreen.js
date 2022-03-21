@@ -96,6 +96,7 @@ const HomePageScreen = () => {
 
       < Tab.Screen name="NewPost" component={NewPostScreen} options={{
         tabBarVisible: false,
+        keyboardHidesTabBar: true ? {bottom: '0%'} : {bottom: '40%'},
         tabBarIcon: ({ focused }) => (
           <View style={{
             width: 63,

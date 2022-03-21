@@ -40,6 +40,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('NewPost')
   }
 
+  const eventChat = () => {
+    navigation.navigate('Chat')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -50,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
               <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
             </TouchableOpacity></View>
           <View style={styles.chatFrame}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={eventChat}>
               <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
             </TouchableOpacity></View>
         </View>

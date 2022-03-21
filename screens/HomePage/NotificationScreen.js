@@ -3,13 +3,18 @@ import React from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 
-const NotificationScreen = () => {
+const NotificationScreen = ({ navigation }) => {
+
+  const eventChat = () => {
+    navigation.navigate('Chat')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topView}>
         <Text style={styles.topText}>Notifications</Text>
         <View style={styles.chatFrame}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={eventChat}>
             <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
           </TouchableOpacity>
         </View>
