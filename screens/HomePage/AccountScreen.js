@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
@@ -10,13 +10,15 @@ import { UserContext } from '../../providers/UserProvider'
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
-  const {userState, userDispatch} = useContext(UserContext)
+  const { userState, userDispatch } = useContext(UserContext)
 
   return (
     <View style={styles.container}>
       <View style={styles.top}>
         <Text style={styles.nameUser}>{userState.currentUser.username}</Text>
-        <Ionicons name='settings' size={24} color={color.textGray} />
+        <TouchableOpacity>
+          <Ionicons name='settings' size={24} color={color.textGray} />
+        </TouchableOpacity>
       </View>
       <ScrollView>
         <View style={styles.mid}>
@@ -170,25 +172,25 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   avatarFrame: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: color.background,
-    borderRadius: 100,
+    borderRadius: 120,
     position: 'absolute',
     marginTop: 200
   },
   avatarImage: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     borderRadius: 150,
   },
   fullNameFrame: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 45,
+    marginTop: 55,
   },
   fullName: {
     fontSize: 20,

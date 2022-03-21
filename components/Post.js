@@ -3,6 +3,7 @@ import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
+import SwipeSlide from './SwipeSlide'
 
 const Post = (props) => {
     return (
@@ -26,12 +27,13 @@ const Post = (props) => {
             </View>
             <View style={styles.contentPost}>
                 <View style={styles.imageFrame}>
-                    <Image
+                    <SwipeSlide/>
+                    {/* <Image
                         style={styles.imagePost}
                         source={{
                             uri: props.imagePost,
                         }}
-                    />
+                    /> */}
                 </View>
             </View>
             <View style={styles.midPost}>
