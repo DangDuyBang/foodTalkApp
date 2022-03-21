@@ -1,33 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, Animated, Dimensions } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native'
+import React from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
-import * as Animatable from 'react-native-animatable';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const CreatePostScreen = ({ navigation }) => {
-    
-    const startAnimation = useRef(new Animated.Value(0)).current;
-
-    const edges = useSafeAreaInsets();
-    useEffect(() => {
-        setTimeout(() => {
-            Animated.parallel([
-                Animated.timing(
-                    startAnimation,
-                    {
-                        toValue: -Dimensions.get('window').height + (edges.top + 65),
-                        useNativeDriver: true
-                    }
-                )
-            ])
-                .start();
-            navigation.navigate('NewPost');
-        }, 500);
-    }, [])
-
+const NewPostScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -66,7 +44,7 @@ const CreatePostScreen = ({ navigation }) => {
                     <View style={{
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
-                        paddingTop: 10,
+                        paddingVertical: 10,
                         paddingRight: 20,
                     }}>
                         <AntDesign name='book' size={22} color={color.primary}></AntDesign>
@@ -101,14 +79,14 @@ const CreatePostScreen = ({ navigation }) => {
     )
 }
 
-export default CreatePostScreen
+export default NewPostScreen
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
         paddingTop: 35,
-        paddingBottom: 65,
+        paddingBottom: 10,
     },
     topView: {
         flexDirection: 'row',

@@ -46,7 +46,7 @@ const Post = (props) => {
                         <Text style={styles.commentNumber}>{props.commentCount}</Text>
                         <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                     </View>
-                    <AntDesign name='book' size={22} color={color.textIconSmall}></AntDesign>
+                    <AntDesign name='book' size={22} color={color.primary}></AntDesign>
                 </View>
             </View>
             <View style={styles.botPost}>

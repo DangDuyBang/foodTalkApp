@@ -34,7 +34,12 @@ const ImagePic = {
   imagePost_seventh: 'https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg',
 }
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+
+  const eventNewPost = () => {
+    navigation.navigate('NewPost')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -76,7 +81,7 @@ const HomeScreen = () => {
             nameCommenter='ga_food_talk'
             timeComment='25 minutes ago'
             contentComment='Hmmm! Look great !' />
-            <Post
+          <Post
             avatar={ImagePic.avatar_user_third}
             nameUser='jerry_food_talk'
             timePost='3 hours ago'
@@ -88,7 +93,7 @@ const HomeScreen = () => {
             nameCommenter='tom_food_talk'
             timeComment='1 hours ago'
             contentComment='What a great ! Can you guide me do it ?' />
-            <Post
+          <Post
             avatar={ImagePic.avatar_user_fouth}
             nameUser='girl_food_talk'
             timePost='5 hours ago'
@@ -100,7 +105,7 @@ const HomeScreen = () => {
             nameCommenter='boy_food_talk'
             timeComment='1 hours ago'
             contentComment='I can hihi' />
-            <Post
+          <Post
             avatar={ImagePic.avatar_user_fith}
             nameUser='tan_food_talk'
             timePost='1 hour ago'
@@ -112,7 +117,7 @@ const HomeScreen = () => {
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
             contentComment='Wow ! Congratulation. I want it' />
-            <Post
+          <Post
             avatar={ImagePic.avatar_user_sixth}
             nameUser='tan_food_talk'
             timePost='1 hour ago'
@@ -124,7 +129,7 @@ const HomeScreen = () => {
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
             contentComment='Wow ! Congratulation. I want it' />
-            <Post
+          <Post
             avatar={ImagePic.avatar_user_seventh}
             nameUser='tan_food_talk'
             timePost='1 hour ago'
@@ -138,6 +143,29 @@ const HomeScreen = () => {
             contentComment='Wow ! Congratulation. I want it' />
         </View>
       </ScrollView>
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingRight: 10,
+        bottom: '18%',
+        right: '3%'
+      }}>
+        <TouchableOpacity onPress={eventNewPost}>
+          <View style={{
+            width: 55,
+            height: 55,
+            borderRadius: 55,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: color.primary,
+          }}>
+            <Text style={{
+              fontSize: 25,
+              color: color.background,
+            }}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }

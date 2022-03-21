@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Animated, Image } from 'react-native'
 import React, { useRef } from 'react'
 import HomeScreen from './HomeScreen'
 import ExploreScreen from './ExploreScreen'
@@ -7,8 +7,8 @@ import AccountScreen from './AccountScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import color from '../../contains/color'
-import { FontAwesome } from '@expo/vector-icons'
-import CreatePostScreen from './CreatePostScreen'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
+import NewPostScreen from './NewPostScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +20,7 @@ const HomePageScreen = () => {
     <Tab.Navigator tabBarOptions={{
       keyboardHidesTabBar: true,
       showLabel: false,
-      
+
       style: {
         backgroundColor: color.background,
         position: 'absolute',
@@ -94,27 +94,29 @@ const HomePageScreen = () => {
         )
       }} />
 
-      < Tab.Screen name="CreatePost" component={CreatePostScreen} options={{
+      < Tab.Screen name="NewPost" component={NewPostScreen} options={{
         tabBarVisible: false,
         tabBarIcon: ({ focused }) => (
-
-          <TouchableOpacity>
-            <View style={{
-              width: 55,
-              height: 55,
-              borderRadius: 55,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: focused ? color.background : color.primary,
-              bottom: '50%',
-            }}>
-              <Text style={{
-                fontSize: 25,
-                color: color.background,
-              }}>+</Text>
-            </View>
-          </TouchableOpacity>
-
+          <View style={{
+            width: 63,
+            height: 63,
+            borderRadius: 68,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: color.background,
+            bottom: focused ? '0%' : '40%'
+          }}>
+            <Image
+              source={require('../../contains//assetImages//logoIcon_foodtalk.png')}
+              style={{
+                height: 60,
+                width: 85,
+                marginTop: 1,
+                marginLeft: 5
+              }}
+              resizeMode='stretch'
+            />
+          </View>
         )
       }} />
 
