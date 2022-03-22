@@ -35,7 +35,7 @@ const ImagePic = {
 const ExploreScreen = ({ navigation }) => {
 
   const eventChat = () => {
-    navigation.navigate('Chat')
+    navigation.navigate('ChatNavigation')
   }
 
   return (

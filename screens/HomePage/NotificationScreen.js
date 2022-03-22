@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 const NotificationScreen = ({ navigation }) => {
 
   const eventChat = () => {
-    navigation.navigate('Chat')
+    navigation.navigate('ChatNavigation')
   }
 
   return (

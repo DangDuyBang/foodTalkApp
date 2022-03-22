@@ -10,6 +10,7 @@ import SplashScreen from '../Onboarding/SplashScreen';
 import LoadingScreen from '../Onboarding/LoadingScreen'
 import NewPostScreen from '../HomePage/NewPostScreen';
 import ChatScreen from '../Extending/ChatScreen';
+import ChatNavigationScreen from '../Extending/ChatFunction/ChatNavigationScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const AuthenScreen = () => {
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="NewPost" component={NewPostScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="ChatNavigation" component={ChatNavigationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

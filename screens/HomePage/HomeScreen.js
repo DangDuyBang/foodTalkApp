@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
   }
 
   const eventChat = () => {
-    navigation.navigate('Chat')
+    navigation.navigate('ChatNavigation')
   }
 
   return (

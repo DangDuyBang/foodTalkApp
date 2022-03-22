@@ -13,7 +13,7 @@ const AccountScreen = ({ navigation }) => {
   const { userState, userDispatch } = useContext(UserContext)
 
   const eventChat = () => {
-    navigation.navigate('Chat')
+    navigation.navigate('ChatNavigation')
   }
   
   return (

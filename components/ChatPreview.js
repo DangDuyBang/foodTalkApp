@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import color from '../contains/color'
 
 const ChatPreview = (props) => {
     return (
@@ -14,6 +15,7 @@ const ChatPreview = (props) => {
                             }}
                         />
                     </View>
+                    <Text style={{color: color.iconGreen, position: 'absolute', left: 35, top: 30}}>●</Text>
                     <View style={styles.textContain}>
                         <Text style={styles.chatUsername}>{props.nameUser}</Text>
                         <Text style={[styles.chatRecently, { color: props.colorHigh }, { fontWeight: props.bold }]}
