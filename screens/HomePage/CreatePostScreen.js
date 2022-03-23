@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.background,
         paddingTop: 35,
-        paddingBottom: 65,
+        paddingBottom: 10,
     },
     topView: {
         flexDirection: 'row',

@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import color from '../../contains/color'
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
 import NewPostScreen from './NewPostScreen'
+import CreatePostScreen from '../HomePage/CreatePostScreen'
 
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +95,7 @@ const HomePageScreen = () => {
         )
       }} />
 
-      < Tab.Screen name="NewPost" component={NewPostScreen} options={{
+      < Tab.Screen name="CreatePost" component={CreatePostScreen} options={{
         tabBarVisible: false,
         keyboardHidesTabBar: true ? {bottom: '0%'} : {bottom: '40%'},
         tabBarIcon: ({ focused }) => (

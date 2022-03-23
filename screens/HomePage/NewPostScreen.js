@@ -5,7 +5,7 @@ import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 
-const NewPostScreen = ({navigation}) => {
+const NewPostScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
