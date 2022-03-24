@@ -6,6 +6,11 @@ import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 
 const NewPostScreen = ({ navigation }) => {
+
+    const eventRecipeAttached = () => {
+        navigation.navigate('RecipeAttached')
+      }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -52,7 +57,7 @@ const NewPostScreen = ({ navigation }) => {
                 </View>
             </ScrollView>
             <View style={styles.botView}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={eventRecipeAttached}>
                     <View style={styles.addRecipeView}>
                         <MaterialIcons style={styles.iconModePost} name='post-add' size={32} color={color.primary}></MaterialIcons>
                         <Text style={styles.textFunct}>Recipe</Text>

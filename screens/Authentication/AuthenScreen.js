@@ -12,14 +12,16 @@ import NewPostScreen from '../HomePage/NewPostScreen';
 import ChatScreen from '../Extending/ChatScreen';
 import ChatNavigationScreen from '../Extending/ChatFunction/ChatNavigationScreen';
 import { Easing } from 'react-native-reanimated';
+import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen';
+import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 
 const Stack = createStackNavigator();
 
 const config = {
   animation: 'spring',
   config: {
-    stiffness: 1000,
-    damping: 50,
+    stiffness: 300,
+    damping: 300,
     mass: 3,
     overshootClamping: false,
     restDisplacementThreshold: 0.01,
@@ -78,8 +80,8 @@ const AuthenScreen = () => {
         initialRouteName="Spash"
         screenOptions={{
           header: () => null,
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
+          //gestureEnabled: true,
+          //gestureDirection: 'horizontal',
         }}
       //headerMode="none"
       >
@@ -88,6 +90,7 @@ const AuthenScreen = () => {
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen}
           options={{
+            gestureEnabled: true,
             gestureDirection: 'horizontal',
             transitionSpec: {
               open: config,
@@ -100,6 +103,7 @@ const AuthenScreen = () => {
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="NewPost" component={NewPostScreen}
           options={{
+            gestureEnabled: true,
             gestureDirection: 'vertical',
             transitionSpec: {
               open: config,
@@ -109,8 +113,21 @@ const AuthenScreen = () => {
           }}
         />
         <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="RecipeAttached" component={RecipeAttachedScreen}
+          options={{
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+            },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
         <Stack.Screen name="ChatNavigation" component={ChatNavigationScreen}
           options={{
+            gestureEnabled: true,
             ...customTransition,
           }}
         />
