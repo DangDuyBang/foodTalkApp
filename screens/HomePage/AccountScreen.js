@@ -6,6 +6,8 @@ import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { UserContext } from '../../providers/UserProvider'
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,119 +17,175 @@ const AccountScreen = ({ navigation }) => {
   const eventChat = () => {
     navigation.navigate('ChatNavigation')
   }
-  
+
+  const eventLogout = () => {
+    navigation.navigate('SignIn')
+  }
+
+  const renderInner = () => (
+    <View style={styles.panel}>
+      <View style={{ alignItems: 'center' }}>
+        <View style={{ height: 3, width: 55, backgroundColor: color.textGray, marginTop: 15 }} />
+        <Text style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: '800', color: color.textGray }}>Setting</Text>
+      </View>
+      <TouchableOpacity>
+        <Text style={styles.optionSetting}>Edit Profile</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.optionSetting}>Change Password</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.optionSetting}>Feedback</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={styles.optionSetting}>Term of Service</Text>
+      </TouchableOpacity>
+      <View style={{ height: 0.5, width: '100%', backgroundColor: color.textGray, marginTop: 15 }} />
+      <TouchableOpacity onPress={eventLogout}>
+        <Text style={[styles.optionSetting, { marginBottom: 20 }]}>Logout</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle}></View>
+      </View>
+    </View>
+  );
+
+  const bs = React.createRef();
+  const fall = new Animated.Value(1);
+
   return (
     <View style={styles.container}>
+      <BottomSheet
+        ref={bs}
+        snapPoints={['50%', -300]}
+        borderRadius={10}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
+        initialSnap={1}
+        callbackNode={fall}
+        enabledGestureInteraction={true}
+      />
       <View style={styles.top}>
         <Text style={styles.nameUser}>{userState.currentUser.username}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
           <Ionicons name='settings' size={24} color={color.textGray} />
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        <View style={styles.mid}>
-          <View style={styles.imageFrame}>
-            <Image
-              //source={require('../../contains//assetImages//background_signIn.jpg')}
-              style={styles.coverImage}
-              resizeMode='stretch'
-              source={{
-                uri: 'https://i.pinimg.com/564x/f7/c9/21/f7c9219902a7472f5c9bc244548311ce.jpg',
-              }}
-            />
-
-            <View style={styles.avatarFrame}>
+      <Animated.View
+        style={{
+          margin: 0,
+          opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
+        }}>
+        <ScrollView>
+          <View style={styles.mid}>
+            <View style={styles.imageFrame}>
               <Image
                 //source={require('../../contains//assetImages//background_signIn.jpg')}
-                style={styles.avatarImage}
+                style={styles.coverImage}
                 resizeMode='stretch'
                 source={{
-                  uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                  uri: 'https://i.pinimg.com/564x/f7/c9/21/f7c9219902a7472f5c9bc244548311ce.jpg',
                 }}
               />
-            </View>
 
-            <View style={styles.fullNameFrame}>
-              <Text style={styles.fullName}>{userState.currentUser.first_name + " " + userState.currentUser.last_name}</Text>
-              <TouchableOpacity>
-                <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
+              <View style={styles.avatarFrame}>
+                <Image
+                  //source={require('../../contains//assetImages//background_signIn.jpg')}
+                  style={styles.avatarImage}
+                  resizeMode='stretch'
+                  source={{
+                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                  }}
+                />
+              </View>
+
+              <View style={styles.fullNameFrame}>
+                <Text style={styles.fullName}>{userState.currentUser.first_name + " " + userState.currentUser.last_name}</Text>
+                <TouchableOpacity>
+                  <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.chatFrame}>
+              <TouchableOpacity onPress={eventChat}>
+                <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.chatFrame}>
-            <TouchableOpacity onPress={eventChat}>
-              <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.bot}>
-          <View style={styles.followView}>
-            <View style={styles.followingView}>
-              <Text style={styles.followText}>Following</Text>
-              <Text style={styles.followNumberText}>{userState.currentUser.following.length || "0"}</Text>
+          <View style={styles.bot}>
+            <View style={styles.followView}>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Following</Text>
+                <Text style={styles.followNumberText}>{userState.currentUser.following.length || "0"}</Text>
+              </View>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Follower</Text>
+                <Text style={styles.followNumberText}>{userState.currentUser.follower.length || "0"}</Text>
+              </View>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Like</Text>
+                <Text style={styles.followNumberText}>0</Text>
+              </View>
             </View>
-            <View style={styles.followingView}>
-              <Text style={styles.followText}>Follower</Text>
-              <Text style={styles.followNumberText}>{userState.currentUser.follower.length || "0"}</Text>
-            </View>
-            <View style={styles.followingView}>
-              <Text style={styles.followText}>Like</Text>
-              <Text style={styles.followNumberText}>0</Text>
-            </View>
+
+            <Text style={styles.aboutText}>My passion is cooking</Text>
+
           </View>
 
-          <Text style={styles.aboutText}>My passion is cooking</Text>
+          <Tab.Navigator tabBarOptions={{
+            showLabel: false,
+            showIcon: true,
+            style: {
 
-        </View>
-
-        <Tab.Navigator tabBarOptions={{
-          showLabel: false,
-          showIcon: true,
-          style: {
-
-          },
-          paddingHorizontal: 15,
-        }}>
-          <Tab.Screen name="Comunity" component={ComunityPostScreen} options={{
-            tabBarIcon: ({ focused }) => (
-              <View style={{
-                position: 'absolute',
-                top: '0%',
-              }}>
+            },
+            paddingHorizontal: 15,
+          }}>
+            <Tab.Screen name="Comunity" component={ComunityPostScreen} options={{
+              tabBarIcon: ({ focused }) => (
                 <View style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '0%',
                 }}>
-                  <Ionicons
-                    name="fast-food-outline"
-                    size={25}
-                    color={focused ? color.textBlack : color.hideColor}
-                  ></Ionicons>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="fast-food-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
                 </View>
-              </View>
-            )
-          }} />
-          <Tab.Screen name="Hearted" component={HeartedPostScreen} options={{
-            tabBarIcon: ({ focused }) => (
-              <View style={{
-                position: 'absolute',
-                top: '0%',
-              }}>
+              )
+            }} />
+            <Tab.Screen name="Hearted" component={HeartedPostScreen} options={{
+              tabBarIcon: ({ focused }) => (
                 <View style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  position: 'absolute',
+                  top: '0%',
                 }}>
-                  <Ionicons
-                    name="heart-outline"
-                    size={25}
-                    color={focused ? color.textBlack : color.hideColor}
-                  ></Ionicons>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="heart-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
                 </View>
-              </View>
-            )
-          }} />
-        </Tab.Navigator>
-      </ScrollView>
+              )
+            }} />
+          </Tab.Navigator>
+        </ScrollView>
+      </Animated.View>
     </View>
   )
 }
@@ -229,5 +287,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 15,
     marginBottom: 50,
+  },
+  panel: {
+    backgroundColor: color.hideColor,
+    borderRadius: 30,
+    marginHorizontal: '5%'
+  },
+  optionSetting: {
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    marginLeft: 20,
+    marginTop: 20
   }
 })

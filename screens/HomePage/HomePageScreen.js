@@ -18,29 +18,30 @@ const HomePageScreen = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
   return (
-    <Tab.Navigator tabBarOptions={{
-      keyboardHidesTabBar: true,
-      showLabel: false,
+    <Tab.Navigator
+      tabBarOptions={{
+        keyboardHidesTabBar: true,
+        showLabel: false,
 
-      style: {
-        backgroundColor: color.background,
-        position: 'absolute',
-        bottom: 5,
-        marginHorizontal: 10,
+        style: {
+          backgroundColor: color.background,
+          position: 'absolute',
+          bottom: 5,
+          marginHorizontal: 10,
 
-        height: 60,
-        borderRadius: 10,
+          height: 60,
+          borderRadius: 10,
 
-        shadowColor: '#000',
-        shadowOpacity: 0.06,
-        shadowOffset: {
-          width: 10,
-          height: 10,
-        },
-        paddingHorizontal: 15,
-      }
+          shadowColor: '#000',
+          shadowOpacity: 0.06,
+          shadowOffset: {
+            width: 10,
+            height: 10,
+          },
+          paddingHorizontal: 15,
+        }
 
-    }}
+      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{
         tabBarIcon: ({ focused }) => (
@@ -97,7 +98,7 @@ const HomePageScreen = () => {
 
       < Tab.Screen name="CreatePost" component={CreatePostScreen} options={{
         tabBarVisible: false,
-        keyboardHidesTabBar: true ? {bottom: '0%'} : {bottom: '40%'},
+        keyboardHidesTabBar: true ? { bottom: '0%' } : { bottom: '40%' },
         tabBarIcon: ({ focused }) => (
           <View style={{
             width: 63,
