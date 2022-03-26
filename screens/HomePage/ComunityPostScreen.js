@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         flexDirection: 'row-reverse',
         flexWrap: 'wrap-reverse',
+        paddingTop: 110,
     },
 })

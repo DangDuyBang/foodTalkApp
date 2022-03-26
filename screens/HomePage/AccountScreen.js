@@ -25,24 +25,44 @@ const AccountScreen = ({ navigation }) => {
   const renderInner = () => (
     <View style={styles.panel}>
       <View style={{ alignItems: 'center' }}>
-        <View style={{ height: 3, width: 55, backgroundColor: color.textGray, marginTop: 15 }} />
-        <Text style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: '800', color: color.textGray }}>Setting</Text>
+        <View style={{ height: 3, width: 35, backgroundColor: color.textBlack, marginTop: 15 }} />
+        <Text style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: 'bold', color: color.textGray }}>Setting</Text>
       </View>
       <TouchableOpacity>
-        <Text style={styles.optionSetting}>Edit Profile</Text>
+        <View style={styles.frameOptionSetting}>
+          <Text style={styles.optionSetting}>Edit Profile</Text>
+          <Text style={styles.optionSetting}>></Text>
+        </View >
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text style={styles.optionSetting}>Change Password</Text>
+        <View style={styles.frameOptionSetting}>
+          <Text style={styles.optionSetting}>Change Password</Text>
+          <Text style={styles.optionSetting}>></Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text style={styles.optionSetting}>Feedback</Text>
+        <View style={styles.frameOptionSetting}>
+          <Text style={styles.optionSetting}>Feedback</Text>
+          <Text style={styles.optionSetting}>></Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text style={styles.optionSetting}>Term of Service</Text>
+        <View style={styles.frameOptionSetting}>
+          <Text style={styles.optionSetting}>Term of Service</Text>
+          <Text style={styles.optionSetting}>></Text>
+        </View>
       </TouchableOpacity>
       <View style={{ height: 0.5, width: '100%', backgroundColor: color.textGray, marginTop: 15 }} />
       <TouchableOpacity onPress={eventLogout}>
-        <Text style={[styles.optionSetting, { marginBottom: 20 }]}>Logout</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingLeft: 20
+          }}>
+          <Ionicons name='exit-outline' size={42} color={color.errorColor}></Ionicons>
+          <Text style={[styles.optionSetting, { marginBottom: 20 }]}>Logout</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -62,7 +82,7 @@ const AccountScreen = ({ navigation }) => {
     <View style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={['50%', -300]}
+        snapPoints={['39%', -300]}
         borderRadius={10}
         renderContent={renderInner}
         renderHeader={renderHeader}
@@ -197,7 +217,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.background,
     paddingTop: 50,
-    paddingBottom: 75
   },
   top: {
     flexDirection: 'row',
@@ -289,14 +308,25 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   panel: {
-    backgroundColor: color.hideColor,
-    borderRadius: 30,
-    marginHorizontal: '5%'
+    backgroundColor: color.background,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 0.5
   },
   optionSetting: {
     fontFamily: 'Roboto',
     fontSize: 16,
-    marginLeft: 20,
-    marginTop: 20
+    marginLeft: 5,
+    marginTop: 20,
+    color: color.textGray,
+    fontWeight: '900'
+  },
+  frameOptionSetting: {
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 })
