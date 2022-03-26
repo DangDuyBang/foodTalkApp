@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useCallback, useState } from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
@@ -8,6 +8,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { UserContext } from '../../providers/UserProvider'
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import { Portal } from '@gorhom/portal';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,9 +25,9 @@ const AccountScreen = ({ navigation }) => {
 
   const renderInner = () => (
     <View style={styles.panel}>
-      <View style={{ alignItems: 'center' }}>
-        <View style={{ height: 3, width: 35, backgroundColor: color.textBlack, marginTop: 15 }} />
-        <Text style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: 'bold', color: color.textGray }}>Setting</Text>
+      <View onPress={() => bs.current.snapTo(1)} style={{ alignItems: 'center' }}>
+        <View style={{ height: 4, width: 65, borderRadius: 100, backgroundColor: color.textIconSmall, marginTop: 15 }} />
+        <Text onPress={() => bs.current.snapTo(1)} style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: 'bold', color: color.textGray }}>Setting</Text>
       </View>
       <TouchableOpacity>
         <View style={styles.frameOptionSetting}>
@@ -58,7 +59,7 @@ const AccountScreen = ({ navigation }) => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            paddingLeft: 20
+            paddingLeft: 25
           }}>
           <Ionicons name='exit-outline' size={42} color={color.errorColor}></Ionicons>
           <Text style={[styles.optionSetting, { marginBottom: 20 }]}>Logout</Text>
@@ -80,16 +81,18 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <BottomSheet
-        ref={bs}
-        snapPoints={['39%', -300]}
-        borderRadius={10}
-        renderContent={renderInner}
-        renderHeader={renderHeader}
-        initialSnap={1}
-        callbackNode={fall}
-        enabledGestureInteraction={true}
-      />
+      <Portal name="modal">
+        <BottomSheet
+          ref={bs}
+          snapPoints={['36%', -300]}
+          borderRadius={10}
+          renderContent={renderInner}
+          renderHeader={renderHeader}
+          initialSnap={1}
+          callbackNode={fall}
+          enabledGestureInteraction={true}
+        />
+      </Portal>
       <View style={styles.top}>
         <Text style={styles.nameUser}>{userState.currentUser.username}</Text>
         <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
@@ -100,7 +103,8 @@ const AccountScreen = ({ navigation }) => {
         style={{
           margin: 0,
           opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
-        }}>
+        }}
+      >
         <ScrollView>
           <View style={styles.mid}>
             <View style={styles.imageFrame}>
@@ -313,7 +317,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     borderLeftWidth: 1,
     borderRightWidth: 1,
-    borderTopWidth: 0.5
+    borderTopWidth: 1,
   },
   optionSetting: {
     fontFamily: 'Roboto',
@@ -324,7 +328,7 @@ const styles = StyleSheet.create({
     fontWeight: '900'
   },
   frameOptionSetting: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

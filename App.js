@@ -11,7 +11,7 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import {useReducer, useState, useEffect, createContext, useContext} from 'react'
 import {UserContext} from './providers/UserProvider'
-
+import { PortalHost, PortalProvider } from '@gorhom/portal';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -42,9 +42,9 @@ export default function App() {
 
   return (
     <>
-
-      <AuthenScreen/>
-
+      <PortalProvider>
+        <AuthenScreen/>
+      </PortalProvider>
     </>
   );
 }

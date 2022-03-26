@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@gorhom/portal": "^1.0.12",
     "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/checkbox": "^0.5.11",
     "@react-native-community/masked-view": "^0.1.11",
