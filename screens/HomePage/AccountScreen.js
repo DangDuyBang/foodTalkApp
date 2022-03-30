@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext, useCallback, useState } from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
@@ -20,7 +20,15 @@ const AccountScreen = ({ navigation }) => {
   }
 
   const eventLogout = () => {
-    navigation.navigate('SignIn')
+    Alert.alert("LOG OUT!", "Are you sure you want to log out of this Account?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => navigation.navigate('SignIn') }
+    ]);
+    return true;
   }
 
   const renderInner = () => (

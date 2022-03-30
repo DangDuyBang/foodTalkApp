@@ -72,7 +72,9 @@ const HomeScreen = ({ navigation }) => {
             avatarCommenter={ImagePic.avatar_commenter_first}
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
-            contentComment='Wow ! Congratulation. I want it' />
+            contentComment='Wow ! Congratulation. I want it' 
+            //isLiked = {true}
+            />
           <Post
             avatar={ImagePic.avatar_user_second}
             nameUser='cho_food_talk'
@@ -84,8 +86,10 @@ const HomeScreen = ({ navigation }) => {
             avatarCommenter={ImagePic.avatar_commenter_second}
             nameCommenter='ga_food_talk'
             timeComment='25 minutes ago'
-            contentComment='Hmmm! Look great !' />
-          <Post
+            contentComment='Hmmm! Look great !' 
+            //isLiked = {false}
+            />
+          {/* <Post
             avatar={ImagePic.avatar_user_third}
             nameUser='jerry_food_talk'
             timePost='3 hours ago'
@@ -144,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
             avatarCommenter={ImagePic.avatar_commenter_seventh}
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
-            contentComment='Wow ! Congratulation. I want it' />
+            contentComment='Wow ! Congratulation. I want it' /> */}
         </View>
       </ScrollView>
       <View style={{
