@@ -10,7 +10,6 @@ export default {
     errorColor: '#FD1818',
     textBlack: '#000000',
     hideColor: '#BFBFBF',
-    iconRed: '',
-    iconOrange: '',
     iconGreen: '#2AD400',
+    starColor: '#FFCE31',
 }

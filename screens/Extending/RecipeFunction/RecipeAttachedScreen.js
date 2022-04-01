@@ -33,7 +33,18 @@ const RecipeAttachedScreen = ({ navigation }) => {
             <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} />
             <ScrollView>
                 <View style={styles.body}>
-                    <RecipePreview/>
+                    <RecipePreview
+                        imageRecipe="https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg"
+                        nameRecipe="Pizza"
+                        authorRecipe="Dang Duy Bang"
+                        markRecipe="4.5"
+                    />
+                    <RecipePreview
+                        imageRecipe="https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg"
+                        nameRecipe="Beef steak"
+                        authorRecipe="Nguyen Nhut Tan"
+                        markRecipe="4.5"
+                    />
                 </View>
             </ScrollView>
         </View>
