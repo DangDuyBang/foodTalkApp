@@ -9,7 +9,11 @@ const RecipeAttachedScreen = ({ navigation }) => {
 
     const eventNewRecipe = () => {
         navigation.navigate('NewRecipe')
-      }
+    }
+
+    const eventDetailRecipe = () => {
+        navigation.navigate('DetailRecipe')
+    }
 
     return (
         <View style={styles.container}>
@@ -38,6 +42,7 @@ const RecipeAttachedScreen = ({ navigation }) => {
                         nameRecipe="Pizza"
                         authorRecipe="Dang Duy Bang"
                         markRecipe="4.5"
+                        eventDetailRecipe={eventDetailRecipe}
                     />
                     <RecipePreview
                         imageRecipe="https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg"

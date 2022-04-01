@@ -14,6 +14,7 @@ import ChatNavigationScreen from '../Extending/ChatFunction/ChatNavigationScreen
 import { Easing } from 'react-native-reanimated';
 import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen';
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
+import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
 
 const Stack = createStackNavigator();
 
@@ -125,6 +126,7 @@ const AuthenScreen = () => {
           }}
         />
         <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
+        <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} />
         <Stack.Screen name="ChatNavigation" component={ChatNavigationScreen}
           options={{
             gestureEnabled: true,

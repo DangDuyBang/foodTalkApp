@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons'
 
 const RecipePreview = (props) => {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.eventDetailRecipe}>
             <View style={styles.container}>
                 <View style={styles.infoPostUser}>
                     <View style={styles.avatarFrame}>
