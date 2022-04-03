@@ -1,10 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { UserContext } from '../../../providers/UserProvider'
-import {loginUser, fetchCurrentUser } from '../../../services/AuthServices'
+import { loginUser } from '../../../services/AuthServices'
+import { fetchCurrentUser } from '../../../services/UserServices'
 import { saveStorage } from '../../../utils/Storage'
-
-const url = process.env.REACT_APP_ENDPOINT
 
 const useSignIn = () => {
     const {userDispatch} = useContext(UserContext)

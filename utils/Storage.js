@@ -21,3 +21,12 @@ export const getStorage = async (key) => {
         return null
     }
 }
+
+export const deleteStorage = async (key) => {
+    try{
+        await AsyncStorage.removeItem(key)
+        return true
+    } catch(err) {
+        return false
+    }
+}

@@ -9,8 +9,8 @@ import SplashScreen from './screens/Onboarding/SplashScreen';
 import LoadingScreen from './screens/Onboarding/LoadingScreen';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import {useReducer, useState, useEffect, createContext, useContext} from 'react'
-import {UserContext} from './providers/UserProvider'
+import { useReducer, useState, useEffect, createContext, useContext } from 'react'
+import { UserContext } from './providers/UserProvider'
 import { PortalHost, PortalProvider } from '@gorhom/portal';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
@@ -18,7 +18,7 @@ axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
 export default function App() {
 
-  const {userState, userDispatch} = useContext(UserContext)
+  const { userState, userDispatch } = useContext(UserContext)
 
   useEffect(() => {
     if (userState.isLoggedIn) {
@@ -31,19 +31,19 @@ export default function App() {
       socketio.on('notification', ({ data }) => {
         uiDispatch({ type: 'ADD_NOTIFICATION', payload: data })
       })
-  
-    return () => {
-      socketio.disconnect()
+
+      return () => {
+        socketio.disconnect()
         userDispatch({ type: 'SET_SOCKETIO', payload: null })
         console.log('disconnect')
+      }
     }
-  }
-}, [userState.isLoggedIn])
+  }, [userState.isLoggedIn])
 
   return (
     <>
       <PortalProvider>
-        <AuthenScreen/>
+        <AuthenScreen />
       </PortalProvider>
     </>
   );

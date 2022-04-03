@@ -40,25 +40,25 @@ const AccountScreen = ({ navigation }) => {
       <TouchableOpacity>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Edit Profile</Text>
-          <Text style={styles.optionSetting}>></Text>
+          <Text style={styles.optionSetting}>{'>'}</Text>
         </View >
       </TouchableOpacity>
       <TouchableOpacity>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Change Password</Text>
-          <Text style={styles.optionSetting}>></Text>
+          <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Feedback</Text>
-          <Text style={styles.optionSetting}>></Text>
+          <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Term of Service</Text>
-          <Text style={styles.optionSetting}>></Text>
+          <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
       <View style={{ height: 0.5, width: '100%', backgroundColor: color.textGray, marginTop: 15 }} />
