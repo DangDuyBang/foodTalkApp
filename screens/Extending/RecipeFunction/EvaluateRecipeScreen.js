@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import RecipeComment from '../../../components/RecipeComment'
+import { UserContext } from '../../../providers/UserProvider'
 
 const EvaluateRecipeScreen = () => {
+
+    const { userState, userDispatch } = useContext(UserContext)
 
     const [currentDate, setCurrentDate] = useState('');
 
@@ -74,7 +77,13 @@ const EvaluateRecipeScreen = () => {
                 <ScrollView>
                     {
                         commentList.map((item, index) => {
-                            return <RecipeComment commentText={item} key={index} starMark={star} dateComment={currentDate} />
+                            return <RecipeComment
+                                commentText={item}
+                                key={index}
+                                starMark={star}
+                                dateComment={currentDate}
+                                userComment={userState.currentUser.username}
+                            />
                         })
                     }
                 </ScrollView>

@@ -17,7 +17,7 @@ const RecipeComment = (props) => {
                 </View>
                 <View style={styles.nameAndTimeViewCommenter}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={styles.nameUserCommenter}>bang_food_talk</Text>
+                        <Text style={styles.nameUserCommenter}>{props.userComment}</Text>
                         <Text style={styles.markStarComment}>{props.starMark}</Text>
                         <FontAwesome name='star' size={15} color={color.starColor}></FontAwesome>
                     </View>
