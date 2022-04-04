@@ -20,7 +20,7 @@ const SignInScreen = ({ navigation }) => {
     handleLoginUser,
     handlePasswordChange,
     handleEmailChange,
-} = useSignIn()
+  } = useSignIn()
 
   const eventSignIn = () => {
     // if (email.length === 0 || password.length === 0) {
@@ -61,6 +61,10 @@ const SignInScreen = ({ navigation }) => {
     navigation.navigate('SignUp')
   }
 
+  const eventForgotPassword = () => {
+    navigation.navigate('ForgotPassword')
+  }
+
   console.log(loading);
 
   return (
@@ -92,13 +96,13 @@ const SignInScreen = ({ navigation }) => {
 
             <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
             <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
-            {error ? 
+            {error ?
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={styles.errorPassword}>{error}</Text>
               </Animatable.View>
               : null
             }
-            <SubmitNoLogo loading = {loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
+            <SubmitNoLogo loading={loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
             <View style={styles.lineView}>
               <View style={styles.lineFirst}></View>
@@ -107,6 +111,10 @@ const SignInScreen = ({ navigation }) => {
             </View>
 
             <SubmitLogo eventButton={eventSignInWithGoogle} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
+
+            <TouchableOpacity onPress={eventForgotPassword}>
+              <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>Forgot Password ?</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={eventSignUp}>
               <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>New Account ?</Text>

@@ -15,6 +15,7 @@ import { Easing } from 'react-native-reanimated';
 import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen';
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -100,6 +101,7 @@ const AuthenScreen = () => {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
         />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="HomePage" component={HomePageScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="NewPost" component={NewPostScreen}

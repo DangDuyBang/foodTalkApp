@@ -1,17 +1,19 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 
 const PostInAccount = (props) => {
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.imagePostInAccount}
-        source={{
-          uri: props.imagePostInAccount,
-        }}
-      />
-    </View>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <Image
+          style={styles.imagePostInAccount}
+          source={{
+            uri: props.imagePostInAccount,
+          }}
+        />
+      </View>
+    </TouchableOpacity>
   )
 }
 
