@@ -1,16 +1,45 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import RecipeComment from '../../../components/RecipeComment'
 
 const EvaluateRecipeScreen = () => {
 
+    const [currentDate, setCurrentDate] = useState('');
+
+    useEffect(() => {
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        var min = new Date().getMinutes(); //Current Minutes
+        var sec = new Date().getSeconds(); //Current Seconds
+        setCurrentDate(
+            date + '/' + month + '/' + year
+            // + ' ' + hours + ':' + min + ':' + sec
+        );
+    }, []);
+
+    const [comment, setComment] = useState('')
+    const [commentList, setCommentList] = useState([])
+    const [star, setStar] = useState(7)
+
     const [defaultRating, setDefaultRating] = useState(7)
     const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
     const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
     const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
+
+    const handleComment = () => {
+        if (comment.length === 0) {
+            alert("Fill comment");
+            return false;
+        }
+        setCommentList([...commentList, comment])
+        setComment('')
+        setStar(defaultRating)
+    }
 
     const CustomRatingBar = () => {
         return (
@@ -43,12 +72,11 @@ const EvaluateRecipeScreen = () => {
         <View style={styles.container}>
             <View style={styles.commentListView}>
                 <ScrollView>
-                    <RecipeComment commentText='It is a good recipe'/>
-                    <RecipeComment commentText='I did it and wonderfull. It is delicous'/>
-                    <RecipeComment commentText='Good, I like it'/>
-                    <RecipeComment commentText='I think it should be salt, it is not perfect'/>
-                    <RecipeComment commentText='...I dont know to say anything. It is very good. Hope app will update more food like this.'/>
-                    <RecipeComment commentText='Angry'/>
+                    {
+                        commentList.map((item, index) => {
+                            return <RecipeComment commentText={item} key={index} starMark={star} dateComment={currentDate} />
+                        })
+                    }
                 </ScrollView>
             </View>
             <ScrollView>
@@ -58,8 +86,14 @@ const EvaluateRecipeScreen = () => {
                     <Text style={styles.markEvaluateText}>
                         {defaultRating + '/' + maxRating.length}
                     </Text>
-                    <TextInput style={styles.inputRate} placeholder="Write comment ..." multiline={true} maxLength={220} />
-                    <SubmitNoLogo nameButton='EVALUATE' colorView={color.primary} colorName={color.background} />
+                    <TextInput
+                        value={comment}
+                        style={styles.inputRate} placeholder="Write comment ..."
+                        multiline={true}
+                        maxLength={220}
+                        onChangeText={(text) => setComment(text)}
+                    />
+                    <SubmitNoLogo eventButton={handleComment} nameButton='EVALUATE' colorView={color.primary} colorName={color.background} />
                 </View>
             </ScrollView>
         </View>

@@ -18,10 +18,10 @@ const RecipeComment = (props) => {
                 <View style={styles.nameAndTimeViewCommenter}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={styles.nameUserCommenter}>bang_food_talk</Text>
-                        <Text style={styles.markStarComment}>4.5</Text>
+                        <Text style={styles.markStarComment}>{props.starMark}</Text>
                         <FontAwesome name='star' size={15} color={color.starColor}></FontAwesome>
                     </View>
-                    <Text style={styles.timeComment}>2/3/2022</Text>
+                    <Text style={styles.timeComment}>{props.dateComment}</Text>
                 </View>
             </View>
             <Text style={styles.firstCommentText}>{props.commentText}</Text>
