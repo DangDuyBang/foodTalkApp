@@ -1,11 +1,24 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color'
 
-const ProcessAdd = () => {
+const ProcessAdd = (props) => {
+
+    const [process, setProcess] = useState('')
+
+    const eventAddProcess = () => {
+        if (process.length === 0) {
+            alert('You need fill before adding !');
+            return false;
+        }
+        props.onAddProcess(process);
+        setProcess('')
+    }
+
     return (
         <View style={styles.container}>
             <TextInput
+                value={process}
                 placeholder='Type step by step'
                 multiline={true}
                 style={{
@@ -16,8 +29,9 @@ const ProcessAdd = () => {
                     fontSize: 16,
                     borderRadius: 8
                 }}
+                onChangeText={(text) => setProcess(text)}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={eventAddProcess}>
                 <Text style={{
                     fontFamily: 'Roboto',
                     fontSize: 35,

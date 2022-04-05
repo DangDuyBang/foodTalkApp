@@ -1,11 +1,19 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import IngredientAdd from '../../../components/IngredientAdd'
 import ProcessAdd from '../../../components/ProcessAdd'
+import ProcessShow from '../../../components/ProcessShow'
 
 const NewRecipeScreen = ({ navigation }) => {
+
+    const [processList, setProcessList] = useState([])
+    const handleAddProcess = (process) => {
+        //add process
+        setProcessList([...processList, process])
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -41,7 +49,14 @@ const NewRecipeScreen = ({ navigation }) => {
                     <Text style={styles.ingredientTittle}>Ingredients</Text>
                     <IngredientAdd />
                     <Text style={styles.ingredientTittle}>Process</Text>
-                    <ProcessAdd />
+                    <View>
+                        {
+                            processList.map((item, index) => {
+                                return <ProcessShow key={index} step={item} indexNumber={index + 1} />
+                            })
+                        }
+                    </View>
+                    <ProcessAdd onAddProcess={handleAddProcess} />
                 </View>
             </ScrollView>
         </View>
