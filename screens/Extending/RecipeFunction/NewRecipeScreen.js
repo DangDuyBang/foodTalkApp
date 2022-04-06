@@ -22,6 +22,18 @@ const NewRecipeScreen = ({ navigation }) => {
         setIngredientList([...ingredientList, unitIngredient + " " + nameIngredient])
     }
 
+    const handleDeleteProcess = (index) => {
+        let processListTemp = [...processList]
+        processListTemp.splice(index, 1)
+        setProcessList(processListTemp)
+    }
+
+    const handleDeleteIngredient = (index) => {
+        let ingredientListTemp = [...ingredientList]
+        ingredientListTemp.splice(index, 1)
+        setIngredientList(ingredientListTemp)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -58,7 +70,7 @@ const NewRecipeScreen = ({ navigation }) => {
                     <View>
                         {
                             ingredientList.map((item, index) => {
-                                return <IngredientShow key={index} ingredientAn={item} />
+                                return <IngredientShow key={index} ingredientAn={item} onDeleteIngredient={() => handleDeleteIngredient(index)} />
                             })
                         }
                     </View>
@@ -67,7 +79,7 @@ const NewRecipeScreen = ({ navigation }) => {
                     <View>
                         {
                             processList.map((item, index) => {
-                                return <ProcessShow key={index} step={item} indexNumber={index + 1} />
+                                return <ProcessShow key={index} step={item} indexNumber={index + 1} onDeleteProcess={() => handleDeleteProcess(index)} />
                             })
                         }
                     </View>

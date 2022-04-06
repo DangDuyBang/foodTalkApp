@@ -14,7 +14,7 @@ const ProcessShow = (props) => {
                 </View>
                 <Text style={styles.stepProcess}>{props.step}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onDeleteProcess}>
                 <Text style={{
                     fontFamily: 'Roboto',
                     fontSize: 35,

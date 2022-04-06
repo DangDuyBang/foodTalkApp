@@ -11,11 +11,10 @@ const IngredientShow = (props) => {
             }}>
                 <Text style={styles.indexNumber}>●</Text>
                 <View style={styles.ingredientView}>
-                    <Text style={styles.unitText}>{props.unitAn}</Text>
                     <Text style={styles.ingredientText}>{props.ingredientAn}</Text>
                 </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onDeleteIngredient}>
                 <Text style={{
                     fontFamily: 'Roboto',
                     fontSize: 35,
@@ -48,13 +47,6 @@ const styles = StyleSheet.create({
     ingredientView: {
         flexDirection: 'row',
         width: '95%'
-    },
-    unitText: {
-        fontFamily: 'Roboto',
-        flexWrap: 'wrap',
-        color: color.textBlack,
-        marginRight: 5,
-        fontSize: 16,
     },
     ingredientText: {
         fontFamily: 'Roboto',
