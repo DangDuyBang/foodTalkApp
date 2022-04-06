@@ -1,11 +1,33 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color'
 
-const IngredientAdd = () => {
+const IngredientAdd = (props) => {
+
+    const [ingredient, setIngredient] = useState({
+        nameIngredient: '',
+        unitIngredient: '',
+    })
+
+    const eventAddIngredient = () => {
+        if (ingredient.nameIngredient.length === 0 || ingredient.unitIngredient.length === 0) {
+            alert('You need fill before adding !');
+            return false;
+        }
+        props.onAddIngredient(ingredient.nameIngredient, ingredient.unitIngredient);
+
+        setIngredient({
+            ...ingredient,
+            nameIngredient: '',
+            unitIngredient: '',
+        })
+        //alert(ingredient.nameIngredient + ingredient.unitIngredient)
+    }
+
     return (
         <View style={styles.container}>
             <TextInput
+                value={ingredient.nameIngredient}
                 placeholder='Type an ingredient'
                 maxLength={20}
                 style={{
@@ -16,8 +38,10 @@ const IngredientAdd = () => {
                     fontSize: 16,
                     borderRadius: 8
                 }}
+                onChangeText={(text) => setIngredient({ ...ingredient, nameIngredient: text })}
             />
             <TextInput
+                value={ingredient.unitIngredient}
                 placeholder='Type unit'
                 maxLength={10}
                 style={{
@@ -28,8 +52,9 @@ const IngredientAdd = () => {
                     fontSize: 16,
                     borderRadius: 8
                 }}
+                onChangeText={(text) => setIngredient({ ...ingredient, unitIngredient: text })}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={eventAddIngredient}>
                 <Text style={{
                     fontFamily: 'Roboto',
                     fontSize: 35,

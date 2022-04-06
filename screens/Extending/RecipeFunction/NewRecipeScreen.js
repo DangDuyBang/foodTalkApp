@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import IngredientAdd from '../../../components/IngredientAdd'
 import ProcessAdd from '../../../components/ProcessAdd'
 import ProcessShow from '../../../components/ProcessShow'
+import IngredientShow from '../../../components/IngredientShow'
 
 const NewRecipeScreen = ({ navigation }) => {
 
@@ -12,6 +13,13 @@ const NewRecipeScreen = ({ navigation }) => {
     const handleAddProcess = (process) => {
         //add process
         setProcessList([...processList, process])
+    }
+
+    const [ingredientList, setIngredientList] = useState([])
+
+    const handleAddIngrdient = (nameIngredient, unitIngredient) => {
+        //add ingredient
+        setIngredientList([...ingredientList, unitIngredient + " " + nameIngredient])
     }
 
     return (
@@ -47,7 +55,14 @@ const NewRecipeScreen = ({ navigation }) => {
                         }}
                     />
                     <Text style={styles.ingredientTittle}>Ingredients</Text>
-                    <IngredientAdd />
+                    <View>
+                        {
+                            ingredientList.map((item, index) => {
+                                return <IngredientShow key={index} ingredientAn={item} />
+                            })
+                        }
+                    </View>
+                    <IngredientAdd onAddIngredient={handleAddIngrdient} />
                     <Text style={styles.ingredientTittle}>Process</Text>
                     <View>
                         {
