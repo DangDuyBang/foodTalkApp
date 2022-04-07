@@ -44,6 +44,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
+  const eventOpenCommentList = () => {
+    navigation.navigate('CommentList')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -73,6 +77,7 @@ const HomeScreen = ({ navigation }) => {
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
             contentComment='Wow ! Congratulation. I want it' 
+            onCommentList={eventOpenCommentList}
             //isLiked = {true}
             />
           <Post

@@ -81,8 +81,12 @@ const Post = (props) => {
                             />
                         </TouchableOpacity>
                         <Text style={styles.heartNumber}>{props.heartCount}</Text>
-                        <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>
+
+                        <TouchableOpacity onPress={props.onCommentList}>
+                            <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>
+                        </TouchableOpacity>
                         <Text style={styles.commentNumber}>{props.commentCount}</Text>
+
                         <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                     </View>
                     <AntDesign name='book' size={22} color={color.primary}></AntDesign>

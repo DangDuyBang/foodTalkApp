@@ -16,6 +16,7 @@ import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScre
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import CommentListScreen from '../Extending/DetailPost/CommentListScreen';
 
 const Stack = createStackNavigator();
 
@@ -103,6 +104,16 @@ const AuthenScreen = () => {
         />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="HomePage" component={HomePageScreen} />
+        <Stack.Screen name="CommentList" component={CommentListScreen}
+          options={{
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            transitionSpec: {
+              open: config,
+              close: closeConfig,
+            },
+            cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+          }} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="NewPost" component={NewPostScreen}
           options={{
