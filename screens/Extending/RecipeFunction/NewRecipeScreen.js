@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Image } from 'react-native'
 import React, { useState } from 'react'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
@@ -6,34 +6,10 @@ import IngredientAdd from '../../../components/IngredientAdd'
 import ProcessAdd from '../../../components/ProcessAdd'
 import ProcessShow from '../../../components/ProcessShow'
 import IngredientShow from '../../../components/IngredientShow'
+import useNewReceipt from './hooks/useNewReceipt'
 
 const NewRecipeScreen = ({ navigation }) => {
-
-    const [processList, setProcessList] = useState([])
-    const handleAddProcess = (process) => {
-        //add process
-        setProcessList([...processList, process])
-    }
-
-    const [ingredientList, setIngredientList] = useState([])
-
-    const handleAddIngrdient = (nameIngredient, unitIngredient) => {
-        //add ingredient
-        setIngredientList([...ingredientList, unitIngredient + " " + nameIngredient])
-    }
-
-    const handleDeleteProcess = (index) => {
-        let processListTemp = [...processList]
-        processListTemp.splice(index, 1)
-        setProcessList(processListTemp)
-    }
-
-    const handleDeleteIngredient = (index) => {
-        let ingredientListTemp = [...ingredientList]
-        ingredientListTemp.splice(index, 1)
-        setIngredientList(ingredientListTemp)
-    }
-
+    const { processList, ingredientList,uri, handleAddProcess, handleAddIngrdient, handleDeleteProcess, handleDeleteIngredient, openImagePickerAsync} = useNewReceipt()
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -49,9 +25,10 @@ const NewRecipeScreen = ({ navigation }) => {
             </View>
             <ScrollView>
                 <View style={styles.body}>
-                    <View style={styles.imageFoodFrame}>
-                        <TouchableOpacity>
-                            <Ionicons name='camera-outline' size={35} color={color.primary}></Ionicons>
+                    <View style={styles.imageFoodFrame}  >
+                        <TouchableOpacity onPress={openImagePickerAsync}>
+                            {!uri?<Ionicons name='camera-outline' size={35} color={color.primary}></Ionicons>:
+                            <Image source = {uri} style = {styles.image}/>}
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.ingredientTittle}>Food Name</Text>
@@ -125,10 +102,8 @@ const styles = StyleSheet.create({
     imageFoodFrame: {
         width: '100%',
         height: 250,
-        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: color.inputColor
     },
     ingredientTittle: {
         marginTop: 10,
@@ -137,4 +112,8 @@ const styles = StyleSheet.create({
         color: color.textGray,
         fontWeight: 'bold'
     },
+    image: {
+        resizeMode: 'contain',
+        height: '100%'
+    }
 })
