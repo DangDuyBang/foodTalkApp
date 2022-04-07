@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import color from '../contains/color'
 
 const ProcessAdd = (props) => {
+
+    const inputRef = useRef()
 
     const [process, setProcess] = useState('')
 
@@ -13,11 +15,13 @@ const ProcessAdd = (props) => {
         }
         props.onAddProcess(process);
         setProcess('')
+        inputRef.current.focus()
     }
 
     return (
         <View style={styles.container}>
             <TextInput
+                ref={inputRef}
                 value={process}
                 placeholder='Type step by step'
                 multiline={true}

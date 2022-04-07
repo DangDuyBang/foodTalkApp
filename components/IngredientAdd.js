@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import color from '../contains/color'
 
 const IngredientAdd = (props) => {
+
+    const inputRef = useRef()
 
     const [ingredient, setIngredient] = useState({
         nameIngredient: '',
@@ -21,12 +23,13 @@ const IngredientAdd = (props) => {
             nameIngredient: '',
             unitIngredient: '',
         })
-        //alert(ingredient.nameIngredient + ingredient.unitIngredient)
+        inputRef.current.focus()
     }
 
     return (
         <View style={styles.container}>
             <TextInput
+                ref={inputRef}
                 value={ingredient.nameIngredient}
                 placeholder='Type an ingredient'
                 maxLength={20}
