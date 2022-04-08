@@ -26,12 +26,12 @@ const NewRecipeScreen = ({ navigation }) => {
                     Upload Photo
                 </Text>
             </View>
-            <TouchableOpacity onPress = {() => openImagePickerAsync(true)}>
+            <TouchableOpacity onPress = {() => openImagePickerAsync(true, bs.current.snapTo(1))}>
                 <View style={styles.frameOptionSetting}>
                     <Text style={styles.optionSetting}>Take Photo</Text>
                 </View >
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
+            <TouchableOpacity onPress={() => openImagePickerAsync(false, bs.current.snapTo(1))}>
                 <View style={styles.frameOptionSetting}>
                     <Text style={styles.optionSetting}>Choose From Library</Text>
                 </View>
