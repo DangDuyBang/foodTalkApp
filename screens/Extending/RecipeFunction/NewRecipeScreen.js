@@ -26,12 +26,12 @@ const NewRecipeScreen = ({ navigation }) => {
                     Upload Photo
                 </Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {() => openImagePickerAsync(true)}>
                 <View style={styles.frameOptionSetting}>
                     <Text style={styles.optionSetting}>Take Photo</Text>
                 </View >
             </TouchableOpacity>
-            <TouchableOpacity onPress={openImagePickerAsync}>
+            <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
                 <View style={styles.frameOptionSetting}>
                     <Text style={styles.optionSetting}>Choose From Library</Text>
                 </View>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     image: {
-        resizeMode: 'stretch',
+        resizeMode: 'contain',
         width: 370,
         height: 250,
         borderRadius: 20,

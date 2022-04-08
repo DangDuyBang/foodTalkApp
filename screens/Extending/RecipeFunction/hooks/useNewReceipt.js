@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 function useNewReceipt() {
   const [uri, setUri] = useState(null)
 
-  const openImagePickerAsync = async () => {
+  const openImagePickerAsync = async (isUseCamera) => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
@@ -12,7 +12,12 @@ function useNewReceipt() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult
+    if(isUseCamera) {
+      pickerResult = await ImagePicker.launchCameraAsync();
+    } else {
+      pickerResult = await ImagePicker.launchImageLibraryAsync();
+    }
     console.log(pickerResult);
     setUri(pickerResult)
   }
