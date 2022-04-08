@@ -4,7 +4,7 @@ import color from '../contains/color'
 
 const PostComment = (props) => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {marginLeft: props.leftMargin}]}>
             <View style={styles.frameColor}>
                 <View style={styles.avatarAndNameViewCommenter}>
                     <View style={styles.avatarFrameCommenter}>

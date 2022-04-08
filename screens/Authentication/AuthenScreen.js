@@ -23,7 +23,7 @@ const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
   config: {
-    stiffness: 300,
+    stiffness: 1500,
     damping: 300,
     mass: 3,
     overshootClamping: false,

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import color from '../../contains/color'
 import InputText from '../../components/InputText'
 import InputPass from '../../components/InputPass'
@@ -7,6 +7,7 @@ import SubmitNoLogo from '../../components/SubmitNoLogo'
 import SubmitLogo from '../../components/SubmitLogo'
 import * as Animatable from 'react-native-animatable';
 import useSignIn from './hooks/useSignIn'
+import LottieView from 'lottie-react-native'
 
 const SignInScreen = ({ navigation }) => {
 
@@ -66,6 +67,29 @@ const SignInScreen = ({ navigation }) => {
   }
 
   console.log(loading);
+
+  if (loading) {
+    return (
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Text style={{
+          fontSize: 25,
+          color: color.primary
+        }}>LOADING...</Text>
+        <LottieView
+          source={require('../../assets/lottie/loading-animation.json')}
+          autoPlay loop
+          style={{
+            width: 150,
+            height: 150,
+          }}
+        />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
