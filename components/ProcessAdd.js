@@ -29,7 +29,7 @@ const ProcessAdd = (props) => {
                     width: '90%',
                     paddingVertical: 10,
                     backgroundColor: color.inputColor,
-                    paddingHorizontal: 5,
+                    paddingHorizontal: 10,
                     fontSize: 16,
                     borderRadius: 8
                 }}

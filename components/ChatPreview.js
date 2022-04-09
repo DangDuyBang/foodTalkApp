@@ -30,12 +30,38 @@ const ChatPreview = (props) => {
                         <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
                         <View style={styles.textContain}>
                             <Text style={styles.chatUsername}>{props.data.nameUser}</Text>
-                            <Text style={[styles.chatRecently, { color: props.data.colorHigh }, { fontWeight: props.bold }]}
-                                numberOfLines={1}>
-                                {/* {props.chatRecently.length < 15
-                                ? `${props.chatRecently}`
-                                : `${props.chatRecently.substring(0, 12)}...`} */}
-                                {props.data.chatRecently}</Text>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    width: '81%'
+                                }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                    }}>
+                                        <Text style={[
+                                            styles.chatRecently,
+                                            { color: props.data.colorHigh },
+                                            { fontWeight: props.data.bold }]}
+                                            numberOfLines={1}
+                                        >
+                                            {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
+                                        </Text>
+                                        <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
+                                            ●
+                                        </Text>
+                                        <Text style={styles.timeRecentlyChat}>
+                                            Dec 18
+                                        </Text>
+                                    </View>
+                                </View>
+
+                                <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} />
+                            </View>
                         </View>
                     </View>
 
@@ -45,6 +71,10 @@ const ChatPreview = (props) => {
         </Swipeable>
     )
 }
+
+{/* {props.chatRecently.length < 15,
+? `${props.chatRecently}`,  
+: `${props.chatRecently.substring(0, 12)}...`} */}
 
 export default ChatPreview
 
@@ -78,7 +108,7 @@ const styles = StyleSheet.create({
     },
     chatRecently: {
         //color: 'gray',
-        width: 220,
+        //width: 200,
     },
     tinyAvatar: {
         width: 50,
@@ -91,5 +121,11 @@ const styles = StyleSheet.create({
         width: 80,
         height: '100%',
         backgroundColor: color.errorColor
+    },
+    timeRecentlyChat: {
+        fontFamily: 'Roboto',
+        color: color.textIconSmall,
+        fontSize: 13,
+        marginLeft: 5
     }
 })

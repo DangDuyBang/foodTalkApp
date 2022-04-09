@@ -15,7 +15,7 @@ const InputComment = () => {
                     borderRadius: 20,
                     width: '90%',
                     fontFamily: 'Roboto',
-                    fontSize: 14
+                    fontSize: 14    
                 }}
                 placeholder="Write comment ..."
             />

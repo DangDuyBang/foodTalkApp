@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.post,
         marginVertical: 5,
-        paddingVertical: 5
+        paddingVertical: 5,
     },
     topPost: {
         flexDirection: 'row',

@@ -146,12 +146,12 @@ const styles = StyleSheet.create({
     },
     inputRate: {
         width: 350,
-        height: 120,
+        //height: 120,
         borderRadius: 20,
         backgroundColor: color.inputColor,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         paddingVertical: 10,
         marginBottom: 10,
-        textAlignVertical: 'top'
+        //textAlignVertical: 'top'
     }
 })

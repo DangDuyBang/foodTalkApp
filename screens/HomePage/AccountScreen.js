@@ -4,6 +4,7 @@ import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
+import PrivatePostScreen from './PrivatePostScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { UserContext } from '../../providers/UserProvider'
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -188,7 +189,7 @@ const AccountScreen = ({ navigation }) => {
                     alignItems: 'center',
                   }}>
                     <Ionicons
-                      name="fast-food-outline"
+                      name="ios-create-outline"
                       size={25}
                       color={focused ? color.textBlack : color.hideColor}
                     ></Ionicons>
@@ -208,6 +209,25 @@ const AccountScreen = ({ navigation }) => {
                   }}>
                     <Ionicons
                       name="heart-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
+                </View>
+              )
+            }} />
+            <Tab.Screen name="Private" component={PrivatePostScreen} options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{
+                  position: 'absolute',
+                  top: '0%',
+                }}>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="lock-closed-outline"
                       size={25}
                       color={focused ? color.textBlack : color.hideColor}
                     ></Ionicons>

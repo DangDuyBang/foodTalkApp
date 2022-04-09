@@ -10,15 +10,16 @@ const data = [
         id: '1',
         chatAvatar: 'https://i.pinimg.com/564x/80/5a/bc/805abceef60e44441973971436765310.jpg',
         nameUser: 'Dang Duy Bang',
-        chatRecently: "How much is it?",
+        chatRecently: "How much is it? How much is it? How much is it? How much is it?",
         chatTime: '23:01 Today',
-        colorHigh: 'gray'
+        colorHigh: 'black',
+        bold: 'bold'
     },
     {
         id: '2',
         chatAvatar: 'https://i.pinimg.com/564x/49/b6/79/49b6799e28e25824a8936b818d442481.jpg',
         nameUser: "Dinh Minh Thuy",
-        chatRecently: "Can you revew this product?",
+        chatRecently: "Can you revew this product? How much is it? How much is it? How much is it?",
         chatTime: "12:26 Today",
         colorHigh: 'gray'
     },
@@ -34,7 +35,7 @@ const data = [
         id: '4',
         chatAvatar: 'https://growdiaries.com/static/users/photo/43497/6df5165b9e43c97d7aa77abfe5fa56d1_450.jpg',
         nameUser: "Doraemon",
-        chatRecently: "Hello, I have a question for you.",
+        chatRecently: "Hello, I have a question for you.How much is it? How much is it? How much is it?",
         chatTime: "17:26 Tue",
         colorHigh: 'black',
         bold: 'bold'

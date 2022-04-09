@@ -104,7 +104,7 @@ const NewRecipeScreen = ({ navigation }) => {
                                 borderBottomWidth: 0.5,
                                 paddingVertical: 10,
                                 fontSize: 16,
-                                paddingHorizontal: 5
+                                paddingHorizontal: 10
                             }}
                         />
                         <Text style={styles.ingredientTittle}>Ingredients</Text>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     image: {
-        resizeMode: 'contain',
+        resizeMode: 'stretch',
         width: 370,
         height: 250,
         borderRadius: 20,
