@@ -83,6 +83,7 @@ const NewRecipeScreen = ({ navigation }) => {
                 style={{
                     margin: 0,
                     opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
+                    marginBottom: 60
                 }}
             >
                 <ScrollView>
@@ -161,7 +162,6 @@ const styles = StyleSheet.create({
     body: {
         paddingHorizontal: 20,
         paddingTop: 10,
-        paddingBottom: 60,
     },
     imageFoodFrame: {
         width: 370,

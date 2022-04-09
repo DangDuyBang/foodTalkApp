@@ -76,7 +76,7 @@ const SignInScreen = ({ navigation }) => {
         alignItems: 'center',
       }}>
         <Text style={{
-          fontSize: 25,
+          fontSize: 20,
           color: color.primary
         }}>LOADING...</Text>
         <LottieView
