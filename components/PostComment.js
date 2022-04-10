@@ -4,7 +4,7 @@ import color from '../contains/color'
 
 const PostComment = (props) => {
     return (
-        <View style={[styles.container, {marginLeft: props.leftMargin}]}>
+        <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
                 <View style={styles.avatarAndNameViewCommenter}>
                     <View style={styles.avatarFrameCommenter}>
@@ -22,7 +22,7 @@ const PostComment = (props) => {
                 </View>
                 <Text style={styles.firstCommentText}>{props.contentComment}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onReplyPress}>
                 <Text style={styles.replyButton}>Reply</Text>
             </TouchableOpacity>
         </View>

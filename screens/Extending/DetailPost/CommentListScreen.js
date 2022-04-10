@@ -1,10 +1,30 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import PostComment from '../../../components/PostComment'
 import color from '../../../contains/color'
 import InputComment from '../../../components/InputComment'
 
 const CommentListScreen = () => {
+
+    const [isReplyPress, setIsReplyPress] = useState(false)
+    const [nameUser, setNameUser] = useState('')
+
+    const handleReplyPress = (nameUserComment) => {
+        if (isReplyPress == false) {
+            setIsReplyPress(true)
+            setNameUser(nameUserComment)
+        }
+    }
+
+    const handleCloseReplying = () => {
+        if (isReplyPress == true) {
+            setIsReplyPress(false)
+        }
+        else if (isReplyPress == false) {
+            setIsReplyPress(true)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -14,6 +34,7 @@ const CommentListScreen = () => {
                         nameCommenter='khoa_food_talk'
                         timeComment='30 minutes ago'
                         contentComment='Wow ! Congratulation. I want it'
+                        onReplyPress={() => handleReplyPress('khoa_food_talk')}
                     />
                     <PostComment
                         avatar='https://i.pinimg.com/736x/00/5d/6a/005d6a1a3f1570f69d05890fdc108b22.jpg'
@@ -58,7 +79,18 @@ const CommentListScreen = () => {
                 </View>
             </ScrollView>
             <View style={styles.commentTypeView}>
-                <InputComment />
+                {
+                    isReplyPress ?
+                        <InputComment
+                            nameUserReply={nameUser}
+                            onCloseReply={handleCloseReplying}
+                        />
+                        :
+                        <InputComment
+                            nameUserReply='none'
+                            displayReply='none'
+                        />
+                }
             </View>
         </View>
     )

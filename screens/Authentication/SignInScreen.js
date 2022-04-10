@@ -74,6 +74,7 @@ const SignInScreen = ({ navigation }) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: color.background
       }}>
         <Text style={{
           fontSize: 20,
