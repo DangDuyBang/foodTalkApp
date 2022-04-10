@@ -4,8 +4,17 @@ import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
-import * as Animatable from 'react-native-animatable';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+// 
+//                                                                       \              /
+//                                                                         \           /
+//                                                                           \        /  
+//    screen này bỏ nha                                                        \     /
+//    Để có gì tui xóa sau                                                       \  /
+//                                                                                 /
+//                                                                                /  \
+//                                                                               /     \
+//                                                                              /        \
 
 const CreatePostScreen = ({ navigation }) => {
     

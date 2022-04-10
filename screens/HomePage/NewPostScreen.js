@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
@@ -7,9 +7,19 @@ import SubmitNoLogo from '../../components/SubmitNoLogo'
 
 const NewPostScreen = ({ navigation }) => {
 
+    const [mode, setMode] = useState(true)
+
+    const eventChangeMode = () => {
+        if (mode == false) {
+            setMode(true)
+        } else if (mode == true) {
+            setMode(false)
+        }
+    }
+
     const eventRecipeAttached = () => {
         navigation.navigate('RecipeAttached')
-      }
+    }
 
     return (
         <View style={styles.container}>
@@ -33,11 +43,23 @@ const NewPostScreen = ({ navigation }) => {
                         </View>
                         <View style={styles.nameUserView}>
                             <Text style={styles.nameUserText}>nntan_food_talk</Text>
-                            <View style={styles.modeFrame}>
-                                <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
-                                <Text style={styles.textModePost}>Public</Text>
-                                <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
-                            </View>
+                            <TouchableOpacity onPress={eventChangeMode}>
+                                {
+                                    mode ?
+                                        <View style={styles.modeFrame}>
+                                            <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
+                                            <Text style={styles.textModePost}>Public</Text>
+                                            <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+                                        </View>
+                                        :
+                                        <View style={styles.modeFrame}>
+                                            <Ionicons style={styles.iconModePost} name='lock-closed' size={15} color={color.textIconSmall}></Ionicons>
+                                            <Text style={styles.textModePost}>Private</Text>
+                                            <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+                                        </View>
+                                }
+
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <TextInput

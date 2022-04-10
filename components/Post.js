@@ -8,7 +8,9 @@ import LottieView from 'lottie-react-native'
 
 const Post = (props) => {
 
-    const [isLiked, setIsLiked] = useState(false)
+    const [isFollow, setIsFollow] = useState(props.isFollow)
+
+    const [isLiked, setIsLiked] = useState(props.isLiked)
 
     const animation = React.useRef(null);
     const isFirstRun = React.useRef(true);
@@ -36,6 +38,14 @@ const Post = (props) => {
         }
     }
 
+    const followEvent = () => {
+        if (isFollow == false) {
+            setIsFollow(true)
+        } else if (isFollow == true) {
+            setIsFollow(false)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topPost}>
@@ -53,7 +63,13 @@ const Post = (props) => {
                         <Text style={styles.timePost}>{props.timePost}</Text>
                     </View>
                 </View>
-                <Text style={styles.followText}>Follow</Text>
+                <TouchableOpacity onPress={followEvent}>
+                    {
+                        isFollow ?
+                            <Text style={styles.followText}>Follow</Text>
+                            : <Text style={[styles.followText, { color: color.textIconSmall }]}>Following</Text>
+                    }
+                </TouchableOpacity>
             </View>
             <View style={styles.contentPost}>
                 <View style={styles.imageFrame}>
@@ -92,7 +108,7 @@ const Post = (props) => {
                     <AntDesign name='book' size={22} color={color.primary}></AntDesign>
                 </View>
             </View>
-            <View style={styles.botPost}>
+            <View style={[styles.botPost, {display: props.firstComment}]}>
                 <View style={styles.avatarAndNameViewCommenter}>
                     <View style={styles.avatarFrameCommenter}>
                         <Image

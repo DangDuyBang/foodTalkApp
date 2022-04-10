@@ -76,10 +76,11 @@ const HomeScreen = ({ navigation }) => {
             avatarCommenter={ImagePic.avatar_commenter_first}
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
-            contentComment='Wow ! Congratulation. I want it' 
+            contentComment='Wow ! Congratulation. I want it'
             onCommentList={eventOpenCommentList}
-            //isLiked = {true}
-            />
+            isLiked = {true}
+            isFollow={false}
+          />
           <Post
             avatar={ImagePic.avatar_user_second}
             nameUser='cho_food_talk'
@@ -87,13 +88,15 @@ const HomeScreen = ({ navigation }) => {
             imagePost={ImagePic.imagePost_second}
             caption='Hi, this is a first time'
             heartCount='12'
-            commentCount='3'
+            commentCount='0'
             avatarCommenter={ImagePic.avatar_commenter_second}
             nameCommenter='ga_food_talk'
             timeComment='25 minutes ago'
-            contentComment='Hmmm! Look great !' 
-            //isLiked = {false}
-            />
+            contentComment='Hmmm! Look great !'
+            isLiked = {false}
+            isFollow={true}
+            firstComment='none'
+          />
           {/* <Post
             avatar={ImagePic.avatar_user_third}
             nameUser='jerry_food_talk'
