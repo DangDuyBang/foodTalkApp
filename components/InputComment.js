@@ -1,9 +1,21 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 const InputComment = (props) => {
+
+    const [comment, setComment] = useState('')
+
+    const eventComment = () => {
+        if (comment.length === 0) {
+            alert('You need write something before sending !');
+            return false;
+        }
+        props.onAddComment(comment);
+        setComment('')
+    }
+
     return (
         <View style={styles.container}>
             <View style={[
@@ -27,6 +39,9 @@ const InputComment = (props) => {
                 justifyContent: 'space-between',
             }}>
                 <TextInput
+                    value={comment}
+                    onChangeText={(text) => setComment(text)}
+                    maxLength={100}
                     style={{
                         backgroundColor: color.inputColor,
                         marginBottom: 20,
@@ -39,7 +54,7 @@ const InputComment = (props) => {
                     }}
                     placeholder="Write comment ..."
                 />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={eventComment}>
                     <FontAwesome style={styles.sendIcon} name='send-o' size={26} color={color.primary}></FontAwesome>
                 </TouchableOpacity>
             </View>
