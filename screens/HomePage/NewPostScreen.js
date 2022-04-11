@@ -24,7 +24,7 @@ const NewPostScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.navigate('Home') }}>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
                 </TouchableOpacity>
                 <Text style={styles.topText}>Create A New Post</Text>

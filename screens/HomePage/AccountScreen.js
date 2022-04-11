@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext, useCallback, useState } from 'react'
 import color from '../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
 import PrivatePostScreen from './PrivatePostScreen'
@@ -166,9 +166,32 @@ const AccountScreen = ({ navigation }) => {
               </View>
             </View>
 
-            <Text style={styles.aboutText}>My passion is cooking</Text>
-
+            <Text style={styles.aboutText}>
+              Phường Tân Phú, Quận 7, Tp Hồ Chí Minh {'\n'}
+              Tel: +84 28 54147667 {'\n'}
+              Fax: +84 28 54147557
+            </Text>
           </View>
+
+          <TouchableOpacity>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 10
+            }}>
+              <AntDesign name='book' size={20} color={color.primary}></AntDesign>
+              <Text style={{
+                fontFamily: 'Roboto',
+                color: color.primary,
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginLeft: 5
+              }}>
+                Recipe
+              </Text>
+            </View>
+          </TouchableOpacity>
 
           <Tab.Navigator tabBarOptions={{
             showLabel: false,
@@ -334,10 +357,10 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     textAlign: 'center',
-    marginTop: 35,
+    marginVertical: 35,
     fontFamily: 'Roboto',
     fontSize: 15,
-    marginBottom: 50,
+    marginHorizontal: 30
   },
   panel: {
     backgroundColor: color.background,

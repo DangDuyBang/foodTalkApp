@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
-import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
+import { Ionicons, Entypo, FontAwesome, AntDesign } from '@expo/vector-icons'
 import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -27,7 +27,7 @@ const PersonalPageScreen = ({ navigation }) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <FontAwesome
                             name="arrow-left"
                             size={24}
@@ -120,8 +120,31 @@ const PersonalPageScreen = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <Text style={styles.aboutText}>I have many experience</Text>
+                    <Text style={styles.aboutText}>
+                        The application to "search" and "review" food locations
+                        in most of the provinces and cities in Vietnam such as Ho Chi Minh City,...
+                    </Text>
                 </View>
+
+                <TouchableOpacity>
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: 10
+                    }}>
+                        <AntDesign name='book' size={20} color={color.primary}></AntDesign>
+                        <Text style={{
+                            fontFamily: 'Roboto',
+                            color: color.primary,
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            marginLeft: 5
+                        }}>
+                            Recipe
+                        </Text>
+                    </View>
+                </TouchableOpacity>
 
                 <Tab.Navigator tabBarOptions={{
                     showLabel: false,
@@ -252,9 +275,9 @@ const styles = StyleSheet.create({
     },
     aboutText: {
         textAlign: 'center',
-        marginTop: 35,
+        marginVertical: 35,
         fontFamily: 'Roboto',
         fontSize: 15,
-        marginBottom: 50,
+        marginHorizontal: 30
     },
 })

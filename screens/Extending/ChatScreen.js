@@ -5,6 +5,17 @@ import { Ionicons } from '@expo/vector-icons'
 import ChatPreview from '../../components/ChatPreview'
 import InputSearch from '../../components/InputSearch'
 
+// 
+//                                                                       \              /
+//                                                                         \           /
+//                                                                           \        /  
+//    screen này bỏ nha                                                        \     /
+//    Để có gì tui xóa sau                                                       \  /
+//                                                                                 /
+//                                                                                /  \
+//                                                                               /     \
+//                                                                              /        \
+
 const ChatScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>

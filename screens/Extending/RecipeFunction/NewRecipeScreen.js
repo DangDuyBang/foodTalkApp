@@ -70,7 +70,7 @@ const NewRecipeScreen = ({ navigation }) => {
             />
             <View style={styles.topView}>
                 <View style={styles.topLeftView}>
-                    <TouchableOpacity onPress={() => { navigation.navigate('RecipeAttached') }}>
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
                         <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
                     </TouchableOpacity>
                     <Text style={styles.topText}>Create A New Recipe</Text>
