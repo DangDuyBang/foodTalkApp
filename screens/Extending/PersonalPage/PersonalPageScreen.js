@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Ionicons, Entypo, FontAwesome } from '@expo/vector-icons'
 import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
@@ -9,6 +9,17 @@ import PublicPostScreen from './PublicPostScreen'
 const Tab = createMaterialTopTabNavigator();
 
 const PersonalPageScreen = ({ navigation }) => {
+
+    const [isFollowing, setIsFollowing] = useState(false)
+
+    const eventFollowing = () => {
+        if (isFollowing == false) {
+            setIsFollowing(true)
+        } else if (isFollowing == true) {
+            setIsFollowing(false)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -59,31 +70,53 @@ const PersonalPageScreen = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.chatFrame}>
-                        <TouchableOpacity>
-                            <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
-                        </TouchableOpacity>
-                    </View>
+                    {
+                        isFollowing ?
+                            <View style={styles.chatFrame}>
+                                <TouchableOpacity>
+                                    <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            null
+                    }
                 </View>
                 <View style={styles.bot}>
                     <View style={{
                         alignItems: 'center',
-                        marginTop: 10
+                        marginTop: 10,
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly'
                     }}>
-                        <SubmitNoLogo nameButton='Follow' colorView={color.primary} colorName={color.background} />
+                        {
+                            isFollowing ?
+                                <SubmitNoLogo
+                                    eventButton={eventFollowing}
+                                    nameButton='Following'
+                                    colorView={color.inputColor}
+                                    colorName={color.textIconSmall}
+                                />
+                                :
+                                <SubmitNoLogo
+                                    eventButton={eventFollowing}
+                                    nameButton='Follow'
+                                    colorView={color.primary}
+                                    colorName={color.background}
+                                />
+                        }
                     </View>
                     <View style={styles.followView}>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Following</Text>
-                            <Text style={styles.followNumberText}>0</Text>
+                            <Text style={styles.followNumberText}>10</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Follower</Text>
-                            <Text style={styles.followNumberText}>0</Text>
+                            <Text style={styles.followNumberText}>20</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Like</Text>
-                            <Text style={styles.followNumberText}>0</Text>
+                            <Text style={styles.followNumberText}>50</Text>
                         </View>
                     </View>
 
