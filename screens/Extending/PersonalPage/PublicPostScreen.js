@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import color from '../../contains/color'
-import PostInAccount from '../../components/PostInAccount'
+import color from '../../../contains/color'
+import PostInAccount from '../../../components/PostInAccount'
 
 const ImagePic = {
     imagePost_first: 'https://i.pinimg.com/564x/3f/32/94/3f32941eb6f31b5b7b972da29aefa329.jpg',
@@ -13,17 +13,18 @@ const ImagePic = {
     imagePost_seventh: 'https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg',
 }
 
-const ComunityPostScreen = () => {
+const PublicPostScreen = () => {
     return (
         <View style={styles.container}>
             <PostInAccount imagePostInAccount={ImagePic.imagePost_first} />
             <PostInAccount imagePostInAccount={ImagePic.imagePost_fith} />
             <PostInAccount imagePostInAccount={ImagePic.imagePost_seventh} />
+            <PostInAccount imagePostInAccount={ImagePic.imagePost_sixth} />
         </View>
     )
 }
 
-export default ComunityPostScreen
+export default PublicPostScreen
 
 const styles = StyleSheet.create({
     container: {
@@ -33,6 +34,5 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         flexDirection: 'row-reverse',
         flexWrap: 'wrap-reverse',
-        paddingTop: 110,
     },
 })

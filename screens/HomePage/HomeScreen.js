@@ -48,6 +48,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('CommentList')
   }
 
+  const eventToPersonalPage = () => {
+    navigation.navigate('PersonalPage')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -67,7 +71,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.body}>
           <Post
             avatar={ImagePic.avatar_user_first}
-            nameUser='tan_food_talk'
+            nameUser='bbang_food_talk'
             timePost='1 hour ago'
             imagePost={ImagePic.imagePost_first}
             caption='It`s delicous ! Invite everyone'
@@ -78,8 +82,9 @@ const HomeScreen = ({ navigation }) => {
             timeComment='30 minutes ago'
             contentComment='Wow ! Congratulation. I want it'
             onCommentList={eventOpenCommentList}
-            isLiked = {true}
+            isLiked={true}
             isFollow={false}
+            onPersonalPage={eventToPersonalPage}
           />
           <Post
             avatar={ImagePic.avatar_user_second}
@@ -93,7 +98,7 @@ const HomeScreen = ({ navigation }) => {
             nameCommenter='ga_food_talk'
             timeComment='25 minutes ago'
             contentComment='Hmmm! Look great !'
-            isLiked = {false}
+            isLiked={false}
             isFollow={true}
             firstComment='none'
           />

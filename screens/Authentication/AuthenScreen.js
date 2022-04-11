@@ -17,6 +17,7 @@ import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import CommentListScreen from '../Extending/DetailPost/CommentListScreen';
+import PersonalPageScreen from '../Extending/PersonalPage/PersonalPageScreen';
 
 const Stack = createStackNavigator();
 
@@ -146,6 +147,7 @@ const AuthenScreen = () => {
             ...customTransition,
           }}
         />
+        <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

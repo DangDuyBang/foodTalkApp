@@ -50,14 +50,16 @@ const Post = (props) => {
         <View style={styles.container}>
             <View style={styles.topPost}>
                 <View style={styles.avatarAndNameView}>
-                    <View style={styles.avatarFrame}>
-                        <Image
-                            style={styles.avatar}
-                            source={{
-                                uri: props.avatar,
-                            }}
-                        />
-                    </View>
+                    <TouchableOpacity onPress={props.onPersonalPage}>
+                        <View style={styles.avatarFrame}>
+                            <Image
+                                style={styles.avatar}
+                                source={{
+                                    uri: props.avatar,
+                                }}
+                            />
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.nameAndTimeView}>
                         <Text style={styles.nameUserText}>{props.nameUser}</Text>
                         <Text style={styles.timePost}>{props.timePost}</Text>
@@ -108,7 +110,7 @@ const Post = (props) => {
                     <AntDesign name='book' size={22} color={color.primary}></AntDesign>
                 </View>
             </View>
-            <View style={[styles.botPost, {display: props.firstComment}]}>
+            <View style={[styles.botPost, { display: props.firstComment }]}>
                 <View style={styles.avatarAndNameViewCommenter}>
                     <View style={styles.avatarFrameCommenter}>
                         <Image
