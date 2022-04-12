@@ -8,12 +8,12 @@ import InputSearch from '../../../components/InputSearch'
 const data = [
     {
         id: '1',
-        chatAvatar: 'https://i.pinimg.com/564x/80/5a/bc/805abceef60e44441973971436765310.jpg',
+        chatAvatar: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
         nameUser: 'Dang Duy Bang',
         chatRecently: "How much is it? How much is it? How much is it? How much is it?",
         chatTime: '23:01 Today',
-        colorHigh: 'black',
-        bold: 'bold'
+        Seen: false,
+        Online: true
     },
     {
         id: '2',
@@ -21,7 +21,8 @@ const data = [
         nameUser: "Dinh Minh Thuy",
         chatRecently: "Can you revew this product? How much is it? How much is it? How much is it?",
         chatTime: "12:26 Today",
-        colorHigh: 'gray'
+        Seen: true,
+        Online: false
     },
     {
         id: '3',
@@ -29,7 +30,8 @@ const data = [
         nameUser: "Dinh Thi Bao Chau",
         chatRecently: "Yeah, I agree with you",
         chatTime: "07:11 Today",
-        colorHigh: 'gray'
+        Seen: false,
+        Online: false
     },
     {
         id: '4',
@@ -37,8 +39,8 @@ const data = [
         nameUser: "Doraemon",
         chatRecently: "Hello, I have a question for you.How much is it? How much is it? How much is it?",
         chatTime: "17:26 Tue",
-        colorHigh: 'black',
-        bold: 'bold'
+        Seen: false,
+        Online: true
     },
     {
         id: '5',
@@ -46,7 +48,8 @@ const data = [
         nameUser: "Dang Tram Anh",
         chatRecently: "It's too expensive",
         chatTime: "12:26 Mon",
-        colorHigh: 'gray'
+        Seen: true,
+        Online: false
     },
     {
         id: '6',
@@ -55,32 +58,9 @@ const data = [
         chatRecently: "What is it?",
         chatTime: "22:26 Sun",
         colorHigh: 'black',
-        bold: 'bold'
+        Seen: true,
+        Online: true
     }, // Dot
-    {
-        id: '7',
-        chatAvatar: 'https://i.pinimg.com/564x/7f/fe/43/7ffe43bdb745f58931f01284710d1cc9.jpg',
-        nameUser: "Dang Tram Anh",
-        chatRecently: "It's too expensive",
-        chatTime: "12:26 Mon",
-        colorHigh: 'gray'
-    },
-    {
-        id: '8',
-        chatAvatar: 'https://i.pinimg.com/564x/7f/fe/43/7ffe43bdb745f58931f01284710d1cc9.jpg',
-        nameUser: "Dang Tram Anh",
-        chatRecently: "It's too expensive",
-        chatTime: "12:26 Mon",
-        colorHigh: 'gray'
-    },
-    {
-        id: '9',
-        chatAvatar: 'https://i.pinimg.com/564x/7f/fe/43/7ffe43bdb745f58931f01284710d1cc9.jpg',
-        nameUser: "Dang Tram Anh",
-        chatRecently: "It's too expensive",
-        chatTime: "12:26 Mon",
-        colorHigh: 'gray'
-    },
 ]
 
 const ChatListScreen = ({ navigation }) => {

@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons } from '@expo/vector-icons'
 
 const ChatPreview = (props) => {
+
+    const [isOnline, setIsOnline] = useState(props.data.Online)
+
+    const [isSeen, setIsSeen] = useState(props.data.Seen)
+
     const rightSwipe = () => {
         return (
             <TouchableOpacity onPress={props.deleteChatEvent} activeOpacity={0.5}>
@@ -27,7 +32,12 @@ const ChatPreview = (props) => {
                                 }}
                             />
                         </View>
-                        <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
+                        {
+                            isOnline ?
+                                <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
+                                :
+                                null
+                        }
                         <View style={styles.textContain}>
                             <Text style={styles.chatUsername}>{props.data.nameUser}</Text>
                             <View style={{
@@ -35,30 +45,66 @@ const ChatPreview = (props) => {
                                 justifyContent: 'space-between',
                                 alignItems: 'center'
                             }}>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    width: '81%'
-                                }}>
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}>
-                                        <Text style={[
-                                            styles.chatRecently,
-                                            { color: props.data.colorHigh },
-                                            { fontWeight: props.data.bold }]}
-                                            numberOfLines={1}
-                                        >
-                                            {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
-                                        </Text>
-                                        <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
-                                            ●
-                                        </Text>
-                                        <Text style={styles.timeRecentlyChat}>
-                                            Dec 18
-                                        </Text>
-                                    </View>
-                                </View>
+                                {
+                                    isSeen ?
+                                        <View style={{
+                                            flexDirection: 'row',
+                                            width: '81%'
+                                        }}>
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                            }}>
+                                                <Text style={[
+                                                    styles.chatRecently,
+                                                    { color: color.textGray },
+                                                ]}
+                                                    numberOfLines={1}
+                                                >
+                                                    {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
+                                                </Text>
+                                                <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
+                                                    ●
+                                                </Text>
+                                                <Text style={[
+                                                    styles.timeRecentlyChat,
+                                                    { color: color.textGray },
+                                                ]}>
+                                                    Dec 18
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        :
+                                        <View style={{
+                                            flexDirection: 'row',
+                                            width: '81%'
+                                        }}>
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                            }}>
+                                                <Text style={[
+                                                    styles.chatRecently,
+                                                    { color: color.textBlack },
+                                                    { fontWeight: 'bold' }
+                                                ]}
+                                                    numberOfLines={1}
+                                                >
+                                                    {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
+                                                </Text>
+                                                <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
+                                                    ●
+                                                </Text>
+                                                <Text style={[
+                                                    styles.timeRecentlyChat,
+                                                    { color: color.textBlack },
+                                                    { fontWeight: 'bold' }
+                                                ]}>
+                                                    Dec 18
+                                                </Text>
+                                            </View>
+                                        </View>
+                                }
 
                                 <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} />
                             </View>
@@ -102,7 +148,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     chatUsername: {
-        color: 'black',
+        color: color.textBlack,
         fontWeight: 'bold',
         fontSize: 17,
     },
