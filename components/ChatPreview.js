@@ -40,13 +40,13 @@ const ChatPreview = (props) => {
                         }
                         <View style={styles.textContain}>
                             <Text style={styles.chatUsername}>{props.data.nameUser}</Text>
-                            <View style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                alignItems: 'center'
-                            }}>
-                                {
-                                    isSeen ?
+                            {
+                                isSeen ?
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
                                         <View style={{
                                             flexDirection: 'row',
                                             width: '81%'
@@ -74,7 +74,20 @@ const ChatPreview = (props) => {
                                                 </Text>
                                             </View>
                                         </View>
-                                        :
+                                        <Image
+                                            style={styles.seenAvatar}
+                                            source={{
+                                                uri: props.data.chatAvatar,
+                                            }}
+                                        />
+                                        {/* <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} /> */}
+                                    </View>
+                                    :
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
                                         <View style={{
                                             flexDirection: 'row',
                                             width: '81%'
@@ -104,10 +117,9 @@ const ChatPreview = (props) => {
                                                 </Text>
                                             </View>
                                         </View>
-                                }
-
-                                <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} />
-                            </View>
+                                        <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} />
+                                    </View>
+                            }
                         </View>
                     </View>
 
@@ -173,5 +185,10 @@ const styles = StyleSheet.create({
         color: color.textIconSmall,
         fontSize: 13,
         marginLeft: 5
+    },
+    seenAvatar: {
+        width: 16,
+        height: 16,
+        borderRadius: 20,
     }
 })
