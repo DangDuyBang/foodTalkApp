@@ -2,8 +2,15 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
+import InputPass from '../../../components/InputPass'
+import SubmitNoLogo from '../../../components/SubmitNoLogo'
 
 const ChangePasswordScreen = ({ navigation }) => {
+
+    const handleChangePassword = () => {
+        alert('Change Password Successfully')
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -11,6 +18,17 @@ const ChangePasswordScreen = ({ navigation }) => {
                     <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
                 </TouchableOpacity>
                 <Text style={styles.topText}>Change Password</Text>
+            </View>
+            <View style={styles.bodyView}>
+                <InputPass inputIconLeft='lock' inputName='Current Password' />
+                <InputPass inputIconLeft='lock' inputName='New Password' />
+                <InputPass inputIconLeft='lock' inputName='Confirm New Password' />
+                <SubmitNoLogo
+                    nameButton='Change Password'
+                    colorView={color.primary}
+                    colorName={color.background}
+                    eventButton={handleChangePassword}
+                />
             </View>
         </View>
     )
@@ -40,4 +58,8 @@ const styles = StyleSheet.create({
         color: color.textGray,
         marginLeft: 15
     },
+    bodyView: {
+        paddingTop: 20,
+        alignItems: 'center'
+    }
 })
