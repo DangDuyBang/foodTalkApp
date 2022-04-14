@@ -41,8 +41,6 @@ const useSignIn = () => {
 
                 const me = await fetchCurrentUser()
 
-                console.log(me);
-
                 userDispatch({type: 'SET_CURRENT_USER', payload: me.data.user})
 
                 setLoading(false)
