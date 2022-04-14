@@ -19,6 +19,12 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 import CommentListScreen from '../Extending/DetailPost/CommentListScreen';
 import PersonalPageScreen from '../Extending/PersonalPage/PersonalPageScreen';
 
+//import screen of SETTING
+import EditProfileScreen from '../Extending/Setting/EditProfileScreen';
+import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
+import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
+import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
+
 const Stack = createStackNavigator();
 
 const config = {
@@ -148,6 +154,10 @@ const AuthenScreen = () => {
           }}
         />
         <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+        <Stack.Screen name="Feedback" component={FeedbackScreen} />
+        <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

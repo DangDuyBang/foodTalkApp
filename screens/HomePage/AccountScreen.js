@@ -20,6 +20,26 @@ const AccountScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
+  const eventEditProfile = () => {
+    bs.current.snapTo(1)
+    navigation.navigate('EditProfile')
+  }
+
+  const eventChangePassword = () => {
+    bs.current.snapTo(1)
+    navigation.navigate('ChangePassword')
+  }
+
+  const eventFeedback = () => {
+    bs.current.snapTo(1)
+    navigation.navigate('Feedback')
+  }
+
+  const eventTermOfService = () => {
+    bs.current.snapTo(1)
+    navigation.navigate('TermOfService')
+  }
+
   const eventLogout = () => {
     Alert.alert("LOG OUT!", "Are you sure you want to log out of this Account?", [
       {
@@ -38,25 +58,25 @@ const AccountScreen = ({ navigation }) => {
         <View style={{ height: 4, width: 65, borderRadius: 100, backgroundColor: color.textIconSmall, marginTop: 15 }} />
         <Text onPress={() => bs.current.snapTo(1)} style={{ fontFamily: 'Roboto', fontSize: 22, fontWeight: 'bold', color: color.textGray }}>Setting</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={eventEditProfile}>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Edit Profile</Text>
           <Text style={styles.optionSetting}>{'>'}</Text>
         </View >
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={eventChangePassword}>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Change Password</Text>
           <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={eventFeedback}>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Feedback</Text>
           <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={eventTermOfService}>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Term of Service</Text>
           <Text style={styles.optionSetting}>{'>'}</Text>
@@ -139,7 +159,7 @@ const AccountScreen = ({ navigation }) => {
 
               <View style={styles.fullNameFrame}>
                 <Text style={styles.fullName}>{userState.currentUser.first_name + " " + userState.currentUser.last_name}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={eventEditProfile}>
                   <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
                 </TouchableOpacity>
               </View>
