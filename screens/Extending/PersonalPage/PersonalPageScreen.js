@@ -20,6 +20,10 @@ const PersonalPageScreen = ({ navigation }) => {
         }
     }
 
+    const eventDetailChat = () => {
+        navigation.navigate('DetailChat')
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.top}>
@@ -73,7 +77,7 @@ const PersonalPageScreen = ({ navigation }) => {
                     {
                         isFollowing ?
                             <View style={styles.chatFrame}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={eventDetailChat}>
                                     <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
                                 </TouchableOpacity>
                             </View>

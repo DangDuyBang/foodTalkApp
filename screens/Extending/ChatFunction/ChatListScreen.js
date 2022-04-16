@@ -73,6 +73,10 @@ const ChatListScreen = ({ navigation }) => {
         setLists(arr);
     }
 
+    const eventDetailChat = () => {
+        navigation.navigate('DetailChat')
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -86,7 +90,7 @@ const ChatListScreen = ({ navigation }) => {
                 <FlatList
                     data={lists}
                     renderItem={({ item, index }) => {
-                        return <ChatPreview data={item} deleteChatEvent={() => deleteItem(index)} />
+                        return <ChatPreview data={item} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />
                     }}
                 />
             </SafeAreaView>

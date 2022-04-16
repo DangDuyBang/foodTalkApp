@@ -10,7 +10,11 @@ import SplashScreen from '../Onboarding/SplashScreen';
 import LoadingScreen from '../Onboarding/LoadingScreen'
 import NewPostScreen from '../HomePage/NewPostScreen';
 import ChatScreen from '../Extending/ChatScreen';
+
+//import screen of CHAT
 import ChatNavigationScreen from '../Extending/ChatFunction/ChatNavigationScreen';
+import DetailChatScreen from '../Extending/ChatFunction/DetailChatScreen';
+
 import { Easing } from 'react-native-reanimated';
 import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen';
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
@@ -153,6 +157,7 @@ const AuthenScreen = () => {
             ...customTransition,
           }}
         />
+        <Stack.Screen name="DetailChat" component={DetailChatScreen} />
         <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />

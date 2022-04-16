@@ -21,7 +21,7 @@ const ChatPreview = (props) => {
     }
     return (
         <Swipeable renderRightActions={rightSwipe}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onDetailChat}>
                 <View style={styles.container} >
                     <View style={styles.avatarAndName}>
                         <View style={styles.chatAvatarFrame}>
