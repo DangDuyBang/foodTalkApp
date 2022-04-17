@@ -1,11 +1,25 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import InputSearch from '../../../components/InputSearch'
 import RecipePreview from '../../../components/RecipePreview'
+import RecipePreviewPlus from '../../../components/RecipePreviewPlus'
+import RecipeChosen from '../../../components/RecipeChosen'
 
 const RecipeAttachedScreen = ({ navigation }) => {
+
+    const [foodList, setFoodList] = useState([])
+
+    const handlePlusAttachedRecipe = (food) => {
+        setFoodList([...foodList, food])
+    }
+
+    const handleMinusAttachedRecipe = (index) => {
+        let foodListTemp = [...foodList]
+        foodListTemp.splice(index, 1)
+        setFoodList(foodListTemp)
+    }
 
     const eventNewRecipe = () => {
         navigation.navigate('NewRecipe')
@@ -36,22 +50,36 @@ const RecipeAttachedScreen = ({ navigation }) => {
             </View>
             <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} />
             <ScrollView>
-                <View style={styles.body}>
-                    <RecipePreview
+                <View style={styles.bodyView}>
+                    <RecipePreviewPlus
                         imageRecipe="https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg"
                         nameRecipe="Pizza"
                         authorRecipe="Dang Duy Bang"
                         markRecipe="4.5"
                         eventDetailRecipe={eventDetailRecipe}
+                        onAddAttachedRecipe={handlePlusAttachedRecipe}
                     />
-                    <RecipePreview
+                    <RecipePreviewPlus
                         imageRecipe="https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg"
                         nameRecipe="Beef steak"
                         authorRecipe="Nguyen Nhut Tan"
                         markRecipe="4.5"
+                        onAddAttachedRecipe={handlePlusAttachedRecipe}
                     />
                 </View>
             </ScrollView>
+
+            <View style={styles.botView}>
+                <ScrollView horizontal={true}>
+                    <View style={styles.recipeChosenView}>
+                        {
+                            foodList.map((item, index) => {
+                                return <RecipeChosen key={index} foodName={item} onDeleteAttachedRecipe={() => handleMinusAttachedRecipe(index)} />
+                            })
+                        }
+                    </View>
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -92,5 +120,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: color.textGray,
         marginLeft: 15
+    },
+    bodyView: {
+
+    },
+    botView: {
+        flexDirection: 'row',
+        borderTopWidth: 2,
+        borderTopColor: color.inputColor,
+        //paddingVertical: 10
+    },
+    recipeChosenView: {
+        flexDirection: 'row',
+        paddingLeft: 20,
+        //paddingVertical: 15
     },
 })
