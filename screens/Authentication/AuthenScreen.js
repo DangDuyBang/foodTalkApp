@@ -28,6 +28,7 @@ import EditProfileScreen from '../Extending/Setting/EditProfileScreen';
 import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
 import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
 import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
+import IMLocationSelectorModal from '../Extending/Map/Map';
 
 const Stack = createStackNavigator();
 
@@ -163,6 +164,8 @@ const AuthenScreen = () => {
         <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
         <Stack.Screen name="Feedback" component={FeedbackScreen} />
         <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
+
+        <Stack.Screen name="Map" component={IMLocationSelectorModal} />
       </Stack.Navigator>
     </NavigationContainer>
   )
