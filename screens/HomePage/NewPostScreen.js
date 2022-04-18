@@ -21,6 +21,19 @@ const NewPostScreen = ({ navigation }) => {
         navigation.navigate('RecipeAttached')
     }
 
+    const onCancel = () => {
+        navigation.goBack()
+    }
+
+    const onDone = (address) => {
+        //get Address hear 
+        navigation.goBack()
+    }
+
+    const onPressCheckIn = () => {
+        navigation.navigate('Map', {onCancel: onCancel,onDone: onDone})
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -92,7 +105,7 @@ const NewPostScreen = ({ navigation }) => {
                         <Text style={styles.textFunct}>Picture</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onPressCheckIn}>
                     <View style={styles.addPositionView}>
                         <MaterialIcons style={styles.iconModePost} name='place' size={30} color={color.errorColor}></MaterialIcons>
                         <Text style={styles.textFunct}>Check in</Text>
