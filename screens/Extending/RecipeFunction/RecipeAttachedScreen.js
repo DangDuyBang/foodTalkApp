@@ -7,6 +7,24 @@ import RecipePreview from '../../../components/RecipePreview'
 import RecipePreviewPlus from '../../../components/RecipePreviewPlus'
 import RecipeChosen from '../../../components/RecipeChosen'
 
+
+const data = [
+    {
+        id: '0',
+        imageRecipe: "https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg",
+        nameRecipe: "Pizza",
+        authorRecipe: "Dang Duy Bang",
+        markRecipe: "4.5",
+    },
+    {
+        id: '1',
+        imageRecipe: "https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg",
+        nameRecipe: "Beef steak",
+        authorRecipe: "Nguyen Nhut Tan",
+        markRecipe: "4.5",
+    }
+]
+
 const RecipeAttachedScreen = ({ navigation }) => {
 
     const [foodList, setFoodList] = useState([])
@@ -15,17 +33,17 @@ const RecipeAttachedScreen = ({ navigation }) => {
         setFoodList([...foodList, food])
     }
 
-    const handleMinusAttachedRecipe = (index) => {
-        let foodListTemp = [...foodList]
-        foodListTemp.splice(index, 1)
-        setFoodList(foodListTemp)
+    const handleMinusAttachedRecipe = (obj) => {
+        // let foodListTemp = [...foodList]
+        const data =  foodList.filter(value => value != obj)
+        setFoodList(data)
     }
 
     const eventNewRecipe = () => {
         navigation.navigate('NewRecipe')
     }
 
-    const eventDetailRecipe = () => {
+    const handleDetailRecipe = () => {
         navigation.navigate('DetailRecipe')
     }
 
@@ -51,21 +69,15 @@ const RecipeAttachedScreen = ({ navigation }) => {
             <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} />
             <ScrollView>
                 <View style={styles.bodyView}>
-                    <RecipePreviewPlus
-                        imageRecipe="https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg"
-                        nameRecipe="Pizza"
-                        authorRecipe="Dang Duy Bang"
-                        markRecipe="4.5"
-                        eventDetailRecipe={eventDetailRecipe}
-                        onAddAttachedRecipe={handlePlusAttachedRecipe}
-                    />
-                    <RecipePreviewPlus
-                        imageRecipe="https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg"
-                        nameRecipe="Beef steak"
-                        authorRecipe="Nguyen Nhut Tan"
-                        markRecipe="4.5"
-                        onAddAttachedRecipe={handlePlusAttachedRecipe}
-                    />
+                    {data.map(recipe => (
+                        <RecipePreviewPlus
+                            key={recipe.id} data={recipe}
+                            foodList={foodList}
+                            onAddAttachedRecipe={handlePlusAttachedRecipe}
+                            onMinusAttachedRecipe={handleMinusAttachedRecipe}
+                            onDetailRecipe={handleDetailRecipe}
+                        />
+                    ))}
                 </View>
             </ScrollView>
 
@@ -133,7 +145,7 @@ const RecipeAttachedScreen = ({ navigation }) => {
                     <View style={styles.recipeChosenView}>
                         {
                             foodList.map((item, index) => {
-                                return <RecipeChosen key={index} foodName={item} onDeleteAttachedRecipe={() => handleMinusAttachedRecipe(index)} />
+                                return <RecipeChosen key={index} foodName={item} onDeleteAttachedRecipe={handleMinusAttachedRecipe} />
                             })
                         }
                     </View>

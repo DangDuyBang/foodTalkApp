@@ -1,27 +1,22 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import color from '../contains/color'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 
-const RecipePreviewPlus = (props) => {
+const RecipePreviewPlus = (props) => { 
 
-    const [food, setFood] = useState(props.nameRecipe)
-
-    const [isAttached, setIsAttached] = useState(false)
-
-    const eventAttachedRecipe = () => {
-        if (isAttached == true) {
-            setIsAttached(false)
-        } else if (isAttached == false) {
-            setIsAttached(true)
-            props.onAddAttachedRecipe(food)
-
+    const isOnFoodList = (foodList) => {
+        const index = foodList.findIndex(food => food.id === props.data.id)
+        if (index !== -1) {
+            return true
         }
+        return false
     }
+
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={props.eventDetailRecipe}>
+            <TouchableOpacity onPress = {props.onDetailRecipe}>
                 <View style={styles.recipeView}>
                     <View style={styles.infoPostUser}>
                         <View style={styles.avatarFrame}>
@@ -29,29 +24,29 @@ const RecipePreviewPlus = (props) => {
                                 style={styles.avatarImage}
                                 resizeMode='stretch'
                                 source={{
-                                    uri: props.imageRecipe,
+                                    uri: props.data.imageRecipe,
                                 }}
                             />
                         </View>
                         <View style={styles.nameUserView}>
-                            <Text style={styles.nameUserText}>{props.nameRecipe}</Text>
-                            <Text style={styles.textModePost}>Made by {props.authorRecipe}</Text>
+                            <Text style={styles.nameUserText}>{props.data.nameRecipe}</Text>
+                            <Text style={styles.textModePost}>Made by {props.data.authorRecipe}</Text>
                         </View>
                     </View>
                     <View style={styles.rateStarView}>
-                        <Text style={styles.markText}>{props.markRecipe}</Text>
+                        <Text style={styles.markText}>{props.data.markRecipe}</Text>
                         <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
                     </View>
                 </View>
             </TouchableOpacity>
 
             {
-                isAttached ?
-                    <TouchableOpacity onPress={eventAttachedRecipe}>
+                isOnFoodList(props.foodList) ?
+                    <TouchableOpacity onPress = {() => props.onMinusAttachedRecipe(props.data)}>
                         <AntDesign name='minuscircleo' size={24} color={color.errorColor}></AntDesign>
                     </TouchableOpacity>
                     :
-                    <TouchableOpacity onPress={eventAttachedRecipe}>
+                    <TouchableOpacity onPress={() => props.onAddAttachedRecipe(props.data)}>
                         <AntDesign name='pluscircleo' size={24} color={color.textIconSmall}></AntDesign>
                     </TouchableOpacity>
             }
