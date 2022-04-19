@@ -84,12 +84,12 @@ export const UserReducer = (state, action) => {
                 ...state,
               }
 
-        case 'FRIEND_LOGIN':
-            let id2_friend = state.currentUser.friends.findIndex(
+        case 'FOLLOWER_LOGIN':
+            let id2_friend = state.currentUser.follower.findIndex(
                 (user) => user.id == action.payload,
             )
             if (id2_friend !== -1) {
-                state.currentUser.friends[id2_friend].is_current = true
+                state.currentUser.follower[id2_friend].is_current = true
             }
             return {
                 ...state,
