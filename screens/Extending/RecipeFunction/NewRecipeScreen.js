@@ -26,7 +26,7 @@ const NewRecipeScreen = ({ navigation }) => {
                     Upload Photo
                 </Text>
             </View>
-            <TouchableOpacity onPress = {() => openImagePickerAsync(true, bs.current.snapTo(1))}>
+            <TouchableOpacity onPress={() => openImagePickerAsync(true, bs.current.snapTo(1))}>
                 <View style={styles.frameOptionSetting}>
                     <Text style={styles.optionSetting}>Take Photo</Text>
                 </View >
@@ -108,6 +108,7 @@ const NewRecipeScreen = ({ navigation }) => {
                             }}
                         />
                         <Text style={styles.ingredientTittle}>Ingredients</Text>
+                        
                         <View>
                             {
                                 ingredientList.map((item, index) => {
