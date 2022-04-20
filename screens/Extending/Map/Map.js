@@ -11,7 +11,7 @@ const locationDelta = { latitudeDelta: 0.0922, longitudeDelta: 0.0421 };
 const googleApiKey = 'AIzaSyCc-7cU3-_x1VTV5eW3g2pVnl3vi9lvv7w';
 
 function IMLocationSelectorModal({route, navigation}) {
-    const {    onCancel, isVisible, onDone } = route.params
+    const {  onCancel, isVisible, onDone } = route.params
     const ref = useRef(null)
     const {region, setRegion, address, setAddress, onMapMarkerDragEnd, setLocationDetails, onLocationChange, onPressClearButton
     } = useMapHooks(ref)
@@ -34,7 +34,7 @@ function IMLocationSelectorModal({route, navigation}) {
           <View style={styles.rightButtonContainer}>
             <TextButton
               style={styles.buttonText}
-              onPress={() => onDone(address)}>
+              onPress={() => onDone(address, region)}>
               Done
             </TextButton>
           </View>

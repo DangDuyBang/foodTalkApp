@@ -25,9 +25,16 @@ const data = [
     }
 ]
 
-const RecipeAttachedScreen = ({ navigation }) => {
+const RecipeAttachedScreen = ({ navigation, route }) => {
+
+    const { onConfirm } = route.params
 
     const [foodList, setFoodList] = useState([])
+
+    const handleConfirm = () => {
+        onConfirm(foodList)
+        navigation.goBack()
+    }
 
     const handlePlusAttachedRecipe = (food) => {
         setFoodList([...foodList, food])
@@ -35,7 +42,7 @@ const RecipeAttachedScreen = ({ navigation }) => {
 
     const handleMinusAttachedRecipe = (obj) => {
         // let foodListTemp = [...foodList]
-        const data =  foodList.filter(value => value != obj)
+        const data = foodList.filter(value => value != obj)
         setFoodList(data)
     }
 
@@ -115,7 +122,7 @@ const RecipeAttachedScreen = ({ navigation }) => {
                         paddingRight: 10,
                         alignItems: 'flex-end',
                     }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleConfirm}>
                             <View style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',

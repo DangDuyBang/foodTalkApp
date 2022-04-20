@@ -1,39 +1,19 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
+import { useCreatePost } from './hooks/useCreatePost'
+import { UserContext} from '../../providers/UserProvider'
 
 const NewPostScreen = ({ navigation }) => {
+    //cập nhật thêm checkin với foods
 
-    const [mode, setMode] = useState(true)
+    const {isPublic, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange} = useCreatePost({navigation})
 
-    const eventChangeMode = () => {
-        if (mode == false) {
-            setMode(true)
-        } else if (mode == true) {
-            setMode(false)
-        }
-    }
-
-    const eventRecipeAttached = () => {
-        navigation.navigate('RecipeAttached')
-    }
-
-    const onCancel = () => {
-        navigation.goBack()
-    }
-
-    const onDone = (address) => {
-        //get Address hear 
-        navigation.goBack()
-    }
-
-    const onPressCheckIn = () => {
-        navigation.navigate('Map', {onCancel: onCancel,onDone: onDone})
-    }
-
+    const { userState, userDispatch } = useContext(UserContext)
+ 
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -50,15 +30,15 @@ const NewPostScreen = ({ navigation }) => {
                                 style={styles.avatarImage}
                                 resizeMode='stretch'
                                 source={{
-                                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                                    uri: userState.currentUser.avatar_pic,
                                 }}
                             />
                         </View>
                         <View style={styles.nameUserView}>
-                            <Text style={styles.nameUserText}>nntan_food_talk</Text>
+                            <Text style={styles.nameUserText}>{userState.currentUser.username}</Text>
                             <TouchableOpacity onPress={eventChangeMode}>
                                 {
-                                    mode ?
+                                    isPublic ?
                                         <View style={styles.modeFrame}>
                                             <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
                                             <Text style={styles.textModePost}>Public</Text>
@@ -79,6 +59,7 @@ const NewPostScreen = ({ navigation }) => {
                         style={[styles.inputCaption]}
                         placeholder="Let's share your food"
                         multiline={true}
+                        onChangeText = {handleContentChange}
                     />
                     <SwipeSlide />
                     <View style={{

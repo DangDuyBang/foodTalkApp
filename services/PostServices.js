@@ -3,7 +3,7 @@ import { getStorage } from '../utils/Storage'
 
 
 /**
- * @param {payload} payload { foods, content, photos, location, is_public }
+ * @param {payload} payload { foods, content, photos, location: {name, lat, lng}, is_public }
  */
  export const createPost = async (payload) => {
     let token = await getStorage('@token')

@@ -21,10 +21,10 @@ export const initialPostState = {
 export const PostReducer = (state, action) => {
     switch (action.type) {
         case 'SET_POST':
-            return {...state, posts: action.payload}
-        
+            return { ...state, posts: action.payload }
+
         case 'ADD_POST':
-            return {...state, posts: [action.payload, ...state.posts]}
+            return { ...state, posts: [action.payload, ...state.posts] }
 
         case 'POST_PAGINATION':
             return {
@@ -38,7 +38,7 @@ export const PostReducer = (state, action) => {
             }
 
         case 'SET_CURRENT_POST':
-            return {...state, post: action.payload}
+            return { ...state, post: action.payload }
 
 
         case 'REMOVE_CURRENT_POST':
@@ -57,9 +57,9 @@ export const PostReducer = (state, action) => {
                     },
                 },
             }
-        
 
-        case 'SET_COMMENT_POST': 
+
+        case 'SET_COMMENT_POST':
             return {
                 ...state,
                 post: {
@@ -67,7 +67,7 @@ export const PostReducer = (state, action) => {
                     comments: action.payload
                 }
             }
-        
+
         case 'ADD_COMMENT_POST':
             return {
                 ...state,
@@ -77,7 +77,7 @@ export const PostReducer = (state, action) => {
                 }
             }
 
-        case 'SET_REACT_POST': 
+        case 'SET_REACT_POST':
             return {
                 ...state,
                 post: {
@@ -85,7 +85,7 @@ export const PostReducer = (state, action) => {
                     reacts: action.payload
                 }
             }
-        
+
         case 'ADD_REACT_POST':
             return {
                 ...state,
@@ -100,14 +100,14 @@ export const PostReducer = (state, action) => {
                 ...state,
                 post: {
                     ...state.post,
-                        commentPagination: {
-                            ...state.post.commentPagination,
-                            currentPage: action.payload.currentPage,
-                            totalPage: action.payload.totalPage,
-                        },
-                        comments: state.post.comments && state.post.comments.length 
-                            ? [...state.post.comments, ...action.payload.comments]
-                            : [...action.payload.comments],
+                    commentPagination: {
+                        ...state.post.commentPagination,
+                        currentPage: action.payload.currentPage,
+                        totalPage: action.payload.totalPage,
+                    },
+                    comments: state.post.comments && state.post.comments.length
+                        ? [...state.post.comments, ...action.payload.comments]
+                        : [...action.payload.comments],
                 }
             }
 
@@ -116,14 +116,14 @@ export const PostReducer = (state, action) => {
                 ...state,
                 post: {
                     ...state.post,
-                        reactPagination: {
-                            ...state.post.reactPagination,
-                            currentPage: action.payload.currentPage,
-                            totalPage: action.payload.totalPage,
-                        },
-                        comments: state.post.reacts && state.post.reacts.length 
-                            ? [...state.post.reacts, ...action.payload.reacts]
-                            : [...action.payload.reacts],
+                    reactPagination: {
+                        ...state.post.reactPagination,
+                        currentPage: action.payload.currentPage,
+                        totalPage: action.payload.totalPage,
+                    },
+                    comments: state.post.reacts && state.post.reacts.length
+                        ? [...state.post.reacts, ...action.payload.reacts]
+                        : [...action.payload.reacts],
                 }
             }
 

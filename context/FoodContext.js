@@ -16,8 +16,8 @@ export const initialFoodState = {
 
 export const FoodReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_FOOD': 
-            return {...state, foods: action.payload}
+        case 'SET_FOOD':
+            return { ...state, foods: action.payload }
 
         case 'FOOD_PAGINATION':
             return {
@@ -57,19 +57,28 @@ export const FoodReducer = (state, action) => {
                 }
             }
 
+        case 'ADD_RATE':
+            return {
+                ...state,
+                food: {
+                    ...state.food,
+                    rates: [action.payload, ...state.food.rates],
+                }
+            }
+
         case 'RATE_PAGINATION':
             return {
                 ...state,
                 food: {
                     ...state.food,
-                        commentPagination: {
-                            ...state.food.commentPagination,
-                            currentPage: action.payload.currentPage,
-                            totalPage: action.payload.totalPage,
-                        },
-                        rates: state.food.rates && state.food.rates.length 
-                            ? [...state.food.rates, ...action.payload.rates]
-                            : [...action.payload.rates],
+                    commentPagination: {
+                        ...state.food.commentPagination,
+                        currentPage: action.payload.currentPage,
+                        totalPage: action.payload.totalPage,
+                    },
+                    rates: state.food.rates && state.food.rates.length
+                        ? [...state.food.rates, ...action.payload.rates]
+                        : [...action.payload.rates],
                 }
             }
 
