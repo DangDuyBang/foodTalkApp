@@ -4,7 +4,11 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useEffect, useContext } from 'react'
 import { UserContext } from './providers/UserProvider'
+import { ChatContext } from './providers/ChatProvider'
+import { UIContext } from './providers/UIProvider'
 import { PortalProvider } from '@gorhom/portal';
+import { PostContext } from './providers/PostProvider';
+import { FoodContext } from './providers/FoodProvider';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -12,6 +16,11 @@ axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 export default function App() {
 
   const { userState, userDispatch } = useContext(UserContext)
+  const { chatState, chatDispatch } = useContext(ChatContext)
+  const { uiState, uiDispatch } = useContext(UIContext)
+  const { postState, postDispatch } = useContext(PostContext)
+  const { foodState, foodDispatch } = useContext(FoodContext)
+
 
   useEffect(() => {
     if (userState.isLoggedIn) {
@@ -23,15 +32,16 @@ export default function App() {
       })
 
       socketio.on('friend-login-status', ({ user_id }) => {
-        //do something
+        userDispatch({ type: 'FOLLOWER_LOGIN', payload: user_id })
       })
 
       socketio.on('friend-logout-status', ({ user_id }) => {
-        //do something
+        userDispatch({ type: 'FOLLOWER_LOGOUT', payload: user_id })
+
       })
 
       socketio.on('new-message', ({ data }) => {
-        //do something
+        chatDispatch({ type: 'ADD_MESSAGE', payload: data })
       })
 
       socketio.on('message-seen', ({ data }) => {
@@ -43,7 +53,7 @@ export default function App() {
       })
 
       socketio.on('new-food-rate', ({ data }) => {
-        //do something
+        foodDispatch({ type: 'ADD_RATE', payload: data })
       })
 
       socketio.on('delete-food-rate', ({ data }) => {
@@ -51,11 +61,10 @@ export default function App() {
       })
 
       socketio.on('new-post', ({ data }) => {
-        //do something
+        postDispatch({ type: 'ADD_POST', payload: data })
       })
 
       socketio.on('like-post', ({ data }) => {
-        //do something
       })
 
       socketio.on('dislike-post', ({ data }) => {
