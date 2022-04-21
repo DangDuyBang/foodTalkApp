@@ -196,16 +196,17 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
-    paddingTop: 30
+    backgroundColor: '#E0E0E0',
   },
   top: {
     borderBottomWidth: 0.5,
     flexDirection: 'row',
+    paddingTop: 30,
     paddingVertical: 5,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    backgroundColor: color.background
   },
   tittleNameApp: {
     fontFamily: 'Roboto',

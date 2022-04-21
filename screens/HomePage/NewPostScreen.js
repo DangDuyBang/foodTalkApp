@@ -5,15 +5,15 @@ import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { useCreatePost } from './hooks/useCreatePost'
-import { UserContext} from '../../providers/UserProvider'
+import { UserContext } from '../../providers/UserProvider'
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
 
-    const {isPublic, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange} = useCreatePost({navigation})
+    const { isPublic, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange } = useCreatePost({ navigation })
 
     const { userState, userDispatch } = useContext(UserContext)
- 
+
     return (
         <View style={styles.container}>
             <View style={styles.topView}>
@@ -35,7 +35,20 @@ const NewPostScreen = ({ navigation }) => {
                             />
                         </View>
                         <View style={styles.nameUserView}>
-                            <Text style={styles.nameUserText}>{userState.currentUser.username}</Text>
+                            <View style={{
+                                marginRight: 60
+                            }}>
+                                <Text style={
+                                    styles.nameUserText}
+                                >
+                                    {userState.currentUser.username}
+
+                                    <Text style={[styles.nameUserText, { fontWeight: 'normal' }]}> is in </Text>
+
+                                    460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh
+                                </Text>
+                            </View>
+
                             <TouchableOpacity onPress={eventChangeMode}>
                                 {
                                     isPublic ?
@@ -51,7 +64,6 @@ const NewPostScreen = ({ navigation }) => {
                                             <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
                                         </View>
                                 }
-
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -59,9 +71,9 @@ const NewPostScreen = ({ navigation }) => {
                         style={[styles.inputCaption]}
                         placeholder="Let's share your food"
                         multiline={true}
-                        onChangeText = {handleContentChange}
+                        onChangeText={handleContentChange}
                     />
-                    <SwipeSlide />
+                    {/* <SwipeSlide /> */}
                     <View style={{
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
@@ -130,7 +142,7 @@ const styles = StyleSheet.create({
     infoPostUser: {
         flexDirection: 'row',
         paddingHorizontal: 15,
-        alignItems: 'center'
+        //alignItems: 'center'
     },
     avatarFrame: {
         width: 57,
@@ -152,7 +164,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: color.textGray,
         fontWeight: 'bold',
-        marginBottom: 3
+        marginBottom: 3,
     },
     modeFrame: {
         width: 90,

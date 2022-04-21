@@ -135,7 +135,7 @@ export default Post
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.post,
+        backgroundColor: color.background,
         marginVertical: 5,
         paddingVertical: 5,
     },
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     },
     followText: {
         fontFamily: 'Roboto',
-        color: color.textBlue,
+        color: color.primary,
         fontWeight: 'bold',
         fontSize: 16
     },
