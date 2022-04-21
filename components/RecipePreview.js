@@ -11,7 +11,7 @@ const RecipePreview = (props) => {
                     <View style={styles.avatarFrame}>
                         <Image
                             style={styles.avatarImage}
-                            resizeMode='stretch'
+                            resizeMode='cover'
                             source={{
                                 uri: props.imageRecipe,
                             }}

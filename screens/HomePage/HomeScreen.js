@@ -74,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
             nameUser='bbang_food_talk'
             timePost='1 hour ago'
             imagePost={ImagePic.imagePost_first}
-            caption='It`s delicous ! Invite everyone'
+            caption='It`s delicous ! Invite everyone '
             heartCount='26'
             commentCount='11'
             avatarCommenter={ImagePic.avatar_commenter_first}
@@ -85,6 +85,8 @@ const HomeScreen = ({ navigation }) => {
             isLiked={true}
             isFollow={false}
             onPersonalPage={eventToPersonalPage}
+            isIn="is in"
+            addressCheckIn="460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh"
           />
           <Post
             avatar={ImagePic.avatar_user_second}
@@ -196,7 +198,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: color.post,
   },
   top: {
     borderBottomWidth: 0.5,

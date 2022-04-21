@@ -6,6 +6,7 @@ import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { useCreatePost } from './hooks/useCreatePost'
 import { UserContext } from '../../providers/UserProvider'
+import RecipeShowed from '../../components/RecipeShowed'
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
@@ -43,9 +44,8 @@ const NewPostScreen = ({ navigation }) => {
                                 >
                                     {userState.currentUser.username}
 
-                                    <Text style={[styles.nameUserText, { fontWeight: 'normal' }]}> is in </Text>
-
-                                    460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh
+                                    <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>
+                                    <Text style={[styles.nameUserText, { fontSize: 15 }]}> 460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh </Text>
                                 </Text>
                             </View>
 
@@ -73,15 +73,37 @@ const NewPostScreen = ({ navigation }) => {
                         multiline={true}
                         onChangeText={handleContentChange}
                     />
-                    {/* <SwipeSlide /> */}
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        paddingVertical: 10,
-                        paddingRight: 20,
-                    }}>
-                        <AntDesign name='book' size={22} color={color.primary}></AntDesign>
-                    </View>
+                    <SwipeSlide />
+                    <ScrollView
+                        horizontal={true}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            paddingVertical: 10,
+                            paddingRight: 20,
+                            borderColor: color.textIconSmall,
+                            marginTop: 5
+                        }}>
+                            <RecipeShowed
+                                imageRecipe="https://i.pinimg.com/564x/5c/7a/bf/5c7abf4bf3ac7440af505641a682d7cc.jpg"
+                                nameRecipe="Chicken Plus"
+                            />
+                            <RecipeShowed
+                                imageRecipe="https://i.pinimg.com/736x/0b/bc/7f/0bbc7f8893b630538bc4de00879f1cae.jpg"
+                                nameRecipe="Pizza"
+                            />
+                            <RecipeShowed
+                                imageRecipe="https://i.pinimg.com/736x/5c/87/04/5c87042d17742653409f4d82e138794c.jpg"
+                                nameRecipe="Bread Grill"
+                            />
+                            <RecipeShowed
+                                imageRecipe="https://i.pinimg.com/564x/78/bd/70/78bd70813157306b8e7c422bd96fdd09.jpg"
+                                nameRecipe="Udon Noodle"
+                            />
+                        </View>
+                    </ScrollView>
+
                 </View>
             </ScrollView>
             <View style={styles.botView}>

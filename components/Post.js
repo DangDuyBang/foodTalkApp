@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useRef, useEffect, useState } from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
+import RecipeShowed from './RecipeShowed'
 
 const Post = (props) => {
 
@@ -61,7 +62,12 @@ const Post = (props) => {
                         </View>
                     </TouchableOpacity>
                     <View style={styles.nameAndTimeView}>
-                        <Text style={styles.nameUserText}>{props.nameUser}</Text>
+                        <Text style={styles.nameUserText}>
+                            {props.nameUser}
+
+                            <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> {props.isIn}</Text>
+                            <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.addressCheckIn}</Text>
+                        </Text>
                         <Text style={styles.timePost}>{props.timePost}</Text>
                     </View>
                 </View>
@@ -74,6 +80,13 @@ const Post = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.contentPost}>
+                <Text style={{
+                    marginLeft: 25,
+                    marginBottom: 10
+                }}>
+                    {props.caption}
+                </Text>
+
                 <View style={styles.imageFrame}>
                     <SwipeSlide />
                     {/* <Image
@@ -83,9 +96,38 @@ const Post = (props) => {
                         }}
                     /> */}
                 </View>
+
+                <ScrollView
+                    horizontal={true}
+                >
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        paddingVertical: 10,
+                        paddingRight: 20,
+                        borderColor: color.textIconSmall,
+                        marginTop: 5
+                    }}>
+                        <RecipeShowed
+                            imageRecipe="https://i.pinimg.com/564x/5c/7a/bf/5c7abf4bf3ac7440af505641a682d7cc.jpg"
+                            nameRecipe="Chicken Plus"
+                        />
+                        <RecipeShowed
+                            imageRecipe="https://i.pinimg.com/736x/0b/bc/7f/0bbc7f8893b630538bc4de00879f1cae.jpg"
+                            nameRecipe="Pizza"
+                        />
+                        <RecipeShowed
+                            imageRecipe="https://i.pinimg.com/736x/5c/87/04/5c87042d17742653409f4d82e138794c.jpg"
+                            nameRecipe="Bread Grill"
+                        />
+                        <RecipeShowed
+                            imageRecipe="https://i.pinimg.com/564x/78/bd/70/78bd70813157306b8e7c422bd96fdd09.jpg"
+                            nameRecipe="Udon Noodle"
+                        />
+                    </View>
+                </ScrollView>
             </View>
             <View style={styles.midPost}>
-                <Text>{props.caption}</Text>
                 <View style={styles.heartCommentShareAndBookView}>
                     <View style={styles.heartCommentShareView}>
                         {/* <FontAwesome style={styles.heartIcon} name='heart-o' size={23} color={color.textIconSmall}></FontAwesome> */}
@@ -107,7 +149,6 @@ const Post = (props) => {
 
                         <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                     </View>
-                    <AntDesign name='book' size={22} color={color.primary}></AntDesign>
                 </View>
             </View>
             <View style={[styles.botPost, { display: props.firstComment }]}>
@@ -162,6 +203,9 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 40,
     },
+    nameAndTimeView: {
+        width: 220
+    },
     nameUserText: {
         fontFamily: 'Roboto',
         color: color.textGray,
@@ -177,10 +221,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto',
         color: color.primary,
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 16,
     },
     contentPost: {
-        marginVertical: 10
+        marginTop: 10
     },
     imageFrame: {
         width: '100%',
@@ -200,10 +244,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderTopWidth: 0.5,
         borderBottomWidth: 0.5,
-        paddingVertical: 5,
+        borderColor: color.textIconSmall,
         alignItems: 'center',
-        marginVertical: 5,
         justifyContent: 'space-between',
+        marginBottom: 5
     },
     heartIcon: {
         marginRight: 5,
