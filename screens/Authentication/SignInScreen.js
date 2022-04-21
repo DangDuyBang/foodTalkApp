@@ -8,6 +8,7 @@ import SubmitLogo from '../../components/SubmitLogo'
 import * as Animatable from 'react-native-animatable';
 import useSignIn from './hooks/useSignIn'
 import LottieView from 'lottie-react-native'
+import LoadingScreen from '../Onboarding/LoadingScreen'
 
 const SignInScreen = ({ navigation }) => {
 
@@ -68,87 +69,71 @@ const SignInScreen = ({ navigation }) => {
 
   console.log(loading);
 
-  if (loading) {
-    return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: color.background
-      }}>
-        <Text style={{
-          fontSize: 20,
-          color: color.primary
-        }}>LOADING...</Text>
-        <LottieView
-          source={require('../../assets/lottie/loading-animation.json')}
-          autoPlay loop
-          style={{
-            width: 150,
-            height: 150,
-          }}
-        />
-      </View>
-    )
-  }
-
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          //source={require('../../contains//assetImages//background_signIn.jpg')}
-          style={styles.logo}
-          resizeMode='contain'
-          source={{
-            uri: 'https://i.pinimg.com/564x/57/da/ba/57daba61aad2b83b6f8ccbfb6168a0f6.jpg',
-          }}
-        />
-      </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            //source={require('../../contains//assetImages//background_signIn.jpg')}
+            style={styles.logo}
+            resizeMode='contain'
+            source={{
+              uri: 'https://i.pinimg.com/564x/57/da/ba/57daba61aad2b83b6f8ccbfb6168a0f6.jpg',
+            }}
+          />
+        </View>
 
-      <ScrollView>
-        <Animatable.View animation="fadeInUp" duration={1000}>
-          <View style={styles.footer}>
-            <Image
-              source={require('../../contains//assetImages//logoIcon_foodtalk.png')}
-              style={styles.logoIcon}
-              resizeMode='stretch'
-            />
+        <ScrollView>
+          <Animatable.View animation="fadeInUp" duration={1000}>
+            <View style={styles.footer}>
+              <Image
+                source={require('../../contains//assetImages//logoIcon_foodtalk.png')}
+                style={styles.logoIcon}
+                resizeMode='stretch'
+              />
 
-            <Text style={styles.tittle}>TALK - SHARE FOOD </Text>
-            <Text style={[styles.tittle, { marginBottom: 15 }]}>WITH EVERYONE</Text>
+              <Text style={styles.tittle}>TALK - SHARE FOOD </Text>
+              <Text style={[styles.tittle, { marginBottom: 15 }]}>WITH EVERYONE</Text>
 
-            <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
+              <Text style={styles.intro}>When you want to eat, go to the kitchen with “FOOD TALK” to enjoy the food by yourself and share it with everyone.</Text>
 
-            <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
-            <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
-            {error ?
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={styles.errorPassword}>{error}</Text>
-              </Animatable.View>
-              : null
-            }
-            <SubmitNoLogo loading={loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
+              <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
+              <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
+              {error ?
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={styles.errorPassword}>{error}</Text>
+                </Animatable.View>
+                : null
+              }
+              <SubmitNoLogo loading={loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
-            <View style={styles.lineView}>
-              <View style={styles.lineFirst}></View>
-              <Text style={styles.lineText}> or </Text>
-              <View style={styles.lineSecond}></View>
+              <View style={styles.lineView}>
+                <View style={styles.lineFirst}></View>
+                <Text style={styles.lineText}> or </Text>
+                <View style={styles.lineSecond}></View>
+              </View>
+
+              <SubmitLogo eventButton={eventSignInWithGoogle} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
+
+              <TouchableOpacity onPress={eventForgotPassword}>
+                <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>Forgot Password ?</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={eventSignUp}>
+                <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>New Account ?</Text>
+              </TouchableOpacity>
+
             </View>
-
-            <SubmitLogo eventButton={eventSignInWithGoogle} nameButton='SIGN IN WITH GOOGLE' colorView={color.primary} colorName={color.background} />
-
-            <TouchableOpacity onPress={eventForgotPassword}>
-              <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>Forgot Password ?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={eventSignUp}>
-              <Text style={{ marginTop: 10, fontFamily: 'Roboto', color: color.textIconSmall, fontWeight: 'bold' }}>New Account ?</Text>
-            </TouchableOpacity>
-
-          </View>
-        </Animatable.View >
-      </ScrollView >
-    </View >
+          </Animatable.View >
+        </ScrollView >
+      </View >
+      {
+        loading ?
+          <LoadingScreen />
+          :
+          null
+      }
+    </>
   )
 }
 

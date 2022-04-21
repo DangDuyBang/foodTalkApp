@@ -1,15 +1,28 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
-import * as Animatable from 'react-native-animatable';
+import LottieView from 'lottie-react-native'
+
 
 const LoadingScreen = ({ navigation }) => {
   return (
-    <Animatable.View animation="fadeInUp" duration={1000}>
-      <View style={styles.container}>
-        <Text onPress={() => navigation.navigate('Splash')}>LoadingScreen</Text>
-      </View>
-    </Animatable.View>
+    <View style={[StyleSheet.absoluteFillObject, styles.container]}>
+      <Text style={{
+        fontSize: 20,
+        color: color.primary,
+        marginBottom: -90
+      }}>
+        LOADING...
+      </Text>
+      <LottieView
+        source={require('../../assets/lottie/loading-animation.json')}
+        autoPlay loop
+        style={{
+          width: 230,
+          height: 230,
+        }}
+      />
+    </View>
   )
 }
 
@@ -17,9 +30,9 @@ export default LoadingScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: color.primary,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    zIndex: 1
   }
 })
