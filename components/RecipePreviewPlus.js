@@ -24,17 +24,17 @@ const RecipePreviewPlus = (props) => {
                                 style={styles.avatarImage}
                                 resizeMode='cover'
                                 source={{
-                                    uri: props.data.imageRecipe,
+                                    uri: props.data.photo,
                                 }}
                             />
                         </View>
                         <View style={styles.nameUserView}>
-                            <Text style={styles.nameUserText}>{props.data.nameRecipe}</Text>
-                            <Text style={styles.textModePost}>Made by {props.data.authorRecipe}</Text>
+                            <Text style={styles.nameUserText}>{props.data.name}</Text>
+                            <Text style={styles.textModePost}>Made by {props.data.author.username}</Text>
                         </View>
                     </View>
                     <View style={styles.rateStarView}>
-                        <Text style={styles.markText}>{props.data.markRecipe}</Text>
+                        <Text style={styles.markText}>{props.data.avg_score}</Text>
                         <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
                     </View>
                 </View>
