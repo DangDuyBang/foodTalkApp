@@ -35,6 +35,21 @@ const ImagePic = {
 }
 
 const HomeScreen = ({ navigation }) => {
+  navigation.getParent().setOptions({
+    title: 'Food Talk',
+    headerRight: () => 
+      <View style={styles.iconRightTop}>
+        <View style={styles.searchUserFrame}>
+          <TouchableOpacity>
+            <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
+          </TouchableOpacity></View>
+        <View style={styles.chatFrame}>
+          <TouchableOpacity onPress={eventChat}>
+            <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
+          </TouchableOpacity></View>
+      </View>
+    
+  })
 
   const eventNewPost = () => {
     navigation.navigate('NewPost')
@@ -54,19 +69,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.tittleNameApp}>Food Talk</Text>
-        <View style={styles.iconRightTop}>
-          <View style={styles.searchUserFrame}>
-            <TouchableOpacity>
-              <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
-            </TouchableOpacity></View>
-          <View style={styles.chatFrame}>
-            <TouchableOpacity onPress={eventChat}>
-              <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
-            </TouchableOpacity></View>
-        </View>
-      </View>
       <ScrollView>
         <View style={styles.body}>
           <Post
@@ -210,29 +212,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: color.background
   },
-  tittleNameApp: {
-    fontFamily: 'Roboto',
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: color.textGray,
-  },
   iconRightTop: {
     flexDirection: 'row',
+    marginRight: 16,
   },
   searchUserFrame: {
-    backgroundColor: color.post,
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    marginRight: 10,
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
+    marginRight: 20,
     justifyContent: 'center',
     alignItems: 'center'
   },
   chatFrame: {
-    backgroundColor: color.post,
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center'
   },

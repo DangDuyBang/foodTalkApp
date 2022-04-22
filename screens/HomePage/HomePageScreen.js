@@ -13,7 +13,7 @@ import CreatePostScreen from '../HomePage/CreatePostScreen'
 
 const Tab = createBottomTabNavigator();
 
-const HomePageScreen = () => {
+const HomePageScreen = ({ navigation }) => {
 
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 

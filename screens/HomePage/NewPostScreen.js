@@ -11,7 +11,7 @@ import RecipeShowed from '../../components/RecipeShowed'
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
 
-    const { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange } = useCreatePost({ navigation })
+    const { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto } = useCreatePost({ navigation })
 
     const { userState, userDispatch } = useContext(UserContext)
 
@@ -73,7 +73,7 @@ const NewPostScreen = ({ navigation }) => {
                         multiline={true}
                         onChangeText={handleContentChange}
                     />
-                    <SwipeSlide />
+                    <SwipeSlide photos = {body.photos}/>
                     <ScrollView
                         horizontal={true}
                     >
@@ -105,7 +105,7 @@ const NewPostScreen = ({ navigation }) => {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onPressPhoto}>
                     <View style={styles.addPictureView}>
                         <MaterialIcons style={styles.iconModePost} name='image-search' size={28} color={color.iconGreen}></MaterialIcons>
                         <Text style={styles.textFunct}>Picture</Text>

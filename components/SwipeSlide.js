@@ -2,18 +2,19 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Image } from 'react-nat
 import React, {useState} from 'react'
 import color from '../contains/color';
 
-const images1 = [
-    'https://www.cet.edu.vn/wp-content/uploads/2019/04/nhung-loi-ich-cua-fastfood.jpg',
-    'https://i.pinimg.com/564x/9c/3e/83/9c3e834338f471c33d88ce82cac07791.jpg',
-    'https://datxeviet.vn/uploads/7e75382ff7.jpg',
-    'https://datxeviet.vn/uploads/eb2aecf4e0.jpg',
-    'https://datxeviet.vn/uploads/4d9007aa91.jpg'
-]
+// const images1 = [
+//     'https://www.cet.edu.vn/wp-content/uploads/2019/04/nhung-loi-ich-cua-fastfood.jpg',
+//     'https://i.pinimg.com/564x/9c/3e/83/9c3e834338f471c33d88ce82cac07791.jpg',
+//     'https://datxeviet.vn/uploads/7e75382ff7.jpg',
+//     'https://datxeviet.vn/uploads/eb2aecf4e0.jpg',
+//     'https://datxeviet.vn/uploads/4d9007aa91.jpg'
+// ]
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const SwipeSlide = (props) => {
+    const images1 = props.photos
     const [imgActive, setimgActive] = useState(0);
 
     const onchange = (nativeEvent) => {
@@ -35,7 +36,7 @@ const SwipeSlide = (props) => {
                 style={styles.wrap}
             >
                 {
-                    images1.map((e, index) =>
+                    images1&&images1.map((e, index) =>
                         <Image
                             key={e}
                             resizeMode='stretch'
@@ -48,7 +49,7 @@ const SwipeSlide = (props) => {
             </ScrollView>
             <View style={styles.wrapDot}>
                 {
-                    images1.map((e, index) =>
+                    images1&&images1.map((e, index) =>
                         <Text
                             key={e}
                             style={imgActive == index ? styles.dotActive : styles.dot}

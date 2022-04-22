@@ -29,6 +29,17 @@ export const useCreatePost = (props) => {
         navigation.navigate('RecipeAttached', { onConfirm: onRecipeConfirm, foods: foods })
     }
 
+    const onPressPhoto = () => {
+        navigation.navigate('ImagePickerMultiple', {onCallBack: onSetPhotos})
+    }
+
+    const onSetPhotos = (photos) => {
+        setBody({
+            ...body,
+            photos: photos.map(photo => photo.uri)
+        })
+    }
+
     const onCancel = () => {
         navigation.goBack()
     }
@@ -57,6 +68,6 @@ export const useCreatePost = (props) => {
     }
 
     return (
-        { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange }
+        { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto }
     )
 }

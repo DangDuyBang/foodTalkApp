@@ -29,6 +29,7 @@ import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
 import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
 import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
 import IMLocationSelectorModal from '../Extending/Map/Map';
+import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple';
 
 const Stack = createStackNavigator();
 
@@ -94,7 +95,7 @@ const AuthenScreen = () => {
       <Stack.Navigator
         initialRouteName="Spash"
         screenOptions={{
-          header: () => null,
+          // header: () => null,
           //gestureEnabled: true,
           //gestureDirection: 'horizontal',
         }}
@@ -102,7 +103,9 @@ const AuthenScreen = () => {
       >
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} options = {
+          {headerShown : false}
+        }/>
         <Stack.Screen name="SignUp" component={SignUpScreen}
           options={{
             gestureEnabled: true,
@@ -112,10 +115,15 @@ const AuthenScreen = () => {
               close: closeConfig,
             },
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            title: 'Create your new account'
           }}
         />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="HomePage" component={HomePageScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options ={{
+          title: 'Reset password'
+        }}/>
+        <Stack.Screen name="HomePage" component={HomePageScreen} options = {{
+          headerLeft: null, 
+        }}/>
         <Stack.Screen name="CommentList" component={CommentListScreen}
           options={{
             gestureEnabled: true,
@@ -166,6 +174,9 @@ const AuthenScreen = () => {
         <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
 
         <Stack.Screen name="Map" component={IMLocationSelectorModal} />
+        <Stack.Screen name="ImagePickerMultiple" component={ImageBrowserScreen} options={{
+          title: 'Selected 0 files',
+        }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

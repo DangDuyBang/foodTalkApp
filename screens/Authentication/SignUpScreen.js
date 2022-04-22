@@ -12,19 +12,8 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <FontAwesome
-            name="arrow-left"
-            size={24}
-            style={styles.iconArrow}
-          ></FontAwesome>
-        </TouchableOpacity>
-        <Text style={styles.topText}>Sign up</Text>
-      </View>
       <ScrollView>
         <View style={styles.body}>
-          <Text style={styles.tittle}>CREATE A NEW ACCOUNT</Text>
           <TouchableOpacity>
             <View style={styles.avatarFrame}>
               <FontAwesome
