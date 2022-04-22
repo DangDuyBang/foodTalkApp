@@ -5,23 +5,28 @@ export const useCreatePost = (props) => {
     const { navigation } = props
 
     const [isPublic, setIsPublic] = useState(true)
-    const [body, setBody] = useState({})
+    const [foods, setFoods] = useState([])
+    const [body, setBody] = useState({ is_public: true })
 
     const eventChangeMode = () => {
         setIsPublic(!isPublic)
+        setBody({
+            ...body,
+            is_public: isPublic,
+        })
     }
 
     const onRecipeConfirm = (foods) => {
-        const foods_id = foods.map(food => food.id)
+        setFoods(foods)
         setBody({
             ...body,
-            foods: foods_id,
+            foods: foods.map(food => food.id),
         })
         console.log(body);
     }
 
     const eventRecipeAttached = () => {
-        navigation.navigate('RecipeAttached', {onConfirm: onRecipeConfirm})
+        navigation.navigate('RecipeAttached', { onConfirm: onRecipeConfirm, foods: foods })
     }
 
     const onCancel = () => {
@@ -52,6 +57,6 @@ export const useCreatePost = (props) => {
     }
 
     return (
-        { isPublic, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange }
+        { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange }
     )
 }

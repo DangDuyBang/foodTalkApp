@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 const RecipeChosen = (props) => {
     return (
         <View style={styles.recipeChosenFrame}>
-            <Text style={styles.nameRecipe}>{props.foodName.nameRecipe}</Text>
+            <Text style={styles.nameRecipe}>{props.foodName.name}</Text>
             <TouchableOpacity onPress={() => props.onDeleteAttachedRecipe(props.foodName)}>
                 <Ionicons style={styles.sendIcon} name='close-circle' size={20} color={color.errorColor}></Ionicons>
             </TouchableOpacity>
