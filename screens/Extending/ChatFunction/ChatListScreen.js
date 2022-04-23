@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons'
 import color from '../../../contains/color'
 import ChatPreview from '../../../components/ChatPreview'
 import InputSearch from '../../../components/InputSearch'
+import { createStackNavigator } from "@react-navigation/stack";
+const Stack = createStackNavigator();
 
 const data = [
     {
@@ -65,6 +67,22 @@ const data = [
 
 const ChatListScreen = ({ navigation }) => {
 
+    const Chat = () => {
+        return (
+            <View style={styles.container}>
+                <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
+                <SafeAreaView style={{ flex: 1 }}>
+                    <FlatList
+                        data={lists}
+                        renderItem={({ item, index }) => {
+                            return <ChatPreview data={item} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />
+                        }}
+                    />
+                </SafeAreaView>
+            </View>
+        )
+    }
+
     const [lists, setLists] = useState(data)
 
     const deleteItem = index => {
@@ -78,23 +96,12 @@ const ChatListScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Chat</Text>
-            </View>
-            <InputSearch inputIcon='search' inputName='Search' widthSearch={380} />
-            <SafeAreaView style={{ flex: 1 }}>
-                <FlatList
-                    data={lists}
-                    renderItem={({ item, index }) => {
-                        return <ChatPreview data={item} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />
-                    }}
-                />
-            </SafeAreaView>
-        </View>
+        <Stack.Navigator>
+            <Stack.Screen name='ChatPage' component={Chat} options={{
+                title: 'Messages',
+            }
+            } />
+        </Stack.Navigator>
     )
 }
 
@@ -104,7 +111,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 75,
     },
     topView: {

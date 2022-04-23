@@ -60,7 +60,6 @@ export const useCreatePost = (props) => {
                 lng: region.longitude,
             }
         })
-        navigation.goBack()
     }
 
     const onPressCheckIn = () => {

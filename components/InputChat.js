@@ -13,9 +13,9 @@ const InputChat = () => {
                 <TextInput
                     style={{
                         backgroundColor: color.inputColor,
-                        marginBottom: 20,
-                        paddingVertical: 10,
-                        paddingHorizontal: 15,
+                        // marginBottom: 20,
+                        paddingVertical: 8,
+                        paddingHorizontal: 16,
                         borderRadius: 20,
                         width: '77%',
                         fontFamily: 'Roboto',
@@ -25,10 +25,10 @@ const InputChat = () => {
                     multiline={true}
                 />
                 <TouchableOpacity>
-                    <Ionicons style={styles.sendIcon} name='images' size={30} color={color.iconGreen}></Ionicons>
+                    <Ionicons style={styles.sendIcon} name='images' size={24} color={color.iconGreen}></Ionicons>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Ionicons style={styles.sendIcon} name='send' size={30} color={color.primary}></Ionicons>
+                    <Ionicons style={styles.sendIcon} name='send' size={24} color={color.primary}></Ionicons>
                 </TouchableOpacity>
             </View>
         </View>
@@ -39,8 +39,9 @@ export default InputChat
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 20,
-        paddingTop: 15,
+        paddingHorizontal: 16,
+        paddingTop: 8,
+        paddingBottom: 8,
         borderTopWidth: 2,
         borderTopColor: color.inputColor,
     },

@@ -7,121 +7,147 @@ import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { useCreatePost } from './hooks/useCreatePost'
 import { UserContext } from '../../providers/UserProvider'
 import RecipeShowed from '../../components/RecipeShowed'
+import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple'
+import IMLocationSelectorModal from '../Extending/Map/Map'
+import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen'
+import { createStackNavigator } from "@react-navigation/stack";
+import { config, closeConfig } from '../../utils/ScreenConfig'
+const Stack = createStackNavigator();
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
+
+    const NewPost = () => {
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    <View style={styles.bodyView}>
+                        <View style={styles.infoPostUser}>
+                            <View style={styles.avatarFrame}>
+                                <Image
+                                    style={styles.avatarImage}
+                                    resizeMode='stretch'
+                                    source={{
+                                        uri: userState.currentUser.avatar_pic,
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.nameUserView}>
+                                <View style={{
+                                    marginRight: 60
+                                }}>
+                                    <Text style={
+                                        styles.nameUserText}
+                                    >
+                                        {userState.currentUser.username}
+
+                                        <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>
+                                        {body.location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {body.location.name} </Text>}
+                                    </Text>
+                                </View>
+
+                                <TouchableOpacity onPress={eventChangeMode}>
+                                    {
+                                        isPublic ?
+                                            <View style={styles.modeFrame}>
+                                                <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
+                                                <Text style={styles.textModePost}>Public</Text>
+                                                <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+                                            </View>
+                                            :
+                                            <View style={styles.modeFrame}>
+                                                <Ionicons style={styles.iconModePost} name='lock-closed' size={15} color={color.textIconSmall}></Ionicons>
+                                                <Text style={styles.textModePost}>Private</Text>
+                                                <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
+                                            </View>
+                                    }
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <TextInput
+                            style={[styles.inputCaption]}
+                            placeholder="Let's share your food"
+                            multiline={true}
+                            onChangeText={handleContentChange}
+                        />
+                        <SwipeSlide photos={body.photos} />
+                        <ScrollView
+                            horizontal={true}
+                        >
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                                paddingVertical: 10,
+                                paddingRight: 20,
+                                borderColor: color.textIconSmall,
+                                marginTop: 5
+                            }}>
+                                {foods && foods.map(food => (
+                                    <RecipeShowed
+                                        imageRecipe={food.photo}
+                                        nameRecipe={food.name}
+                                    />
+                                ))}
+
+                            </View>
+                        </ScrollView>
+
+                    </View>
+                </ScrollView>
+                <View style={styles.botView}>
+                    <TouchableOpacity onPress={eventRecipeAttached}>
+                        <View style={styles.addRecipeView}>
+                            <MaterialIcons style={styles.iconModePost} name='post-add' size={32} color={color.primary}></MaterialIcons>
+                            <Text style={styles.textFunct}>Recipe</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={onPressPhoto}>
+                        <View style={styles.addPictureView}>
+                            <MaterialIcons style={styles.iconModePost} name='image-search' size={28} color={color.iconGreen}></MaterialIcons>
+                            <Text style={styles.textFunct}>Picture</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onPressCheckIn}>
+                        <View style={styles.addPositionView}>
+                            <MaterialIcons style={styles.iconModePost} name='place' size={30} color={color.errorColor}></MaterialIcons>
+                            <Text style={styles.textFunct}>Check in</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <SubmitNoLogo nameButton='POST' colorView={color.primary} colorName={color.background} />
+                    </View>
+                </View>
+            </View>
+        )
+    }
 
     const { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto } = useCreatePost({ navigation })
 
     const { userState, userDispatch } = useContext(UserContext)
 
     return (
-        <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Create A New Post</Text>
-            </View>
-            <ScrollView>
-                <View style={styles.bodyView}>
-                    <View style={styles.infoPostUser}>
-                        <View style={styles.avatarFrame}>
-                            <Image
-                                style={styles.avatarImage}
-                                resizeMode='stretch'
-                                source={{
-                                    uri: userState.currentUser.avatar_pic,
-                                }}
-                            />
-                        </View>
-                        <View style={styles.nameUserView}>
-                            <View style={{
-                                marginRight: 60
-                            }}>
-                                <Text style={
-                                    styles.nameUserText}
-                                >
-                                    {userState.currentUser.username}
-
-                                    <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>
-                                    {body.location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {body.location.name} </Text>}
-                                </Text>
-                            </View>
-
-                            <TouchableOpacity onPress={eventChangeMode}>
-                                {
-                                    isPublic ?
-                                        <View style={styles.modeFrame}>
-                                            <Ionicons style={styles.iconModePost} name='earth' size={18} color={color.textIconSmall}></Ionicons>
-                                            <Text style={styles.textModePost}>Public</Text>
-                                            <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
-                                        </View>
-                                        :
-                                        <View style={styles.modeFrame}>
-                                            <Ionicons style={styles.iconModePost} name='lock-closed' size={15} color={color.textIconSmall}></Ionicons>
-                                            <Text style={styles.textModePost}>Private</Text>
-                                            <Ionicons style={styles.downModePost} name='caret-down' size={18} color={color.textIconSmall}></Ionicons>
-                                        </View>
-                                }
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <TextInput
-                        style={[styles.inputCaption]}
-                        placeholder="Let's share your food"
-                        multiline={true}
-                        onChangeText={handleContentChange}
-                    />
-                    <SwipeSlide photos = {body.photos}/>
-                    <ScrollView
-                        horizontal={true}
-                    >
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                            paddingVertical: 10,
-                            paddingRight: 20,
-                            borderColor: color.textIconSmall,
-                            marginTop: 5
-                        }}>
-                            {foods&&foods.map(food => (
-                                <RecipeShowed
-                                    imageRecipe={food.photo}
-                                    nameRecipe={food.name}
-                                />
-                            ))}
-
-                        </View>
-                    </ScrollView>
-
-                </View>
-            </ScrollView>
-            <View style={styles.botView}>
-                <TouchableOpacity onPress={eventRecipeAttached}>
-                    <View style={styles.addRecipeView}>
-                        <MaterialIcons style={styles.iconModePost} name='post-add' size={32} color={color.primary}></MaterialIcons>
-                        <Text style={styles.textFunct}>Recipe</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={onPressPhoto}>
-                    <View style={styles.addPictureView}>
-                        <MaterialIcons style={styles.iconModePost} name='image-search' size={28} color={color.iconGreen}></MaterialIcons>
-                        <Text style={styles.textFunct}>Picture</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onPressCheckIn}>
-                    <View style={styles.addPositionView}>
-                        <MaterialIcons style={styles.iconModePost} name='place' size={30} color={color.errorColor}></MaterialIcons>
-                        <Text style={styles.textFunct}>Check in</Text>
-                    </View>
-                </TouchableOpacity>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <SubmitNoLogo nameButton='POST' colorView={color.primary} colorName={color.background} />
-                </View>
-            </View>
-        </View>
+        <Stack.Navigator>
+            <Stack.Screen name='CreatePostPage' component={NewPost} options={{
+                title: 'Share your story'
+            }} />
+            <Stack.Screen name="ImagePickerMultiple" component={ImageBrowserScreen} options={{
+                title: 'Selected 0 files',
+            }} />
+            <Stack.Screen name="Map" component={IMLocationSelectorModal} />
+            <Stack.Screen name="RecipeAttached" component={RecipeAttachedScreen}
+                options={{
+                    title: 'Attached Recipes',
+                    gestureEnabled: true,
+                    gestureDirection: 'horizontal',
+                    transitionSpec: {
+                        open: config,
+                        close: closeConfig,
+                    },
+                    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                }}
+            />
+        </Stack.Navigator>
     )
 }
 
@@ -131,16 +157,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 10,
-    },
-    topView: {
-        flexDirection: 'row',
-        borderBottomWidth: 0.5,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingBottom: 7,
-        paddingHorizontal: 15
     },
     topText: {
         fontFamily: 'Roboto',
@@ -233,6 +250,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         alignItems: 'center',
         paddingVertical: 5,
+        marginBottom: 8,
     },
     textFunct: {
         fontFamily: 'Roboto',

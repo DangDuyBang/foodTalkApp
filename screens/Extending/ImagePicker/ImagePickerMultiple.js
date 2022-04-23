@@ -34,7 +34,7 @@ export default class ImageBrowserScreen extends Component {
   async _processImageAsync(uri) {
     const file = await ImageManipulator.manipulateAsync(
       uri,
-      [{resize: { width: 1000 }}],
+      // [{resize: { width: 1200 , height: 800}}],
     );
     return file;
   };

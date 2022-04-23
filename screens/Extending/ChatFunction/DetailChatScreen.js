@@ -5,32 +5,26 @@ import { FontAwesome } from '@expo/vector-icons'
 import InputChat from '../../../components/InputChat'
 
 const DetailChatScreen = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <FontAwesome
-                        name="arrow-left"
-                        size={24}
-                        style={styles.iconArrow}
-                    ></FontAwesome>
-                </TouchableOpacity>
-                <View style={styles.userChatView}>
-                    <View style={styles.avatarFrame}>
-                        <Image
-                            style={styles.avatarUserChat}
-                            source={{
-                                uri: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
-                            }}
-                        />
-                    </View>
-                    <View style={styles.nameAndTimeViewUserChat}>
-                        <Text style={styles.nameUserChat}>Dang Duy Bang</Text>
-                        <Text style={styles.timeOnline}>Online</Text>
-                    </View>
+    navigation.setOptions({
+        headerTitle: () => (
+            <View style={styles.userChatView}>
+                <View style={styles.avatarFrame}>
+                    <Image
+                        style={styles.avatarUserChat}
+                        source={{
+                            uri: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
+                        }}
+                    />
+                </View>
+                <View style={styles.nameAndTimeViewUserChat}>
+                    <Text style={styles.nameUserChat}>Dang Duy Bang</Text>
+                    <Text style={styles.timeOnline}>Online</Text>
                 </View>
             </View>
-
+        ),
+    })
+    return (
+        <View style={styles.container}>
             <ScrollView>
                 <View style={styles.bodyView}>
 
