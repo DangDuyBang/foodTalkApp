@@ -9,9 +9,11 @@ import { UIContext } from './providers/UIProvider'
 import { PortalProvider } from '@gorhom/portal';
 import { PostContext } from './providers/PostProvider';
 import { FoodContext } from './providers/FoodProvider';
+import { LogBox } from 'react-native';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
+LogBox.ignoreAllLogs(true)
 
 export default function App() {
 

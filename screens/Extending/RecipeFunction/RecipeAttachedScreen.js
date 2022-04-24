@@ -10,14 +10,14 @@ import RecipeChosen from '../../../components/RecipeChosen'
 
 const data = [
     {
-        id: '0',
+        id: '6228601aba67f0bb3b7b37d0',
         photo: "https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg",
         name: "Pizza",
         author: { username: "Dang Duy Bang" },
         avg_score: "4.5",
     },
     {
-        id: '1',
+        id: '62286035cb55a0e81675744e',
         photo: "https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg",
         name: "Beef steak",
         author: { username: "Nguyen Nhut Tan" },

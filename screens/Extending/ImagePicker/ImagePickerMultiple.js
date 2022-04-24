@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
-import {ImageBrowser} from 'expo-image-picker-multiple';
+import { ImageBrowser } from 'expo-image-picker-multiple';
 
 export default class ImageBrowserScreen extends Component {
   _getHeaderLoader = () => (
-    <ActivityIndicator size='small' color={'#0580FF'}/>
+    <ActivityIndicator size='small' color={'#0580FF'} />
   );
 
   imagesCallback = (callback) => {
     const { navigation, route } = this.props;
-    const {onCallBack} = route.params
+    const { onCallBack } = route.params
     this.props.navigation.setOptions({
       headerRight: () => this._getHeaderLoader()
     });
 
     callback.then(async (photos) => {
       const cPhotos = [];
-      for(let photo of photos) {
-        const pPhoto = await this._processImageAsync(photo.uri);
+      for (let photo of photos) {
+        const pPhoto = await this._processImageAsync(photo.uri, {format: ImageManipulator.SaveFormat.JPEG });
         cPhotos.push({
           uri: pPhoto.uri,
           name: photo.filename,
@@ -28,7 +28,7 @@ export default class ImageBrowserScreen extends Component {
       onCallBack(cPhotos)
       navigation.goBack()
     })
-    .catch((e) => console.log(e));
+      .catch((e) => console.log(e));
   };
 
   async _processImageAsync(uri) {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
   },
-  emptyStay:{
+  emptyStay: {
     textAlign: 'center',
   },
   countBadge: {

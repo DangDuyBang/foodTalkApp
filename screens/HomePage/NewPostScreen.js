@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
@@ -16,6 +16,11 @@ const Stack = createStackNavigator();
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
+    
+    const { isPublic, foods,content , location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost } = useCreatePost({ navigation })
+
+    const { userState, userDispatch } = useContext(UserContext)
+
 
     const NewPost = () => {
         return (
@@ -42,7 +47,7 @@ const NewPostScreen = ({ navigation }) => {
                                         {userState.currentUser.username}
 
                                         <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>
-                                        {body.location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {body.location.name} </Text>}
+                                        {location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {location} </Text>}
                                     </Text>
                                 </View>
 
@@ -69,8 +74,9 @@ const NewPostScreen = ({ navigation }) => {
                             placeholder="Let's share your food"
                             multiline={true}
                             onChangeText={handleContentChange}
+                            value = {content.text}
                         />
-                        <SwipeSlide photos={body.photos} />
+                        {photos && photos.length !== 0 && <SwipeSlide photos={photos} />}
                         <ScrollView
                             horizontal={true}
                         >
@@ -84,6 +90,7 @@ const NewPostScreen = ({ navigation }) => {
                             }}>
                                 {foods && foods.map(food => (
                                     <RecipeShowed
+                                        key={food.id}
                                         imageRecipe={food.photo}
                                         nameRecipe={food.name}
                                     />
@@ -115,16 +122,12 @@ const NewPostScreen = ({ navigation }) => {
                         </View>
                     </TouchableOpacity>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <SubmitNoLogo nameButton='POST' colorView={color.primary} colorName={color.background} />
+                        <SubmitNoLogo nameButton='POST' colorView={color.primary} colorName={color.background} eventButton={onCreatePost} />
                     </View>
                 </View>
             </View>
         )
     }
-
-    const { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto } = useCreatePost({ navigation })
-
-    const { userState, userDispatch } = useContext(UserContext)
 
     return (
         <Stack.Navigator>

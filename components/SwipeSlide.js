@@ -38,10 +38,10 @@ const SwipeSlide = (props) => {
                 {
                     images1&&images1.map((e, index) =>
                         <Image
-                            key={e}
+                            key={index}
                             resizeMode='stretch'
                             style={styles.wrap}
-                            source={{ uri: e }}
+                            source={{ uri: e.uri }}
                         />
                     )
                 }
@@ -51,7 +51,7 @@ const SwipeSlide = (props) => {
                 {
                     images1&&images1.map((e, index) =>
                         <Text
-                            key={e}
+                            key={index}
                             style={imgActive == index ? styles.dotActive : styles.dot}
                         >
                             ●
