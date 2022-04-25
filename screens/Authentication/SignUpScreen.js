@@ -28,14 +28,13 @@ const SignUpScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.inputContain} >
-            <InputText inputIcon='user' inputName='Username' setNameText={handleUsernameChange} />
-            <InputText inputIcon='pencil' inputName='First Name' setNameText={handleFirstNameChange} />
-            <InputText inputIcon='pencil' inputName='Last Name' setNameText={handleLastNameChange} />
-            <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
-            <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
-            <InputPass inputIconLeft='lock' inputName='Confirm Password' setPassText={handleConfirmPasswordChange} />
-          </View>
+          <InputText inputIcon='user' inputName='Username' setNameText={handleUsernameChange} />
+          <InputText inputIcon='pencil' inputName='First Name' setNameText={handleFirstNameChange} />
+          <InputText inputIcon='pencil' inputName='Last Name' setNameText={handleLastNameChange} />
+          <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
+          <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
+          <InputPass inputIconLeft='lock' inputName='Confirm Password' setPassText={handleConfirmPasswordChange} />
+
         </View>
 
         <View style={styles.bot}>

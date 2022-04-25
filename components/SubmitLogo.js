@@ -9,7 +9,7 @@ const SubmitLogo = (props) => {
                     style={styles.logo}
                     resizeMode='stretch'
                     source={{
-                        uri: 'https://o.remove.bg/downloads/2dfaa18d-468c-4764-98aa-b5e7f4db5004/image-removebg-preview.png',
+                        uri: 'https://cdn.pixabay.com/photo/2015/12/11/11/43/google-1088004_960_720.png',
                     }}
                 />
                 <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>
@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     logo: {
-        width: 35,
-        height: 25,
-        marginLeft: 20
+        width: 28,
+        height: 28,
+        marginLeft: 22
     },
     nameStyle: {
         fontWeight: 'bold',

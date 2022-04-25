@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingVertical: 12,
+            paddingVertical: 18,
             paddingHorizontal: 20,
             backgroundColor: color.background,
             marginBottom: 3,
