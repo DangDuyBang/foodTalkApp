@@ -2,7 +2,7 @@ import React from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../../../firebase/firebase'
 import { signUpUser } from '../../../services/AuthServices';
-import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const useSignup = ({ navigation }) => {
 
@@ -61,16 +61,16 @@ const useSignup = ({ navigation }) => {
         }
     }
 
-    const handleConfirm = async() => {
+    const handleConfirm = async () => {
         if (!checked) {
             setError({ checked: 'Please check to the agree' })
             return
         }
 
-        // if (confirmPassword !== payload.password) {
-        //     setError({ confirm_password: 'Password does not match' })
-        //     return
-        // }
+        if (confirmPassword !== payload.password) {
+            setError({ confirm_password: 'Password does not match' })
+            return
+        }
 
         setLoading(true)
 
@@ -97,24 +97,23 @@ const useSignup = ({ navigation }) => {
     }
 
 
-    const handleOnSignUp = () => {
-        console.log(payload);
-        signUpUser(payload).then(
-            response => {
-                //set message here
-                setloading(false)
+    const handleOnSignUp = async() => {
+        try {
+            const { data } = await signUpUser(payload)
+            setLoading(false)
+            if (data) {
                 navigation.goBack()
             }
-        ).catch(err => {
-            if (err.response) {
-                console.log(err.response.data.error)
-                setError(...err, err.response.data.error)
-                setLoading(false)
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error)
+                setError(...err, error.response.data.error)
             }
-        })
+            setLoading(false)
+        }
     }
     return (
-        { loading, error, uri, checked, handleUsernameChange, handleCheckedChange ,handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync }
+        { loading, error, uri, checked, handleUsernameChange, handleCheckedChange, handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync }
     )
 }
 

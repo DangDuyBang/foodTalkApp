@@ -54,7 +54,7 @@ const SignUpScreen = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={{ color: color.textBlue, fontWeight: 'bold', marginBottom: 10 }}>Terms of service </Text>
           </TouchableOpacity>
-          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} />
+          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} loading = {loading}/>
         </View>
       </ScrollView>
 

@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 
 const SubmitNoLogo = (props) => {
   return (
-    <TouchableOpacity disabled = {props.loading} onPress={props.eventButton}>
-      <View style={[styles.containerButton, {borderWidth: props.widthBorder}, {borderColor: props.colorBorder}]} backgroundColor={props.colorView}>
-        <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>
+    <TouchableOpacity onPress={!props.loading?props.eventButton: null}>
+      <View style={[styles.containerButton, { borderWidth: props.widthBorder }, { borderColor: props.colorBorder }]} backgroundColor={props.colorView}>
+        {props.loading ? <ActivityIndicator color = 'white'/> : <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>}
       </View>
     </TouchableOpacity>
   )

@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View, Image, Animated, Dimensions } from 'react-native'
+import { StyleSheet, View, Animated, Dimensions } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import color from '../../contains/color';
-import SignInScreen from '../Authentication/SignInScreen';
 
 const SplashScreen = ({ navigation }) => {
 

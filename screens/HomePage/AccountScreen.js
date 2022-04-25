@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
-import React, { useContext, useCallback, useState } from 'react'
+import React, { useContext } from 'react'
 import color from '../../contains/color'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import ComunityPostScreen from './ComunityPostScreen'
@@ -11,10 +11,6 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
 import { createStackNavigator } from "@react-navigation/stack";
-import EditProfileScreen from '../Extending/Setting/EditProfileScreen'
-import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen'
-import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen'
-import FeedbackScreen from '../Extending/Setting/FeedbackScreen'
 
 const Stack = createStackNavigator();
 
