@@ -4,14 +4,14 @@ import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 
 const TermOfServiceScreen = ({ navigation }) => {
+
+    navigation.setOptions({
+        title: 'Term of Service',
+    })
+
     return (
         <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Term of Service</Text>
-            </View>
+            <Text>Term of Service</Text>
         </View>
     )
 }
@@ -22,22 +22,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
-        paddingBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    topView: {
-        flexDirection: 'row',
-        borderBottomWidth: 0.5,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingBottom: 7,
-        paddingHorizontal: 15
-    },
-    topText: {
-        fontFamily: 'Roboto',
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: color.textGray,
-        marginLeft: 15
-    },
+
+
 })

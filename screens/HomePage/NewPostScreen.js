@@ -16,8 +16,8 @@ const Stack = createStackNavigator();
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
-    
-    const { isPublic, foods,content , location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost } = useCreatePost({ navigation })
+
+    const { isPublic, foods, content, location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost } = useCreatePost({ navigation })
 
     const { userState, userDispatch } = useContext(UserContext)
 
@@ -46,7 +46,7 @@ const NewPostScreen = ({ navigation }) => {
                                     >
                                         {userState.currentUser.username}
 
-                                        <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>
+                                        {location && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>}
                                         {location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {location} </Text>}
                                     </Text>
                                 </View>
@@ -74,7 +74,7 @@ const NewPostScreen = ({ navigation }) => {
                             placeholder="Let's share your food"
                             multiline={true}
                             onChangeText={handleContentChange}
-                            value = {content.text}
+                            value={content.text}
                         />
                         {photos && photos.length !== 0 && <SwipeSlide photos={photos} />}
                         <ScrollView

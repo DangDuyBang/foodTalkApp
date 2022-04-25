@@ -27,14 +27,23 @@ const data = [
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
 
+    // navigation.setOptions({
+    //     headerRight: () => (
+    //         <TouchableOpacity onPress={eventNewRecipe} style={{ marginRight: 16 }}>
+    //             <Text style={{
+    //                 fontSize: 32,
+    //                 color: color.primary,
+    //                 fontWeight: '500'
+    //             }}>+</Text>
+    //         </TouchableOpacity>
+    //     )
+    // })
+
     navigation.setOptions({
+        title: 'Choose Attached Recipes',
         headerRight: () => (
-            <TouchableOpacity onPress={eventNewRecipe} style={{ marginRight: 16 }}>
-                <Text style={{
-                    fontSize: 32,
-                    color: color.primary,
-                    fontWeight: '500'
-                }}>+</Text>
+            <TouchableOpacity onPress={handleConfirm} style={{ marginRight: 16 }}>
+                <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
             </TouchableOpacity>
         )
     })
@@ -83,6 +92,29 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                     ))}
                 </View>
             </ScrollView>
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                paddingRight: 10,
+                bottom: '4%',
+                right: '1%'
+            }}>
+                <TouchableOpacity onPress={eventNewRecipe}>
+                    <View style={{
+                        width: 55,
+                        height: 55,
+                        borderRadius: 55,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: color.primary,
+                    }}>
+                        <Text style={{
+                            fontSize: 25,
+                            color: color.background,
+                        }}>+</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
 
             {
                 foodList.length === 0 ?
@@ -92,25 +124,6 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                         alignItems: 'flex-end',
                         display: 'none'
                     }}>
-                        <TouchableOpacity>
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                backgroundColor: color.hideColor,
-                                paddingHorizontal: 10,
-                                borderRadius: 10,
-                                marginBottom: 3
-                            }}>
-                                <Ionicons name='checkmark-circle' size={28} color={color.primary}></Ionicons>
-                                <Text style={{
-                                    color: color.textBlue,
-                                    fontWeight: 'bold',
-                                    fontSize: 16
-                                }}>
-                                    CONFIRM
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
                     </View>
                     :
                     <View style={{
@@ -118,25 +131,6 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                         paddingRight: 10,
                         alignItems: 'flex-end',
                     }}>
-                        <TouchableOpacity onPress={handleConfirm}>
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                backgroundColor: color.inputColor,
-                                paddingHorizontal: 10,
-                                borderRadius: 10,
-                                marginBottom: 3
-                            }}>
-                                <Ionicons name='checkmark-circle' size={28} color={color.primary}></Ionicons>
-                                <Text style={{
-                                    color: color.textBlue,
-                                    fontWeight: 'bold',
-                                    fontSize: 16
-                                }}>
-                                    CONFIRM
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
                     </View>
             }
 
