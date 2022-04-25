@@ -1,8 +1,10 @@
 import React from 'react'
 import * as ImagePicker from 'expo-image-picker';
-import {storage} from '../../../firebase/firebase'
+import { storage } from '../../../firebase/firebase'
+import { signUpUser } from '../../../services/AuthServices';
+import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 
-const useSignup = () => {
+const useSignup = ({ navigation }) => {
 
     const [payload, setPayload] = React.useState({})
     const [loading, setLoading] = React.useState(false)
@@ -11,7 +13,7 @@ const useSignup = () => {
     const [confirmPassword, setConfirmPassword] = React.useState('')
     const [uri, setUri] = React.useState('')
 
-    const handleNameChange = (username) => {
+    const handleUsernameChange = (username) => {
         setPayload({ ...payload, username: username })
     }
 
@@ -59,40 +61,60 @@ const useSignup = () => {
         }
     }
 
-    const handleComfirm = () => {
+    const handleConfirm = async() => {
         if (!checked) {
             setError({ checked: 'Please check to the agree' })
             return
         }
 
-        if (confirmPassword !== payload.password) {
-            setError({ confirm_password: 'Password does not match' })
-            return
-        }
+        // if (confirmPassword !== payload.password) {
+        //     setError({ confirm_password: 'Password does not match' })
+        //     return
+        // }
 
-        if(uri !== ''){
+        setLoading(true)
+
+        if (uri) {
             const metadata = {
                 contentType: 'image/jpeg',
             };
-                let filename = `avatar/user-${Date.now()}-${uri.height}-${uri.width}`
-                const imageRef = ref(storage, `images/${filename}`)
-                const img = await fetch(uri.uri)
-                const blob = await img.blob()
+            let filename = `avatar/user-${Date.now()}-${uri.uri}`
+            const imageRef = ref(storage, `images/${filename}`)
+            const img = await fetch(uri.uri)
+            const blob = await img.blob()
 
-                uploadBytesResumable(imageRef, blob, metadata).then(snapshot => {
-                    getDownloadURL(snapshot.ref).then((downloadURL) => {
-                        setPayload({avatar_url: downloadURL})
-                    })
+            uploadBytesResumable(imageRef, blob, metadata).then(snapshot => {
+                getDownloadURL(snapshot.ref).then((downloadURL) => {
+                    setPayload({ ...payload, avatar_url: downloadURL })
+                    handleOnSignUp()
                 })
+            })
         }
+        else {
+            handleOnSignUp()
+        }
+
     }
 
 
-    const handleOnSignUp = (uri) => {
-        
+    const handleOnSignUp = () => {
+        console.log(payload);
+        signUpUser(payload).then(
+            response => {
+                //set message here
+                setloading(false)
+                navigation.goBack()
+            }
+        ).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                setError(...err, err.response.data.error)
+                setLoading(false)
+            }
+        })
     }
     return (
-        {}
+        { loading, error, uri, checked, handleUsernameChange, handleCheckedChange ,handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync }
     )
 }
 

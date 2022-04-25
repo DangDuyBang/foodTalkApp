@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import color from '../../contains/color'
@@ -6,31 +6,35 @@ import InputText from '../../components/InputText'
 import InputPass from '../../components/InputPass'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { CheckBox } from 'react-native-elements'
+import useSignup from './hooks/useSignup'
 
 const SignUpScreen = ({ navigation }) => {
-  const [checked, setchecked] = useState(false);
+  const { loading, error, uri, checked, handleCheckedChange, handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync } = useSignup({ navigation })
+
+  console.log(error);
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.body}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
             <View style={styles.avatarFrame}>
-              <FontAwesome
-                name="camera"
-                size={20}
-                style={styles.iconCamera}
-              ></FontAwesome>
+              {uri ? <Image style={styles.avatar} source={uri} /> :
+                <FontAwesome
+                  name="camera"
+                  size={20}
+                  style={styles.iconCamera}
+                ></FontAwesome>}
             </View>
           </TouchableOpacity>
 
           <View style={styles.inputContain} >
-            <InputText inputIcon='user' inputName='Username' />
-            <InputText inputIcon='pencil' inputName='First Name' />
-            <InputText inputIcon='pencil' inputName='Last Name' />
-            <InputText inputIcon='mail' inputName='Email' />
-            <InputPass inputIconLeft='lock' inputName='Password' />
-            <InputPass inputIconLeft='lock' inputName='Confirm Password' />
+            <InputText inputIcon='user' inputName='Username' setNameText={handleUsernameChange} />
+            <InputText inputIcon='pencil' inputName='First Name' setNameText={handleFirstNameChange} />
+            <InputText inputIcon='pencil' inputName='Last Name' setNameText={handleLastNameChange} />
+            <InputText inputIcon='mail' inputName='Email' setNameText={handleEmailChange} />
+            <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
+            <InputPass inputIconLeft='lock' inputName='Confirm Password' setPassText={handleConfirmPasswordChange} />
           </View>
         </View>
 
@@ -38,7 +42,7 @@ const SignUpScreen = ({ navigation }) => {
           <View style={styles.checkBox}>
             <CheckBox
               checked={checked}
-              onPress={() => setchecked(!checked)}
+              onPress={handleCheckedChange}
               style={styles.checkBoxView}
             />
             <Text style={{ color: color.textGray }}>I agree to App's </Text>
@@ -50,7 +54,7 @@ const SignUpScreen = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={{ color: color.textBlue, fontWeight: 'bold', marginBottom: 10 }}>Terms of service </Text>
           </TouchableOpacity>
-          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} />
+          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} />
         </View>
       </ScrollView>
 
@@ -96,11 +100,18 @@ const styles = StyleSheet.create({
   avatarFrame: {
     width: 120,
     height: 120,
-    borderRadius: 120,
+    borderRadius: 60,
     backgroundColor: color.inputColor,
     marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor: color.primary,
+    borderWidth: 1,
+  },
+  avatar: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 60
   },
   iconCamera: {
     color: color.primary,
