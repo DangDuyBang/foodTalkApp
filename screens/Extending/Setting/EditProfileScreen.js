@@ -8,7 +8,14 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import useEditProfile from './hooks/useEditProfile'
 
 const EditProfileScreen = ({ navigation }) => {
-
+    navigation.setOptions({
+        title: 'Update Profile',
+        headerRight: () => (
+            <TouchableOpacity style={{ marginRight: 16 }}>
+                <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
+            </TouchableOpacity>
+        )
+    })
     const [isAvatar, setIsAvatar] = useState(true)
 
     const changeCover = () => {
@@ -85,18 +92,6 @@ const EditProfileScreen = ({ navigation }) => {
                 callbackNode={fall}
                 enabledGestureInteraction={true}
             />
-            <View style={styles.topView}>
-                <View style={styles.topLeftView}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                    </TouchableOpacity>
-                    <Text style={styles.topText}>Edit Profile</Text>
-                </View>
-                <TouchableOpacity>
-                    <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
-                </TouchableOpacity>
-            </View>
-
             <Animated.View
                 style={{
                     margin: 0,
@@ -222,8 +217,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
-        paddingBottom: 10,
     },
     topView: {
         flexDirection: 'row',

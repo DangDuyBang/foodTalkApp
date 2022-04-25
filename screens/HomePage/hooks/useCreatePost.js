@@ -1,32 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { storage } from '../../../firebase/firebase'
+import { createPost } from '../../../services/PostServices'
+import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { set } from 'react-native-reanimated'
+import { async } from '@firebase/util'
 
 export const useCreatePost = (props) => {
 
     const { navigation } = props
-
     const [isPublic, setIsPublic] = useState(true)
+    const [content, setContent] = useState({text: ''})
     const [foods, setFoods] = useState([])
-    const [body, setBody] = useState({ is_public: true })
+    const [photos, setPhotos] = useState([])
+    const [location, setLocation] = useState('')
+    const [region, setRegion] = useState({})
 
     const eventChangeMode = () => {
         setIsPublic(!isPublic)
-        setBody({
-            ...body,
-            is_public: isPublic,
-        })
     }
 
     const onRecipeConfirm = (foods) => {
         setFoods(foods)
-        setBody({
-            ...body,
-            foods: foods.map(food => food.id),
-        })
-        console.log(body);
     }
 
     const eventRecipeAttached = () => {
         navigation.navigate('RecipeAttached', { onConfirm: onRecipeConfirm, foods: foods })
+    }
+
+    const onPressPhoto = () => {
+        navigation.navigate('ImagePickerMultiple', { onCallBack: onSetPhotos })
+    }
+
+    const onSetPhotos = (photos) => {
+        setPhotos(photos)
     }
 
     const onCancel = () => {
@@ -34,29 +40,60 @@ export const useCreatePost = (props) => {
     }
 
     const handleContentChange = (text) => {
-        setBody({
-            ...body,
-            content: text,
-        })
+        setContent({text: text})
     }
 
     const onDone = (address, region) => {
-        setBody({
-            ...body,
-            location: {
-                name: address,
-                lat: region.latitude,
-                lng: region.longitude,
-            }
-        })
-        navigation.goBack()
+        setLocation(address)
+        setRegion(region)
     }
 
     const onPressCheckIn = () => {
         navigation.navigate('Map', { onCancel: onCancel, onDone: onDone })
     }
 
+
+    const onCreatePost = () => {
+        try {
+            const metadata = {
+                contentType: 'image/jpeg',
+            };
+
+            let urlsPhoto = []
+            photos.forEach(async (photo, index) => {
+                let filename = `post/post-${Date.now()}-${photo.name}`
+                const imageRef = ref(storage, `images/${filename}`)
+                const img = await fetch(photo.uri)
+                const blob = await img.blob()
+
+                uploadBytesResumable(imageRef, blob, metadata).then(snapshot => {
+                    getDownloadURL(snapshot.ref).then((downloadURL) => {
+                        urlsPhoto.push(downloadURL)
+                        if (index === photos.length - 1) {
+                            createPost({
+                                foods: foods.map(food => food.id),
+                                content: content.text,
+                                photos: urlsPhoto,
+                                location: {
+                                    name: location,
+                                    lat: region.latitude,
+                                    lng: region.longitude,
+                                },
+                                is_public: isPublic,
+                            }).then()
+                        }
+                    })
+                })
+            })
+            console.log('finished')
+            navigation.goBack()
+
+        } catch (error) {
+            console.log(error.respone.data);
+        }
+    }
+
     return (
-        { isPublic, foods, body, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange }
+        { isPublic, foods, content, location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost }
     )
 }

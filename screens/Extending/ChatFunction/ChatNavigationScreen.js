@@ -16,7 +16,6 @@ const ChatNavigationScreen = () => {
             showLabel: false,
 
             style: {
-                backgroundColor: color.post,
                 position: 'absolute',
                 bottom: 7,
                 marginHorizontal: 10,

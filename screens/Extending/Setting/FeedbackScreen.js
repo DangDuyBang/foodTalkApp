@@ -6,6 +6,9 @@ import { CheckBox } from 'react-native-elements'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 
 const FeedbackScreen = ({ navigation }) => {
+    navigation.setOptions({
+        title: 'Feed back',
+    })
 
     const [checked1, setchecked1] = useState(false);
     const [checked2, setchecked2] = useState(false);
@@ -18,12 +21,6 @@ const FeedbackScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Feedback</Text>
-            </View>
             <ScrollView>
                 <View style={styles.bodyView}>
                     <View>
@@ -105,7 +102,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 10,
     },
     topView: {

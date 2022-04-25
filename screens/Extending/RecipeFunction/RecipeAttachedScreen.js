@@ -10,27 +10,39 @@ import RecipeChosen from '../../../components/RecipeChosen'
 
 const data = [
     {
-        id: '0',
+        id: '6228601aba67f0bb3b7b37d0',
         photo: "https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg",
         name: "Pizza",
-        author: { username: "Dang Duy Bang"},
+        author: { username: "Dang Duy Bang" },
         avg_score: "4.5",
     },
     {
-        id: '1',
+        id: '62286035cb55a0e81675744e',
         photo: "https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg",
         name: "Beef steak",
-        author: {username: "Nguyen Nhut Tan"},
+        author: { username: "Nguyen Nhut Tan" },
         avg_score: "4.5",
     }
 ]
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
 
+    navigation.setOptions({
+        headerRight: () => (
+            <TouchableOpacity onPress={eventNewRecipe} style={{ marginRight: 16 }}>
+                <Text style={{
+                    fontSize: 32,
+                    color: color.primary,
+                    fontWeight: '500'
+                }}>+</Text>
+            </TouchableOpacity>
+        )
+    })
+
     const { onConfirm, foods } = route.params
 
     const [foodList, setFoodList] = useState(foods)
-    
+
 
     const handleConfirm = () => {
         onConfirm(foodList)
@@ -57,23 +69,6 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.topView}>
-                <View style={styles.leftView}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                    </TouchableOpacity>
-                    <Text style={styles.topText}>Recipe Attached</Text>
-                </View>
-                <View style={styles.rightView}>
-                    <TouchableOpacity onPress={eventNewRecipe}>
-                        <Text style={{
-                            fontSize: 32,
-                            color: color.primary,
-                            fontWeight: '500'
-                        }}>+</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
             <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} />
             <ScrollView>
                 <View style={styles.bodyView}>
@@ -169,39 +164,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 10,
-    },
-    topView: {
-        flexDirection: 'row',
-        borderBottomWidth: 0.5,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingBottom: 7,
-        paddingHorizontal: 15
-    },
-    leftView: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    rightView: {
-        backgroundColor: color.post,
-        width: 50,
-        height: 50,
-        borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    topText: {
-        fontFamily: 'Roboto',
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: color.textGray,
-        marginLeft: 15
+        paddingTop: 16,
     },
     bodyView: {
-
+        marginTop: 16,
     },
     botView: {
         flexDirection: 'row',

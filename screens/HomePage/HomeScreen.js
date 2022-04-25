@@ -3,6 +3,9 @@ import React from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import Post from '../../components/Post'
+import NewPostScreen from '../HomePage/NewPostScreen';
+import { config, closeConfig,  } from '../../utils/ScreenConfig'
+import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 
 const ImagePic = {
   avatar_user_first: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
@@ -33,40 +36,14 @@ const ImagePic = {
   avatar_commenter_seventh: 'https://i.pinimg.com/564x/49/26/98/492698ca2e998f57baf340ba99cafb54.jpg',
   imagePost_seventh: 'https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg',
 }
+const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
 
-  const eventNewPost = () => {
-    navigation.navigate('NewPost')
-  }
+  const Home = () => {
+    return (
 
-  const eventChat = () => {
-    navigation.navigate('ChatNavigation')
-  }
-
-  const eventOpenCommentList = () => {
-    navigation.navigate('CommentList')
-  }
-
-  const eventToPersonalPage = () => {
-    navigation.navigate('PersonalPage')
-  }
-
-  return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.tittleNameApp}>Food Talk</Text>
-        <View style={styles.iconRightTop}>
-          <View style={styles.searchUserFrame}>
-            <TouchableOpacity>
-              <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
-            </TouchableOpacity></View>
-          <View style={styles.chatFrame}>
-            <TouchableOpacity onPress={eventChat}>
-              <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
-            </TouchableOpacity></View>
-        </View>
-      </View>
       <ScrollView>
         <View style={styles.body}>
           <Post
@@ -190,6 +167,43 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
+    )
+
+  }
+
+  const eventNewPost = () => {
+    navigation.navigate('NewPost')
+  }
+
+  const eventChat = () => {
+    navigation.navigate('ChatNavigation')
+  }
+
+  const eventOpenCommentList = () => {
+    navigation.navigate('CommentList')
+  }
+
+  const eventToPersonalPage = () => {
+    navigation.navigate('PersonalPage')
+  }
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='HomePage' component={Home} options={{
+        title: 'Food Talk',
+        headerRight: () =>
+          <View style={styles.iconRightTop}>
+            <View style={styles.searchUserFrame}>
+              <TouchableOpacity>
+                <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
+              </TouchableOpacity></View>
+            <View style={styles.chatFrame}>
+              <TouchableOpacity onPress={eventChat}>
+                <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
+              </TouchableOpacity></View>
+          </View>
+      }} />
+    </Stack.Navigator>
   )
 }
 
@@ -210,29 +224,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: color.background
   },
-  tittleNameApp: {
-    fontFamily: 'Roboto',
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: color.textGray,
-  },
   iconRightTop: {
     flexDirection: 'row',
+    marginRight: 16,
   },
   searchUserFrame: {
-    backgroundColor: color.post,
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    marginRight: 10,
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
+    marginRight: 20,
     justifyContent: 'center',
     alignItems: 'center'
   },
   chatFrame: {
-    backgroundColor: color.post,
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center'
   },

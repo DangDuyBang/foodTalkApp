@@ -11,6 +11,14 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 const NewRecipeScreen = ({ navigation }) => {
+    navigation.setOptions({
+        title: 'New recipe',
+        headerRight: () => (
+            <TouchableOpacity style={{ marginRight: 16 }}>
+                <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
+            </TouchableOpacity>
+        )
+    })
     const renderInner = () => (
         <View style={styles.panel}>
             <View onPress={() => bs.current.snapTo(1)} style={{ alignItems: 'center' }}>
@@ -68,17 +76,6 @@ const NewRecipeScreen = ({ navigation }) => {
                 callbackNode={fall}
                 enabledGestureInteraction={true}
             />
-            <View style={styles.topView}>
-                <View style={styles.topLeftView}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                    </TouchableOpacity>
-                    <Text style={styles.topText}>Create A New Recipe</Text>
-                </View>
-                <TouchableOpacity>
-                    <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
-                </TouchableOpacity>
-            </View>
             <Animated.View
                 style={{
                     margin: 0,
@@ -139,7 +136,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
     },
     topView: {
         flexDirection: 'row',

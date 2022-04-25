@@ -4,6 +4,9 @@ import InputSearch from '../../../components/InputSearch'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import User from '../../../components/User'
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
 
 const data = [
   {
@@ -54,24 +57,28 @@ const UserListScreen = ({ navigation }) => {
 
   const [lists, setLists] = useState(data)
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.topView}>
-        <TouchableOpacity onPress={() => { navigation.goBack() }}>
-          <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-        </TouchableOpacity>
-        <Text style={styles.topText}>Users List</Text>
+  const UserList = () => {
+    return (
+      <View style={styles.container}>
+        <InputSearch inputIcon='search' inputName='Search' widthSearch={'100%'} />
+        <SafeAreaView style={{ flex: 1 }}>
+          <FlatList
+            data={lists}
+            renderItem={({ item, index }) => {
+              return <User data={item} />
+            }}
+          />
+        </SafeAreaView>
       </View>
-      <InputSearch inputIcon='search' inputName='Search' widthSearch={380} />
-      <SafeAreaView style={{ flex: 1 }}>
-        <FlatList
-          data={lists}
-          renderItem={({ item, index }) => {
-            return <User data={item} />
-          }}
-        />
-      </SafeAreaView>
-    </View>
+    )
+  }
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name = 'UserListPage' component={UserList} options = {{
+        title: 'Users List',
+      }}/>
+    </Stack.Navigator>
   )
 }
 
@@ -81,7 +88,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    paddingTop: 35,
     paddingBottom: 75,
   },
   topView: {

@@ -108,7 +108,6 @@ export default CommentListScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 20,
         backgroundColor: color.background,
         justifyContent: 'space-between'
     },

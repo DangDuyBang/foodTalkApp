@@ -18,16 +18,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                    <FontAwesome
-                        name="arrow-left"
-                        size={24}
-                        style={styles.iconArrow}
-                    ></FontAwesome>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Forgot Password</Text>
-            </View>
             <View style={styles.body}>
                 <InputText inputIcon='mail' inputName='Type Email to Reset' setNameText={handleEmailChange} />
                 <SubmitNoLogo nameButton='RESET PASSWORD' colorView={color.primary} colorName={color.background} />

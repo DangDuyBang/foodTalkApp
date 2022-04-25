@@ -6,6 +6,14 @@ import InputPass from '../../../components/InputPass'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 
 const ChangePasswordScreen = ({ navigation }) => {
+    navigation.setOptions({
+        title: 'Change password',
+        headerRight: () => (
+            <TouchableOpacity style={{ marginRight: 16 }}>
+                <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
+            </TouchableOpacity>
+        )
+    })
 
     const handleChangePassword = () => {
         alert('Change Password Successfully')
@@ -13,12 +21,6 @@ const ChangePasswordScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.topView}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                </TouchableOpacity>
-                <Text style={styles.topText}>Change Password</Text>
-            </View>
             <View style={styles.bodyView}>
                 <InputPass inputIconLeft='lock' inputName='Current Password' />
                 <InputPass inputIconLeft='lock' inputName='New Password' />
@@ -40,7 +42,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 10,
     },
     topView: {

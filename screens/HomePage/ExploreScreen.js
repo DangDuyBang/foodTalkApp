@@ -5,6 +5,7 @@ import InputSearch from '../../components/InputSearch'
 import { Ionicons } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import ExploreItem from '../../components/ExploreItem'
+import { createStackNavigator } from "@react-navigation/stack";
 
 const ImagePic = {
   imageTrending_first: 'https://i.pinimg.com/564x/b6/f1/87/b6f1875af462a35d69ea478ebf259f90.jpg',
@@ -32,62 +33,80 @@ const ImagePic = {
   imageRecipe_seventh: 'https://i.pinimg.com/564x/d8/26/da/d826da1074a62f23e3b0e1e86b0593d5.jpg',
 }
 
+const Stack = createStackNavigator();
+
 const ExploreScreen = ({ navigation }) => {
+
+  const Explore = () => {
+    return (
+
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.bodyView}>
+            <SwipeSlide />
+            <ExploreItem
+              iconLeft='trending-up'
+              tittleLeft='Trending'
+              imagesPic1={ImagePic.imageTrending_first}
+              imagesPic2={ImagePic.imageTrending_second}
+              imagesPic3={ImagePic.imageTrending_third}
+              imagesPic4={ImagePic.imageTrending_fouth}
+              imagesPic5={ImagePic.imageTrending_fith}
+              imagesPic6={ImagePic.imageTrending_sixth}
+              imagesPic7={ImagePic.imageTrending_seventh}
+            />
+            <ExploreItem
+              iconLeft='restaurant-outline'
+              tittleLeft='Recent Restaurant'
+              imagesPic1={ImagePic.imageRestaurant_first}
+              imagesPic2={ImagePic.imageRestaurant_second}
+              imagesPic3={ImagePic.imageRestaurant_third}
+              imagesPic4={ImagePic.imageRestaurant_fouth}
+              imagesPic5={ImagePic.imageRestaurant_fith}
+              imagesPic6={ImagePic.imageRestaurant_sixth}
+              imagesPic7={ImagePic.imageRestaurant_seventh}
+            />
+            <ExploreItem
+              iconLeft='book-outline'
+              tittleLeft='Recipe'
+              imagesPic1={ImagePic.imageRecipe_first}
+              imagesPic2={ImagePic.imageRecipe_second}
+              imagesPic3={ImagePic.imageRecipe_third}
+              imagesPic4={ImagePic.imageRecipe_fouth}
+              imagesPic5={ImagePic.imageRecipe_fith}
+              imagesPic6={ImagePic.imageRecipe_sixth}
+              imagesPic7={ImagePic.imageRecipe_seventh}
+            />
+            <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
+          </View>
+        </ScrollView>
+      </View>
+    )
+  }
 
   const eventChat = () => {
     navigation.navigate('ChatNavigation')
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topView}>
-        <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
-        <View style={styles.chatFrame}>
-          <TouchableOpacity onPress={eventChat}>
-            <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <ScrollView>
-        <View style={styles.bodyView}>
-          <SwipeSlide />
-          <ExploreItem
-            iconLeft='trending-up'
-            tittleLeft='Trending'
-            imagesPic1={ImagePic.imageTrending_first}
-            imagesPic2={ImagePic.imageTrending_second}
-            imagesPic3={ImagePic.imageTrending_third}
-            imagesPic4={ImagePic.imageTrending_fouth}
-            imagesPic5={ImagePic.imageTrending_fith}
-            imagesPic6={ImagePic.imageTrending_sixth}
-            imagesPic7={ImagePic.imageTrending_seventh}
-          />
-          <ExploreItem
-            iconLeft='restaurant-outline'
-            tittleLeft='Recent Restaurant'
-            imagesPic1={ImagePic.imageRestaurant_first}
-            imagesPic2={ImagePic.imageRestaurant_second}
-            imagesPic3={ImagePic.imageRestaurant_third}
-            imagesPic4={ImagePic.imageRestaurant_fouth}
-            imagesPic5={ImagePic.imageRestaurant_fith}
-            imagesPic6={ImagePic.imageRestaurant_sixth}
-            imagesPic7={ImagePic.imageRestaurant_seventh}
-          />
-          <ExploreItem
-            iconLeft='book-outline'
-            tittleLeft='Recipe'
-            imagesPic1={ImagePic.imageRecipe_first}
-            imagesPic2={ImagePic.imageRecipe_second}
-            imagesPic3={ImagePic.imageRecipe_third}
-            imagesPic4={ImagePic.imageRecipe_fouth}
-            imagesPic5={ImagePic.imageRecipe_fith}
-            imagesPic6={ImagePic.imageRecipe_sixth}
-            imagesPic7={ImagePic.imageRecipe_seventh}
-          />
-          <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
-        </View>
-      </ScrollView>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name='ExplorePage' component={Explore} options={{
+        title: null,
+        headerLeft: () => (
+          <InputSearch inputIcon='search' inputName='Search'/>
+        ),
+        headerLeftContainerStyle: {
+          width: '85%',
+        },
+        headerRight: () => (
+          <View style={styles.chatFrame}>
+            <TouchableOpacity onPress={eventChat}>
+              <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
+            </TouchableOpacity>
+          </View>
+        )
+      }} />
+    </Stack.Navigator>
   )
 }
 
@@ -97,7 +116,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    paddingTop: 30,
     paddingBottom: 65
   },
   topView: {
@@ -106,9 +124,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   chatFrame: {
-    backgroundColor: color.post,
-    width: 50,
-    height: 50,
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    marginRight: 16,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center'

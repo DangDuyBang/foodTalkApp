@@ -9,20 +9,17 @@ import EvaluateRecipeScreen from '../RecipeFunction/EvaluateRecipeScreen'
 const Tab = createMaterialTopTabNavigator();
 
 const DetailRecipeScreen = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.topView}>
-                <View style={styles.leftView}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <Ionicons name='arrow-back' size={35} color={color.textGray}></Ionicons>
-                    </TouchableOpacity>
-                    <Text style={styles.topText}>Pizza</Text>
-                </View>
-                <View style={styles.rightView}>
+    navigation.setOptions({
+        title: 'Pizza',
+        headerRight: () => (
+            <View style={styles.rightView}>
                     <Text style={styles.markText}>4.5</Text>
                     <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
                 </View>
-            </View>
+        )
+    })
+    return (
+        <View style={styles.container}>
             <Tab.Navigator>
                 <Tab.Screen name="Recipe" component={ContentRecipeScreen} />
                 <Tab.Screen name="Evaluate" component={EvaluateRecipeScreen} />
@@ -37,7 +34,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 35,
         paddingBottom: 10,
     },
     topView: {
@@ -63,7 +59,8 @@ const styles = StyleSheet.create({
     rightView: {
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginRight: 16,
     },
     markText: {
         fontFamily: 'Roboto',
