@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import Post from '../../components/Post'
 import NewPostScreen from '../HomePage/NewPostScreen';
-import { config, closeConfig,  } from '../../utils/ScreenConfig'
+import { config, closeConfig, } from '../../utils/ScreenConfig'
 import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 
 const ImagePic = {
@@ -40,48 +40,100 @@ const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
 
+  const eventRecentRestaurant = () => {
+    alert('Chức năng hiển thị nhà hàng gần đây')
+  }
+
   const Home = () => {
     return (
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: 12,
+            paddingHorizontal: 20,
+            backgroundColor: color.background,
+            marginBottom: 3,
+          }}>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '90%'
+            }}>
+              <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+                <Image
+                  style={styles.avatarImage}
+                  resizeMode='cover'
+                  source={{
+                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                  }}
+                />
+              </TouchableOpacity>
 
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.body}>
-          <Post
-            avatar={ImagePic.avatar_user_first}
-            nameUser='bbang_food_talk'
-            timePost='1 hour ago'
-            imagePost={ImagePic.imagePost_first}
-            caption='It`s delicous ! Invite everyone '
-            heartCount='26'
-            commentCount='11'
-            avatarCommenter={ImagePic.avatar_commenter_first}
-            nameCommenter='khoa_food_talk'
-            timeComment='30 minutes ago'
-            contentComment='Wow ! Congratulation. I want it'
-            onCommentList={eventOpenCommentList}
-            isLiked={true}
-            isFollow={false}
-            onPersonalPage={eventToPersonalPage}
-            isIn="is in"
-            addressCheckIn="460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh"
-          />
-          <Post
-            avatar={ImagePic.avatar_user_second}
-            nameUser='cho_food_talk'
-            timePost='2 hours ago'
-            imagePost={ImagePic.imagePost_second}
-            caption='Hi, this is a first time'
-            heartCount='12'
-            commentCount='0'
-            avatarCommenter={ImagePic.avatar_commenter_second}
-            nameCommenter='ga_food_talk'
-            timeComment='25 minutes ago'
-            contentComment='Hmmm! Look great !'
-            isLiked={false}
-            isFollow={true}
-            firstComment='none'
-          />
-          {/* <Post
+              <TouchableOpacity onPress={eventNewPost}>
+                <View style={{
+                  backgroundColor: color.inputColor,
+                  marginLeft: 10,
+                  paddingVertical: 11,
+                  paddingLeft: 7,
+                  borderRadius: 100,
+                  justifyContent: 'center',
+                  width: 285
+                }}>
+                  <Text style={{
+                    fontFamily: 'Roboto',
+                    fontSize: 15,
+                    marginLeft: 7,
+                    color: color.textGray,
+                  }}> Share your story with everyone.</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity onPress={eventRecentRestaurant}>
+              <MaterialIcons name='place' size={28} color={color.errorColor}></MaterialIcons>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.body}>
+            <Post
+              avatar={ImagePic.avatar_user_first}
+              nameUser='bbang_food_talk'
+              timePost='1 hour ago'
+              imagePost={ImagePic.imagePost_first}
+              caption='It`s delicous ! Invite everyone '
+              heartCount='26'
+              commentCount='11'
+              avatarCommenter={ImagePic.avatar_commenter_first}
+              nameCommenter='khoa_food_talk'
+              timeComment='30 minutes ago'
+              contentComment='Wow ! Congratulation. I want it'
+              onCommentList={eventOpenCommentList}
+              isLiked={true}
+              isFollow={false}
+              onPersonalPage={eventToPersonalPage}
+              isIn="is in"
+              addressCheckIn="460C, Nguyễn Tất Thành, Phường 7, Quận 4, TP Hồ Chí Minh"
+            />
+            <Post
+              avatar={ImagePic.avatar_user_second}
+              nameUser='cho_food_talk'
+              timePost='2 hours ago'
+              imagePost={ImagePic.imagePost_second}
+              caption='Hi, this is a first time'
+              heartCount='12'
+              commentCount='0'
+              avatarCommenter={ImagePic.avatar_commenter_second}
+              nameCommenter='ga_food_talk'
+              timeComment='25 minutes ago'
+              contentComment='Hmmm! Look great !'
+              isLiked={false}
+              isFollow={true}
+              firstComment='none'
+            />
+            {/* <Post
             avatar={ImagePic.avatar_user_third}
             nameUser='jerry_food_talk'
             timePost='3 hours ago'
@@ -141,32 +193,32 @@ const HomeScreen = ({ navigation }) => {
             nameCommenter='khoa_food_talk'
             timeComment='30 minutes ago'
             contentComment='Wow ! Congratulation. I want it' /> */}
-        </View>
-      </ScrollView>
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingRight: 10,
-        bottom: '18%',
-        right: '3%'
-      }}>
-        <TouchableOpacity onPress={eventNewPost}>
-          <View style={{
-            width: 55,
-            height: 55,
-            borderRadius: 55,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: color.primary,
-          }}>
-            <Text style={{
-              fontSize: 25,
-              color: color.background,
-            }}>+</Text>
           </View>
-        </TouchableOpacity>
+        </ScrollView>
+        {/* <View style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          paddingRight: 10,
+          bottom: '18%',
+          right: '3%'
+        }}>
+          <TouchableOpacity onPress={eventNewPost}>
+            <View style={{
+              width: 55,
+              height: 55,
+              borderRadius: 55,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: color.primary,
+            }}>
+              <Text style={{
+                fontSize: 25,
+                color: color.background,
+              }}>+</Text>
+            </View>
+          </TouchableOpacity>
+        </View> */}
       </View>
-    </View>
     )
 
   }
@@ -213,6 +265,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.post,
+  },
+  avatarImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 100
   },
   top: {
     borderBottomWidth: 0.5,

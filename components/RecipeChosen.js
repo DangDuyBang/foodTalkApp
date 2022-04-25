@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { Ionicons } from '@expo/vector-icons'
@@ -6,6 +6,13 @@ import { Ionicons } from '@expo/vector-icons'
 const RecipeChosen = (props) => {
     return (
         <View style={styles.recipeChosenFrame}>
+            <Image
+                style={styles.avatarImage}
+                resizeMode='cover'
+                source={{
+                    uri: props.foodName.photo,
+                }}
+            />
             <Text style={styles.nameRecipe}>{props.foodName.name}</Text>
             <TouchableOpacity onPress={() => props.onDeleteAttachedRecipe(props.foodName)}>
                 <Ionicons style={styles.sendIcon} name='close-circle' size={20} color={color.errorColor}></Ionicons>
@@ -22,17 +29,22 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20,
+        borderRadius: 30,
         flexDirection: 'row',
         marginRight: 10,
-        paddingVertical: 10,
+        paddingVertical: 7,
         marginVertical: 20
+    },
+    avatarImage: {
+        width: 32,
+        height: 32,
+        borderRadius: 100,
     },
     nameRecipe: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
         color: color.textGray,
-        fontSize: 15,
-        marginRight: 10
+        fontSize: 14,
+        marginHorizontal: 10
     }
 })
