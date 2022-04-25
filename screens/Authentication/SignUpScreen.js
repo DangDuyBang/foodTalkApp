@@ -36,7 +36,6 @@ const SignUpScreen = ({ navigation }) => {
             <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
             <InputPass inputIconLeft='lock' inputName='Confirm Password' setPassText={handleConfirmPasswordChange} />
           </View>
-        </View>
 
         <View style={styles.bot}>
           <View style={styles.checkBox}>
@@ -69,16 +68,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.background,
   },
-  top: {
-    flexDirection: 'row',
-    marginTop: 30,
-    borderBottomWidth: 2,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    alignItems: 'center',
-    borderBottomColor: color.inputColor,
-
-  },
   iconArrow: {
     marginRight: 15,
     color: color.textGray,
@@ -102,7 +91,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     backgroundColor: color.inputColor,
-    marginTop: 15,
+    marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: color.primary,
@@ -115,9 +104,6 @@ const styles = StyleSheet.create({
   },
   iconCamera: {
     color: color.primary,
-  },
-  inputContain: {
-    marginTop: 15,
   },
   bot: {
     justifyContent: 'center',
