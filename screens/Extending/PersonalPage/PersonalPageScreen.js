@@ -10,6 +10,15 @@ const Tab = createMaterialTopTabNavigator();
 
 const PersonalPageScreen = ({ navigation }) => {
 
+    navigation.setOptions({
+        title: 'bbang_food_talk',
+        headerRight: () => (
+            <TouchableOpacity>
+                <Entypo name='dots-three-horizontal' style={{marginRight: 15}} size={24} color={color.textGray} />
+            </TouchableOpacity>
+        )
+    })
+
     const [isFollowing, setIsFollowing] = useState(false)
 
     const eventFollowing = () => {
@@ -26,24 +35,6 @@ const PersonalPageScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <FontAwesome
-                            name="arrow-left"
-                            size={24}
-                            style={styles.iconArrow}
-                        ></FontAwesome>
-                    </TouchableOpacity>
-                    <Text style={styles.nameUser}>bbang_food_talk</Text>
-                </View>
-                <TouchableOpacity>
-                    <Entypo name='dots-three-horizontal' size={24} color={color.textGray} />
-                </TouchableOpacity>
-            </View>
             <ScrollView>
                 <View style={styles.mid}>
                     <View style={styles.imageFrame}>
@@ -189,26 +180,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingTop: 50,
-    },
-    top: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 15
-    },
-    iconArrow: {
-        marginRight: 15,
-        color: color.textGray,
-    },
-    nameUser: {
-        fontSize: 20,
-        color: color.textGray,
-        fontWeight: 'bold',
-        fontFamily: 'Roboto'
     },
     mid: {
-        marginTop: 5,
         flexDirection: 'row-reverse'
     },
     imageFrame: {
