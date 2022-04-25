@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useState, useRef } from 'react'
 import color from '../../contains/color'
 import InputText from '../../components/InputText'
@@ -9,8 +9,23 @@ import * as Animatable from 'react-native-animatable';
 import useSignIn from './hooks/useSignIn'
 import LottieView from 'lottie-react-native'
 import LoadingScreen from '../Onboarding/LoadingScreen'
+import Toast from 'react-native-toast-message';
 
 const SignInScreen = ({ navigation }) => {
+
+  const showToast = () => {
+    ToastAndroid.show("Successfully Login !", ToastAndroid.SHORT);
+  };
+
+  const showToastMessage = () => {
+    Toast.show({
+      type: 'success',
+      position: 'bottom',
+      visibilityTime: 3000,
+      text1: 'Successfully Login',
+      text2: 'Welcome to our world 👋'
+    });
+  }
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -52,6 +67,9 @@ const SignInScreen = ({ navigation }) => {
     //       }
     //     })
     // }
+
+    //showToast();
+    showToastMessage();
     navigation.navigate('HomePage');
   }
 
