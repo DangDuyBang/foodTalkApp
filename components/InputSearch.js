@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons'
 
 const InputSearch = (props) => {
     return (
-        <View style={styles.wrapper}>
+        <View style={[styles.wrapper, props.style]}>
             <View style={styles.container}>
                 <FontAwesome
                     name={props.inputIcon}
@@ -16,6 +16,7 @@ const InputSearch = (props) => {
                     style={styles.inputStyle}
                     placeholder={props.inputName}
                     onChangeText={props.setNameText}
+                    onTouchCancel = {true}
                 />
             </View>
         </View>
@@ -27,7 +28,7 @@ export default InputSearch
 const styles = StyleSheet.create({
     wrapper:{
         width: '100%',
-        paddingHorizontal: 10,
+        //paddingHorizontal: 10,
     },
     container: {
         width: '100%',
@@ -47,6 +48,6 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
         width: '90%',
-        fontSize: 16,
+        //fontSize: 16,
     }
 })

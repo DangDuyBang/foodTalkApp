@@ -91,13 +91,9 @@ const ExploreScreen = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='ExplorePage' component={Explore} options={{
-        title: null,
-        headerLeft: () => (
+        headerTitle: () => (
           <InputSearch inputIcon='search' inputName='Search'/>
         ),
-        headerLeftContainerStyle: {
-          width: '85%',
-        },
         headerRight: () => (
           <View style={styles.chatFrame}>
             <TouchableOpacity onPress={eventChat}>

@@ -78,7 +78,7 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} />
+            <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} style = {{paddingHorizontal: 8}}/>
             <ScrollView>
                 <View style={styles.bodyView}>
                     {data.map(recipe => (
