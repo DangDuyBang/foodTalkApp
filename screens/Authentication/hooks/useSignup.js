@@ -78,7 +78,7 @@ const useSignup = ({ navigation }) => {
             const metadata = {
                 contentType: 'image/jpeg',
             };
-            let filename = `avatar/user-${Date.now()}-${uri.uri}`
+            let filename = `avatar/user-${Date.now()}-${payload.password}`
             const imageRef = ref(storage, `images/${filename}`)
             const img = await fetch(uri.uri)
             const blob = await img.blob()
