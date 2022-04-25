@@ -36,6 +36,7 @@ const SignUpScreen = ({ navigation }) => {
             <InputPass inputIconLeft='lock' inputName='Password' setPassText={handlePasswordChange} />
             <InputPass inputIconLeft='lock' inputName='Confirm Password' setPassText={handleConfirmPasswordChange} />
           </View>
+        </View>
 
         <View style={styles.bot}>
           <View style={styles.checkBox}>
@@ -53,7 +54,7 @@ const SignUpScreen = ({ navigation }) => {
           <TouchableOpacity>
             <Text style={{ color: color.textBlue, fontWeight: 'bold', marginBottom: 10 }}>Terms of service </Text>
           </TouchableOpacity>
-          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} loading = {loading}/>
+          <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} loading={loading} />
         </View>
       </ScrollView>
 
