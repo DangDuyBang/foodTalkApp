@@ -31,7 +31,7 @@ const InputPass = (props) => {
     }
 
     const onChange_handle = () => {
-        (val)  => handlePasswordChange(val)
+        (val) => handlePasswordChange(val)
     }
 
     const updateSecureTextEntry = () => {
@@ -58,7 +58,7 @@ const InputPass = (props) => {
                     placeholder={props.inputName}
                     secureTextEntry={data.secureTextEntry ? true : false}
                     //onChangeText = {onChange_handle}   
-                    onChangeText = { props.setPassText }        
+                    onChangeText={props.setPassText}
                 />
 
                 <TouchableOpacity
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 25,
         alignItems: 'center',
+        marginBottom: 5,
     },
     iconLeftStyle: {
         color: color.textIconSmall,

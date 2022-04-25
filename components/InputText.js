@@ -2,42 +2,55 @@ import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-n
 import React from 'react'
 import { Entypo } from '@expo/vector-icons'
 import color from '../contains/color'
+import * as Animatable from 'react-native-animatable';
 
 const InputText = (props) => {
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={20}
-            style={styles.container}
-        >
-            <Entypo
-                name={props.inputIcon}
-                size={20}
-                style={styles.iconStyle}
-            ></Entypo>
-            <TextInput
-                style={styles.inputStyle}
-                placeholder={props.inputName}
-                onChangeText={props.setNameText}
-            />
-        </KeyboardAvoidingView>
+        <View style={styles.containerBig}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={20}
+                style={styles.container}
+            >
+                <Entypo
+                    name={props.inputIcon}
+                    size={20}
+                    style={styles.iconStyle}
+                ></Entypo>
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder={props.inputName}
+                    onChangeText={props.setNameText}
+                />
+            </KeyboardAvoidingView>
+
+
+            {/* <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorEmail}>Email was wrong !</Text>
+            </Animatable.View> */}
+
+        </View>
+
     )
 }
 
 export default InputText
 
 const styles = StyleSheet.create({
+    containerBig: {
+        marginHorizontal: 30,
+        marginBottom: 15,
+    },
     container: {
         justifyContent: 'center',
         flexDirection: 'row',
-        marginHorizontal: 30,
         backgroundColor: color.inputColor,
-        paddingHorizontal: 15,
+        paddingHorizontal: 25,
         paddingVertical: 10,
         borderRadius: 25,
-        marginBottom: 15,
         alignItems: 'center',
+        marginBottom: 5,
     },
     iconStyle: {
         color: color.textIconSmall,
@@ -46,5 +59,9 @@ const styles = StyleSheet.create({
     inputStyle: {
         width: '90%',
         fontSize: 16,
+    },
+    errorEmail: {
+        color: color.errorColor,
+        marginLeft: 27,
     }
 })

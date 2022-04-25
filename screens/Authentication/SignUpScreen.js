@@ -24,14 +24,13 @@ const SignUpScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.inputContain} >
-            <InputText inputIcon='user' inputName='Username' />
-            <InputText inputIcon='pencil' inputName='First Name' />
-            <InputText inputIcon='pencil' inputName='Last Name' />
-            <InputText inputIcon='mail' inputName='Email' />
-            <InputPass inputIconLeft='lock' inputName='Password' />
-            <InputPass inputIconLeft='lock' inputName='Confirm Password' />
-          </View>
+          <InputText inputIcon='user' inputName='Username' />
+          <InputText inputIcon='pencil' inputName='First Name' />
+          <InputText inputIcon='pencil' inputName='Last Name' />
+          <InputText inputIcon='mail' inputName='Email' />
+          <InputPass inputIconLeft='lock' inputName='Password' />
+          <InputPass inputIconLeft='lock' inputName='Confirm Password' />
+
         </View>
 
         <View style={styles.bot}>
@@ -65,16 +64,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.background,
   },
-  top: {
-    flexDirection: 'row',
-    marginTop: 30,
-    borderBottomWidth: 2,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    alignItems: 'center',
-    borderBottomColor: color.inputColor,
-
-  },
   iconArrow: {
     marginRight: 15,
     color: color.textGray,
@@ -98,15 +87,12 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 120,
     backgroundColor: color.inputColor,
-    marginTop: 15,
+    marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   iconCamera: {
     color: color.primary,
-  },
-  inputContain: {
-    marginTop: 15,
   },
   bot: {
     justifyContent: 'center',

@@ -108,12 +108,12 @@ const AuthenScreen = () => {
               options={{
                 title: 'Comments',
                 gestureEnabled: true,
-                gestureDirection: 'horizontal',
+                gestureDirection: 'vertical',
                 transitionSpec: {
                   open: config,
                   close: closeConfig,
                 },
-                //cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+                cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
             <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} />
