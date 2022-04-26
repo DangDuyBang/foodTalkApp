@@ -60,9 +60,9 @@ const HomePageScreen = ({ navigation }) => {
                 marginBottom: 15,
               }}></View>
               <FontAwesome
-                name="ravelry"
+                name="eercast"
                 size={26}
-                color={focused ? color.primary : color.textIconSmall}
+                color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
 
@@ -86,9 +86,9 @@ const HomePageScreen = ({ navigation }) => {
                 marginBottom: 12,
               }}></View>
               <FontAwesome
-                name="wpexplorer"
-                size={28}
-                color={focused ? color.primary : color.textIconSmall}
+                name="compass"
+                size={29}
+                color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
 
@@ -114,9 +114,9 @@ const HomePageScreen = ({ navigation }) => {
                 marginBottom: 14,
               }}></View>
               <FontAwesome
-                name="bell-o"
-                size={25}
-                color={focused ? color.primary : color.textIconSmall}
+                name="bell"
+                size={23}
+                color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
 
@@ -140,9 +140,9 @@ const HomePageScreen = ({ navigation }) => {
                 marginBottom: 14,
               }}></View>
               <FontAwesome
-                name="user-o"
+                name="user"
                 size={25}
-                color={focused ? color.primary : color.textIconSmall}
+                color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
 
