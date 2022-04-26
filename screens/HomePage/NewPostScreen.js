@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView } from 'react-native'
 import React, { useState, useContext, useRef } from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
@@ -74,7 +74,7 @@ const NewPostScreen = ({ navigation }) => {
                             placeholder="Let's share your food"
                             multiline={true}
                             onChangeText={handleContentChange}
-                            value={content.text}
+                            value={content}
                         />
                         {photos && photos.length !== 0 && <SwipeSlide photos={photos.map(photo => photo.uri)} />}
                         <ScrollView
@@ -91,8 +91,7 @@ const NewPostScreen = ({ navigation }) => {
                                 {foods && foods.map(food => (
                                     <RecipeShowed
                                         key={food.id}
-                                        imageRecipe={food.photo}
-                                        nameRecipe={food.name}
+                                        food={food}
                                     />
                                 ))}
 

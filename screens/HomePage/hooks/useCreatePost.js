@@ -9,7 +9,7 @@ export const useCreatePost = (props) => {
 
     const { navigation } = props
     const [isPublic, setIsPublic] = useState(true)
-    const [content, setContent] = useState({text: ''})
+    const [content, setContent] = useState('')
     const [foods, setFoods] = useState([])
     const [photos, setPhotos] = useState([])
     const [location, setLocation] = useState('')
@@ -40,7 +40,7 @@ export const useCreatePost = (props) => {
     }
 
     const handleContentChange = (text) => {
-        setContent({text: text})
+        setContent(text)
     }
 
     const onDone = (address, region) => {
@@ -72,7 +72,7 @@ export const useCreatePost = (props) => {
                         if (index === photos.length - 1) {
                             createPost({
                                 foods: foods.map(food => food.id),
-                                content: content.text,
+                                content: content,
                                 photos: urlsPhoto,
                                 location: {
                                     name: location,

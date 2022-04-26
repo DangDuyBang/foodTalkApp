@@ -99,11 +99,6 @@ function useMapHooks(ref) {
         latitude: geometry.location.lat,
       });
     }
-
-    // if (name) {
-    //   setAddress(name);
-    //   //onChangeLocation(name);
-    // }
   };
 
   const onMapMarkerDragEnd = (location) => {
