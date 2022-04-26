@@ -13,19 +13,19 @@ import Toast from 'react-native-toast-message';
 
 const SignInScreen = ({ navigation }) => {
 
-  const showToast = () => {
-    ToastAndroid.show("Successfully Login !", ToastAndroid.SHORT);
-  };
+  // const showToast = () => {
+  //   ToastAndroid.show("Successfully Login !", ToastAndroid.SHORT);
+  // };
 
-  const showToastMessage = () => {
-    Toast.show({
-      type: 'success',
-      position: 'bottom',
-      visibilityTime: 3000,
-      text1: 'Successfully Login',
-      text2: 'Welcome to our world 👋'
-    });
-  }
+  // const showToastMessage = () => {
+  //   Toast.show({
+  //     type: 'success',
+  //     position: 'bottom',
+  //     visibilityTime: 3000,
+  //     text1: 'Successfully Login',
+  //     text2: 'Welcome to our world 👋'
+  //   });
+  // }
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
