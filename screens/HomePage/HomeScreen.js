@@ -52,16 +52,18 @@ const HomeScreen = ({ navigation }) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingVertical: 18,
+            marginTop: 8,
+            paddingVertical: 8,
             paddingHorizontal: 20,
             backgroundColor: color.background,
             marginBottom: 3,
+        
           }}>
-            <View style={{
+            {/* <View style={{
               flexDirection: 'row',
               alignItems: 'center',
               width: '90%'
-            }}>
+            }}> */}
               <TouchableOpacity onPress={() => navigation.navigate('Account')}>
                 <Image
                   style={styles.avatarImage}
@@ -75,12 +77,11 @@ const HomeScreen = ({ navigation }) => {
               <TouchableOpacity onPress={eventNewPost}>
                 <View style={{
                   backgroundColor: color.inputColor,
-                  marginLeft: 10,
-                  paddingVertical: 11,
-                  paddingLeft: 7,
+                  paddingVertical: 12,
+                  paddingRight: 16,
+                  paddingLeft: 8,
                   borderRadius: 100,
                   justifyContent: 'center',
-                  width: 285
                 }}>
                   <Text style={{
                     fontFamily: 'Roboto',
@@ -90,7 +91,7 @@ const HomeScreen = ({ navigation }) => {
                   }}> Share your story with everyone.</Text>
                 </View>
               </TouchableOpacity>
-            </View>
+            {/* </View> */}
 
             <TouchableOpacity onPress={eventRecentRestaurant}>
               <MaterialIcons name='place' size={28} color={color.errorColor}></MaterialIcons>

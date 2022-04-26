@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { UserContext } from '../../../providers/UserProvider'
+import { UIContext } from '../../../providers/UIProvider'
 import { loginUser } from '../../../services/AuthServices'
 import { fetchCurrentUser } from '../../../services/UserServices'
 import { saveStorage } from '../../../utils/Storage'
 
 const useSignIn = () => {
     const {userDispatch} = useContext(UserContext)
+    const {uiDispatch} = useContext(UIContext)
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -44,6 +46,12 @@ const useSignIn = () => {
                 userDispatch({type: 'SET_CURRENT_USER', payload: me.data.user})
 
                 setLoading(false)
+
+                uiDispatch({type: 'SET_TOAST', payload: {
+                    type: 'success',
+                    text1: 'Wellcome',
+                    text2: 'hh',
+                }})
                 
                 eventSignIn()
             }

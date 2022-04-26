@@ -96,17 +96,18 @@ export default function App() {
 
 
   useEffect(() => {
-    Toast.show({
-      type: uiState.toast.type,
-      text1: uiState.toast.text1,
-      text2: uiState.toast.text2,
-      position: 'top',
-      visibilityTime: 3000,
-      autoHide: true,
-    })
+    if (uiState.toast) {
+      Toast.show({
+        type: uiState.toast.type,
+        text1: uiState.toast.text1,
+        text2: uiState.toast.text2,
+        visibilityTime: 5000,
+        autoHide: true,
+      })
+    }
 
   }, [uiState.toast])
-  
+
 
   return (
     <>
