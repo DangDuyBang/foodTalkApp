@@ -1,5 +1,5 @@
 export const initialUIState = {
-    message: null,
+    toast: null,
     notifications: [],
     loading: false,
     chatList: [],
@@ -7,10 +7,10 @@ export const initialUIState = {
 
 export const UIReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_MESSAGE':
+        case 'SET_TOAST':
             return {
                 ...state,
-                message: action.payload,
+                toast: action.payload,
             }
         
         case 'SET_NOTIFICATIONS':

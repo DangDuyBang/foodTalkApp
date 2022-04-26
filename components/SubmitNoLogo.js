@@ -6,7 +6,7 @@ const SubmitNoLogo = (props) => {
   return (
     <TouchableOpacity onPress={!props.loading?props.eventButton: null}>
       <View style={[styles.containerButton, { borderWidth: props.widthBorder }, { borderColor: props.colorBorder }]} backgroundColor={props.colorView}>
-        {props.loading ? <ActivityIndicator color = 'white'/> : <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>}
+        {props.loading ? <ActivityIndicator color = 'blue'/> : <Text style={[styles.nameStyle, { color: props.colorName }]}>{props.nameButton}</Text>}
       </View>
     </TouchableOpacity>
   )

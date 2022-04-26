@@ -94,6 +94,20 @@ export default function App() {
     }
   }, [userState.isLoggedIn])
 
+
+  useEffect(() => {
+    Toast.show({
+      type: uiState.toast.type,
+      text1: uiState.toast.text1,
+      text2: uiState.toast.text2,
+      position: 'top',
+      visibilityTime: 3000,
+      autoHide: true,
+    })
+
+  }, [uiState.toast])
+  
+
   return (
     <>
       <PortalProvider>
