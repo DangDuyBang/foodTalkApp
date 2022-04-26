@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
-import { AntDesign } from '@expo/vector-icons'
 import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
 import RecipeShowed from './RecipeShowed'
@@ -67,8 +66,8 @@ const Post = (props) => {
 
                             {props.post.author ? props.post.author.username : ''}
 
-                            <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>
-                            <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>
+                            {props.post.location.name !== '' &&<Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>}
+                            {props.post.location.name !== '' &&<Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
                         </Text>
                         <Text style={styles.timePost}>{moment(props.post.created_at).fromNow()}</Text>
                     </View>
@@ -86,17 +85,11 @@ const Post = (props) => {
                     marginLeft: 25,
                     marginBottom: 10
                 }}>
-                {props.post.content}
-                </Text>: null}
+                    {props.post.content}
+                </Text> : null}
 
                 <View style={styles.imageFrame}>
                     {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
-                    {/* <Image
-                        style={styles.imagePost}
-                        source={{
-                            uri: props.imagePost,
-                        }}
-                    /> */}
                 </View>
 
                 <ScrollView
@@ -121,7 +114,6 @@ const Post = (props) => {
             <View style={styles.midPost}>
                 <View style={styles.heartCommentShareAndBookView}>
                     <View style={styles.heartCommentShareView}>
-                        {/* <FontAwesome style={styles.heartIcon} name='heart-o' size={23} color={color.textIconSmall}></FontAwesome> */}
                         <TouchableOpacity onPress={heartEvent}>
                             <LottieView
                                 ref={animation}

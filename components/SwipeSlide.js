@@ -2,14 +2,6 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Image } from 'react-nat
 import React, {useState} from 'react'
 import color from '../contains/color';
 
-// const images1 = [
-//     'https://www.cet.edu.vn/wp-content/uploads/2019/04/nhung-loi-ich-cua-fastfood.jpg',
-//     'https://i.pinimg.com/564x/9c/3e/83/9c3e834338f471c33d88ce82cac07791.jpg',
-//     'https://datxeviet.vn/uploads/7e75382ff7.jpg',
-//     'https://datxeviet.vn/uploads/eb2aecf4e0.jpg',
-//     'https://datxeviet.vn/uploads/4d9007aa91.jpg'
-// ]
-
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
