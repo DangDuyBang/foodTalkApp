@@ -50,7 +50,7 @@ const useSignIn = () => {
                 uiDispatch({type: 'SET_TOAST', payload: {
                     type: 'success',
                     text1: 'Wellcome',
-                    text2: 'hh',
+                    text2: 'Take your time to cook some recipes',
                 }})
                 
                 eventSignIn()

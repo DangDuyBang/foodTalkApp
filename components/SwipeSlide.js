@@ -41,7 +41,7 @@ const SwipeSlide = (props) => {
                             key={index}
                             resizeMode='stretch'
                             style={styles.wrap}
-                            source={{ uri: e.uri }}
+                            source={{ uri: e }}
                         />
                     )
                 }

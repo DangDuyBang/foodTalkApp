@@ -11,11 +11,11 @@ const RecipeShowed = (props) => {
                         style={styles.avatarImage}
                         resizeMode='cover'
                         source={{
-                            uri: props.imageRecipe,
+                            uri: props.food.photo,
                         }}
                     />
                 </View>
-                <Text style={styles.nameUserText}>{props.nameRecipe}</Text>
+                <Text style={styles.nameUserText}>{props.food.name}</Text>
             </View>
         </TouchableOpacity>
     )
