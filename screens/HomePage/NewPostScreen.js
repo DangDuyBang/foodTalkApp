@@ -76,7 +76,7 @@ const NewPostScreen = ({ navigation }) => {
                             onChangeText={handleContentChange}
                             value={content.text}
                         />
-                        {photos && photos.length !== 0 && <SwipeSlide photos={photos} />}
+                        {photos && photos.length !== 0 && <SwipeSlide photos={photos.map(photo => photo.uri)} />}
                         <ScrollView
                             horizontal={true}
                         >

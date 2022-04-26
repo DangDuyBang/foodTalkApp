@@ -11,6 +11,7 @@ import { PostContext } from './providers/PostProvider';
 import { FoodContext } from './providers/FoodProvider';
 import { LogBox } from 'react-native';
 import Toast from 'react-native-toast-message';
+import toastConfig from './utils/ToastConfig';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -114,7 +115,7 @@ export default function App() {
       <PortalProvider>
         <AuthenScreen />
       </PortalProvider>
-      <Toast />
+      <Toast config ={toastConfig}/>
     </>
   );
 }

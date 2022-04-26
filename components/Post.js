@@ -6,12 +6,13 @@ import { AntDesign } from '@expo/vector-icons'
 import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
 import RecipeShowed from './RecipeShowed'
+import moment from 'moment'
 
 const Post = (props) => {
 
-    const [isFollow, setIsFollow] = useState(props.isFollow)
+    const [isFollow, setIsFollow] = useState(false)
 
-    const [isLiked, setIsLiked] = useState(props.isLiked)
+    const [isLiked, setIsLiked] = useState(false)
 
     const animation = React.useRef(null);
     const isFirstRun = React.useRef(true);
@@ -56,19 +57,20 @@ const Post = (props) => {
                             <Image
                                 style={styles.avatar}
                                 source={{
-                                    uri: props.avatar,
+                                    uri: props.post.author ? props.post.author.avatar_url : '',
                                 }}
                             />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.nameAndTimeView}>
                         <Text style={styles.nameUserText}>
-                            {props.nameUser}
 
-                            <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> {props.isIn}</Text>
-                            <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.addressCheckIn}</Text>
+                            {props.post.author ? props.post.author.username : ''}
+
+                            <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>
+                            <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>
                         </Text>
-                        <Text style={styles.timePost}>{props.timePost}</Text>
+                        <Text style={styles.timePost}>{moment(props.post.created_at).fromNow()}</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={followEvent}>
@@ -80,15 +82,15 @@ const Post = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.contentPost}>
-                <Text style={{
+                {props.post.content ? <Text style={{
                     marginLeft: 25,
                     marginBottom: 10
                 }}>
-                    {props.caption}
-                </Text>
+                {props.post.content}
+                </Text>: null}
 
                 <View style={styles.imageFrame}>
-                    <SwipeSlide />
+                    {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
                     {/* <Image
                         style={styles.imagePost}
                         source={{
@@ -108,22 +110,11 @@ const Post = (props) => {
                         borderColor: color.textIconSmall,
                         marginTop: 5
                     }}>
-                        <RecipeShowed
-                            imageRecipe="https://i.pinimg.com/564x/5c/7a/bf/5c7abf4bf3ac7440af505641a682d7cc.jpg"
-                            nameRecipe="Chicken Plus"
-                        />
-                        <RecipeShowed
-                            imageRecipe="https://i.pinimg.com/736x/0b/bc/7f/0bbc7f8893b630538bc4de00879f1cae.jpg"
-                            nameRecipe="Pizza"
-                        />
-                        <RecipeShowed
-                            imageRecipe="https://i.pinimg.com/736x/5c/87/04/5c87042d17742653409f4d82e138794c.jpg"
-                            nameRecipe="Bread Grill"
-                        />
-                        <RecipeShowed
-                            imageRecipe="https://i.pinimg.com/564x/78/bd/70/78bd70813157306b8e7c422bd96fdd09.jpg"
-                            nameRecipe="Udon Noodle"
-                        />
+                        {props.post.foods && props.post.foods.length > 0 ? (
+                            props.post.foods.map((food) => (
+                                <RecipeShowed food={food} />
+                            ))
+                        ) : null}
                     </View>
                 </ScrollView>
             </View>
@@ -140,12 +131,12 @@ const Post = (props) => {
                                 loop={false}
                             />
                         </TouchableOpacity>
-                        <Text style={styles.heartNumber}>{props.heartCount}</Text>
+                        <Text style={styles.heartNumber}>{props.post.num_heart}</Text>
 
                         <TouchableOpacity onPress={props.onCommentList}>
                             <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>
                         </TouchableOpacity>
-                        <Text style={styles.commentNumber}>{props.commentCount}</Text>
+                        <Text style={styles.commentNumber}>0</Text>
 
                         <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                     </View>
@@ -157,13 +148,13 @@ const Post = (props) => {
                         <Image
                             style={styles.avatarCommenter}
                             source={{
-                                uri: props.avatarCommenter,
+                                uri: '',
                             }}
                         />
                     </View>
                     <View style={styles.nameAndTimeViewCommenter}>
-                        <Text style={styles.nameUserCommenter}>{props.nameCommenter}</Text>
-                        <Text style={styles.timeComment}>{props.timeComment}</Text>
+                        <Text style={styles.nameUserCommenter}>NGuyễn Nhựt Tân</Text>
+                        <Text style={styles.timeComment}>10h ago</Text>
                     </View>
                 </View>
                 <Text style={styles.firstCommentText}>{props.contentComment}</Text>
