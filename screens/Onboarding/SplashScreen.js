@@ -61,7 +61,7 @@ const SplashScreen = ({ navigation }) => {
         )
       ])
         .start();
-      navigation.navigate('SignIn');
+      navigation.navigate('Start');
     }, 1000);
   }, [])
 
