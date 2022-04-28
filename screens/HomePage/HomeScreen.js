@@ -9,6 +9,7 @@ import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@
 import useFetchPost from './hooks/useFetchPost'
 import { PostContext } from '../../providers/PostProvider'
 import { v4 as uuidv4 } from 'uuid';
+import LottieView from 'lottie-react-native'
 
 const Stack = createStackNavigator();
 
@@ -38,8 +39,8 @@ const HomeScreen = ({ navigation }) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 8,
-            paddingVertical: 8,
+            marginTop: 5,
+            paddingVertical: 10,
             paddingHorizontal: 20,
             backgroundColor: color.background,
             marginBottom: 3,
@@ -85,9 +86,25 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.body}>
-              {postState.posts && postState.posts.length > 0 && postState.posts.map((post, index) =>
+            {postState.posts && postState.posts.length > 0 ?
+              postState.posts.map((post, index) =>
                 <Post post={post} key={post._id}></Post>
-              )}
+              )
+              :
+              <View style={{
+                alignItems: 'center'
+              }}>
+                <LottieView
+                  source={require('../../assets/lottie/spoon-loading-utensils.json')}
+                  autoPlay loop
+                  style={{
+                    width: 230,
+                    height: 230,
+                  }}
+                />
+              </View>
+
+            }
           </View>
         </ScrollView>
       </View>
@@ -137,6 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.post,
+    // paddingBottom: 80,
   },
   avatarImage: {
     width: 40,
@@ -175,6 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   body: {
+    backgroundColor: color.post,
     paddingBottom: 80,
   }
 })
