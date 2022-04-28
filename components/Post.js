@@ -6,12 +6,23 @@ import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
 import RecipeShowed from './RecipeShowed'
 import moment from 'moment'
+import usePostAction from '../screens/HomePage/hooks/usePostAction'
+import { UserContext } from '../providers/UserProvider'
+import { PostContext } from '../providers/PostProvider'
+import { likeDislikePost } from '../services/PostServices'
+import { v4 as uuidv4 } from 'uuid';
 
 const Post = (props) => {
 
     const [isFollow, setIsFollow] = useState(false)
+    const { userState } = React.useContext(UserContext)
+    const { postDispatch } = React.useContext(PostContext)
 
-    const [isLiked, setIsLiked] = useState(false)
+    const isLikedUser = () => {
+        return props.post.reactions.includes(userState.currentUser.id)
+    }
+
+    const [isLiked, setIsLiked] = useState(isLikedUser())
 
     const animation = React.useRef(null);
     const isFirstRun = React.useRef(true);
@@ -31,12 +42,17 @@ const Post = (props) => {
         }
     }, [isLiked]);
 
-    const heartEvent = () => {
-        if (isLiked == false) {
-            setIsLiked(true)
-        } else if (isLiked == true) {
-            setIsLiked(false)
-        }
+    const heartEvent = async () => {
+        setIsLiked(!isLiked)
+        await likeDislikePost(props.post._id).then(res => {
+            postDispatch({ type: 'LIKE_UNLIKE_POST', payload: res.data.post })
+        }).catch(err => {
+            setIsLiked(!isLiked);
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
     }
 
     const followEvent = () => {
@@ -66,8 +82,8 @@ const Post = (props) => {
 
                             {props.post.author ? props.post.author.username : ''}
 
-                            {props.post.location.name !== '' &&<Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>}
-                            {props.post.location.name !== '' &&<Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
+                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>}
+                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
                         </Text>
                         <Text style={styles.timePost}>{moment(props.post.created_at).fromNow()}</Text>
                     </View>
@@ -105,7 +121,7 @@ const Post = (props) => {
                     }}>
                         {props.post.foods && props.post.foods.length > 0 ? (
                             props.post.foods.map((food) => (
-                                <RecipeShowed food={food} />
+                                <RecipeShowed food={food} key={food._id} />
                             ))
                         ) : null}
                     </View>
@@ -123,7 +139,7 @@ const Post = (props) => {
                                 loop={false}
                             />
                         </TouchableOpacity>
-                        <Text style={styles.heartNumber}>{props.post.num_heart}</Text>
+                        <Text style={styles.heartNumber}>{props.post.reactions.length}</Text>
 
                         <TouchableOpacity onPress={props.onCommentList}>
                             <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>

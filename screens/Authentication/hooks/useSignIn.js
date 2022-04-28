@@ -40,6 +40,7 @@ const useSignIn = () => {
 
                 setLoading(true)
                 saveStorage('@token', data.data.token)
+                axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.token}`;
 
                 const me = await fetchCurrentUser()
 
@@ -51,8 +52,8 @@ const useSignIn = () => {
                     type: 'success',
                     text1: 'Wellcome',
                     text2: 'Take your time to cook some recipes',
-                }})
-                
+                }})    
+
                 eventSignIn()
             }
            

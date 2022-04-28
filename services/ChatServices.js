@@ -6,12 +6,8 @@ import { getStorage } from '../utils/Storage'
  * @param {params} params user_id string
  */
  export const createChatRoom = async (params) => {
-    let token = await getStorage('@token')
-    return axios.post(`/api/chat/create-chat/${params}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post(`/api/chat/create-chat/${params}`)
 }
 
 
@@ -19,43 +15,27 @@ import { getStorage } from '../utils/Storage'
  * @param {payload} payload { chat, content, type }
  */
  export const sendMessage = async (payload) => {
-    let token = await getStorage('@token')
-    return axios.post(`/api/chat/send-message`, payload , {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post(`/api/chat/send-message`, payload)
 }
 
 /**
  * @param {params} params user_id string
  */
  export const seenMessage = async (params) => {
-    let token = await getStorage('@token')
-    return axios.post(`/api/chat/seen/${params}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post(`/api/chat/seen/${params}`)
 }
 
 export const fetchAllChat = async () => {
-    let token = await getStorage('@token')
-    return axios.get(`/api/chat/chats`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.get(`/api/chat/chats`)
 }
 
 /**
  * @param {params} params chat_id string
  */
 export const fetchAllMessage = async (params) => {
-    let token = await getStorage('@token')
-    return axios.get(`/api/chat/messages/${params}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.get(`/api/chat/messages/${params}`)
 }

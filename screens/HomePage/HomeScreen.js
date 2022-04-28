@@ -8,6 +8,7 @@ import { config, closeConfig, } from '../../utils/ScreenConfig'
 import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 import useFetchPost from './hooks/useFetchPost'
 import { PostContext } from '../../providers/PostProvider'
+import { v4 as uuidv4 } from 'uuid';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,6 @@ const HomeScreen = ({ navigation }) => {
   React.useEffect(() => {
     async function useLoads() {
       await useFetchAllPost()
-      console.log(postState.posts);
     }
 
     useLoads()
@@ -85,9 +85,9 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.body}>
-            {postState.posts && postState.posts.length > 0 && postState.posts.map((post, index) => 
-              <Post post={post} key={post.id}></Post>
-            )}
+              {postState.posts && postState.posts.length > 0 && postState.posts.map((post, index) =>
+                <Post post={post} key={post._id}></Post>
+              )}
           </View>
         </ScrollView>
       </View>

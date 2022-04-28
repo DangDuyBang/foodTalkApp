@@ -6,12 +6,8 @@ export const loginUser = (userData) => {
 }
 
 export const logoutUser = async () => {
-    let token = await getStorage('@token')
-    return axios.post('/api/auth/logout', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post('/api/auth/logout')
 }
 
 
@@ -27,19 +23,11 @@ export const signUpUser = async (userData) => {
  * @param {payload} payload { currentPassword, newPassword }
  */
 export const changePassword = async (payload) => {
-    let token = await getStorage('@token')
-    return axios.post('/api/auth/change-password',payload, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post('/api/auth/change-password',payload)
 }
 
 export const resetPassword = async () => {
-    let token = await getStorage('@token')
-    return axios.post('/api/auth/reset-password', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    //let token = await getStorage('@token')
+    return axios.post('/api/auth/reset-password')
 }

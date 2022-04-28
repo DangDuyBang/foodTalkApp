@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react'
+import { useState, useContext } from 'react'
 import { storage } from '../../../firebase/firebase'
 import { createPost } from '../../../services/PostServices'
-import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
-import { set } from 'react-native-reanimated'
-import { async } from '@firebase/util'
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { PostContext } from '../../../providers/PostProvider'
 
 export const useCreatePost = (props) => {
 
@@ -14,6 +13,7 @@ export const useCreatePost = (props) => {
     const [photos, setPhotos] = useState([])
     const [location, setLocation] = useState('')
     const [region, setRegion] = useState({})
+    const { postDispatch } = useContext(PostContext)
 
     const eventChangeMode = () => {
         setIsPublic(!isPublic)
@@ -80,7 +80,12 @@ export const useCreatePost = (props) => {
                                     lng: region.longitude,
                                 },
                                 is_public: isPublic,
-                            }).then()
+                            }).then((res) => {
+                                console.log(res.data.post);
+                                postDispatch({
+                                    type: 'ADD_POST', payload: res.data.post
+                                })
+                            })
                         }
                     })
                 })

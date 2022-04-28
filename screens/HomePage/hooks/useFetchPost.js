@@ -15,6 +15,7 @@ const useFetchPost = () => {
             try {
                 const { data } = await fetchAllPost()
                 if (data) {
+                    console.log(data.posts.map(post => post.id));
                     postDispatch({
                         type: 'POST_PAGINATION',
                         payload: {

@@ -77,23 +77,16 @@ export const PostReducer = (state, action) => {
                 }
             }
 
-        case 'SET_REACT_POST':
-            return {
-                ...state,
-                post: {
-                    ...state.post,
-                    reacts: action.payload
-                }
+        case 'LIKE_UNLIKE_POST':
+            let l_postIndex = state.posts.findIndex(post => post._id === action.payload._id)
+            state.posts[l_postIndex].num_heart = action.payload.num_heart
+            state.posts[l_postIndex].reactions = action.payload.reactions
+            if (state.post._id === action.payload._id) {
+                state.posts[l_postIndex].num_heart = action.payload.num_heart
+                state.posts[l_postIndex].reactions = action.payload.reactions
             }
 
-        case 'ADD_REACT_POST':
-            return {
-                ...state,
-                post: {
-                    ...state.post,
-                    reacts: [action.payload, ...state.post.reacts],
-                }
-            }
+            return { ...state, }
 
         case 'COMMENT_PAGINATION':
             return {
