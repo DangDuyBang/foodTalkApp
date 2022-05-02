@@ -12,7 +12,7 @@ import { PostContext } from '../providers/PostProvider'
 import { likeDislikePost } from '../services/PostServices'
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux'
-import {likeUnlikePost } from '../redux/postReducer'
+import { likeUnlikePost } from '../redux/postReducer'
 
 const Post = (props) => {
 
@@ -140,6 +140,7 @@ const Post = (props) => {
                                 source={require("../assets/lottie/44921-like-animation.json")}
                                 autoPlay={false}
                                 loop={false}
+                                speed={1.5}
                             />
                         </TouchableOpacity>
                         <Text style={styles.heartNumber}>{props.post.reactions.length}</Text>
@@ -249,14 +250,14 @@ const styles = StyleSheet.create({
         borderColor: color.textIconSmall,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 5
+        marginBottom: 5,
     },
     heartIcon: {
         marginRight: 5,
     },
     heartIconLottie: {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
     },
     heartNumber: {
         marginRight: 20,

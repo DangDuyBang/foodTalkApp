@@ -86,8 +86,8 @@ const HomePageScreen = ({ navigation }) => {
                 marginBottom: 12,
               }}></View>
               <FontAwesome
-                name="compass"
-                size={29}
+                name="wpexplorer"
+                size={28}
                 color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
@@ -115,7 +115,7 @@ const HomePageScreen = ({ navigation }) => {
               }}></View>
               <FontAwesome
                 name="bell"
-                size={23}
+                size={22}
                 color={focused ? color.primary : color.hideColor}
               ></FontAwesome>
             </View>
