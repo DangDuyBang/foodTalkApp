@@ -34,18 +34,19 @@ import IMLocationSelectorModal from '../Extending/Map/Map';
 import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple';
 
 import { UserContext } from '../../providers/UserProvider';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 
 
 const AuthenScreen = () => {
 
-  const { userState, userDispatch } = useContext(UserContext)
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
 
   return (
     <NavigationContainer>
       {
-        !userState.isLoggedIn ?
+        !isLoggedIn ?
           (
             <Stack.Navigator
               initialRouteName="Spash"

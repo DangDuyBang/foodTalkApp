@@ -12,6 +12,8 @@ import { FoodContext } from './providers/FoodProvider';
 import { LogBox } from 'react-native';
 import Toast from 'react-native-toast-message';
 import toastConfig from './utils/ToastConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSocketio } from './redux/userReducer'
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -19,33 +21,30 @@ LogBox.ignoreAllLogs(true)
 
 export default function App() {
 
-  const { userState, userDispatch } = useContext(UserContext)
-  const { chatState, chatDispatch } = useContext(ChatContext)
-  const { uiState, uiDispatch } = useContext(UIContext)
-  const { postState, postDispatch } = useContext(PostContext)
-  const { foodState, foodDispatch } = useContext(FoodContext)
-
+  const dispatch = useDispatch()
+  const toast = useSelector(state => state.ui.toast)
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn)
 
   useEffect(() => {
-    if (userState.isLoggedIn) {
+    if (isLoggedIn) {
       let socketio = io('https://foodtalk-backend.herokuapp.com', { transports: ['websocket'] })
-      userDispatch({ type: 'SET_SOCKETIO', payload: socketio })
+      //dispatch(setSocketio(socketio))
 
       socketio.on('connect', () => {
         console.log('connected')
       })
 
       socketio.on('friend-login-status', ({ user_id }) => {
-        userDispatch({ type: 'FOLLOWER_LOGIN', payload: user_id })
+        //userDispatch({ type: 'FOLLOWER_LOGIN', payload: user_id })
       })
 
       socketio.on('friend-logout-status', ({ user_id }) => {
-        userDispatch({ type: 'FOLLOWER_LOGOUT', payload: user_id })
+        //userDispatch({ type: 'FOLLOWER_LOGOUT', payload: user_id })
 
       })
 
       socketio.on('new-message', ({ data }) => {
-        chatDispatch({ type: 'ADD_MESSAGE', payload: data })
+        //({ type: 'ADD_MESSAGE', payload: data })
       })
 
       socketio.on('message-seen', ({ data }) => {
@@ -57,7 +56,7 @@ export default function App() {
       })
 
       socketio.on('new-food-rate', ({ data }) => {
-        foodDispatch({ type: 'ADD_RATE', payload: data })
+        //foodDispatch({ type: 'ADD_RATE', payload: data })
       })
 
       socketio.on('delete-food-rate', ({ data }) => {
@@ -65,7 +64,7 @@ export default function App() {
       })
 
       socketio.on('new-post', ({ data }) => {
-        postDispatch({ type: 'ADD_POST', payload: data })
+        //postDispatch({ type: 'ADD_POST', payload: data })
       })
 
       socketio.on('like-post', ({ data }) => {
@@ -85,30 +84,30 @@ export default function App() {
       })
 
       socketio.on('notification', ({ data }) => {
-        uiDispatch({ type: 'ADD_NOTIFICATION', payload: data })
+        //({ type: 'ADD_NOTIFICATION', payload: data })
       })
 
       return () => {
         socketio.disconnect()
-        userDispatch({ type: 'SET_SOCKETIO', payload: null })
+        //userDispatch({ type: 'SET_SOCKETIO', payload: null })
         console.log('disconnect')
       }
     }
-  }, [userState.isLoggedIn])
+  }, [isLoggedIn])
 
 
   useEffect(() => {
-    if (uiState.toast) {
+    if (toast) {
       Toast.show({
-        type: uiState.toast.type,
-        text1: uiState.toast.text1,
-        text2: uiState.toast.text2,
+        type: toast.type,
+        text1: toast.text1,
+        text2: toast.text2,
         visibilityTime: 5000,
         autoHide: true,
       })
     }
 
-  }, [uiState.toast])
+  }, [toast])
 
 
   return (
@@ -116,7 +115,7 @@ export default function App() {
       <PortalProvider>
         <AuthenScreen />
       </PortalProvider>
-      <Toast config ={toastConfig}/>
+      <Toast config={toastConfig} />
     </>
   );
 }

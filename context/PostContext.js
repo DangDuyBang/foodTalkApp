@@ -86,7 +86,7 @@ export const PostReducer = (state, action) => {
                 state.posts[l_postIndex].reactions = action.payload.reactions
             }
 
-            return { ...state, }
+            return { ...state }
 
         case 'COMMENT_PAGINATION':
             return {

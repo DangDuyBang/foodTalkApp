@@ -11,15 +11,18 @@ import { UserContext } from '../providers/UserProvider'
 import { PostContext } from '../providers/PostProvider'
 import { likeDislikePost } from '../services/PostServices'
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux'
+import {likeUnlikePost } from '../redux/postReducer'
 
 const Post = (props) => {
 
     const [isFollow, setIsFollow] = useState(false)
-    const { userState } = React.useContext(UserContext)
-    const { postDispatch } = React.useContext(PostContext)
+
+    const currentUser = useSelector(state => state.user.currentUser)
+    const dispatch = useDispatch()
 
     const isLikedUser = () => {
-        return props.post.reactions.includes(userState.currentUser.id)
+        return props.post.reactions.includes(currentUser.id)
     }
 
     const [isLiked, setIsLiked] = useState(isLikedUser())
@@ -45,7 +48,7 @@ const Post = (props) => {
     const heartEvent = async () => {
         setIsLiked(!isLiked)
         await likeDislikePost(props.post._id).then(res => {
-            postDispatch({ type: 'LIKE_UNLIKE_POST', payload: res.data.post })
+            dispatch(likeUnlikePost(res.data.post))
         }).catch(err => {
             setIsLiked(!isLiked);
             if (err.response) {

@@ -4,10 +4,12 @@ import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import RecipeComment from '../../../components/RecipeComment'
 import { UserContext } from '../../../providers/UserProvider'
+import { useSelector } from 'react-redux'
 
 const EvaluateRecipeScreen = () => {
 
-    const { userState, userDispatch } = useContext(UserContext)
+
+    const currentUser = useSelector(state => state.user.currentUser)
 
     const [currentDate, setCurrentDate] = useState('');
 
@@ -82,7 +84,7 @@ const EvaluateRecipeScreen = () => {
                                 key={index}
                                 starMark={star}
                                 dateComment={currentDate}
-                                userComment={userState.currentUser.username}
+                                userComment={currentUser.username}
                             />
                         })
                     }

@@ -18,6 +18,8 @@
     "@react-navigation/material-top-tabs": "^5.3.19",
     "@react-navigation/native": "^5.9.8",
     "@react-navigation/stack": "^5.14.9",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@stream-io/flat-list-mvcp": "^0.10.1",
     "@unimodules/core": "^7.1.2",
     "@unimodules/react-native-adapter": "^6.3.9",
     "axios": "^0.26.1",
@@ -54,7 +56,9 @@
     "react-native-toast-message": "^2.1.5",
     "react-native-web": "0.17.1",
     "react-navigation": "^4.4.4",
+    "react-redux": "^8.0.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
+    "redux": "^4.2.0",
     "socket.io-client": "^4.4.1",
     "unimodules-permissions-interface": "^6.1.0",
     "uuid": "^8.3.2"

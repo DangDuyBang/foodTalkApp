@@ -13,7 +13,7 @@ const useSignup = ({ navigation }) => {
     const [error, setError] = React.useState({})
     const [confirmPassword, setConfirmPassword] = React.useState('')
     const [uri, setUri] = React.useState('')
-    const [uiState, uiDispatch] = React.useContext(UIContext)
+    const {uiState, uiDispatch} = React.useContext(UIContext)
 
     const handleUsernameChange = (username) => {
         setPayload({ ...payload, username: username })

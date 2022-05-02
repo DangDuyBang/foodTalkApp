@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
@@ -9,6 +9,9 @@ import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@
 import useFetchPost from './hooks/useFetchPost'
 import { PostContext } from '../../providers/PostProvider'
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux'
+import { ScrollView } from '@stream-io/flat-list-mvcp';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
   }
 
   const { useFetchAllPost, loading } = useFetchPost();
-  const { postState } = React.useContext(PostContext);
+  const posts = useSelector(state => state.post.posts)
 
   React.useEffect(() => {
     async function useLoads() {
@@ -32,8 +35,13 @@ const HomeScreen = ({ navigation }) => {
 
   const Home = () => {
     return (
-      <View style={styles.container}>
-        <ScrollView>
+
+      <SafeAreaView style={styles.container}>
+        <ScrollView
+           maintainVisibleContentPosition={{
+            autoscrollToTopThreshold: 20,
+            minIndexForVisible: 0,
+          }}>
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -83,14 +91,25 @@ const HomeScreen = ({ navigation }) => {
               <MaterialIcons name='place' size={28} color={color.errorColor}></MaterialIcons>
             </TouchableOpacity>
           </View>
-
           <View style={styles.body}>
-              {postState.posts && postState.posts.length > 0 && postState.posts.map((post, index) =>
-                <Post post={post} key={post._id}></Post>
-              )}
+            {/* {postState.posts && postState.posts.length > 0 &&
+              <FlatList
+                keyExtractor={item => item._id}
+                extraData = {postState.posts}
+                data = {postState.posts}
+                renderItem={({ item }) => {
+                  return (
+                    <Post post={item}></Post>
+                  )
+                }}>
+
+              </FlatList>} */}
+            {posts && posts.length > 0 && posts.map((post, index) =>
+              <Post post={post} key={post._id}></Post>
+            )}
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     )
 
   }

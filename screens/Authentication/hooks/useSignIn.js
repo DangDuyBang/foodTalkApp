@@ -5,10 +5,13 @@ import { UIContext } from '../../../providers/UIProvider'
 import { loginUser } from '../../../services/AuthServices'
 import { fetchCurrentUser } from '../../../services/UserServices'
 import { saveStorage } from '../../../utils/Storage'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCurrentUser, setSocketio } from '../../../redux/userReducer'
+import { setToast } from '../../../redux/uiReducer'
 
 const useSignIn = () => {
-    const {userDispatch} = useContext(UserContext)
-    const {uiDispatch} = useContext(UIContext)
+
+    const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -20,23 +23,23 @@ const useSignIn = () => {
     const handlePasswordChange = (text) => {
         setInitialState({ ...initialState, password: text })
         // setError({ ...error, password: '' })
-      }
+    }
 
-      const handleEmailChange = (text) => {
+    const handleEmailChange = (text) => {
         setInitialState({ ...initialState, email: text })
         // setError({ ...error, email: '' })
-      }
+    }
 
     const handleLoginUser = async (e, eventSignIn) => {
         setLoading(true)
 
-        try{
+        try {
 
-            const {data} = await loginUser(initialState)
+            const { data } = await loginUser(initialState)
 
             setLoading(false)
-            
-            if(data) {
+
+            if (data) {
 
                 setLoading(true)
                 saveStorage('@token', data.data.token)
@@ -44,22 +47,23 @@ const useSignIn = () => {
 
                 const me = await fetchCurrentUser()
 
-                userDispatch({type: 'SET_CURRENT_USER', payload: me.data.user})
+                dispatch(setCurrentUser(me.data.user))
 
                 setLoading(false)
 
-                uiDispatch({type: 'SET_TOAST', payload: {
+                dispatch(setToast({
                     type: 'success',
                     text1: 'Wellcome',
                     text2: 'Take your time to cook some recipes',
-                }})    
+                }))
 
-                eventSignIn()
+                //eventSignIn()
             }
-           
+
         } catch (err) {
             setLoading(false)
-            if(err.response){
+            console.log(err);
+            if (err.response) {
                 console.log(err.response.data.error)
                 setError(...err, err.response.data.error)
             }
@@ -73,7 +77,7 @@ const useSignIn = () => {
         handleLoginUser,
         handleEmailChange,
         handlePasswordChange,
-      }
+    }
 
 }
 

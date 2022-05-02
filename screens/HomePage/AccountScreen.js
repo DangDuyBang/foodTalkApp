@@ -11,13 +11,14 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
 import { createStackNavigator } from "@react-navigation/stack";
+import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator();
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = ({ navigation }) => {
-  const { userState, userDispatch } = useContext(UserContext)
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const Account = () => {
     return (
@@ -64,7 +65,7 @@ const AccountScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.fullNameFrame}>
-                  <Text style={styles.fullName}>{userState.currentUser.first_name + " " + userState.currentUser.last_name}</Text>
+                  <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
                   <TouchableOpacity onPress={eventEditProfile}>
                     <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
                   </TouchableOpacity>
@@ -80,11 +81,11 @@ const AccountScreen = ({ navigation }) => {
               <View style={styles.followView}>
                 <View style={styles.followingView}>
                   <Text style={styles.followText}>Following</Text>
-                  <Text style={styles.followNumberText}>{userState.currentUser.following.length || "0"}</Text>
+                  <Text style={styles.followNumberText}>{currentUser.following.length || "0"}</Text>
                 </View>
                 <View style={styles.followingView}>
                   <Text style={styles.followText}>Follower</Text>
-                  <Text style={styles.followNumberText}>{userState.currentUser.follower.length || "0"}</Text>
+                  <Text style={styles.followNumberText}>{currentUser.follower.length || "0"}</Text>
                 </View>
                 <View style={styles.followingView}>
                   <Text style={styles.followText}>Like</Text>
@@ -286,7 +287,7 @@ const AccountScreen = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='AccountPage' component={Account} options={{
-        title: userState.currentUser.username,
+        title: currentUser.username,
         headerRight: () => (
           <TouchableOpacity onPress={() => bs.current.snapTo(0)} style={{ marginRight: 16 }}>
             <Ionicons name='settings' size={24} color={color.textGray} />

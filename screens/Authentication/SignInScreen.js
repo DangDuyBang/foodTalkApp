@@ -69,8 +69,8 @@ const SignInScreen = ({ navigation }) => {
     // }
 
     //showToast();
-    showToastMessage();
-    navigation.navigate('HomePage');
+    //showToastMessage();
+    navigation.navigate('BottomSheet');
   }
 
   const eventSignInWithGoogle = () => {

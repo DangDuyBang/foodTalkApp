@@ -12,6 +12,7 @@ import IMLocationSelectorModal from '../Extending/Map/Map'
 import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen'
 import { createStackNavigator } from "@react-navigation/stack";
 import { config, closeConfig } from '../../utils/ScreenConfig'
+import { useSelector } from 'react-redux'
 const Stack = createStackNavigator();
 
 const NewPostScreen = ({ navigation }) => {
@@ -19,7 +20,7 @@ const NewPostScreen = ({ navigation }) => {
 
     const { isPublic, foods, content, location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost } = useCreatePost({ navigation })
 
-    const { userState, userDispatch } = useContext(UserContext)
+    const currentUser = useSelector(state => state.user.currentUser)
 
 
     const NewPost = () => {
@@ -33,7 +34,7 @@ const NewPostScreen = ({ navigation }) => {
                                     style={styles.avatarImage}
                                     resizeMode='stretch'
                                     source={{
-                                        uri: userState.currentUser.avatar_pic,
+                                        uri: currentUser.avatar_pic,
                                     }}
                                 />
                             </View>
@@ -44,7 +45,7 @@ const NewPostScreen = ({ navigation }) => {
                                     <Text style={
                                         styles.nameUserText}
                                     >
-                                        {userState.currentUser.username}
+                                        {currentUser.username}
 
                                         {location && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 15 }]}> is in </Text>}
                                         {location && <Text style={[styles.nameUserText, { fontSize: 15 }]}> {location} </Text>}
