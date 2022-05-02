@@ -4,6 +4,8 @@ import { storage } from '../../../firebase/firebase'
 import { signUpUser } from '../../../services/AuthServices';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { UIContext } from '../../../providers/UIProvider';
+import { useDispatch } from 'react-redux';
+import { setToast } from '../../../redux/uiReducer'
 
 const useSignup = ({ navigation }) => {
 
@@ -13,7 +15,7 @@ const useSignup = ({ navigation }) => {
     const [error, setError] = React.useState({})
     const [confirmPassword, setConfirmPassword] = React.useState('')
     const [uri, setUri] = React.useState('')
-    const {uiState, uiDispatch} = React.useContext(UIContext)
+    const dispatch = useDispatch()
 
     const handleUsernameChange = (username) => {
         setPayload({ ...payload, username: username })
@@ -104,11 +106,13 @@ const useSignup = ({ navigation }) => {
             const { data } = await signUpUser(payload)
             setLoading(false)
             if (data) {
-                uiDispatch({type: 'SET_TOAST', payload: {
-                    type: 'success',
-                    text1: 'Your account has been registered',
-                    text2: 'Your account has been registered. Please checked your email',
-                }})
+                dispatch(setToast({
+                    type: 'SET_TOAST', payload: {
+                        type: 'success',
+                        text1: 'Your account has been registered',
+                        text2: 'Your account has been registered. Please checked your email',
+                    }
+                }))
                 navigation.goBack()
             }
         } catch (error) {

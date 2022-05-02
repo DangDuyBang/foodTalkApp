@@ -30,7 +30,7 @@ const useSignIn = () => {
         // setError({ ...error, email: '' })
     }
 
-    const handleLoginUser = async (e, eventSignIn) => {
+    const handleLoginUser = async (e) => {
         setLoading(true)
 
         try {

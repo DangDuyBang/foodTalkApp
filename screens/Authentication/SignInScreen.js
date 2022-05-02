@@ -13,24 +13,6 @@ import Toast from 'react-native-toast-message';
 
 const SignInScreen = ({ navigation }) => {
 
-  // const showToast = () => {
-  //   ToastAndroid.show("Successfully Login !", ToastAndroid.SHORT);
-  // };
-
-  // const showToastMessage = () => {
-  //   Toast.show({
-  //     type: 'success',
-  //     position: 'bottom',
-  //     visibilityTime: 3000,
-  //     text1: 'Successfully Login',
-  //     text2: 'Welcome to our world 👋'
-  //   });
-  // }
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
-
   const {
     loading,
     error,
@@ -38,40 +20,6 @@ const SignInScreen = ({ navigation }) => {
     handlePasswordChange,
     handleEmailChange,
   } = useSignIn()
-
-  const eventSignIn = () => {
-    // if (email.length === 0 || password.length === 0) {
-    //   alert("Email or Password should be not empty !")
-    //   return false;
-    // } else if (password.trim().length < 8) {
-    //   alert('Password must be 8 characters long !')
-    // } else {
-    //   await fetch('https://dcb-backend-deploy.herokuapp.com/api/auth/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       'email': email,
-    //       'password': password
-    //     })
-    //   }).then(res => res.json())
-    //     .then(resData => {
-    //       alert(resData.message);
-    //       if (resData.message != 'Login successfully') {
-    //         alert('Email or Password is wrong');
-    //         return false;
-    //       } else {
-    //         navigation.navigate('HomePage');
-    //       }
-    //     })
-    // }
-
-    //showToast();
-    //showToastMessage();
-    navigation.navigate('BottomSheet');
-  }
 
   const eventSignInWithGoogle = () => {
     navigation.navigate('HomePage')
@@ -123,7 +71,7 @@ const SignInScreen = ({ navigation }) => {
                 </Animatable.View>
                 : null
               }
-              <SubmitNoLogo loading={loading} eventButton={(e) => handleLoginUser(e, eventSignIn)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
+              <SubmitNoLogo loading={loading} eventButton={(e) => handleLoginUser(e)} nameButton='SIGN IN' colorView={color.background} colorName={color.textGray} widthBorder={2} colorBorder={color.textIconSmall} />
 
               <View style={styles.lineView}>
                 <View style={styles.lineFirst}></View>

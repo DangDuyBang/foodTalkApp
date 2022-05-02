@@ -3,12 +3,8 @@ import React from 'react'
 import color from '../../contains/color'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import Post from '../../components/Post'
-import NewPostScreen from '../HomePage/NewPostScreen';
-import { config, closeConfig, } from '../../utils/ScreenConfig'
-import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import useFetchPost from './hooks/useFetchPost'
-import { PostContext } from '../../providers/PostProvider'
-import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux'
 import { ScrollView } from '@stream-io/flat-list-mvcp';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -94,8 +90,8 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.body}>
-            {postState.posts && postState.posts.length > 0 ?
-              postState.posts.map((post, index) =>
+            {posts && posts.length > 0 ?
+              posts.map((post, index) =>
                 <Post post={post} key={post._id}></Post>
               )
               :

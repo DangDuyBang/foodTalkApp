@@ -22,7 +22,6 @@ const NewPostScreen = ({ navigation }) => {
 
     const currentUser = useSelector(state => state.user.currentUser)
 
-
     const NewPost = () => {
         return (
             <View style={styles.container}>
@@ -75,7 +74,7 @@ const NewPostScreen = ({ navigation }) => {
                             placeholder="Let's share your food"
                             multiline={true}
                             onChangeText={handleContentChange}
-                            value={content}
+                            defaultValue={content}
                         />
                         {photos && photos.length !== 0 && <SwipeSlide photos={photos.map(photo => photo.uri)} />}
                         <ScrollView
