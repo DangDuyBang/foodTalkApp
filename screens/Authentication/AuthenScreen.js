@@ -72,9 +72,18 @@ const AuthenScreen = () => {
                   title: 'Create your new account'
                 }}
               />
-              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{
-                title: 'Reset password'
-              }} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}
+                options={{
+                  gestureEnabled: true,
+                  gestureDirection: 'horizontal',
+                  transitionSpec: {
+                    open: config,
+                    close: closeConfig,
+                  },
+                  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                  title: 'Reset password'
+                }}
+              />
             </Stack.Navigator>
           ) :
           <Stack.Navigator initialRouteName='BottomSheet'>

@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux'
 import { ScrollView } from '@stream-io/flat-list-mvcp';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LottieView from 'lottie-react-native'
+
 
 const Stack = createStackNavigator();
 
@@ -46,8 +48,8 @@ const HomeScreen = ({ navigation }) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 8,
-            paddingVertical: 8,
+            marginTop: 5,
+            paddingVertical: 10,
             paddingHorizontal: 20,
             backgroundColor: color.background,
             marginBottom: 3,
@@ -92,21 +94,25 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.body}>
-            {/* {postState.posts && postState.posts.length > 0 &&
-              <FlatList
-                keyExtractor={item => item._id}
-                extraData = {postState.posts}
-                data = {postState.posts}
-                renderItem={({ item }) => {
-                  return (
-                    <Post post={item}></Post>
-                  )
-                }}>
+            {postState.posts && postState.posts.length > 0 ?
+              postState.posts.map((post, index) =>
+                <Post post={post} key={post._id}></Post>
+              )
+              :
+              <View style={{
+                alignItems: 'center'
+              }}>
+                <LottieView
+                  source={require('../../assets/lottie/spoon-loading-utensils.json')}
+                  autoPlay loop
+                  style={{
+                    width: 230,
+                    height: 230,
+                  }}
+                />
+              </View>
 
-              </FlatList>} */}
-            {posts && posts.length > 0 && posts.map((post, index) =>
-              <Post post={post} key={post._id}></Post>
-            )}
+            }
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -156,6 +162,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.post,
+    // paddingBottom: 80,
   },
   avatarImage: {
     width: 40,
@@ -194,6 +201,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   body: {
+    backgroundColor: color.post,
     paddingBottom: 80,
   }
 })
