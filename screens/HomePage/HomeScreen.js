@@ -14,6 +14,7 @@ import { ScrollView } from '@stream-io/flat-list-mvcp';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
 
+
 const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
