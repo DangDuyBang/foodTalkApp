@@ -164,7 +164,7 @@ const Post = (props) => {
                         />
                     </View>
                     <View style={styles.nameAndTimeViewCommenter}>
-                        <Text style={styles.nameUserCommenter}>NGuyễn Nhựt Tân</Text>
+                        <Text style={styles.nameUserCommenter}>Nguyễn Nhựt Tân</Text>
                         <Text style={styles.timeComment}>10h ago</Text>
                     </View>
                 </View>
