@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share } from 'react-native'
 import React, { useState } from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
@@ -15,6 +15,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { likeUnlikePost } from '../redux/postReducer'
 
 const Post = (props) => {
+
+    const onShare = async () => {
+        try {
+            const result = await Share.share({
+                message: 'React Native | A framework for building native apps using React',
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     const [isFollow, setIsFollow] = useState(false)
 
@@ -150,7 +169,9 @@ const Post = (props) => {
                         </TouchableOpacity>
                         <Text style={styles.commentNumber}>0</Text>
 
-                        <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
+                        <TouchableOpacity onPress={onShare}>
+                            <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
