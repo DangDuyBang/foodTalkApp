@@ -1,24 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import HomePageScreen from '../HomePage/HomePageScreen';
 import StartScreen from '../Onboarding/StartScreen';
 import SplashScreen from '../Onboarding/SplashScreen';
-import LoadingScreen from '../Onboarding/LoadingScreen'
 import { customTransition, config, closeConfig } from '../../utils/ScreenConfig';
 import NewPostScreen from '../HomePage/NewPostScreen';
 
-import ChatScreen from '../Extending/ChatScreen';
 
 //import screen of CHAT
 import ChatNavigationScreen from '../Extending/ChatFunction/ChatNavigationScreen';
 import DetailChatScreen from '../Extending/ChatFunction/DetailChatScreen';
 
-import { Easing } from 'react-native-reanimated';
-import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen';
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
@@ -30,10 +25,7 @@ import EditProfileScreen from '../Extending/Setting/EditProfileScreen';
 import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
 import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
 import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
-import IMLocationSelectorModal from '../Extending/Map/Map';
-import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple';
 
-import { UserContext } from '../../providers/UserProvider';
 import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
@@ -100,12 +92,12 @@ const AuthenScreen = () => {
             <Stack.Screen name="NewPost" component={NewPostScreen}
               options={{
                 headerShown: false,
-                gestureEnabled: true,
-                gestureDirection: 'vertical',
-                transitionSpec: {
-                  open: config,
-                  close: closeConfig,
-                },
+                gestureEnabled: false,
+                // gestureDirection: 'vertical',
+                // transitionSpec: {
+                //   open: config,
+                //   close: closeConfig,
+                // },
                 //cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
               }}
             />

@@ -6,38 +6,15 @@ import InputSearch from '../../../components/InputSearch'
 import RecipePreview from '../../../components/RecipePreview'
 import RecipePreviewPlus from '../../../components/RecipePreviewPlus'
 import RecipeChosen from '../../../components/RecipeChosen'
+import useRecipeActions from './hooks/useRecipeActions'
+import { useSelector } from 'react-redux'
 
-
-const data = [
-    {
-        id: '6228601aba67f0bb3b7b37d0',
-        photo: "https://i.pinimg.com/564x/54/60/a0/5460a0721c26e6d3c7a1848ac1a24abd.jpg",
-        name: "Pizza",
-        author: { username: "Dang Duy Bang" },
-        avg_score: "4.5",
-    },
-    {
-        id: '62286035cb55a0e81675744e',
-        photo: "https://i.pinimg.com/564x/91/1b/fb/911bfbe4f493ed427c8b19d1d69f2d57.jpg",
-        name: "Beef steak",
-        author: { username: "Nguyen Nhut Tan" },
-        avg_score: "4.5",
-    }
-]
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
 
-    // navigation.setOptions({
-    //     headerRight: () => (
-    //         <TouchableOpacity onPress={eventNewRecipe} style={{ marginRight: 16 }}>
-    //             <Text style={{
-    //                 fontSize: 32,
-    //                 color: color.primary,
-    //                 fontWeight: '500'
-    //             }}>+</Text>
-    //         </TouchableOpacity>
-    //     )
-    // })
+    const { loading, handleSearchChange } = useRecipeActions()
+
+    const foodsSearch = useSelector(state => state.food.foods)
 
     navigation.setOptions({
         title: 'Choose Attached Recipes',
@@ -51,7 +28,6 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
     const { onConfirm, foods } = route.params
 
     const [foodList, setFoodList] = useState(foods)
-
 
     const handleConfirm = () => {
         onConfirm(foodList)
@@ -78,12 +54,12 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} style = {{paddingHorizontal: 8}}/>
+            <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} style={{ paddingHorizontal: 8 }} setNameText={handleSearchChange} />
             <ScrollView>
                 <View style={styles.bodyView}>
-                    {data.map(recipe => (
+                    {foodsSearch.length !== 0 && foodsSearch.map(recipe => (
                         <RecipePreviewPlus
-                            key={recipe.id} data={recipe}
+                            key={recipe._id} data={recipe}
                             foodList={foodList}
                             onAddAttachedRecipe={handlePlusAttachedRecipe}
                             onMinusAttachedRecipe={handleMinusAttachedRecipe}

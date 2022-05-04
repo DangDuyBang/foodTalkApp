@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import color from '../contains/color'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 
-const RecipePreviewPlus = (props) => { 
+const RecipePreviewPlus = (props) => {
 
     const isOnFoodList = (foodList) => {
-        const index = foodList.findIndex(food => food.id === props.data.id)
+        const index = foodList.findIndex(food => food._id === props.data._id)
         if (index !== -1) {
             return true
         }
@@ -16,7 +16,7 @@ const RecipePreviewPlus = (props) => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress = {props.onDetailRecipe}>
+            <TouchableOpacity onPress={props.onDetailRecipe}>
                 <View style={styles.recipeView}>
                     <View style={styles.infoPostUser}>
                         <View style={styles.avatarFrame}>
@@ -29,12 +29,12 @@ const RecipePreviewPlus = (props) => {
                             />
                         </View>
                         <View style={styles.nameUserView}>
-                            <Text style={styles.nameUserText}>{props.data.name}</Text>
-                            <Text style={styles.textModePost}>Made by {props.data.author.username}</Text>
+                            {props.data.name.length > 20 ? <Text style={styles.nameUserText}>{props.data.name.slice(0, 18)} ...</Text> : <Text style={styles.nameUserText}>{props.data.name}</Text>}
+                            {props.data.author && <Text style={styles.textModePost}>Made by {props.data.author.username}</Text>}
                         </View>
                     </View>
                     <View style={styles.rateStarView}>
-                        <Text style={styles.markText}>{props.data.avg_score}</Text>
+                        <Text style={styles.markText}>{props.data.avg_score.toFixed(1)}</Text>
                         <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
                     </View>
                 </View>
@@ -42,7 +42,7 @@ const RecipePreviewPlus = (props) => {
 
             {
                 isOnFoodList(props.foodList) ?
-                    <TouchableOpacity onPress = {() => props.onMinusAttachedRecipe(props.data)}>
+                    <TouchableOpacity onPress={() => props.onMinusAttachedRecipe(props.data)}>
                         <AntDesign name='minuscircleo' size={24} color={color.errorColor}></AntDesign>
                     </TouchableOpacity>
                     :
