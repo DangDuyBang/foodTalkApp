@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     imageFoodFrame: {
-        width: 370,
+        width: '100%',
         height: 250,
         borderRadius: 20,
         borderWidth: 1,
