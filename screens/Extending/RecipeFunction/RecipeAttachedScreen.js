@@ -61,7 +61,8 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                         foodsSearch.length !== 0 ?
                             foodsSearch.map(recipe => (
                                 <RecipePreviewPlus
-                                    key={recipe._id} data={recipe}
+                                    key={recipe._id} 
+                                    data={recipe}
                                     foodList={foodList}
                                     onAddAttachedRecipe={handlePlusAttachedRecipe}
                                     onMinusAttachedRecipe={handleMinusAttachedRecipe}

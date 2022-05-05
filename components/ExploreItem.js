@@ -7,7 +7,7 @@ import RectangleItem from './RectangleItem'
 const ExploreItem = (props) => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onExploreFunction}>
                 <View style={styles.topTittleView}>
                     <View style={styles.leftTittleView}>
                         <View style={styles.iconTittleFrame}>
@@ -15,7 +15,7 @@ const ExploreItem = (props) => {
                         </View>
                         <Text style={styles.tittleText}>{props.tittleLeft}</Text>
                     </View>
-                    <Text style={styles.rightText}>></Text>
+                    <Text style={styles.rightText}>{">"}</Text>
                 </View>
             </TouchableOpacity>
             <ScrollView horizontal={true} style={styles.scrollExploreView}>

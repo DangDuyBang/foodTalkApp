@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons'
 
 const RecipePreview = (props) => {
     return (
-        <TouchableOpacity onPress={props.eventDetailRecipe}>
+        <TouchableOpacity onPress={props.onDetailRecipe}>
             <View style={styles.container}>
                 <View style={styles.infoPostUser}>
                     <View style={styles.avatarFrame}>
@@ -13,17 +13,17 @@ const RecipePreview = (props) => {
                             style={styles.avatarImage}
                             resizeMode='cover'
                             source={{
-                                uri: props.imageRecipe,
+                                uri: props.data.photo,
                             }}
                         />
                     </View>
                     <View style={styles.nameUserView}>
-                        <Text style={styles.nameUserText}>{props.nameRecipe}</Text>
-                        <Text style={styles.textModePost}>Made by {props.authorRecipe}</Text>
+                        {props.data.name.length > 20 ? <Text style={styles.nameUserText}>{props.data.name.slice(0, 18)} ...</Text> : <Text style={styles.nameUserText}>{props.data.name}</Text>}
+                        {props.data.author && <Text style={styles.textModePost}>Made by {props.data.author.username}</Text>}
                     </View>
                 </View>
                 <View style={styles.rateStarView}>
-                    <Text style={styles.markText}>{props.markRecipe}</Text>
+                    <Text style={styles.markText}>{props.data.avg_score.toFixed(1)}</Text>
                     <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
                 </View>
             </View>

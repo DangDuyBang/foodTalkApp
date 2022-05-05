@@ -26,6 +26,8 @@ import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
 import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
 import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
 
+import RecipeListScreen from '../Extending/RecipeFunction/RecipeListScreen';
+
 import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
@@ -118,6 +120,7 @@ const AuthenScreen = () => {
                 cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
+            <Stack.Screen name="RecipeList" component={RecipeListScreen} />
             <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} />
             <Stack.Screen name="DetailChat" component={DetailChatScreen} />
             <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />

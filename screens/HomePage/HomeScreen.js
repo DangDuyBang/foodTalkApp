@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { ScrollView } from '@stream-io/flat-list-mvcp';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
+import Shortcut from '../../components/Shortcut'
 
 const Stack = createStackNavigator();
 
@@ -40,54 +41,80 @@ const HomeScreen = ({ navigation }) => {
             minIndexForVisible: 0,
           }}>
           <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginTop: 5,
-            paddingVertical: 10,
-            paddingHorizontal: 20,
             backgroundColor: color.background,
             marginBottom: 3,
-
+            marginTop: 5,
+            paddingTop: 10,
           }}>
-            {/* <View style={{
+            <View style={{
               flexDirection: 'row',
               alignItems: 'center',
-              width: '90%'
-            }}> */}
-            <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-              <Image
-                style={styles.avatarImage}
-                resizeMode='cover'
-                source={{
-                  uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
-                }}
-              />
-            </TouchableOpacity>
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
 
-            <TouchableOpacity onPress={eventNewPost}>
-              <View style={{
-                backgroundColor: color.inputColor,
-                paddingVertical: 12,
-                paddingRight: 16,
-                paddingLeft: 8,
-                borderRadius: 100,
-                justifyContent: 'center',
-              }}>
-                <Text style={{
-                  fontFamily: 'Roboto',
-                  fontSize: 15,
-                  marginLeft: 7,
-                  color: color.textGray,
-                }}> Share your story with everyone.</Text>
-              </View>
-            </TouchableOpacity>
-            {/* </View> */}
+            }}>
 
-            <TouchableOpacity onPress={eventRecentRestaurant}>
-              <MaterialIcons name='place' size={28} color={color.errorColor}></MaterialIcons>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+                <Image
+                  style={styles.avatarImage}
+                  resizeMode='cover'
+                  source={{
+                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                  }}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={eventNewPost}>
+                <View style={{
+                  backgroundColor: color.inputColor,
+                  paddingVertical: 12,
+                  paddingRight: 16,
+                  paddingLeft: 8,
+                  borderRadius: 100,
+                  justifyContent: 'center',
+                }}>
+                  <Text style={{
+                    fontFamily: 'Roboto',
+                    fontSize: 15,
+                    marginLeft: 7,
+                    color: color.textGray,
+                  }}> Share your story with everyone.</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={eventRecentRestaurant}>
+                <MaterialIcons name='photo-library' size={28} color={color.iconGreen}></MaterialIcons>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.shortcutView}>
+              <ScrollView horizontal={true}>
+                <Shortcut
+                  nameShortcut="Add Recipe"
+                  iconShortcut="silverware-clean"
+                  iconColor={color.primary}
+                  onFunction={() => { navigation.navigate("NewRecipe") }}
+                />
+                <Shortcut
+                  nameShortcut="Recent Restaurant"
+                  iconShortcut="map-marker-radius"
+                  iconColor={color.errorColor}
+                />
+                <Shortcut
+                  nameShortcut="Review Video"
+                  iconShortcut="video-check"
+                  iconColor={color.textBlue}
+                />
+                <Shortcut
+                  nameShortcut="Live Stream"
+                  iconShortcut="video-wireless"
+                  iconColor={color.errorColor}
+                />
+              </ScrollView>
+            </View>
           </View>
+
+
           <View style={styles.body}>
             {
               posts && posts.length > 0 ?
@@ -199,5 +226,13 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: color.post,
     paddingBottom: 80,
+  },
+  shortcutView: {
+    borderColor: color.textIconSmall,
+    flexDirection: 'row',
+    paddingLeft: 20,
+    paddingTop: 10,
+    marginTop: 10,
+    backgroundColor: '#F6F2F2'
   }
 })

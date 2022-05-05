@@ -76,6 +76,7 @@ const ExploreScreen = ({ navigation }) => {
               imagesPic5={ImagePic.imageRecipe_fith}
               imagesPic6={ImagePic.imageRecipe_sixth}
               imagesPic7={ImagePic.imageRecipe_seventh}
+              onExploreFunction={() => navigation.navigate("RecipeList")}
             />
             <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
           </View>
@@ -92,7 +93,7 @@ const ExploreScreen = ({ navigation }) => {
     <Stack.Navigator>
       <Stack.Screen name='ExplorePage' component={Explore} options={{
         headerTitle: () => (
-          <InputSearch inputIcon='search' inputName='Search'/>
+          <InputSearch inputIcon='search' inputName='Search' />
         ),
         headerRight: () => (
           <View style={styles.chatFrame}>
