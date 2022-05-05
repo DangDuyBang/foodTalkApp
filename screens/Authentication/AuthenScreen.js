@@ -7,7 +7,6 @@ import HomePageScreen from '../HomePage/HomePageScreen';
 import StartScreen from '../Onboarding/StartScreen';
 import SplashScreen from '../Onboarding/SplashScreen';
 import { customTransition, config, closeConfig } from '../../utils/ScreenConfig';
-import NewPostScreen from '../HomePage/NewPostScreen';
 
 
 //import screen of CHAT
@@ -29,6 +28,7 @@ import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
 import RecipeListScreen from '../Extending/RecipeFunction/RecipeListScreen';
 
 import { useSelector } from 'react-redux';
+import CreatePostNavigation from '../HomePage/CreatePostNavigation';
 
 const Stack = createStackNavigator();
 
@@ -91,7 +91,7 @@ const AuthenScreen = () => {
                 headerShown: false,
               }}
             />
-            <Stack.Screen name="NewPost" component={NewPostScreen}
+            <Stack.Screen name="NewPost" component={CreatePostNavigation}
               options={{
                 headerShown: false,
                 gestureEnabled: false,

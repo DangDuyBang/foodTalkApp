@@ -1,15 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Animated, Image } from 'react-native'
+import { View, Animated } from 'react-native'
 import React, { useRef } from 'react'
-import HomeScreen from './HomeScreen'
 import ExploreScreen from './ExploreScreen'
 import NotificationScreen from './NotificationScreen'
 import AccountScreen from './AccountScreen'
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import color from '../../contains/color'
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
-import NewPostScreen from './NewPostScreen'
-import CreatePostScreen from '../HomePage/CreatePostScreen'
+import { FontAwesome } from '@expo/vector-icons'
+import HomePageNavigation from './HomePageNavigation'
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +40,7 @@ const HomePageScreen = ({ navigation }) => {
 
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{
+      <Tab.Screen name="Home" component={HomePageNavigation} options={{
         tabBarIcon: ({ focused }) => (
           <View style={{
             position: 'absolute',

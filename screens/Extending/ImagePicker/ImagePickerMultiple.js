@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { ImageBrowser } from 'expo-image-picker-multiple';
+import { Ionicons } from '@expo/vector-icons'
+import color from '../../../contains/color'
 
 export default class ImageBrowserScreen extends Component {
   _getHeaderLoader = () => (
-    <ActivityIndicator size='small' color={'#0580FF'} />
+    <ActivityIndicator size='small' color={color.primary} style={{ marginRight: 16 }}/>
   );
 
   imagesCallback = (callback) => {
@@ -41,9 +43,11 @@ export default class ImageBrowserScreen extends Component {
 
   _renderDoneButton = (count, onSubmit) => {
     if (!count) return null;
-    return <TouchableOpacity title={'Done'} onPress={onSubmit}>
-      <Text onPress={onSubmit}>Done</Text>
-    </TouchableOpacity>
+    return (
+      <TouchableOpacity style={{ marginRight: 16 }} onPress={onSubmit}>
+          <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
+      </TouchableOpacity>
+  )
   }
 
   updateHandler = (count, onSubmit) => {

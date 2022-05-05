@@ -1,17 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
-import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import Post from '../../components/Post'
-import { createStackNavigator } from '@react-navigation/stack';
 import useFetchPost from './hooks/useFetchPost'
 import { useSelector } from 'react-redux'
 import { ScrollView } from '@stream-io/flat-list-mvcp';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
 import Shortcut from '../../components/Shortcut'
-
-const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
 
@@ -31,118 +28,6 @@ const HomeScreen = ({ navigation }) => {
   }, [])
 
 
-  const Home = () => {
-    return (
-
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          maintainVisibleContentPosition={{
-            autoscrollToTopThreshold: 20,
-            minIndexForVisible: 0,
-          }}>
-          <View style={{
-            backgroundColor: color.background,
-            marginBottom: 3,
-            marginTop: 5,
-            paddingTop: 10,
-          }}>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingHorizontal: 20,
-
-            }}>
-
-              <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-                <Image
-                  style={styles.avatarImage}
-                  resizeMode='cover'
-                  source={{
-                    uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
-                  }}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={eventNewPost}>
-                <View style={{
-                  backgroundColor: color.inputColor,
-                  paddingVertical: 12,
-                  paddingRight: 16,
-                  paddingLeft: 8,
-                  borderRadius: 100,
-                  justifyContent: 'center',
-                }}>
-                  <Text style={{
-                    fontFamily: 'Roboto',
-                    fontSize: 15,
-                    marginLeft: 7,
-                    color: color.textGray,
-                  }}> Share your story with everyone.</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={eventRecentRestaurant}>
-                <MaterialIcons name='photo-library' size={28} color={color.iconGreen}></MaterialIcons>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.shortcutView}>
-              <ScrollView horizontal={true}>
-                <Shortcut
-                  nameShortcut="Add Recipe"
-                  iconShortcut="silverware-clean"
-                  iconColor={color.primary}
-                  onFunction={() => { navigation.navigate("NewRecipe") }}
-                />
-                <Shortcut
-                  nameShortcut="Recent Restaurant"
-                  iconShortcut="map-marker-radius"
-                  iconColor={color.errorColor}
-                />
-                <Shortcut
-                  nameShortcut="Review Video"
-                  iconShortcut="video-check"
-                  iconColor={color.textBlue}
-                />
-                <Shortcut
-                  nameShortcut="Live Stream"
-                  iconShortcut="video-wireless"
-                  iconColor={color.errorColor}
-                />
-              </ScrollView>
-            </View>
-          </View>
-
-
-          <View style={styles.body}>
-            {
-              posts && posts.length > 0 ?
-                posts.map((post, index) =>
-                  <Post post={post} key={post._id}></Post>
-                )
-                :
-                <View style={{
-                  alignItems: 'center'
-                }}>
-                  <LottieView
-                    source={require('../../assets/lottie/spoon-loading-utensils.json')}
-                    autoPlay loop
-                    style={{
-                      width: 230,
-                      height: 230,
-                    }}
-                  />
-                </View>
-
-            }
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    )
-
-  }
-
   const eventNewPost = () => {
     navigation.navigate('NewPost')
   }
@@ -160,22 +45,111 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name='HomePage' component={Home} options={{
-        title: 'Food Talk',
-        headerRight: () =>
-          <View style={styles.iconRightTop}>
-            <View style={styles.searchUserFrame}>
-              <TouchableOpacity>
-                <Ionicons name='search-outline' size={28} color={color.primary}></Ionicons>
-              </TouchableOpacity></View>
-            <View style={styles.chatFrame}>
-              <TouchableOpacity onPress={eventChat}>
-                <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
-              </TouchableOpacity></View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        maintainVisibleContentPosition={{
+          autoscrollToTopThreshold: 20,
+          minIndexForVisible: 0,
+        }}>
+        <View style={{
+          backgroundColor: color.background,
+          marginBottom: 3,
+          marginTop: 5,
+          paddingTop: 10,
+        }}>
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: 20,
+
+          }}>
+
+            <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+              <Image
+                style={styles.avatarImage}
+                resizeMode='cover'
+                source={{
+                  uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                }}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={eventNewPost}>
+              <View style={{
+                backgroundColor: color.inputColor,
+                paddingVertical: 12,
+                paddingRight: 16,
+                paddingLeft: 8,
+                borderRadius: 100,
+                justifyContent: 'center',
+              }}>
+                <Text style={{
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                  marginLeft: 7,
+                  color: color.textGray,
+                }}> Share your story with everyone.</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={eventRecentRestaurant}>
+              <MaterialIcons name='photo-library' size={28} color={color.iconGreen}></MaterialIcons>
+            </TouchableOpacity>
           </View>
-      }} />
-    </Stack.Navigator>
+
+          <View style={styles.shortcutView}>
+            <ScrollView horizontal={true}>
+              <Shortcut
+                nameShortcut="Add Recipe"
+                iconShortcut="silverware-clean"
+                iconColor={color.primary}
+                onFunction={() => { navigation.navigate("NewRecipe") }}
+              />
+              <Shortcut
+                nameShortcut="Recent Restaurant"
+                iconShortcut="map-marker-radius"
+                iconColor={color.errorColor}
+              />
+              <Shortcut
+                nameShortcut="Review Video"
+                iconShortcut="video-check"
+                iconColor={color.textBlue}
+              />
+              <Shortcut
+                nameShortcut="Live Stream"
+                iconShortcut="video-wireless"
+                iconColor={color.errorColor}
+              />
+            </ScrollView>
+          </View>
+        </View>
+
+
+        <View style={styles.body}>
+          {
+            posts && posts.length > 0 ?
+              posts.map((post, index) =>
+                <Post post={post} key={post._id}></Post>
+              )
+              :
+              <View style={{
+                alignItems: 'center'
+              }}>
+                <LottieView
+                  source={require('../../assets/lottie/spoon-loading-utensils.json')}
+                  autoPlay loop
+                  style={{
+                    width: 230,
+                    height: 230,
+                  }}
+                />
+              </View>
+
+          }
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

@@ -1,19 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView } from 'react-native'
-import React, { useState, useContext, useRef } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
+import React, {  } from 'react'
 import color from '../../contains/color'
-import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import SwipeSlide from '../../components/SwipeSlide'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { useCreatePost } from './hooks/useCreatePost'
-import { UserContext } from '../../providers/UserProvider'
 import RecipeShowed from '../../components/RecipeShowed'
-import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple'
-import IMLocationSelectorModal from '../Extending/Map/Map'
-import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen'
-import { createStackNavigator } from "@react-navigation/stack";
-import { config, closeConfig } from '../../utils/ScreenConfig'
 import { useSelector } from 'react-redux'
-const Stack = createStackNavigator();
 
 const NewPostScreen = ({ navigation }) => {
     //cập nhật thêm checkin với foods
@@ -22,9 +15,8 @@ const NewPostScreen = ({ navigation }) => {
 
     const currentUser = useSelector(state => state.user.currentUser)
 
-    const NewPost = () => {
-        return (
-            <View style={styles.container}>
+    return (
+        <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.bodyView}>
                         <View style={styles.infoPostUser}>
@@ -125,31 +117,6 @@ const NewPostScreen = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-        )
-    }
-
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name='CreatePostPage' component={NewPost} options={{
-                title: 'Share your story'
-            }} />
-            <Stack.Screen name="ImagePickerMultiple" component={ImageBrowserScreen} options={{
-                title: 'Selected 0 files',
-            }} />
-            <Stack.Screen name="Map" component={IMLocationSelectorModal} />
-            <Stack.Screen name="RecipeAttached" component={RecipeAttachedScreen}
-                options={{
-                    title: 'Attached Recipes',
-                    gestureEnabled: true,
-                    gestureDirection: 'horizontal',
-                    transitionSpec: {
-                        open: config,
-                        close: closeConfig,
-                    },
-                    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                }}
-            />
-        </Stack.Navigator>
     )
 }
 
