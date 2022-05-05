@@ -29,7 +29,6 @@ const IngredientAdd = (props) => {
 
     useEffect(async () => {
         await recommendationPairingIngr(ingrList).then(response => {
-            console.log(response.data.ingredients)
             setRecommendedIngredient(response.data.ingredients.map(ingr => ({
                 _id: ingr.ingr
             })))

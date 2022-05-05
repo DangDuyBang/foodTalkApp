@@ -11,10 +11,12 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 const NewRecipeScreen = ({ navigation }) => {
+    const { loading, name, processList, ingredientList, uri, handleAddProcess, handleAddIngrdient, handleAddRecipe, handleChangeName, handleDeleteProcess, handleDeleteIngredient, openImagePickerAsync } = useNewReceipt({ navigation })
+
     navigation.setOptions({
         title: 'New recipe',
         headerRight: () => (
-            <TouchableOpacity style={{ marginRight: 16 }}>
+            <TouchableOpacity style={{ marginRight: 16 }} onPress={handleAddRecipe}>
                 <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
             </TouchableOpacity>
         )
@@ -63,7 +65,6 @@ const NewRecipeScreen = ({ navigation }) => {
     const bs = React.createRef();
     const fall = new Animated.Value(1);
 
-    const { processList, ingredientList, uri, handleAddProcess, handleAddIngrdient, handleDeleteProcess, handleDeleteIngredient, openImagePickerAsync } = useNewReceipt()
     return (
         <View style={styles.container}>
             <BottomSheet
@@ -103,9 +104,11 @@ const NewRecipeScreen = ({ navigation }) => {
                                 fontSize: 16,
                                 paddingHorizontal: 10
                             }}
+                            value={name}
+                            onChangeText={handleChangeName}
                         />
                         <Text style={styles.ingredientTittle}>Ingredients</Text>
-                        
+
                         <View>
                             {
                                 ingredientList.map((item, index) => {

@@ -15,10 +15,14 @@ export const foodSlice = createSlice({
     setFoods: (state, action) => {
       state.foods = action.payload
     },
+
+    addFood: (state, action) => {
+      state.foods.unshift(action.payload)
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setFoods} = foodSlice.actions
+export const { setFoods, addFood } = foodSlice.actions
 
 export default foodSlice.reducer
