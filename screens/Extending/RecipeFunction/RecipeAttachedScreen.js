@@ -8,7 +8,7 @@ import RecipePreviewPlus from '../../../components/RecipePreviewPlus'
 import RecipeChosen from '../../../components/RecipeChosen'
 import useRecipeActions from './hooks/useRecipeActions'
 import { useSelector } from 'react-redux'
-
+import LottieView from 'lottie-react-native'
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
 
@@ -57,15 +57,31 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
             <InputSearch inputIcon='search' inputName='Search Recipe' widthSearch={380} style={{ paddingHorizontal: 8 }} setNameText={handleSearchChange} />
             <ScrollView>
                 <View style={styles.bodyView}>
-                    {foodsSearch.length !== 0 && foodsSearch.map(recipe => (
-                        <RecipePreviewPlus
-                            key={recipe._id} data={recipe}
-                            foodList={foodList}
-                            onAddAttachedRecipe={handlePlusAttachedRecipe}
-                            onMinusAttachedRecipe={handleMinusAttachedRecipe}
-                            onDetailRecipe={handleDetailRecipe}
-                        />
-                    ))}
+                    {
+                        foodsSearch.length !== 0 ?
+                            foodsSearch.map(recipe => (
+                                <RecipePreviewPlus
+                                    key={recipe._id} data={recipe}
+                                    foodList={foodList}
+                                    onAddAttachedRecipe={handlePlusAttachedRecipe}
+                                    onMinusAttachedRecipe={handleMinusAttachedRecipe}
+                                    onDetailRecipe={handleDetailRecipe}
+                                />
+                            ))
+                            :
+                            <View style={{
+                                alignItems: 'center'
+                            }}>
+                                <LottieView
+                                    source={require('../../../assets/lottie/data-loading-animation.json')}
+                                    autoPlay loop
+                                    style={{
+                                        width: 160,
+                                        height: 160,
+                                    }}
+                                />
+                            </View>
+                    }
                 </View>
             </ScrollView>
             <View style={{

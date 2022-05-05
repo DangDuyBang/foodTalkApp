@@ -6,11 +6,13 @@ import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
 import RecipeShowed from './RecipeShowed'
 import moment from 'moment'
-import usePostAction from '../screens/HomePage/hooks/usePostAction'
-import { UserContext } from '../providers/UserProvider'
-import { PostContext } from '../providers/PostProvider'
+
+// import usePostAction from '../screens/HomePage/hooks/usePostAction'
+// import { UserContext } from '../providers/UserProvider'
+// import { PostContext } from '../providers/PostProvider'
+// import { v4 as uuidv4 } from 'uuid';
+
 import { likeDislikePost } from '../services/PostServices'
-import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux'
 import { likeUnlikePost } from '../redux/postReducer'
 

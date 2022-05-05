@@ -7,9 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import useFetchPost from './hooks/useFetchPost'
 import { useSelector } from 'react-redux'
 import { ScrollView } from '@stream-io/flat-list-mvcp';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
-
 
 const Stack = createStackNavigator();
 
@@ -36,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
 
       <SafeAreaView style={styles.container}>
         <ScrollView
-           maintainVisibleContentPosition={{
+          maintainVisibleContentPosition={{
             autoscrollToTopThreshold: 20,
             minIndexForVisible: 0,
           }}>
@@ -90,23 +89,24 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.body}>
-            {posts && posts.length > 0 ?
-              posts.map((post, index) =>
-                <Post post={post} key={post._id}></Post>
-              )
-              :
-              <View style={{
-                alignItems: 'center'
-              }}>
-                <LottieView
-                  source={require('../../assets/lottie/spoon-loading-utensils.json')}
-                  autoPlay loop
-                  style={{
-                    width: 230,
-                    height: 230,
-                  }}
-                />
-              </View>
+            {
+              posts && posts.length > 0 ?
+                posts.map((post, index) =>
+                  <Post post={post} key={post._id}></Post>
+                )
+                :
+                <View style={{
+                  alignItems: 'center'
+                }}>
+                  <LottieView
+                    source={require('../../assets/lottie/spoon-loading-utensils.json')}
+                    autoPlay loop
+                    style={{
+                      width: 230,
+                      height: 230,
+                    }}
+                  />
+                </View>
 
             }
           </View>
