@@ -365,6 +365,7 @@ const styles = StyleSheet.create({
     color: color.textGray,
     fontWeight: 'bold',
     marginRight: 10,
+    marginLeft: 10,
   },
   followView: {
     flexDirection: 'row',

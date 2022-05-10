@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share, LogBox } from 'react-native'
 import React, { useState } from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
@@ -6,17 +6,14 @@ import SwipeSlide from './SwipeSlide'
 import LottieView from 'lottie-react-native'
 import RecipeShowed from './RecipeShowed'
 import moment from 'moment'
-
-// import usePostAction from '../screens/HomePage/hooks/usePostAction'
-// import { UserContext } from '../providers/UserProvider'
-// import { PostContext } from '../providers/PostProvider'
-// import { v4 as uuidv4 } from 'uuid';
-
 import { likeDislikePost } from '../services/PostServices'
 import { useSelector, useDispatch } from 'react-redux'
-import { likeUnlikePost } from '../redux/postReducer'
+import { likePost, unLikePost } from '../redux/postReducer'
+import useUserAction from '../screens/HomePage/hooks/useUserAction'
 
 const Post = (props) => {
+
+    const { useFollow, useUnfollow } = useUserAction()
 
     const onShare = async () => {
         try {
@@ -37,41 +34,39 @@ const Post = (props) => {
         }
     };
 
-    const [isFollow, setIsFollow] = useState(false)
-
     const currentUser = useSelector(state => state.user.currentUser)
     const dispatch = useDispatch()
 
-    const isLikedUser = () => {
-        return props.post.reactions.includes(currentUser.id)
+    const isFollowed = () => {
+        const index = currentUser.following.findIndex(f => f._id === currentUser._id)
+        if (index === -1) return false
+        return true
     }
 
-    const [isLiked, setIsLiked] = useState(isLikedUser())
+    let isLikedUser = () => {
+        return props.post.reactions.includes(currentUser._id)
+    }
 
     const animation = React.useRef(null);
-    const isFirstRun = React.useRef(true);
 
     React.useEffect(() => {
-        if (isFirstRun.current) {
-            if (isLiked) {
-                animation.current.play(66, 66);
-            } else {
-                animation.current.play(19, 19);
-            }
-            isFirstRun.current = false;
-        } else if (isLiked) {
+        if (isLikedUser()) {
             animation.current.play(19, 50);
         } else {
             animation.current.play(0, 19);
         }
-    }, [isLiked]);
+    }, [props.post.reactions])
 
     const heartEvent = async () => {
-        setIsLiked(!isLiked)
+        if (isLikedUser()) {
+            dispatch(unLikePost({ post: props.post, user: currentUser }))
+        } else {
+            dispatch(likePost({ post: props.post, user: currentUser }))
+        }
+
         await likeDislikePost(props.post._id).then(res => {
-            dispatch(likeUnlikePost(res.data.post))
+            console.log(res.data.message);
         }).catch(err => {
-            setIsLiked(!isLiked);
             if (err.response) {
                 console.log(err.response.data.error)
                 // setError(...err, err.response.data.error)
@@ -80,11 +75,7 @@ const Post = (props) => {
     }
 
     const followEvent = () => {
-        if (isFollow == false) {
-            setIsFollow(true)
-        } else if (isFollow == true) {
-            setIsFollow(false)
-        }
+        useFollow(props.post.author._id)
     }
 
     return (
@@ -106,7 +97,7 @@ const Post = (props) => {
 
                             {props.post.author ? props.post.author.username : ''}
 
-                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in </Text>}
+                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
                             {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
                         </Text>
                         <Text style={styles.timePost}>{moment(props.post.created_at).fromNow()}</Text>
@@ -114,9 +105,9 @@ const Post = (props) => {
                 </View>
                 <TouchableOpacity onPress={followEvent}>
                     {
-                        isFollow ?
-                            <Text style={styles.followText}>Follow</Text>
-                            : <Text style={[styles.followText, { color: color.textIconSmall }]}>Following</Text>
+                        isFollowed() &&
+                        <Text style={styles.followText}>Follow</Text>
+
                     }
                 </TouchableOpacity>
             </View>
@@ -161,7 +152,7 @@ const Post = (props) => {
                                 source={require("../assets/lottie/44921-like-animation.json")}
                                 autoPlay={false}
                                 loop={false}
-                                speed={1.5}
+                                speed={1}
                             />
                         </TouchableOpacity>
                         <Text style={styles.heartNumber}>{props.post.reactions.length}</Text>

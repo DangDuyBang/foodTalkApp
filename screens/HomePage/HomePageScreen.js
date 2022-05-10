@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import color from '../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import HomePageNavigation from './HomePageNavigation'
+import NotiNavigation from './NotiNavigation'
 
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +95,7 @@ const HomePageScreen = ({ navigation }) => {
       }} />
 
 
-      <Tab.Screen name="Notification" component={NotificationScreen} options={{
+      <Tab.Screen name="Notification" component={NotiNavigation} options={{
         tabBarIcon: ({ focused }) => (
           <View style={{
             position: 'absolute',

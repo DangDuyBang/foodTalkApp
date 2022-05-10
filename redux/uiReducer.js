@@ -15,10 +15,14 @@ export const uiSlice = createSlice({
         state.toast = action.payload
     },
 
+    setNoti: (state, action) => {
+      state.notifications = action.payload
+    } 
+
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setToast } = uiSlice.actions
+export const { setToast, setNoti } = uiSlice.actions
 
 export default uiSlice.reducer

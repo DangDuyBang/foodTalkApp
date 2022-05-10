@@ -31,3 +31,11 @@ export const fetchUserById = async (params) => {
     //let token = await getStorage('@token')
     return axios.post(`/api/user/follow/${params}`)
 }
+
+/**
+ * @param {params} params user_id string
+ */
+ export const unfollowUser = async (params) => {
+    //let token = await getStorage('@token')
+    return axios.post(`/api/user/unfollow/${params}`)
+}

@@ -95,6 +95,7 @@ const useSignup = ({ navigation }) => {
             })
         }
         else {
+            setPayload({ ...payload, avatar_url: 'https://i.pinimg.com/564x/f7/c9/21/f7c9219902a7472f5c9bc244548311ce.jpg' })
             handleOnSignUp()
         }
 

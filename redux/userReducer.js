@@ -20,11 +20,16 @@ export const userSlice = createSlice({
 
         setSocketio: (state, action) => {
             state.socketio = action.payload
-        }
+        },
+
+        follow: (state, action) => {
+            state.currentUser.following = action.payload.following
+        },
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setCurrentUser, setSocketio} = userSlice.actions
+export const { setCurrentUser, setSocketio, follow} = userSlice.actions
 
 export default userSlice.reducer

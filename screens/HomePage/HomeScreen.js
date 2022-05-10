@@ -46,11 +46,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        maintainVisibleContentPosition={{
-          autoscrollToTopThreshold: 20,
-          minIndexForVisible: 0,
-        }}>
+      <ScrollView showsVerticalScrollIndicator = {false}>
         <View style={{
           backgroundColor: color.background,
           marginBottom: 3,
@@ -99,7 +95,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.shortcutView}>
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false}>
               <Shortcut
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"

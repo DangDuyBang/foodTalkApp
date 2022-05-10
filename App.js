@@ -2,18 +2,12 @@ import 'react-native-gesture-handler';
 import AuthenScreen from './screens/Authentication/AuthenScreen';
 import axios from 'axios';
 import { io } from 'socket.io-client';
-import { useEffect, useContext } from 'react'
-import { UserContext } from './providers/UserProvider'
-import { ChatContext } from './providers/ChatProvider'
-import { UIContext } from './providers/UIProvider'
+import { useEffect } from 'react'
 import { PortalProvider } from '@gorhom/portal';
-import { PostContext } from './providers/PostProvider';
-import { FoodContext } from './providers/FoodProvider';
-import { LogBox } from 'react-native';
+import { LogBox, YellowBox } from 'react-native';
 import Toast from 'react-native-toast-message';
 import toastConfig from './utils/ToastConfig';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSocketio } from './redux/userReducer'
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 

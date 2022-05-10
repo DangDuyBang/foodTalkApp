@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, FlatList } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
+import React from 'react'
 import color from '../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
 import { createStackNavigator } from "@react-navigation/stack";
 import NotifyPreview from '../../components/NotifyPreview';
+import {useSelector} from 'react-redux'
 
 const data = [
   {
@@ -39,39 +39,19 @@ const data = [
 const Stack = createStackNavigator();
 const NotificationScreen = ({ navigation }) => {
 
-  const [lists, setLists] = useState(data)
+ const notifications = useSelector(state => state.ui.notifications)
 
-  const Notification = () => {
-    return (
-      <View style={styles.container}>
+  return (
+    <View style={styles.container}>
         <SafeAreaView style={{ flex: 1 }}>
           <FlatList
-            data={lists}
+            data={notifications}
             renderItem={({ item, index }) => {
-              return <NotifyPreview key={index} data={item} />
+              return <NotifyPreview key={item._id} data={item} />
             }}
           />
         </SafeAreaView>
       </View>
-    )
-  }
-
-  const eventChat = () => {
-    navigation.navigate('ChatNavigation')
-  }
-
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name='NotificationPage' component={Notification} options={{
-        title: 'Notifications',
-        headerRight: () => (
-          <View style={styles.chatFrame}>
-            <TouchableOpacity onPress={eventChat}>
-              <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
-            </TouchableOpacity>
-          </View>)
-      }} />
-    </Stack.Navigator>
   )
 }
 
@@ -83,9 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: color.background,
   },
   chatFrame: {
-    // backgroundColor: color.post,
-    // width: 50,
-    // height: 50,
     marginRight: 16,
     borderRadius: 50,
     justifyContent: 'center',

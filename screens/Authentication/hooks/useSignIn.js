@@ -1,13 +1,11 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
-import { UserContext } from '../../../providers/UserProvider'
-import { UIContext } from '../../../providers/UIProvider'
 import { loginUser } from '../../../services/AuthServices'
 import { fetchCurrentUser } from '../../../services/UserServices'
 import { saveStorage } from '../../../utils/Storage'
-import { useSelector, useDispatch } from 'react-redux'
-import { setCurrentUser, setSocketio } from '../../../redux/userReducer'
-import { setToast } from '../../../redux/uiReducer'
+import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../../../redux/userReducer'
+import { setToast, setNoti } from '../../../redux/uiReducer'
 
 const useSignIn = () => {
 
@@ -48,6 +46,8 @@ const useSignIn = () => {
                 const me = await fetchCurrentUser()
 
                 dispatch(setCurrentUser(me.data.user))
+                dispatch(setNoti(me.data.notifications))
+                console.log(me.data.notifications)
 
                 setLoading(false)
 
@@ -56,8 +56,6 @@ const useSignIn = () => {
                     text1: 'Wellcome',
                     text2: 'Take your time to cook some recipes',
                 }))
-
-                //eventSignIn()
             }
 
         } catch (err) {

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
+import moment from 'moment'
 
 const NotifyPreview = (props) => {
     return (
@@ -11,12 +12,12 @@ const NotifyPreview = (props) => {
                         <Image
                             style={styles.tinyAvatar}
                             source={{
-                                uri: props.data.avatarActor,
+                                uri: props.data.author.avatar_url ? props.data.author.avatar_url : "",
                             }}
                         />
                     </View>
                     <View style={styles.textContain}>
-                        <Text style={styles.Username}>{props.data.nameActor}</Text>
+                        <Text style={styles.Username}>{props.data.author.username}</Text>
                         <View style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
@@ -35,13 +36,13 @@ const NotifyPreview = (props) => {
                                     ]}
                                         numberOfLines={1}
                                     >
-                                        {props.data.notify_typeName}.
+                                        {props.data.notify_type}.
                                     </Text>
 
                                     <Text style={[
                                         styles.timeNotify,
                                     ]}>
-                                        {props.data.create_at}
+                                        {moment(props.data.create_at).fromNow()}
                                     </Text>
                                 </View>
                             </View>

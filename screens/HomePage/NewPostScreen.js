@@ -86,7 +86,6 @@ const NewPostScreen = ({ navigation }) => {
                                         food={food}
                                     />
                                 ))}
-
                             </View>
                         </ScrollView>
 
