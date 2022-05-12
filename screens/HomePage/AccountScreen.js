@@ -12,6 +12,7 @@ import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector } from 'react-redux'
+import AvatarUser from '../../components/AvatarUser'
 
 const Stack = createStackNavigator();
 
@@ -53,16 +54,7 @@ const AccountScreen = ({ navigation }) => {
                   }}
                 />
 
-                <View style={styles.avatarFrame}>
-                  <Image
-                    //source={require('../../contains//assetImages//background_signIn.jpg')}
-                    style={styles.avatarImage}
-                    resizeMode='stretch'
-                    source={{
-                      uri: currentUser.avatar_url,
-                    }}
-                  />
-                </View>
+                <AvatarUser avatar_url={currentUser.avatar_url} />
 
                 <View style={styles.fullNameFrame}>
                   <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
@@ -98,7 +90,7 @@ const AccountScreen = ({ navigation }) => {
               </Text>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
               <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -118,7 +110,7 @@ const AccountScreen = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <Tab.Navigator tabBarOptions={{
+            {/* <Tab.Navigator tabBarOptions={{
               showLabel: false,
               showIcon: true,
               style: {
@@ -183,7 +175,7 @@ const AccountScreen = ({ navigation }) => {
                   </View>
                 )
               }} />
-            </Tab.Navigator>
+            </Tab.Navigator> */}
           </ScrollView>
         </Animated.View>
       </View>
@@ -337,21 +329,21 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10
   },
-  avatarFrame: {
-    width: 110,
-    height: 110,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: color.background,
-    borderRadius: 120,
-    position: 'absolute',
-    marginTop: 200
-  },
-  avatarImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 150,
-  },
+  // avatarFrame: {
+  //   width: 110,
+  //   height: 110,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   backgroundColor: color.background,
+  //   borderRadius: 120,
+  //   position: 'absolute',
+  //   marginTop: 200
+  // },
+  // avatarImage: {
+  //   width: 90,
+  //   height: 90,
+  //   borderRadius: 150,
+  // },
   fullNameFrame: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -363,7 +355,7 @@ const styles = StyleSheet.create({
     color: color.textGray,
     fontWeight: 'bold',
     marginRight: 10,
-    marginLeft: 10,
+    marginLeft: 15,
   },
   followView: {
     flexDirection: 'row',
