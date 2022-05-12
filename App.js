@@ -8,6 +8,8 @@ import { LogBox, YellowBox } from 'react-native';
 import Toast from 'react-native-toast-message';
 import toastConfig from './utils/ToastConfig';
 import { useDispatch, useSelector } from 'react-redux';
+import { addComment, addPost, likeUnlikePost } from './redux/postReducer';
+import { addNotification } from './redux/uiReducer';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -59,18 +61,21 @@ export default function App() {
 
       socketio.on('new-post', ({ data }) => {
         //postDispatch({ type: 'ADD_POST', payload: data })
+        dispatch(addPost(data))
       })
 
       socketio.on('like-post', ({ data }) => {
-
+        dispatch(likeUnlikePost(data))
       })
 
       socketio.on('dislike-post', ({ data }) => {
         //do something
+        dispatch(likeUnlikePost(data))
       })
 
       socketio.on('new-comment-post', ({ data }) => {
         //do something
+        dispatch(addComment(data))
       })
 
       socketio.on('follow-request-status', ({ data }) => {
@@ -79,6 +84,7 @@ export default function App() {
 
       socketio.on('notification', ({ data }) => {
         //({ type: 'ADD_NOTIFICATION', payload: data })
+        dispatch(addNotification(data))
       })
 
       return () => {

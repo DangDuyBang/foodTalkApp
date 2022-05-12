@@ -1,47 +1,118 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PostComment from '../../../components/PostComment'
 import color from '../../../contains/color'
 import InputComment from '../../../components/InputComment'
+import InfinityScrollView from '../../../components/InfinityScrollView'
+import useFetchPost from '../../HomePage/hooks/useFetchPost'
+import { useSelector, useDispatch } from 'react-redux'
+import { addComment, deleteCurrentPost } from '../../../redux/postReducer'
+import { createComment } from '../../../services/PostServices'
 
-const CommentListScreen = () => {
+const CommentListScreen = ({ navigation, route }) => {
 
-    const [commentList, setCommentList] = useState([])
-    const [replyCommentList, setReplyCommentList] = useState([])
+    const { post_id } = route.params
+    const dispatch = useDispatch()
+    const comments = useSelector(state => state.post.currentPost.comments)
+
+    const { useFetchComment } = useFetchPost()
+
+    const fetchComment = () => {
+        useFetchComment(post_id)
+    }
+
+    useEffect(() => {
+        fetchComment()
+
+        return () => {
+            dispatch(deleteCurrentPost())
+        }
+    }, [])
 
     const [isReplyPress, setIsReplyPress] = useState(false)
     const [nameUser, setNameUser] = useState('')
+    const [payload, setPayload] = useState({
+        post: post_id,
+        content: '',
+    })
 
-    const handleReplyPress = (nameUserComment) => {
+    const [loading, setLoading] = useState(false)
+
+    const handleReplyPress = (nameUserComment, comment_id) => {
         if (isReplyPress == false) {
             setIsReplyPress(true)
             setNameUser(nameUserComment)
+            setPayload({
+                ...payload,
+                parent: comment_id
+            })
         }
     }
 
     const handleCloseReplying = () => {
         if (isReplyPress == true) {
+            const data = {...payload}
+            delete data['parent']
+            setPayload({
+                ...data
+            })
             setIsReplyPress(false)
         }
     }
 
-    const handleAddComment = (comment) => {
+    const handleAddComment = async () => {
         //add comment
-        setCommentList([...commentList, comment])
+        //setCommentList([...commentList, comment])
+        setLoading(true)
+        await createComment(payload).then(response => {
+            dispatch(addComment(response.data.comment))
+            setPayload({
+                post: post_id,
+                content: '',
+            })
+            setLoading(false)
+        }).catch(err => {
+            setLoading(false)
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
 
     }
 
-    const handleAddReplyComment = (comment) => {
-        //add comment
-        setReplyCommentList([...replyCommentList, comment])
-        setIsReplyPress(false)
+    const handleAddReplyComment = async () => {
+        setLoading(true)
+        await createComment(payload).then(response => {
+            dispatch(addComment(response.data.comment))
+            setPayload({
+                post: post_id,
+                content: '',
+            })
+            setIsReplyPress(false)
+            setLoading(false)
+
+        }).catch(err => {
+            setLoading(false)
+
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
+
+    const onChangeContent = (text) => {
+        setPayload({
+            ...payload,
+            content: text
+        })
     }
 
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.commentListView}>
-                    <PostComment
+            <InfinityScrollView useLoads={fetchComment}>
+                    {/* <PostComment
                         avatar='https://i.pinimg.com/736x/5a/27/28/5a272830589d98e6df4afdbbcec6123c.jpg'
                         nameCommenter='khoa_food_talk'
                         timeComment='30 minutes ago'
@@ -55,34 +126,32 @@ const CommentListScreen = () => {
                         contentComment='Hmmm! Look great !'
                         leftMargin={80}
                         onReplyPress={() => handleReplyPress('ga_food_talk')}
-                    />
+                    /> */}
                     {
-                        commentList.map((item, index) => {
-                            return <PostComment
-                                key={index}
-                                contentComment={item}
-                                avatar='https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg'
-                                nameCommenter='nntan_food_talk'
-                                timeComment='Just now'
-                                onReplyPress={() => handleReplyPress('nntan_food_talk')}
-                            />
+                        comments && comments.map((item, index) => {
+                            return <>
+                                <PostComment
+                                    key={item._id}
+                                    comment={item}
+                                    onReplyPress={handleReplyPress}
+                                />
+
+                                {item.children && item.children.map((i, index) => {
+                                    return <PostComment
+                                        key={i._id}
+                                        comment={i}
+                                        onReplyPress={handleReplyPress}
+                                        leftMargin={60}
+                                    />
+                                })}
+                            </>
+
                         })
                     }
                     {
-                        replyCommentList.map((item, index) => {
-                            return <PostComment
-                                key={index}
-                                contentComment={item}
-                                avatar='https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg'
-                                nameCommenter='nntan_food_talk'
-                                timeComment='Just now'
-                                onReplyPress={() => handleReplyPress('nntan_food_talk')}
-                                leftMargin={80}
-                            />
-                        })
+
                     }
-                </View>
-            </ScrollView>
+            </InfinityScrollView>
             <View style={styles.commentTypeView}>
                 {
                     isReplyPress ?
@@ -90,12 +159,20 @@ const CommentListScreen = () => {
                             nameUserReply={nameUser}
                             onCloseReply={handleCloseReplying}
                             onAddComment={handleAddReplyComment}
+                            onChangeText={onChangeContent}
+                            content={payload.content}
+                            loading={loading}
+                            isReply={isReplyPress}
                         />
                         :
                         <InputComment
                             nameUserReply='none'
                             displayReply='none'
                             onAddComment={handleAddComment}
+                            onChangeText={onChangeContent}
+                            content={payload.content}
+                            isReply={isReplyPress}
+                            loading={loading}
                         />
                 }
             </View>
@@ -111,10 +188,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.background,
         justifyContent: 'space-between'
     },
-    commentListView: {
-
-    },
     commentTypeView: {
-        paddingTop: 20,
+        paddingTop: 5,
     }
 })

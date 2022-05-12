@@ -72,7 +72,7 @@ export const useCreatePost = (props) => {
                         urlsPhoto.push(downloadURL)
                         if (index === photos.length - 1) {
                             createPost({
-                                foods: foods.map(food => food.id),
+                                foods: foods.map(food => food._id),
                                 content: content,
                                 photos: urlsPhoto,
                                 location: {

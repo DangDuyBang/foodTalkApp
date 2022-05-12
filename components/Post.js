@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share, LogBox } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share } from 'react-native'
+import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import SwipeSlide from './SwipeSlide'
@@ -98,7 +98,7 @@ const Post = (props) => {
                             {props.post.author ? props.post.author.username : ''}
 
                             {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
-                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
+                            {props.post.location && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>}
                         </Text>
                         <Text style={styles.timePost}>{moment(props.post.created_at).fromNow()}</Text>
                     </View>
@@ -122,25 +122,6 @@ const Post = (props) => {
                 <View style={styles.imageFrame}>
                     {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
                 </View>
-
-                <ScrollView
-                    horizontal={true}
-                >
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        paddingVertical: 10,
-                        paddingRight: 20,
-                        borderColor: color.textIconSmall,
-                        marginTop: 5
-                    }}>
-                        {props.post.foods && props.post.foods.length > 0 ? (
-                            props.post.foods.map((food) => (
-                                <RecipeShowed food={food} key={food._id} />
-                            ))
-                        ) : null}
-                    </View>
-                </ScrollView>
             </View>
             <View style={styles.midPost}>
                 <View style={styles.heartCommentShareAndBookView}>
@@ -155,36 +136,40 @@ const Post = (props) => {
                                 speed={1}
                             />
                         </TouchableOpacity>
-                        <Text style={styles.heartNumber}>{props.post.reactions.length}</Text>
 
-                        <TouchableOpacity onPress={props.onCommentList}>
+                        <TouchableOpacity onPress={() => props.onCommentList(props.post._id)}>
                             <FontAwesome style={styles.commentIcon} name='comments-o' size={26} color={color.textIconSmall}></FontAwesome>
                         </TouchableOpacity>
-                        <Text style={styles.commentNumber}>0</Text>
 
                         <TouchableOpacity onPress={onShare}>
                             <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                         </TouchableOpacity>
                     </View>
+
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={{
+                            paddingRight: 20,
+                            borderColor: color.textIconSmall,
+                            marginLeft: 20,
+                        }}
+                    >
+                        {props.post.foods && props.post.foods.length > 0 ? (
+                            props.post.foods.map((food) => (
+                                <RecipeShowed food={food} key={food._id} />
+                            ))
+                        ) : null}
+                    </ScrollView>
                 </View>
             </View>
-            <View style={[styles.botPost, { display: props.firstComment }]}>
-                <View style={styles.avatarAndNameViewCommenter}>
-                    <View style={styles.avatarFrameCommenter}>
-                        <Image
-                            style={styles.avatarCommenter}
-                            source={{
-                                uri: '',
-                            }}
-                        />
-                    </View>
-                    <View style={styles.nameAndTimeViewCommenter}>
-                        <Text style={styles.nameUserCommenter}>Nguyễn Nhựt Tân</Text>
-                        <Text style={styles.timeComment}>10h ago</Text>
-                    </View>
-                </View>
-                <Text style={styles.firstCommentText}>{props.contentComment}</Text>
+            <View style={styles.botPost}>
+                <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
+                <TouchableOpacity onPress={() => props.onCommentList(props.post._id)}>
+                    <Text style={styles.commentNumber}>{props.post.num_comment === 0 ? 'No comment' : `View all ${props.post.num_comment} comments`}</Text>
+                </TouchableOpacity>
             </View>
+
         </View>
     )
 }
@@ -195,7 +180,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.background,
         marginVertical: 5,
-        paddingVertical: 5,
+        paddingVertical: 12,
     },
     topPost: {
         flexDirection: 'row',
@@ -245,26 +230,18 @@ const styles = StyleSheet.create({
     },
     imageFrame: {
         width: '100%',
-        height: 250,
+        //height: 250,
         backgroundColor: color.textIconSmall,
         justifyContent: 'center',
         alignItems: 'center',
     },
     imagePost: {
         width: '100%',
-        height: 250,
-    },
-    midPost: {
-        marginHorizontal: 20
+        //height: 250,
     },
     heartCommentShareAndBookView: {
         flexDirection: 'row',
-        borderTopWidth: 0.5,
-        borderBottomWidth: 0.5,
-        borderColor: color.textIconSmall,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 5,
     },
     heartIcon: {
         marginRight: 5,
@@ -274,13 +251,14 @@ const styles = StyleSheet.create({
         height: 60,
     },
     heartNumber: {
-        marginRight: 20,
+        color: color.primary,
+        fontWeight: 'bold',
     },
     commentIcon: {
-        marginRight: 5,
+        marginRight: 20,
     },
     commentNumber: {
-        marginRight: 20,
+
     },
     shareIcon: {
         marginRight: 5,
@@ -289,9 +267,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
+    midPost: {
+        marginVertical: 0,
+    },
     botPost: {
         justifyContent: 'space-between',
-        marginHorizontal: 20
+        marginHorizontal: 16,
     },
     avatarAndNameViewCommenter: {
         flexDirection: 'row'

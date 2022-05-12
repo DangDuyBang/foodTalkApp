@@ -6,6 +6,14 @@ const initialState = {
     currentPage: 0,
     totalPage: 0,
   },
+
+  currentPost: {
+    comments: [],
+    commentPagination: {
+      currentPage: 0,
+      totalPage: 0
+    }
+  }
 }
 
 export const postSlice = createSlice({
@@ -13,7 +21,9 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     setPosts: (state, action) => {
-      state.posts = action.payload
+      state.posts.push(...action.payload.posts)
+      state.postPagination.currentPage += 1
+      state.postPagination.totalPage = action.payload.pagination.totalPage
     },
 
     addPost: (state, action) => {
@@ -40,10 +50,36 @@ export const postSlice = createSlice({
       state.posts[index].num_heart -= 1
       state.posts[index].reactions = state.posts[index].reactions.filter(reaction => reaction !== action.payload.user._id)
     },
+
+    setComment: (state, action) => {
+      state.currentPost.comments.push(...action.payload.comments)
+      state.currentPost.commentPagination.currentPage += 1
+      state.currentPost.commentPagination.totalPage = action.payload.pagination.totalPage
+    },
+
+    deleteCurrentPost: (state, action) => {
+      state.currentPost.comments = []
+      state.currentPost.commentPagination.currentPage = 0
+      state.currentPost.commentPagination.totalPage = 0
+    },
+
+    addComment: (state, action) => {
+      if(state.currentPost){
+        const index = state.currentPost.comments.findIndex(comment => comment._id === action.payload.parent)
+        if(index !== -1){
+          state.currentPost.comments[index].children.push(action.payload)
+        } else {
+          state.currentPost.comments.unshift(action.payload)
+        }
+      }
+
+      const i = state.posts.findIndex(post=> post._id === action.payload.post)
+      state.posts[i].num_comment += 1
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost } = postSlice.actions
+export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment } = postSlice.actions
 
 export default postSlice.reducer

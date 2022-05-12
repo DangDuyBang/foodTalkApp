@@ -9,6 +9,8 @@ import { ScrollView } from '@stream-io/flat-list-mvcp';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
 import Shortcut from '../../components/Shortcut'
+import InfinityScrollView from '../../components/InfinityScrollView'
+import { setCurrentUser } from '../../redux/userReducer'
 
 const HomeScreen = ({ navigation }) => {
 
@@ -18,11 +20,14 @@ const HomeScreen = ({ navigation }) => {
 
   const { useFetchAllPost, loading } = useFetchPost();
   const posts = useSelector(state => state.post.posts)
+  const currentUser = useSelector(state => state.user.currentUser)
+
+  const useLoads = async () => {
+    await useFetchAllPost()
+
+  }
 
   React.useEffect(() => {
-    async function useLoads() {
-      await useFetchAllPost()
-    }
 
     useLoads()
   }, [])
@@ -36,8 +41,8 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
-  const eventOpenCommentList = () => {
-    navigation.navigate('CommentList')
+  const eventOpenCommentList = (post_id) => {
+    navigation.navigate('CommentList', { post_id: post_id })
   }
 
   const eventToPersonalPage = () => {
@@ -46,7 +51,8 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator = {false}>
+      <InfinityScrollView showsVerticalScrollIndicator={false} useLoads={useLoads}
+      >
         <View style={{
           backgroundColor: color.background,
           marginBottom: 3,
@@ -66,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.avatarImage}
                 resizeMode='cover'
                 source={{
-                  uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                  uri: currentUser.avatar_url,
                 }}
               />
             </TouchableOpacity>
@@ -95,7 +101,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.shortcutView}>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               <Shortcut
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
@@ -126,7 +132,7 @@ const HomeScreen = ({ navigation }) => {
           {
             posts && posts.length > 0 ?
               posts.map((post, index) =>
-                <Post post={post} key={post._id}></Post>
+                <Post post={post} key={post._id} onCommentList={eventOpenCommentList}></Post>
               )
               :
               <View style={{
@@ -144,7 +150,7 @@ const HomeScreen = ({ navigation }) => {
 
           }
         </View>
-      </ScrollView>
+      </InfinityScrollView>
     </SafeAreaView>
   )
 }

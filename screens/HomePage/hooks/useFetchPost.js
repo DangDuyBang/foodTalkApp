@@ -1,34 +1,49 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { PostContext } from '../../../providers/PostProvider'
-import { fetchAllPost } from "../../../services/PostServices"
-import { setPosts } from '../../../redux/postReducer'
+import { fetchAllComment, fetchAllPost } from "../../../services/PostServices"
+import { setComment, setPosts } from '../../../redux/postReducer'
 const useFetchPost = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+    const postPagination = useSelector(state => state.post.postPagination)
+    const commentPagination = useSelector(state => state.post.currentPost.commentPagination)
 
-
-
-    const useFetchAllPost = async () => {
-
-        setLoading(true)
-        try {
-            const { data } = await fetchAllPost()
-            if (data) {
-                dispatch(setPosts(data.posts))
-            }
-            setLoading(false)
+    const useFetchComment = async (post_id) => {
+        if (commentPagination.currentPage > commentPagination.totalPage) {
+            return
         }
-        catch (err) {
+        setLoading(true)
+        console.log(post_id)
+        await fetchAllComment(post_id, commentPagination.currentPage).then(response => {
+            dispatch(setComment(response.data))
+            setLoading(false)
+        }).catch(err => {
             setLoading(false)
             if (err.response) {
                 console.log(err.response.data.error)
                 // setError(...err, err.response.data.error)
             }
-        }
+        })
     }
 
-    return ({ useFetchAllPost, loading })
+    const useFetchAllPost = async () => {
+        if (postPagination.currentPage > postPagination.totalPage) {
+            return
+        }
+        setLoading(true)
+        await fetchAllPost(postPagination.currentPage).then(response => {
+            dispatch(setPosts(response.data))
+            setLoading(false)
+        }).catch(err => {
+            setLoading(false)
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
+
+    return ({ useFetchAllPost, useFetchComment, loading })
 }
 
 

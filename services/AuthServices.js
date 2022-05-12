@@ -24,10 +24,14 @@ export const signUpUser = async (userData) => {
  */
 export const changePassword = async (payload) => {
     //let token = await getStorage('@token')
-    return axios.post('/api/auth/change-password',payload)
+    return axios.post('/api/auth/change-password', payload)
 }
 
 export const resetPassword = async () => {
     //let token = await getStorage('@token')
     return axios.post('/api/auth/reset-password')
+}
+
+export const updateProfile = async (payload) => {
+    return axios.post('/api/auth/update-profile', payload)
 }

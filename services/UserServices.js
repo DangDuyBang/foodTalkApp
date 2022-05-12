@@ -6,7 +6,6 @@ export const fetchCurrentUser = async () => {
     return axios.get(`/api/user/me`)
 }
 
-
 /**
  * @param {params} params userID string
  */

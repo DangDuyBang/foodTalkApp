@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import color from '../../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
 import { CheckBox } from 'react-native-elements'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 

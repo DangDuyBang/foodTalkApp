@@ -49,7 +49,7 @@ const AccountScreen = ({ navigation }) => {
                   style={styles.coverImage}
                   resizeMode='stretch'
                   source={{
-                    uri: 'https://i.pinimg.com/564x/f7/c9/21/f7c9219902a7472f5c9bc244548311ce.jpg',
+                    uri: currentUser.cover_url,
                   }}
                 />
 
@@ -59,7 +59,7 @@ const AccountScreen = ({ navigation }) => {
                     style={styles.avatarImage}
                     resizeMode='stretch'
                     source={{
-                      uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                      uri: currentUser.avatar_url,
                     }}
                   />
                 </View>
@@ -94,9 +94,7 @@ const AccountScreen = ({ navigation }) => {
               </View>
 
               <Text style={styles.aboutText}>
-                Phường Tân Phú, Quận 7, Tp Hồ Chí Minh {'\n'}
-                Tel: +84 28 54147667 {'\n'}
-                Fax: +84 28 54147557
+                {currentUser.about}
               </Text>
             </View>
 

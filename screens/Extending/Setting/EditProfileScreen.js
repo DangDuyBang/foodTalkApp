@@ -1,17 +1,20 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import color from '../../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
-import { UserContext } from '../../../providers/UserProvider'
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import useEditProfile from './hooks/useEditProfile'
+import { useSelector } from 'react-redux'
 
 const EditProfileScreen = ({ navigation }) => {
+
+    const { uriCover, uriAvatar, openCoverImagePickerAsync, payload, onFirstNameChange, onLastNameChange, onUsernameChange, onAboutChange, onChangeProfile } = useEditProfile({navigation})
+
     navigation.setOptions({
         title: 'Update Profile',
         headerRight: () => (
-            <TouchableOpacity style={{ marginRight: 16 }}>
+            <TouchableOpacity style={{ marginRight: 16 }} onPress={onChangeProfile}>
                 <Ionicons name='checkmark-sharp' size={35} color={color.primary}></Ionicons>
             </TouchableOpacity>
         )
@@ -28,12 +31,7 @@ const EditProfileScreen = ({ navigation }) => {
         setIsAvatar(true)
     }
 
-    const { userState, userDispatch } = useContext(UserContext)
-
-    const [firstName, setFirstName] = useState(userState.currentUser.first_name)
-    const [lastName, setLastName] = useState(userState.currentUser.last_name)
-    const [username, setUserName] = useState(userState.currentUser.username)
-    const [about, setAbout] = useState("Huỳnh Tấn Phát, khu căn hộ cao cấp, Phường Tân Phú, Quận 7, Tp Hồ Chí Minh Tel: +84 28 54147667 Fax: +84 28 54147557")
+    const currentUser = useSelector(state => state.user.currentUser)
 
     const renderInner = () => (
         <View style={styles.panel}>
@@ -78,8 +76,6 @@ const EditProfileScreen = ({ navigation }) => {
 
     const bs = React.createRef();
     const fall = new Animated.Value(1);
-
-    const { uriCover, uriAvatar, openCoverImagePickerAsync } = useEditProfile()
     return (
         <View style={styles.container}>
             <BottomSheet
@@ -111,7 +107,7 @@ const EditProfileScreen = ({ navigation }) => {
                                                     style={styles.coverImage}
                                                     resizeMode='stretch'
                                                     source={{
-                                                        uri: 'https://i.pinimg.com/564x/f7/c9/21/f7c9219902a7472f5c9bc244548311ce.jpg',
+                                                        uri: currentUser.cover_url,
                                                     }}
                                                 />
                                                 <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={30} color={color.textGray}></Ionicons>
@@ -123,7 +119,7 @@ const EditProfileScreen = ({ navigation }) => {
                                                     resizeMode='stretch'
                                                     source={uriCover}
                                                 />
-                                                <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={30} color={color.textGray}></Ionicons>
+                                                {/* <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={30} color={color.textGray}></Ionicons> */}
                                             </View>
                                     }
                                 </TouchableOpacity>
@@ -138,7 +134,7 @@ const EditProfileScreen = ({ navigation }) => {
                                                     style={styles.avatarImage}
                                                     resizeMode='stretch'
                                                     source={{
-                                                        uri: 'https://i.pinimg.com/564x/eb/ef/d5/ebefd5173889e9a8502cf04e7b016847.jpg',
+                                                        uri: currentUser.avatar_url,
                                                     }}
                                                 />
                                                 <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={25} color={color.textGray}></Ionicons>
@@ -150,7 +146,7 @@ const EditProfileScreen = ({ navigation }) => {
                                                     resizeMode='stretch'
                                                     source={uriAvatar}
                                                 />
-                                                <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={25} color={color.textGray}></Ionicons>
+                                                {/* <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={25} color={color.textGray}></Ionicons> */}
                                             </View>
                                     }
 
@@ -163,8 +159,9 @@ const EditProfileScreen = ({ navigation }) => {
                                 <TextInput
                                     maxLength={25}
                                     style={styles.inputInfo}
-                                    value={firstName}
-                                    onChangeText={(text) => setFirstName(text)}
+                                    value={payload.first_name}
+                                    onChangeText={onFirstNameChange}
+                                    selectTextOnFocus={true}
                                 />
                             </View>
                             <View style={styles.infoOptionView}>
@@ -172,8 +169,9 @@ const EditProfileScreen = ({ navigation }) => {
                                 <TextInput
                                     maxLength={10}
                                     style={styles.inputInfo}
-                                    value={lastName}
-                                    onChangeText={(text) => setLastName(text)}
+                                    value={payload.last_name}
+                                    selectTextOnFocus={true}
+                                    onChangeText={onLastNameChange}
                                 />
                             </View>
                             <View style={styles.infoOptionView}>
@@ -181,8 +179,9 @@ const EditProfileScreen = ({ navigation }) => {
                                 <TextInput
                                     maxLength={15}
                                     style={styles.inputInfo}
-                                    value={username}
-                                    onChangeText={(text) => setUserName(text)}
+                                    value={payload.username}
+                                    onChangeText={onUsernameChange}
+                                    selectTextOnFocus={true}
                                 />
                             </View>
                             <View style={styles.infoOptionView}>
@@ -190,7 +189,7 @@ const EditProfileScreen = ({ navigation }) => {
                                 <TextInput
                                     style={styles.inputInfo}
                                     editable={false}
-                                    placeholder={userState.currentUser.email}
+                                    placeholder={currentUser.email}
                                 />
                             </View>
                             <View style={styles.infoOptionView}>
@@ -199,8 +198,9 @@ const EditProfileScreen = ({ navigation }) => {
                                     maxLength={150}
                                     style={styles.inputInfo}
                                     multiline={true}
-                                    value={about}
-                                    onChangeText={(text) => setAbout(text)}
+                                    value={payload.about}
+                                    selectTextOnFocus={true}
+                                    onChangeText={onAboutChange}
                                 />
                             </View>
                         </View>
@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
     coverImage: {
         width: 420,
         height: 250,
-        opacity: 0.3
     },
     avatarFrame: {
         width: 110,
@@ -269,7 +268,6 @@ const styles = StyleSheet.create({
         width: 90,
         height: 90,
         borderRadius: 150,
-        opacity: 0.3
     },
     infomationView: {
         paddingHorizontal: 20,

@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
+import moment from 'moment'
+import { useSelector } from 'react-redux'
 
 const PostComment = (props) => {
+    const currentUser = useSelector(state => state.user.currentUser)
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
@@ -11,18 +14,18 @@ const PostComment = (props) => {
                         <Image
                             style={styles.avatarCommenter}
                             source={{
-                                uri: props.avatar,
+                                uri: props.comment.author.avatar_url,
                             }}
                         />
                     </View>
                     <View style={styles.nameAndTimeViewCommenter}>
-                        <Text style={styles.nameUserCommenter}>{props.nameCommenter}</Text>
-                        <Text style={styles.timeComment}>{props.timeComment}</Text>
+                        <Text style={styles.nameUserCommenter}>{props.comment.author.username}</Text>
+                        <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
                     </View>
                 </View>
-                <Text style={styles.firstCommentText}>{props.contentComment}</Text>
+                <Text style={styles.firstCommentText}>{props.comment.content}</Text>
             </View>
-            <TouchableOpacity onPress={props.onReplyPress}>
+            <TouchableOpacity onPress={() => props.onReplyPress(currentUser._id, props.comment._id)}>
                 <Text style={styles.replyButton}>Reply</Text>
             </TouchableOpacity>
         </View>
@@ -34,14 +37,14 @@ export default PostComment
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'space-between',
-        marginHorizontal: 20,
+        marginHorizontal: 8,
         backgroundColor: color.background,
         marginBottom: 5,
     },
     frameColor: {
         backgroundColor: color.post,
         paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingVertical: 6,
         borderRadius: 25
     },
     avatarAndNameViewCommenter: {

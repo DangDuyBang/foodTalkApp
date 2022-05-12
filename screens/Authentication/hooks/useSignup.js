@@ -59,7 +59,7 @@ const useSignup = ({ navigation }) => {
         } else {
             pickerResult = await ImagePicker.launchImageLibraryAsync();
         }
-        console.log(pickerResult);
+
         if (!pickerResult.cancelled) {
             setUri(pickerResult)
         }

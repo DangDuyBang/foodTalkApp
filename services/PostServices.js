@@ -26,9 +26,9 @@ export const likeDislikePost = async (params) => {
     return axios.post(`/api/post/like-dislike/${params}`)
 }
 
-export const fetchAllPost = async () => {
+export const fetchAllPost = async (currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/post/posts`)
+    return axios.get(`/api/post/posts/?page=${currentPage}`)
 }
 
 export const fetchTrendingPost = async () => {
@@ -46,11 +46,11 @@ export const fetchPostById = async (params) => {
 }
 
 /**
- * @param {params} params post_id string
+ * @param {post_id} post_id post_id string
  */
-export const fetchAllComment = async (params) => {
+export const fetchAllComment = async (post_id, currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/post/comments/${params}`)
+    return axios.get(`/api/post/comments/${post_id}/?page=${currentPage}`)
 }
 
 
