@@ -2,15 +2,19 @@ import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } fr
 import React, { useContext } from 'react'
 import color from '../../contains/color'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
+
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
 import PrivatePostScreen from './PrivatePostScreen'
+import RecipePublicScreen from './RecipePublicScreen'
+
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { UserContext } from '../../providers/UserProvider'
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
-import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector } from 'react-redux'
 import AvatarUser from '../../components/AvatarUser'
 
@@ -21,166 +25,6 @@ const Tab = createMaterialTopTabNavigator();
 const AccountScreen = ({ navigation }) => {
   const currentUser = useSelector(state => state.user.currentUser)
 
-  const Account = () => {
-    return (
-      <View style={styles.container}>
-        <Portal name="modal">
-          <BottomSheet
-            ref={bs}
-            snapPoints={['36%', -300]}
-            borderRadius={10}
-            renderContent={renderInner}
-            renderHeader={renderHeader}
-            initialSnap={1}
-            callbackNode={fall}
-            enabledGestureInteraction={true}
-          />
-        </Portal>
-        <Animated.View
-          style={{
-            margin: 0,
-            opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
-          }}
-        >
-          <ScrollView>
-            <View style={styles.mid}>
-              <View style={styles.imageFrame}>
-                <Image
-                  //source={require('../../contains//assetImages//background_signIn.jpg')}
-                  style={styles.coverImage}
-                  resizeMode='stretch'
-                  source={{
-                    uri: currentUser.cover_url,
-                  }}
-                />
-
-                <AvatarUser avatar_url={currentUser.avatar_url} />
-
-                <View style={styles.fullNameFrame}>
-                  <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
-                  <TouchableOpacity onPress={eventEditProfile}>
-                    <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.chatFrame}>
-                <TouchableOpacity onPress={eventChat}>
-                  <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.bot}>
-              <View style={styles.followView}>
-                <View style={styles.followingView}>
-                  <Text style={styles.followText}>Following</Text>
-                  <Text style={styles.followNumberText}>{currentUser.following.length || "0"}</Text>
-                </View>
-                <View style={styles.followingView}>
-                  <Text style={styles.followText}>Follower</Text>
-                  <Text style={styles.followNumberText}>{currentUser.follower.length || "0"}</Text>
-                </View>
-                <View style={styles.followingView}>
-                  <Text style={styles.followText}>Like</Text>
-                  <Text style={styles.followNumberText}>0</Text>
-                </View>
-              </View>
-
-              <Text style={styles.aboutText}>
-                {currentUser.about}
-              </Text>
-            </View>
-
-            <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 10
-              }}>
-                <AntDesign name='book' size={20} color={color.primary}></AntDesign>
-                <Text style={{
-                  fontFamily: 'Roboto',
-                  color: color.primary,
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                  marginLeft: 5
-                }}>
-                  Recipe
-                </Text>
-              </View>
-            </TouchableOpacity>
-
-            {/* <Tab.Navigator tabBarOptions={{
-              showLabel: false,
-              showIcon: true,
-              style: {
-
-              },
-              paddingHorizontal: 15,
-            }}>
-              <Tab.Screen name="Comunity" component={ComunityPostScreen} options={{
-                tabBarIcon: ({ focused }) => (
-                  <View style={{
-                    position: 'absolute',
-                    top: '0%',
-                  }}>
-                    <View style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                      <Ionicons
-                        name="ios-create-outline"
-                        size={25}
-                        color={focused ? color.textBlack : color.hideColor}
-                      ></Ionicons>
-                    </View>
-                  </View>
-                )
-              }} />
-              <Tab.Screen name="Hearted" component={HeartedPostScreen} options={{
-                tabBarIcon: ({ focused }) => (
-                  <View style={{
-                    position: 'absolute',
-                    top: '0%',
-                  }}>
-                    <View style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                      <Ionicons
-                        name="heart-outline"
-                        size={25}
-                        color={focused ? color.textBlack : color.hideColor}
-                      ></Ionicons>
-                    </View>
-                  </View>
-                )
-              }} />
-              <Tab.Screen name="Private" component={PrivatePostScreen} options={{
-                tabBarIcon: ({ focused }) => (
-                  <View style={{
-                    position: 'absolute',
-                    top: '0%',
-                  }}>
-                    <View style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                      <Ionicons
-                        name="lock-closed-outline"
-                        size={25}
-                        color={focused ? color.textBlack : color.hideColor}
-                      ></Ionicons>
-                    </View>
-                  </View>
-                )
-              }} />
-            </Tab.Navigator> */}
-          </ScrollView>
-        </Animated.View>
-      </View>
-    )
-  }
 
   const eventChat = () => {
     navigation.navigate('ChatNavigation')
@@ -275,16 +119,187 @@ const AccountScreen = ({ navigation }) => {
   const fall = new Animated.Value(1);
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name='AccountPage' component={Account} options={{
-        title: currentUser.username,
-        headerRight: () => (
-          <TouchableOpacity onPress={() => bs.current.snapTo(0)} style={{ marginRight: 16 }}>
-            <Ionicons name='settings' size={24} color={color.textGray} />
+    <View style={styles.container}>
+      <Portal name="modal">
+        <BottomSheet
+          ref={bs}
+          snapPoints={['36%', -300]}
+          borderRadius={10}
+          renderContent={renderInner}
+          renderHeader={renderHeader}
+          initialSnap={1}
+          callbackNode={fall}
+          enabledGestureInteraction={true}
+        />
+      </Portal>
+      <View style={styles.top}>
+        <Text style={styles.nameUser}>{currentUser.username}</Text>
+        <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+          <Ionicons style={{ marginRight: 8 }} name='settings' size={24} color={color.textGray} />
+        </TouchableOpacity>
+      </View>
+      <Animated.View
+        style={{
+          margin: 0,
+          opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
+        }}
+      >
+        <ScrollView>
+          <View style={styles.mid}>
+            <View style={styles.imageFrame}>
+              <Image
+                //source={require('../../contains//assetImages//background_signIn.jpg')}
+                style={styles.coverImage}
+                resizeMode='stretch'
+                source={{
+                  uri: currentUser.cover_url,
+                }}
+              />
+
+              <AvatarUser avatar_url={currentUser.avatar_url} />
+
+              <View style={styles.fullNameFrame}>
+                <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
+                <TouchableOpacity onPress={eventEditProfile}>
+                  <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.chatFrame}>
+              <TouchableOpacity onPress={eventChat}>
+                <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.bot}>
+            <View style={styles.followView}>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Following</Text>
+                <Text style={styles.followNumberText}>{currentUser.following.length || "0"}</Text>
+              </View>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Follower</Text>
+                <Text style={styles.followNumberText}>{currentUser.follower.length || "0"}</Text>
+              </View>
+              <View style={styles.followingView}>
+                <Text style={styles.followText}>Like</Text>
+                <Text style={styles.followNumberText}>0</Text>
+              </View>
+            </View>
+
+            <Text style={styles.aboutText}>
+              {currentUser.about}
+            </Text>
+          </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 10
+            }}>
+              <AntDesign name='book' size={20} color={color.primary}></AntDesign>
+              <Text style={{
+                fontFamily: 'Roboto',
+                color: color.primary,
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginLeft: 5
+              }}>
+                Recipe
+              </Text>
+            </View>
           </TouchableOpacity>
-        )
-      }} />
-    </Stack.Navigator>
+
+          <Tab.Navigator tabBarOptions={{
+            showLabel: false,
+            showIcon: true,
+            style: {
+
+            },
+            paddingHorizontal: 15,
+          }}>
+            <Tab.Screen name="Comunity" component={ComunityPostScreen} options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{
+                  position: 'absolute',
+                  top: '0%',
+                }}>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="ios-create-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
+                </View>
+              )
+            }} />
+            <Tab.Screen name="Hearted" component={HeartedPostScreen} options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{
+                  position: 'absolute',
+                  top: '0%',
+                }}>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="heart-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
+                </View>
+              )
+            }} />
+            <Tab.Screen name="Private" component={PrivatePostScreen} options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{
+                  position: 'absolute',
+                  top: '0%',
+                }}>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="lock-closed-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
+                </View>
+              )
+            }} />
+            <Tab.Screen name="RecipePublic" component={RecipePublicScreen} options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{
+                  position: 'absolute',
+                  top: '0%',
+                }}>
+                  <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Ionicons
+                      name="book-outline"
+                      size={25}
+                      color={focused ? color.textBlack : color.hideColor}
+                    ></Ionicons>
+                  </View>
+                </View>
+              )
+            }} />
+          </Tab.Navigator>
+        </ScrollView>
+      </Animated.View>
+    </View>
   )
 }
 
@@ -299,7 +314,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    paddingTop: 13
   },
   nameUser: {
     fontSize: 20,
@@ -355,7 +371,7 @@ const styles = StyleSheet.create({
     color: color.textGray,
     fontWeight: 'bold',
     marginRight: 10,
-    marginLeft: 15,
+    marginLeft: 40,
   },
   followView: {
     flexDirection: 'row',

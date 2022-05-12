@@ -106,7 +106,7 @@ const HomeScreen = ({ navigation }) => {
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
                 iconColor={color.primary}
-                onFunction={() => { navigation.navigate("NewRecipe") }}
+                onFunction={() => { navigation.navigate("RecipeList") }}
               />
               <Shortcut
                 nameShortcut="Recent Restaurant"
