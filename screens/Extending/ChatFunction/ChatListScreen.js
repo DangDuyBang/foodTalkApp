@@ -70,7 +70,12 @@ const ChatListScreen = ({ navigation }) => {
     const Chat = () => {
         return (
             <View style={styles.container}>
-                <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
+                <View style={{
+                    marginHorizontal: 15
+                }}>
+                    <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
+                </View>
+
                 <SafeAreaView style={{ flex: 1 }}>
                     <FlatList
                         data={lists}

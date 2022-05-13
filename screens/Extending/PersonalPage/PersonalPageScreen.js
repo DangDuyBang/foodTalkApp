@@ -49,7 +49,13 @@ const PersonalPageScreen = ({ navigation }) => {
                             }}
                         />
 
-                        <AvatarUser avatar_url={'https://i.pinimg.com/564x/c9/67/37/c967379efafcab8654591d6e5a1c1a21.jpg'} />
+                        <AvatarUser
+                            sizeFrame={110}
+                            sizeImage={90}
+                            position='absolute'
+                            marginTop={200}
+                            siz avatar_url={'https://i.pinimg.com/564x/c9/67/37/c967379efafcab8654591d6e5a1c1a21.jpg'}
+                        />
 
                         <View style={styles.fullNameFrame}>
                             <Text style={styles.fullName}>Dang Duy Bang</Text>

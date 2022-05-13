@@ -60,7 +60,12 @@ const UserListScreen = ({ navigation }) => {
   const UserList = () => {
     return (
       <View style={styles.container}>
-        <InputSearch inputIcon='search' inputName='Search' widthSearch={'100%'} />
+        <View style={{
+          marginHorizontal: 15
+        }}>
+          <InputSearch inputIcon='search' inputName='Search' widthSearch={'100%'} />
+        </View>
+
         <SafeAreaView style={{ flex: 1 }}>
           <FlatList
             data={lists}
@@ -75,9 +80,9 @@ const UserListScreen = ({ navigation }) => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name = 'UserListPage' component={UserList} options = {{
+      <Stack.Screen name='UserListPage' component={UserList} options={{
         title: 'Users List',
-      }}/>
+      }} />
     </Stack.Navigator>
   )
 }

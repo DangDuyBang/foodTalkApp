@@ -3,10 +3,17 @@ import React from 'react'
 import color from '../contains/color'
 
 const AvatarUser = (props) => {
+
     return (
-        <View style={styles.avatarFrame}>
+        <View style={[
+            styles.avatarFrame,
+            { height: props.sizeFrame },
+            { width: props.sizeFrame },
+            { position: props.position },
+            { marginTop: props.marginTop }
+        ]}>
             <Image
-                style={styles.avatarImage}
+                style={[styles.avatarImage, { height: props.sizeImage }, { width: props.sizeImage }]}
                 resizeMode='cover'
                 source={{
                     // uri: currentUser.avatar_url,
@@ -21,18 +28,12 @@ export default AvatarUser
 
 const styles = StyleSheet.create({
     avatarFrame: {
-        width: 110,
-        height: 110,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: color.background,
+        backgroundColor: color.post,
         borderRadius: 120,
-        position: 'absolute',
-        marginTop: 200
     },
     avatarImage: {
-        width: 90,
-        height: 90,
         borderRadius: 150,
     },
 })

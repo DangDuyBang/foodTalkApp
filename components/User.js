@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import color from '../contains/color'
+import AvatarUser from '../components/AvatarUser'
 
 const User = (props) => {
 
@@ -10,14 +11,19 @@ const User = (props) => {
         <TouchableOpacity>
             <View style={styles.container} >
                 <View style={styles.avatarAndName}>
-                    <View style={styles.chatAvatarFrame}>
+                    <AvatarUser
+                        sizeImage={50}
+                        avatar_url={props.data.chatAvatar}
+                    />
+
+                    {/* <View style={styles.chatAvatarFrame}>
                         <Image
                             style={styles.tinyAvatar}
                             source={{
                                 uri: props.data.chatAvatar,
                             }}
                         />
-                    </View>
+                    </View> */}
                     {
                         isOnline ?
                             <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>

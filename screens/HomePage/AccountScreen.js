@@ -156,7 +156,13 @@ const AccountScreen = ({ navigation }) => {
                 }}
               />
 
-              <AvatarUser avatar_url={currentUser.avatar_url} />
+              <AvatarUser
+                sizeFrame={110}
+                sizeImage={90}
+                position='absolute'
+                marginTop={200}
+                avatar_url={currentUser.avatar_url}
+              />
 
               <View style={styles.fullNameFrame}>
                 <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
