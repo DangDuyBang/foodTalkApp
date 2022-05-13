@@ -21,8 +21,8 @@ export default PostInAccount
 
 const styles = StyleSheet.create({
   container: {
-    width: 180,
-    height: 180,
+    width: 175,
+    height: 175,
     borderRadius: 30,
     backgroundColor: color.textIconSmall,
     justifyContent: 'center',
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   imagePostInAccount: {
-    width: 180,
-    height: 180,
+    width: 175,
+    height: 175,
     borderRadius: 30,
   }
 })

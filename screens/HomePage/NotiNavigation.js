@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import NotificationScreen from './NotificationScreen';
 
 const Stack = createStackNavigator();
-const NotiNavigation = () => {
+const NotiNavigation = ({ navigation }) => {
     const eventChat = () => {
         navigation.navigate('ChatNavigation')
     }

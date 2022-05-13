@@ -11,6 +11,7 @@ import LottieView from 'lottie-react-native'
 import Shortcut from '../../components/Shortcut'
 import InfinityScrollView from '../../components/InfinityScrollView'
 import { setCurrentUser } from '../../redux/userReducer'
+import AvatarUser from '../../components/AvatarUser'
 
 const HomeScreen = ({ navigation }) => {
 
@@ -68,12 +69,9 @@ const HomeScreen = ({ navigation }) => {
           }}>
 
             <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-              <Image
-                style={styles.avatarImage}
-                resizeMode='cover'
-                source={{
-                  uri: currentUser.avatar_url,
-                }}
+              <AvatarUser
+                sizeImage={40}
+                avatar_url={currentUser.avatar_url}
               />
             </TouchableOpacity>
 
@@ -106,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
                 iconColor={color.primary}
-                onFunction={() => { navigation.navigate("NewRecipe") }}
+                onFunction={() => { navigation.navigate("RecipeList") }}
               />
               <Shortcut
                 nameShortcut="Recent Restaurant"
@@ -162,11 +160,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.post,
     // paddingBottom: 80,
-  },
-  avatarImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 100
   },
   top: {
     borderBottomWidth: 0.5,

@@ -10,6 +10,7 @@ import { likeDislikePost } from '../services/PostServices'
 import { useSelector, useDispatch } from 'react-redux'
 import { likePost, unLikePost } from '../redux/postReducer'
 import useUserAction from '../screens/HomePage/hooks/useUserAction'
+import AvatarUser from './AvatarUser'
 
 const Post = (props) => {
 
@@ -83,14 +84,18 @@ const Post = (props) => {
             <View style={styles.topPost}>
                 <View style={styles.avatarAndNameView}>
                     <TouchableOpacity onPress={props.onPersonalPage}>
-                        <View style={styles.avatarFrame}>
+                        <AvatarUser
+                            sizeImage={40}
+                            avatar_url={props.post.author ? props.post.author.avatar_url : ''}
+                        />
+                        {/* <View style={styles.avatarFrame}>
                             <Image
                                 style={styles.avatar}
                                 source={{
                                     uri: props.post.author ? props.post.author.avatar_url : '',
                                 }}
                             />
-                        </View>
+                        </View> */}
                     </TouchableOpacity>
                     <View style={styles.nameAndTimeView}>
                         <Text style={styles.nameUserText}>
@@ -190,23 +195,9 @@ const styles = StyleSheet.create({
     avatarAndNameView: {
         flexDirection: 'row'
     },
-    avatarFrame: {
-        width: 40,
-        height: 40,
-        borderRadius: 40,
-        backgroundColor: color.textGray,
-        marginRight: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 40,
-    },
     nameAndTimeView: {
-        width: 220
+        width: 220,
+        marginLeft: 10
     },
     nameUserText: {
         fontFamily: 'Roboto',

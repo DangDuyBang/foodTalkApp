@@ -5,6 +5,8 @@ import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import PublicPostScreen from './PublicPostScreen'
+import RecipePostScreen from './RecipePostScreen'
+import AvatarUser from '../../../components/AvatarUser'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,7 +16,7 @@ const PersonalPageScreen = ({ navigation }) => {
         title: 'bbang_food_talk',
         headerRight: () => (
             <TouchableOpacity>
-                <Entypo name='dots-three-horizontal' style={{marginRight: 15}} size={24} color={color.textGray} />
+                <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={24} color={color.textGray} />
             </TouchableOpacity>
         )
     })
@@ -47,22 +49,16 @@ const PersonalPageScreen = ({ navigation }) => {
                             }}
                         />
 
-                        <View style={styles.avatarFrame}>
-                            <Image
-                                //source={require('../../contains//assetImages//background_signIn.jpg')}
-                                style={styles.avatarImage}
-                                resizeMode='stretch'
-                                source={{
-                                    uri: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
-                                }}
-                            />
-                        </View>
+                        <AvatarUser
+                            sizeFrame={110}
+                            sizeImage={90}
+                            position='absolute'
+                            marginTop={200}
+                            siz avatar_url={'https://i.pinimg.com/564x/c9/67/37/c967379efafcab8654591d6e5a1c1a21.jpg'}
+                        />
 
                         <View style={styles.fullNameFrame}>
                             <Text style={styles.fullName}>Dang Duy Bang</Text>
-                            <TouchableOpacity>
-                                <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
-                            </TouchableOpacity>
                         </View>
                     </View>
                     {
@@ -161,6 +157,26 @@ const PersonalPageScreen = ({ navigation }) => {
                                 }}>
                                     <Ionicons
                                         name="ios-create-outline"
+                                        size={25}
+                                        color={focused ? color.textBlack : color.hideColor}
+                                    ></Ionicons>
+                                </View>
+                            </View>
+                        )
+                    }} />
+
+                    <Tab.Screen name="Recipe" component={RecipePostScreen} options={{
+                        tabBarIcon: ({ focused }) => (
+                            <View style={{
+                                position: 'absolute',
+                                top: '0%',
+                            }}>
+                                <View style={{
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    <Ionicons
+                                        name="book-outline"
                                         size={25}
                                         color={focused ? color.textBlack : color.hideColor}
                                     ></Ionicons>

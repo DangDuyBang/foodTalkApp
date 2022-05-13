@@ -2,20 +2,26 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import moment from 'moment'
+import AvatarUser from '../components/AvatarUser'
 
 const NotifyPreview = (props) => {
     return (
         <TouchableOpacity>
             <View style={styles.container} >
                 <View style={styles.avatarAndName}>
-                    <View style={styles.AvatarFrame}>
+                    <AvatarUser
+                        sizeImage={50}
+                        avatar_url={props.data.author.avatar_url ? props.data.author.avatar_url : ""}
+                    />
+
+                    {/* <View style={styles.AvatarFrame}>
                         <Image
                             style={styles.tinyAvatar}
                             source={{
                                 uri: props.data.author.avatar_url ? props.data.author.avatar_url : "",
                             }}
                         />
-                    </View>
+                    </View> */}
                     <View style={styles.textContain}>
                         <Text style={styles.Username}>{props.data.author.username}</Text>
                         <View style={{
