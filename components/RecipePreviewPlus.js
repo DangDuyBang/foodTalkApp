@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import React, {  } from 'react'
 import color from '../contains/color'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 
@@ -16,7 +16,7 @@ const RecipePreviewPlus = (props) => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={props.onDetailRecipe}>
+            <TouchableOpacity onPress={() => props.onDetailRecipe(props.data)}>
                 <View style={styles.recipeView}>
                     <View style={styles.infoPostUser}>
                         <View style={styles.avatarFrame}>

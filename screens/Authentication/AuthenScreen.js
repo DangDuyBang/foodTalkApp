@@ -1,4 +1,6 @@
 import React from 'react'
+import { View, StyleSheet, Text } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import SignInScreen from './SignInScreen';
@@ -7,6 +9,7 @@ import HomePageScreen from '../HomePage/HomePageScreen';
 import StartScreen from '../Onboarding/StartScreen';
 import SplashScreen from '../Onboarding/SplashScreen';
 import { customTransition, config, closeConfig } from '../../utils/ScreenConfig';
+import color from '../../contains/color';
 
 
 //import screen of CHAT
@@ -36,6 +39,7 @@ const Stack = createStackNavigator();
 const AuthenScreen = () => {
 
   const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+  const currentFood = useSelector(state => state.food.currentFood)
 
   return (
     <NavigationContainer>
@@ -121,7 +125,15 @@ const AuthenScreen = () => {
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
             <Stack.Screen name="RecipeList" component={RecipeListScreen} />
-            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} />
+            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options ={{
+              title: currentFood.name,
+              headerRight: () => (
+                  <View style={styles.rightView}>
+                          <Text style={styles.markText}>{currentFood.avg_score}</Text>
+                          <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
+                      </View>
+              )
+            }}/>
             <Stack.Screen name="DetailChat" component={DetailChatScreen} />
             <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
           </Stack.Navigator>
@@ -177,3 +189,38 @@ const AuthenScreen = () => {
 }
 
 export default AuthenScreen
+
+const styles = StyleSheet.create({
+  topView: {
+      flexDirection: 'row',
+      borderBottomWidth: 0.5,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingBottom: 7,
+      paddingHorizontal: 15
+  },
+  leftView: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+  },
+  topText: {
+      fontFamily: 'Roboto',
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: color.textGray,
+      marginLeft: 15
+  },
+  rightView: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+      marginRight: 16,
+  },
+  markText: {
+      fontFamily: 'Roboto',
+      fontSize: 13,
+      color: color.textIconSmall,
+      marginRight: 5,
+  }
+})

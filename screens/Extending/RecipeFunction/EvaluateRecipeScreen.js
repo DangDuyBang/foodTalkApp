@@ -1,66 +1,80 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState, useEffect, useContext } from 'react'
+import { StyleSheet, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
+import React, { useState } from 'react'
 import color from '../../../contains/color'
-import SubmitNoLogo from '../../../components/SubmitNoLogo'
 import RecipeComment from '../../../components/RecipeComment'
-import { UserContext } from '../../../providers/UserProvider'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import InfinityScrollView from '../../../components/InfinityScrollView'
+import { addRate, setRate } from '../../../redux/foodReducer'
+import { createRateFood } from '../../../services/FoodServices'
+import { Ionicons } from '@expo/vector-icons'
 
-const EvaluateRecipeScreen = () => {
+const EvaluateRecipeScreen = ({ navigation }) => {
 
+    const currentFood = useSelector(state => state.food.currentFood)
+    const dispatch = useDispatch()
 
-    const currentUser = useSelector(state => state.user.currentUser)
+    const fetchRate = async () => {
+        if (currentFood.ratePagination.currentPage > currentFood.ratePagination.totalPage) {
+            return
+        }
+        await fetchAllRates(currentFood._id, currentFood.ratePagination.currentPage).then(response => {
+            dispatch(setRate(response.data))
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
 
-    const [currentDate, setCurrentDate] = useState('');
+    const [payload, setPayload] = useState({
+        food: currentFood._id,
+        score: 10
+    })
 
-    useEffect(() => {
-        var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth() + 1; //Current Month
-        var year = new Date().getFullYear(); //Current Year
-        var hours = new Date().getHours(); //Current Hours
-        var min = new Date().getMinutes(); //Current Minutes
-        var sec = new Date().getSeconds(); //Current Seconds
-        setCurrentDate(
-            date + '/' + month + '/' + year
-            // + ' ' + hours + ':' + min + ':' + sec
-        );
-    }, []);
-
-    const [comment, setComment] = useState('')
-    const [commentList, setCommentList] = useState([])
-    const [star, setStar] = useState(7)
-
-    const [defaultRating, setDefaultRating] = useState(7)
-    const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    const maxRating = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
     const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
 
-    const handleComment = () => {
-        if (comment.length === 0) {
-            alert("Fill comment");
-            return false;
-        }
-        setCommentList([...commentList, comment])
-        setComment('')
-        setStar(defaultRating)
+    const handleComment = async () => {
+        await createRateFood(payload).then(response => {
+            dispatch(addRate(response.data))
+
+            setPayload({
+                ...payload,
+                content: ''
+            })
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+            }
+        })
+    }
+
+    const onContentChange = (text) => {
+        setPayload({ ...payload, content: text })
+    }
+
+    const onRatingChange = (rate) => {
+        setPayload({ ...payload, score: rate })
     }
 
     const CustomRatingBar = () => {
         return (
             <View style={styles.customRatingBarStyle}>
                 {
-                    maxRating.map((item, key) => {
+                    maxRating.map((item) => {
                         return (
                             <TouchableOpacity
                                 activeOpacity={0.7}
                                 key={item}
-                                onPress={() => setDefaultRating(item)}
+                                onPress={() => onRatingChange(item)}
                             >
                                 <Image
                                     style={styles.starImgStyle}
                                     source={
-                                        item <= defaultRating
+                                        item <= payload.score
                                             ? { uri: starImgFilled }
                                             : { uri: starImgCorner }
                                     }
@@ -76,35 +90,32 @@ const EvaluateRecipeScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.commentListView}>
-                <ScrollView>
+                <InfinityScrollView useLoads={fetchRate}>
                     {
-                        commentList.map((item, index) => {
+                        currentFood.rates && currentFood.rates.map((item) => {
                             return <RecipeComment
-                                commentText={item}
-                                key={index}
-                                starMark={star}
-                                dateComment={currentDate}
-                                userComment={currentUser.username}
+                                key={item._id}
+                                rate={item}
                             />
                         })
                     }
-                </ScrollView>
+                </InfinityScrollView>
             </View>
             <ScrollView>
                 <View style={styles.rateCommentView}>
-                    <Text>Rate Recipe</Text>
                     <CustomRatingBar />
-                    <Text style={styles.markEvaluateText}>
-                        {defaultRating + '/' + maxRating.length}
-                    </Text>
-                    <TextInput
-                        value={comment}
-                        style={styles.inputRate} placeholder="Write comment ..."
-                        multiline={true}
-                        maxLength={220}
-                        onChangeText={(text) => setComment(text)}
-                    />
-                    <SubmitNoLogo eventButton={handleComment} nameButton='EVALUATE' colorView={color.primary} colorName={color.background} />
+                    <View style = {{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <TextInput
+                            value={payload.content}
+                            style={styles.inputRate} placeholder="Write comment ..."
+                            multiline={true}
+                            maxLength={220}
+                            onChangeText={onContentChange}
+                        />
+                        <TouchableOpacity onPress = {handleComment}>
+                            <Ionicons style={styles.sendIcon} name='send' size={24} color={color.primary}></Ionicons>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         </View>
@@ -121,7 +132,7 @@ const styles = StyleSheet.create({
     customRatingBarStyle: {
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 15,
+        paddingVertical: 8,
     },
     starImgStyle: {
         width: 30,
@@ -144,16 +155,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopWidth: 0.5,
         backgroundColor: color.background,
-        paddingTop: 25,
     },
     inputRate: {
-        width: 350,
+        width: '85%',
         //height: 120,
         borderRadius: 20,
         backgroundColor: color.inputColor,
         paddingHorizontal: 20,
         paddingVertical: 10,
-        marginBottom: 10,
+        //marginBottom: 10,
         //textAlignVertical: 'top'
+    },
+    sendIcon: {
+        marginLeft: 12
     }
 })

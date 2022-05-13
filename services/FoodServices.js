@@ -9,7 +9,6 @@ export const createFood = async (payload) => {
     return axios.post(`/api/food/create`, payload)
 }
 
-
 /**
  * @param {payload} payload { food, content, score }
  */
@@ -32,6 +31,14 @@ export const fetchFoodById = async (params) => {
 export const searchFood = async (params) => {
     //let token = await getStorage('@token')
     return axios.get(`/api/food/search/${params}`)
+}
+
+/**
+ * @param {params} parmas food_id string
+ */
+ export const fetchAllRates = async (food_id, currentPage) => {
+    //let token = await getStorage('@token')
+    return axios.get(`/api/food/rate/${food_id}/?page=${currentPage}`)
 }
 
 

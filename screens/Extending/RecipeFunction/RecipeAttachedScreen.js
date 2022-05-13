@@ -6,14 +6,18 @@ import InputSearch from '../../../components/InputSearch'
 import RecipePreviewPlus from '../../../components/RecipePreviewPlus'
 import RecipeChosen from '../../../components/RecipeChosen'
 import useRecipeActions from './hooks/useRecipeActions'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import LottieView from 'lottie-react-native'
+import { setCurrenFood, setRate } from '../../../redux/foodReducer'
+import { fetchAllRates } from '../../../services/FoodServices'
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
 
     const { loading, handleSearchChange } = useRecipeActions()
 
     const foodsSearch = useSelector(state => state.food.foods)
+    const ratePagination = useSelector(state => state.food.currentFood.ratePagination)
+    const dispatch = useDispatch()
 
     navigation.setOptions({
         title: 'Choose Attached Recipes',
@@ -47,8 +51,25 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
         navigation.navigate('NewRecipe')
     }
 
-    const handleDetailRecipe = () => {
+
+    const fetchRate = async (food_id) => {
+        if (ratePagination.currentPage > ratePagination.totalPage) {
+            return
+        }
+        await fetchAllRates(food_id, ratePagination.currentPage).then(response => {
+            dispatch(setRate(response.data))
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
+
+    const handleDetailRecipe =  async (food) => {
+        dispatch(setCurrenFood(food))
         navigation.navigate('DetailRecipe')
+        await fetchRate(food._id)
     }
 
     return (
