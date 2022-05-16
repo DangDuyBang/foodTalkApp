@@ -31,7 +31,7 @@ const EditProfileScreen = ({ navigation }) => {
         setIsAvatar(true)
     }
 
-    const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser.data)
 
     const renderInner = () => (
         <View style={styles.panel}>

@@ -1,12 +1,17 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllComment, fetchAllPost } from "../../../services/PostServices"
+import { fetchAllComment, fetchAllPost, fetchUserPost } from "../../../services/PostServices"
 import { setComment, setPosts } from '../../../redux/postReducer'
+import { setSelectedUserPosts, setUserPosts } from "../../../redux/userReducer"
+
 const useFetchPost = () => {
     const [loading, setLoading] = useState(false)
-    const dispatch = useDispatch()
     const postPagination = useSelector(state => state.post.postPagination)
     const commentPagination = useSelector(state => state.post.currentPost.commentPagination)
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.user.currentUser)
+    const selectedUserProfile = useSelector(state => state.user.selectedUserProfile)
+
 
     const useFetchComment = async (post_id) => {
         if (commentPagination.currentPage > commentPagination.totalPage) {
@@ -43,7 +48,37 @@ const useFetchPost = () => {
         })
     }
 
-    return ({ useFetchAllPost, useFetchComment, loading })
+    const fetchUserPosts = async () => {
+        if (currentUser.postPagination.currentPage > currentUser.postPagination.totalPage) {
+            return
+        }
+        await fetchUserPost(currentUser.data._id, currentUser.postPagination.currentPage).then(response => {
+            dispatch(setUserPosts(response.data))
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+
+    }
+
+    const fetchSelectedUserPosts = async () => {
+        if (selectedUserProfile.postPagination.currentPage > selectedUserProfile.postPagination.totalPage) {
+            return
+        }
+        await fetchUserPost(selectedUserProfile.data._id, selectedUserProfile.postPagination.currentPage).then(response => {
+            dispatch(setSelectedUserPosts(response.data))
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+
+    }
+
+    return ({ useFetchAllPost, useFetchComment, fetchUserPosts,fetchSelectedUserPosts, loading })
 }
 
 

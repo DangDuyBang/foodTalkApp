@@ -1,7 +1,7 @@
 export default {
     background: '#FFFFFF',
     primary: '#F28705',
-    textGray: '#444141',
+    textGray: '#000000',
     textIconSmall: '#948989',
     textBlue: '#2714A6',
     textButton: '#FFFFFF',

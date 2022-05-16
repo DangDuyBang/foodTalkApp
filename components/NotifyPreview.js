@@ -11,7 +11,7 @@ const NotifyPreview = (props) => {
                 <View style={styles.avatarAndName}>
                     <AvatarUser
                         sizeImage={50}
-                        avatar_url={props.data.author.avatar_url ? props.data.author.avatar_url : ""}
+                        profile={props.data.author}
                     />
 
                     {/* <View style={styles.AvatarFrame}>
@@ -23,36 +23,27 @@ const NotifyPreview = (props) => {
                         />
                     </View> */}
                     <View style={styles.textContain}>
-                        <Text style={styles.Username}>{props.data.author.username}</Text>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-                        }}>
+                        <View>
                             <View style={{
                                 flexDirection: 'row',
-                                width: '81%'
+                                alignItems: 'center'
                             }}>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}>
-                                    <Text style={[
-                                        styles.notificationType,
-                                    ]}
-                                        numberOfLines={1}
-                                    >
-                                        {props.data.notify_type}.
-                                    </Text>
-
-                                    <Text style={[
-                                        styles.timeNotify,
-                                    ]}>
-                                        {moment(props.data.create_at).fromNow()}
-                                    </Text>
-                                </View>
+                                <Text style={styles.Username}>{props.data.author.username}</Text>
+                                <Text style={[
+                                    styles.timeNotify,
+                                ]}>
+                                    {moment(props.data.create_at).fromNow()}
+                                </Text>
                             </View>
                         </View>
+                        <Text style={[
+                            styles.notificationType,
+                        ]}
+                            numberOfLines={1}
+                        >
+                            {props.data.content}.
+                        </Text>
+
                     </View>
                 </View>
             </View>
@@ -92,7 +83,7 @@ const styles = StyleSheet.create({
     notificationType: {
         color: color.textIconSmall,
         fontFamily: 'Roboto',
-        fontSize: 14,
+        fontSize: 16,
     },
     tinyAvatar: {
         width: 50,
@@ -103,6 +94,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto',
         fontSize: 14,
         color: color.textIconSmall,
-        marginLeft: 10,
+        marginLeft: 16,
     },
 })

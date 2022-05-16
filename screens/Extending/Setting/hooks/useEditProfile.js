@@ -9,7 +9,7 @@ import { setToast } from '../../../../redux/uiReducer';
 import { async } from '@firebase/util';
 
 function useEditProfile({ navigation }) {
-    const currentUser = useSelector(state => state.user.currentUser);
+    const currentUser = useSelector(state => state.user.currentUser.data);
     const dispatch = useDispatch()
 
     const [uriCover, setUriCover] = useState(null)

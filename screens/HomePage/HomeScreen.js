@@ -10,8 +10,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
 import Shortcut from '../../components/Shortcut'
 import InfinityScrollView from '../../components/InfinityScrollView'
-import { setCurrentUser } from '../../redux/userReducer'
-import AvatarUser from '../../components/AvatarUser'
 
 const HomeScreen = ({ navigation }) => {
 
@@ -19,9 +17,9 @@ const HomeScreen = ({ navigation }) => {
     alert('Chức năng hiển thị nhà hàng gần đây')
   }
 
-  const { useFetchAllPost, loading } = useFetchPost();
+  const { useFetchAllPost,useFetchComment, loading } = useFetchPost();
   const posts = useSelector(state => state.post.posts)
-  const currentUser = useSelector(state => state.user.currentUser)
+  const currentUser = useSelector(state => state.user.currentUser.data)
 
   const useLoads = async () => {
     await useFetchAllPost()
@@ -42,8 +40,9 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
-  const eventOpenCommentList = (post_id) => {
+  const eventOpenCommentList = async  (post_id) => {
     navigation.navigate('CommentList', { post_id: post_id })
+    await useFetchComment(post_id)
   }
 
   const eventToPersonalPage = () => {
@@ -69,10 +68,14 @@ const HomeScreen = ({ navigation }) => {
           }}>
 
             <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-              <AvatarUser
-                sizeImage={40}
-                avatar_url={currentUser.avatar_url}
-              />
+            <Image
+                    style={{ height: 40,  width: 40 , borderRadius: 100}}
+                    resizeMode='cover'
+                    source={{
+                        // uri: currentUser.avatar_url,
+                        uri: currentUser.avatar_url,
+                    }}
+                />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={eventNewPost}>
@@ -104,7 +107,7 @@ const HomeScreen = ({ navigation }) => {
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
                 iconColor={color.primary}
-                onFunction={() => { navigation.navigate("RecipeList") }}
+                onFunction={() => { navigation.navigate("NewRecipe") }}
               />
               <Shortcut
                 nameShortcut="Recent Restaurant"

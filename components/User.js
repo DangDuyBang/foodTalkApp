@@ -13,7 +13,7 @@ const User = (props) => {
                 <View style={styles.avatarAndName}>
                     <AvatarUser
                         sizeImage={50}
-                        avatar_url={props.data.chatAvatar}
+                        propfile={props.data.chatAvatar}
                     />
 
                     {/* <View style={styles.chatAvatarFrame}>

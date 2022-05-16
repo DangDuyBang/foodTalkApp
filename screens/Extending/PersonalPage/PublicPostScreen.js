@@ -2,6 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import color from '../../../contains/color'
 import PostInAccount from '../../../components/PostInAccount'
+import InfinityScrollView from '../../../components/InfinityScrollView'
+import { useSelector } from 'react-redux'
+import useFetchPost from '../../HomePage/hooks/useFetchPost'
 
 const ImagePic = {
     imagePost_first: 'https://i.pinimg.com/564x/3f/32/94/3f32941eb6f31b5b7b972da29aefa329.jpg',
@@ -14,13 +17,15 @@ const ImagePic = {
 }
 
 const PublicPostScreen = () => {
+    const posts = useSelector(state => state.user.selectedUserProfile.posts)
+    const { fetchSelectedUserPosts } = useFetchPost()
+
     return (
-        <View style={styles.container}>
-            <PostInAccount imagePostInAccount={ImagePic.imagePost_first} />
-            <PostInAccount imagePostInAccount={ImagePic.imagePost_fith} />
-            <PostInAccount imagePostInAccount={ImagePic.imagePost_seventh} />
-            <PostInAccount imagePostInAccount={ImagePic.imagePost_sixth} />
-        </View>
+        <InfinityScrollView onLoads={fetchSelectedUserPosts}>
+            <View style={styles.container}>
+                {posts && posts.map(post => <PostInAccount imagePostInAccount={post.photos[0]} />)}
+            </View>
+        </InfinityScrollView>
     )
 }
 
@@ -30,9 +35,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.background,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        flexDirection: 'row-reverse',
-        flexWrap: 'wrap-reverse',
+        //paddingHorizontal: 10,
+        //paddingVertical: 10,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
     },
 })

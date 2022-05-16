@@ -4,6 +4,7 @@ import { createPost } from '../../../services/PostServices'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
 import {useDispatch} from 'react-redux'
 import {addPost} from '../../../redux/postReducer'
+import { addUserPost } from '../../../redux/userReducer'
 
 export const useCreatePost = (props) => {
 
@@ -84,6 +85,7 @@ export const useCreatePost = (props) => {
                             }).then((res) => {
                                 console.log(res.data.post);
                                 dispatch(addPost(res.data.post))
+                                dispatch(addUserPost(res.data.post))
                             })
                         }
                     })

@@ -13,7 +13,7 @@ const NewPostScreen = ({ navigation }) => {
 
     const { isPublic, foods, content, location, photos, eventChangeMode, eventRecipeAttached, onPressCheckIn, handleContentChange, onPressPhoto, onCreatePost } = useCreatePost({ navigation })
 
-    const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser.data)
 
     return (
         <View style={styles.container}>

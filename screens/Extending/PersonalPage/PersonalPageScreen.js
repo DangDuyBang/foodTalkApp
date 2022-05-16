@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Ionicons, Entypo, FontAwesome, AntDesign } from '@expo/vector-icons'
 import color from '../../../contains/color'
 import SubmitNoLogo from '../../../components/SubmitNoLogo'
@@ -7,13 +7,20 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import PublicPostScreen from './PublicPostScreen'
 import RecipePostScreen from './RecipePostScreen'
 import AvatarUser from '../../../components/AvatarUser'
+import { useDispatch, useSelector } from 'react-redux'
+import useFetchPost from '../../HomePage/hooks/useFetchPost'
+import useFetchFood from '../../HomePage/hooks/useFetchFood'
+import { removeSelectedUserProfile } from '../../../redux/userReducer'
+import useUserAction from '../../HomePage/hooks/useUserAction'
 
 const Tab = createMaterialTopTabNavigator();
 
 const PersonalPageScreen = ({ navigation }) => {
-
+    const dispatch = useDispatch()
+    const selectedUserProfile = useSelector(state => state.user.selectedUserProfile)
+    const {useFollow} = useUserAction()
     navigation.setOptions({
-        title: 'bbang_food_talk',
+        title: selectedUserProfile.data.username,
         headerRight: () => (
             <TouchableOpacity>
                 <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={24} color={color.textGray} />
@@ -21,19 +28,37 @@ const PersonalPageScreen = ({ navigation }) => {
         )
     })
 
-    const [isFollowing, setIsFollowing] = useState(false)
+    const currentUser = useSelector(state => state.user.currentUser.data)
 
+    const isFollowing = () => {
+        const index = currentUser.data.following.findIndex(f => f._id === selectedUserProfile.data._id)
+        if (index === -1) return false
+        return true
+    }
+
+    //const [isFollowing, setIsFollowing] = useState(false)
+
+    
     const eventFollowing = () => {
-        if (isFollowing == false) {
-            setIsFollowing(true)
-        } else if (isFollowing == true) {
-            setIsFollowing(false)
-        }
+        useFollow(selectedUserProfile.data._id)
     }
 
     const eventDetailChat = () => {
         navigation.navigate('DetailChat')
     }
+
+    const {fetchSelectedUserPosts} = useFetchPost()
+    const {fetchSelectedUserFoodsList} = useFetchFood()
+
+    useEffect(() => {
+      fetchSelectedUserPosts()
+      fetchSelectedUserFoodsList()
+    
+      return () => {
+          dispatch(removeSelectedUserProfile())
+      }
+    }, [])
+    
 
     return (
         <View style={styles.container}>
@@ -45,20 +70,24 @@ const PersonalPageScreen = ({ navigation }) => {
                             style={styles.coverImage}
                             resizeMode='stretch'
                             source={{
-                                uri: 'https://i.pinimg.com/564x/0c/54/67/0c5467789afb0fe8a592aa2b318d0683.jpg',
+                                uri: selectedUserProfile.data.cover_url,
                             }}
                         />
+                        <View style={styles.avatarFrame}>
+                            <Image
+                                style={styles.avatarImage}
+                                resizeMode='cover'
+                                source={{
+                                    // uri: currentUser.avatar_url,
+                                    uri: selectedUserProfile.data.avatar_url,
+                                }}
+                            />
 
-                        <AvatarUser
-                            sizeFrame={110}
-                            sizeImage={90}
-                            position='absolute'
-                            marginTop={200}
-                            siz avatar_url={'https://i.pinimg.com/564x/c9/67/37/c967379efafcab8654591d6e5a1c1a21.jpg'}
-                        />
+                        </View>
+
 
                         <View style={styles.fullNameFrame}>
-                            <Text style={styles.fullName}>Dang Duy Bang</Text>
+                            <Text style={styles.fullName}>{selectedUserProfile.data.first_name + ' ' + selectedUserProfile.data.last_name}</Text>
                         </View>
                     </View>
                     {
@@ -99,11 +128,11 @@ const PersonalPageScreen = ({ navigation }) => {
                     <View style={styles.followView}>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Following</Text>
-                            <Text style={styles.followNumberText}>10</Text>
+                            <Text style={styles.followNumberText}>{selectedUserProfile.data.following.lenght||0}</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Follower</Text>
-                            <Text style={styles.followNumberText}>20</Text>
+                            <Text style={styles.followNumberText}>{selectedUserProfile.data.follower.lenght||0}</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Like</Text>
@@ -112,12 +141,11 @@ const PersonalPageScreen = ({ navigation }) => {
                     </View>
 
                     <Text style={styles.aboutText}>
-                        The application to "search" and "review" food locations
-                        in most of the provinces and cities in Vietnam such as Ho Chi Minh City,...
+                        {selectedUserProfile.data.about}
                     </Text>
                 </View>
 
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <View style={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -135,7 +163,7 @@ const PersonalPageScreen = ({ navigation }) => {
                             Recipe
                         </Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <Tab.Navigator tabBarOptions={{
                     showLabel: false,

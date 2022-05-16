@@ -5,29 +5,29 @@ import moment from 'moment'
 import { useSelector } from 'react-redux'
 
 const PostComment = (props) => {
-    const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser.data)
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
-                <View style={styles.avatarAndNameViewCommenter}>
-                    <View style={styles.avatarFrameCommenter}>
-                        <Image
-                            style={styles.avatarCommenter}
-                            source={{
-                                uri: props.comment.author.avatar_url,
-                            }}
-                        />
-                    </View>
-                    <View style={styles.nameAndTimeViewCommenter}>
-                        <Text style={styles.nameUserCommenter}>{props.comment.author.username}</Text>
-                        <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
-                    </View>
+                <View style={styles.avatarFrameCommenter}>
+                    <Image
+                        style={styles.avatarCommenter}
+                        source={{
+                            uri: props.comment.author.avatar_url,
+                        }}
+                    />
                 </View>
-                <Text style={styles.firstCommentText}>{props.comment.content}</Text>
+                <View>
+                    <Text style={styles.nameUserCommenter}>{props.comment.author.username}</Text>
+                    <Text style={styles.firstCommentText}>{props.comment.content}</Text>
+                </View>
             </View>
-            <TouchableOpacity onPress={() => props.onReplyPress(currentUser._id, props.comment._id)}>
-                <Text style={styles.replyButton}>Reply</Text>
-            </TouchableOpacity>
+            <View style = {styles.botAction}>
+                <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
+                <TouchableOpacity onPress={() => props.onReplyPress(currentUser.username, props.comment._id)}>
+                    <Text style={styles.replyButton}>Reply</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -45,10 +45,13 @@ const styles = StyleSheet.create({
         backgroundColor: color.post,
         paddingHorizontal: 10,
         paddingVertical: 6,
-        borderRadius: 25
+        borderRadius: 25,
+        flexDirection: 'row',
     },
-    avatarAndNameViewCommenter: {
-        flexDirection: 'row'
+
+    nameAndTimeViewCommenter: {
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     avatarFrameCommenter: {
         width: 40,
@@ -76,11 +79,18 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     firstCommentText: {
-        marginHorizontal: 50
+        maxWidth: 310
     },
     replyButton: {
         fontFamily: 'Roboto',
         color: color.textIconSmall,
-        marginLeft: 60
+        marginLeft: 12,
+        fontWeight: 'bold',
+    },
+
+    botAction: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 16,
     }
 })

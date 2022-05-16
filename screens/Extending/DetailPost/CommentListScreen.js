@@ -22,7 +22,7 @@ const CommentListScreen = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        fetchComment()
+        //fetchComment()
 
         return () => {
             dispatch(deleteCurrentPost())
@@ -51,7 +51,7 @@ const CommentListScreen = ({ navigation, route }) => {
 
     const handleCloseReplying = () => {
         if (isReplyPress == true) {
-            const data = {...payload}
+            const data = { ...payload }
             delete data['parent']
             setPayload({
                 ...data
@@ -61,11 +61,8 @@ const CommentListScreen = ({ navigation, route }) => {
     }
 
     const handleAddComment = async () => {
-        //add comment
-        //setCommentList([...commentList, comment])
         setLoading(true)
         await createComment(payload).then(response => {
-            dispatch(addComment(response.data.comment))
             setPayload({
                 post: post_id,
                 content: '',
@@ -82,24 +79,25 @@ const CommentListScreen = ({ navigation, route }) => {
     }
 
     const handleAddReplyComment = async () => {
-        setLoading(true)
-        await createComment(payload).then(response => {
-            dispatch(addComment(response.data.comment))
-            setPayload({
-                post: post_id,
-                content: '',
+        if (isReplyPress) {
+            setLoading(true)
+            await createComment(payload).then(response => {
+                setPayload({
+                    post: post_id,
+                    content: '',
+                })
+                setIsReplyPress(false)
+                setLoading(false)
+
+            }).catch(err => {
+                setLoading(false)
+
+                if (err.response) {
+                    console.log(err.response.data.error)
+                    // setError(...err, err.response.data.error)
+                }
             })
-            setIsReplyPress(false)
-            setLoading(false)
-
-        }).catch(err => {
-            setLoading(false)
-
-            if (err.response) {
-                console.log(err.response.data.error)
-                // setError(...err, err.response.data.error)
-            }
-        })
+        }
     }
 
     const onChangeContent = (text) => {
@@ -112,7 +110,7 @@ const CommentListScreen = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <InfinityScrollView useLoads={fetchComment}>
-                    {/* <PostComment
+                {/* <PostComment
                         avatar='https://i.pinimg.com/736x/5a/27/28/5a272830589d98e6df4afdbbcec6123c.jpg'
                         nameCommenter='khoa_food_talk'
                         timeComment='30 minutes ago'
@@ -127,30 +125,27 @@ const CommentListScreen = ({ navigation, route }) => {
                         leftMargin={80}
                         onReplyPress={() => handleReplyPress('ga_food_talk')}
                     /> */}
-                    {
-                        comments && comments.map((item, index) => {
-                            return <>
-                                <PostComment
-                                    key={item._id}
-                                    comment={item}
+                {
+                    comments && comments.map((item, index) => {
+                        return <>
+                            <PostComment
+                                key={item._id}
+                                comment={item}
+                                onReplyPress={handleReplyPress}
+                            />
+
+                            {item.children && item.children.map((i, index) => {
+                                return <PostComment
+                                    key={i._id}
+                                    comment={i}
                                     onReplyPress={handleReplyPress}
+                                    leftMargin={60}
                                 />
+                            })}
+                        </>
 
-                                {item.children && item.children.map((i, index) => {
-                                    return <PostComment
-                                        key={i._id}
-                                        comment={i}
-                                        onReplyPress={handleReplyPress}
-                                        leftMargin={60}
-                                    />
-                                })}
-                            </>
-
-                        })
-                    }
-                    {
-
-                    }
+                    })
+                }
             </InfinityScrollView>
             <View style={styles.commentTypeView}>
                 {

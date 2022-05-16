@@ -7,6 +7,7 @@ import RecipePreview from '../../../components/RecipePreview'
 import useRecipeActions from './hooks/useRecipeActions'
 import { useSelector } from 'react-redux'
 import LottieView from 'lottie-react-native'
+import { setCurrenFood } from '../../../redux/foodReducer'
 
 const RecipeListScreen = ({ navigation }) => {
 
@@ -23,8 +24,9 @@ const RecipeListScreen = ({ navigation }) => {
 
     const foodsSearch = useSelector(state => state.food.foods)
 
-    const handleDetailRecipe = () => {
+    const handleDetailRecipe = (data) => {
         navigation.navigate('DetailRecipe')
+        dispatch(setCurrenFood(data))
     }
 
     const eventNewRecipe = () => {

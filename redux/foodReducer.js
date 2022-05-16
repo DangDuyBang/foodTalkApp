@@ -6,6 +6,7 @@ const initialState = {
     currentPage: 0,
     totalPage: 0,
   },
+
   currentFood: {
     rates: [],
     ratePagination: {
@@ -13,6 +14,12 @@ const initialState = {
       totalPage: 0,
     }
   },
+
+  userFoods: [],
+  userFoodPagination: {
+    currentPage: 0,
+    totalPage: 0,
+  }
 }
 
 export const foodSlice = createSlice({
@@ -61,8 +68,7 @@ export const foodSlice = createSlice({
           totalPage: 0,
         }
       }
-
-    }
+    },
   },
 })
 

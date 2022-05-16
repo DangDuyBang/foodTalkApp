@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import color from '../../contains/color'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
@@ -11,19 +11,25 @@ import RecipePublicScreen from './RecipePublicScreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { UserContext } from '../../providers/UserProvider'
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import AvatarUser from '../../components/AvatarUser'
+import { fetchUserPost } from '../../services/PostServices'
+import { setUserPosts } from '../../redux/userReducer'
+import useFetchPost from './hooks/useFetchPost'
+import InfinityScrollView from '../../components/InfinityScrollView'
+import useFetchFood from './hooks/useFetchFood'
 
 const Stack = createStackNavigator();
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = ({ navigation }) => {
-  const currentUser = useSelector(state => state.user.currentUser)
+  const currentUser = useSelector(state => state.user.currentUser.data)
+  const dispatch = useDispatch();
+  const userPostPagination = useSelector(state => state.post.userPostPagination)
 
 
   const eventChat = () => {
@@ -118,6 +124,15 @@ const AccountScreen = ({ navigation }) => {
   const bs = React.createRef();
   const fall = new Animated.Value(1);
 
+  const { fetchUserPosts } = useFetchPost()
+  const { fetchUserFoodsList } = useFetchFood()
+
+  useEffect(() => {
+    fetchUserPosts()
+    fetchUserFoodsList()
+
+  }, []);
+
   return (
     <View style={styles.container}>
       <Portal name="modal">
@@ -156,13 +171,25 @@ const AccountScreen = ({ navigation }) => {
                 }}
               />
 
-              <AvatarUser
+              {/* <AvatarUser
                 sizeFrame={110}
                 sizeImage={90}
                 position='absolute'
-                marginTop={200}
-                avatar_url={currentUser.avatar_url}
-              />
+                marginTop={-55}
+                marginLeft = {-45}
+                avatar_url={currentUser}
+              /> */}
+              <View style={styles.avatarFrame}>
+
+                <Image
+                  style={styles.avatarImage}
+                  resizeMode='cover'
+                  source={{
+                    // uri: currentUser.avatar_url,
+                    uri: currentUser.avatar_url,
+                  }}
+                />
+              </View>
 
               <View style={styles.fullNameFrame}>
                 <Text style={styles.fullName}>{currentUser.first_name + " " + currentUser.last_name}</Text>
@@ -193,12 +220,12 @@ const AccountScreen = ({ navigation }) => {
               </View>
             </View>
 
-            <Text style={styles.aboutText}>
+            {currentUser.about !== '' && <Text style={styles.aboutText}>
               {currentUser.about}
-            </Text>
+            </Text>}
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
             <View style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -216,7 +243,7 @@ const AccountScreen = ({ navigation }) => {
                 Recipe
               </Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Tab.Navigator tabBarOptions={{
             showLabel: false,
@@ -315,13 +342,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
+    marginBottom: 100,
   },
   top: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
-    paddingTop: 13
+    paddingTop: 13,
   },
   nameUser: {
     fontSize: 20,
@@ -331,7 +359,7 @@ const styles = StyleSheet.create({
   },
   mid: {
     marginTop: 5,
-    flexDirection: 'row-reverse'
+    flexDirection: 'row-reverse',
   },
   imageFrame: {
     alignItems: 'center',
@@ -351,21 +379,21 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10
   },
-  // avatarFrame: {
-  //   width: 110,
-  //   height: 110,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   backgroundColor: color.background,
-  //   borderRadius: 120,
-  //   position: 'absolute',
-  //   marginTop: 200
-  // },
-  // avatarImage: {
-  //   width: 90,
-  //   height: 90,
-  //   borderRadius: 150,
-  // },
+  avatarFrame: {
+    width: 110,
+    height: 110,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: color.post,
+    borderRadius: 120,
+    position: 'absolute',
+    marginTop: 195,
+  },
+  avatarImage: {
+    width: 90,
+    height: 90,
+    borderRadius: 150,
+  },
   fullNameFrame: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -402,7 +430,7 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     textAlign: 'center',
-    marginVertical: 35,
+    marginBottom: 35,
     fontFamily: 'Roboto',
     fontSize: 15,
     marginHorizontal: 30
@@ -428,5 +456,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  bot: {
+    marginBottom: 35
   }
 })

@@ -14,7 +14,7 @@ import AvatarUser from './AvatarUser'
 
 const Post = (props) => {
 
-    const { useFollow, useUnfollow } = useUserAction()
+    const { useFollow } = useUserAction()
 
     const onShare = async () => {
         try {
@@ -35,11 +35,12 @@ const Post = (props) => {
         }
     };
 
-    const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser.data)
     const dispatch = useDispatch()
 
     const isFollowed = () => {
-        const index = currentUser.following.findIndex(f => f._id === currentUser._id)
+        if(currentUser._id === props.post.author._id) return true 
+        const index = currentUser.following.findIndex(f => f._id === props.post.author._id)
         if (index === -1) return false
         return true
     }
@@ -83,10 +84,9 @@ const Post = (props) => {
         <View style={styles.container}>
             <View style={styles.topPost}>
                 <View style={styles.avatarAndNameView}>
-                    <TouchableOpacity onPress={props.onPersonalPage}>
                         <AvatarUser
                             sizeImage={40}
-                            avatar_url={props.post.author ? props.post.author.avatar_url : ''}
+                            profile={props.post.author}
                         />
                         {/* <View style={styles.avatarFrame}>
                             <Image
@@ -96,7 +96,6 @@ const Post = (props) => {
                                 }}
                             />
                         </View> */}
-                    </TouchableOpacity>
                     <View style={styles.nameAndTimeView}>
                         <Text style={styles.nameUserText}>
 
@@ -110,7 +109,7 @@ const Post = (props) => {
                 </View>
                 <TouchableOpacity onPress={followEvent}>
                     {
-                        isFollowed() &&
+                        !isFollowed() &&
                         <Text style={styles.followText}>Follow</Text>
 
                     }

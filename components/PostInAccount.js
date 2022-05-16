@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
+const WIDTH = Dimensions.get('window').width
 
 const PostInAccount = (props) => {
   return (
@@ -21,18 +22,14 @@ export default PostInAccount
 
 const styles = StyleSheet.create({
   container: {
-    width: 175,
-    height: 175,
-    borderRadius: 30,
+    width: WIDTH / 3,
+    height: WIDTH / 3,
     backgroundColor: color.textIconSmall,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 7,
-    marginBottom: 15,
   },
   imagePostInAccount: {
-    width: 175,
-    height: 175,
-    borderRadius: 30,
+    width: '100%',
+    height: '100%',
   }
 })

@@ -1,26 +1,39 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setSelectedUserProfile } from '../redux/userReducer'
 
 const AvatarUser = (props) => {
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
+
+    const handlePress = () => {
+        navigation.navigate('PersonalPage')
+        dispatch(setSelectedUserProfile(props.profile))
+        //dispatch(setSelectedUserProfile(props.user))
+    }
 
     return (
-        <View style={[
-            styles.avatarFrame,
-            { height: props.sizeFrame },
-            { width: props.sizeFrame },
-            { position: props.position },
-            { marginTop: props.marginTop }
-        ]}>
-            <Image
-                style={[styles.avatarImage, { height: props.sizeImage }, { width: props.sizeImage }]}
-                resizeMode='cover'
-                source={{
-                    // uri: currentUser.avatar_url,
-                    uri: props.avatar_url,
-                }}
-            />
-        </View>
+        <TouchableOpacity onPress={handlePress}>
+            <View style={[
+                styles.avatarFrame,
+                { height: props.sizeFrame },
+                { width: props.sizeFrame },
+                { position: props.position },
+                { marginTop: props.marginTop },{ marginLeft: props.marginLeft}
+            ]}>
+                <Image
+                    style={[styles.avatarImage, { height: props.sizeImage }, { width: props.sizeImage }]}
+                    resizeMode='cover'
+                    source={{
+                        // uri: currentUser.avatar_url,
+                        uri: props.profile.avatar_url,
+                    }}
+                />
+            </View>
+        </TouchableOpacity>
     )
 }
 

@@ -63,7 +63,7 @@ export const fetchAllReaction = async (params) => {
 }
 
 
-export const fetchUserPost = async () => {
+export const fetchUserPost = async (user_id, currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/post/user-post`)
+    return axios.get(`/api/post/user-posts/${user_id}/?page=${currentPage}`)
 }

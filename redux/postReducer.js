@@ -13,7 +13,13 @@ const initialState = {
       currentPage: 0,
       totalPage: 0
     }
-  }
+  },
+
+  userPosts: [],
+  userPostPagination: {
+    currentPage: 0,
+    totalPage: 0,
+  },
 }
 
 export const postSlice = createSlice({
@@ -28,6 +34,7 @@ export const postSlice = createSlice({
 
     addPost: (state, action) => {
       state.posts.unshift(action.payload)
+
     },
 
     //socket
@@ -75,11 +82,11 @@ export const postSlice = createSlice({
 
       const i = state.posts.findIndex(post=> post._id === action.payload.post)
       state.posts[i].num_comment += 1
-    }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment } = postSlice.actions
+export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment} = postSlice.actions
 
 export default postSlice.reducer

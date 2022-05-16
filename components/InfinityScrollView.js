@@ -16,7 +16,7 @@ const InfinityScrollView = (props) => {
                     props.useLoads()
                 }
             }}
-            scrollEventThrottle={400}
+            scrollEventThrottle={1000}
         >
             {props.children}
         </ScrollView>

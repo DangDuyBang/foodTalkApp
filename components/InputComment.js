@@ -44,8 +44,8 @@ const InputComment = (props) => {
                     }}
                     placeholder="Write comment ..."
                 />
-                <TouchableOpacity onPress={!props.loading?props.onAddComment:null} >
-                    {!props.loading?<FontAwesome style={styles.sendIcon} name='send-o' size={26} color={color.primary}></FontAwesome>:<ActivityIndicator color={color.primary}/>}
+                <TouchableOpacity onPress={!props.loading ? props.onAddComment : null} >
+                    {!props.loading ? <FontAwesome style={styles.sendIcon} name='send-o' size={26} color={color.primary}></FontAwesome> : <ActivityIndicator color={color.primary} />}
                 </TouchableOpacity>
             </View>
         </View>

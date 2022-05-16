@@ -63,7 +63,7 @@ export const recommendationPairingIngr = async (ingrs) => {
     })
 }
 
-export const fetchUserFoods = async () => {
+export const fetchUserFoods = async (user_id, currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/food/user-foods`)
+    return axios.get(`/api/food/user-foods/${user_id}/?page=${currentPage}`)
 }
