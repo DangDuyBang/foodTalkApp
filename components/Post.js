@@ -39,7 +39,7 @@ const Post = (props) => {
     const dispatch = useDispatch()
 
     const isFollowed = () => {
-        if(currentUser._id === props.post.author._id) return true 
+        if (currentUser._id === props.post.author._id) return true
         const index = currentUser.following.findIndex(f => f._id === props.post.author._id)
         if (index === -1) return false
         return true
@@ -84,11 +84,11 @@ const Post = (props) => {
         <View style={styles.container}>
             <View style={styles.topPost}>
                 <View style={styles.avatarAndNameView}>
-                        <AvatarUser
-                            sizeImage={40}
-                            profile={props.post.author}
-                        />
-                        {/* <View style={styles.avatarFrame}>
+                    <AvatarUser
+                        sizeImage={40}
+                        profile={props.post.author}
+                    />
+                    {/* <View style={styles.avatarFrame}>
                             <Image
                                 style={styles.avatar}
                                 source={{
@@ -126,6 +126,24 @@ const Post = (props) => {
                 <View style={styles.imageFrame}>
                     {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
                 </View>
+
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{
+                        paddingRight: 20,
+                        borderColor: color.textIconSmall,
+                        marginLeft: 10,
+                        marginTop: 5,
+                        marginBottom: -10
+                    }}
+                >
+                    {props.post.foods && props.post.foods.length > 0 ? (
+                        props.post.foods.map((food) => (
+                            <RecipeShowed food={food} key={food._id} />
+                        ))
+                    ) : null}
+                </ScrollView>
             </View>
             <View style={styles.midPost}>
                 <View style={styles.heartCommentShareAndBookView}>
@@ -150,25 +168,14 @@ const Post = (props) => {
                         </TouchableOpacity>
                     </View>
 
-                    <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        style={{
-                            paddingRight: 20,
-                            borderColor: color.textIconSmall,
-                            marginLeft: 20,
-                        }}
-                    >
-                        {props.post.foods && props.post.foods.length > 0 ? (
-                            props.post.foods.map((food) => (
-                                <RecipeShowed food={food} key={food._id} />
-                            ))
-                        ) : null}
-                    </ScrollView>
+
                 </View>
             </View>
             <View style={styles.botPost}>
-                <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
+                <TouchableOpacity onPress={props.onUserReactionList}>
+                    <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => props.onCommentList(props.post._id)}>
                     <Text style={styles.commentNumber}>{props.post.num_comment === 0 ? 'No comment' : `View all ${props.post.num_comment} comments`}</Text>
                 </TouchableOpacity>

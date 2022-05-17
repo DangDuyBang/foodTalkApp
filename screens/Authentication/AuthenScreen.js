@@ -19,6 +19,7 @@ import DetailChatScreen from '../Extending/ChatFunction/DetailChatScreen';
 import NewRecipeScreen from '../Extending/RecipeFunction/NewRecipeScreen';
 import DetailRecipeScreen from '../Extending/RecipeFunction/DetailRecipeScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import UserReactionListScreen from '../Extending/DetailPost/UserReactionListScreen';
 import CommentListScreen from '../Extending/DetailPost/CommentListScreen';
 import PersonalPageScreen from '../Extending/PersonalPage/PersonalPageScreen';
 
@@ -32,6 +33,7 @@ import RecipeListScreen from '../Extending/RecipeFunction/RecipeListScreen';
 
 import { useSelector } from 'react-redux';
 import CreatePostNavigation from '../HomePage/CreatePostNavigation';
+import SearchScreen from '../HomePage/SearchScreen';
 
 const Stack = createStackNavigator();
 
@@ -112,6 +114,18 @@ const AuthenScreen = () => {
             <Stack.Screen name="Feedback" component={FeedbackScreen} />
             <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
 
+            <Stack.Screen name="UserReactionList" component={UserReactionListScreen}
+              options={{
+                title: 'Reaction',
+                gestureEnabled: true,
+                gestureDirection: 'vertical',
+                transitionSpec: {
+                  open: config,
+                  close: closeConfig,
+                },
+                cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
+              }} />
+
             <Stack.Screen name="CommentList" component={CommentListScreen}
               options={{
                 title: 'Comments',
@@ -125,17 +139,21 @@ const AuthenScreen = () => {
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
             <Stack.Screen name="RecipeList" component={RecipeListScreen} />
-            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options ={{
+            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options={{
               title: currentFood.name,
               headerRight: () => (
-                  <View style={styles.rightView}>
-                          <Text style={styles.markText}>{currentFood.avg_score}</Text>
-                          <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
-                      </View>
+                <View style={styles.rightView}>
+                  <Text style={styles.markText}>{currentFood.avg_score}</Text>
+                  <FontAwesome name='star' size={20} color={color.starColor}></FontAwesome>
+                </View>
               )
-            }}/>
+            }} />
             <Stack.Screen name="DetailChat" component={DetailChatScreen} />
             <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
+
+            <Stack.Screen name="Search" component={SearchScreen} options={{
+              headerShown: false
+            }} />
           </Stack.Navigator>
       }
       {/* <HomePageScreen/> */}
@@ -192,35 +210,35 @@ export default AuthenScreen
 
 const styles = StyleSheet.create({
   topView: {
-      flexDirection: 'row',
-      borderBottomWidth: 0.5,
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingBottom: 7,
-      paddingHorizontal: 15
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 7,
+    paddingHorizontal: 15
   },
   leftView: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'center'
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   topText: {
-      fontFamily: 'Roboto',
-      fontSize: 22,
-      fontWeight: 'bold',
-      color: color.textGray,
-      marginLeft: 15
+    fontFamily: 'Roboto',
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: color.textGray,
+    marginLeft: 15
   },
   rightView: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
-      marginRight: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginRight: 16,
   },
   markText: {
-      fontFamily: 'Roboto',
-      fontSize: 13,
-      color: color.textIconSmall,
-      marginRight: 5,
+    fontFamily: 'Roboto',
+    fontSize: 13,
+    color: color.textIconSmall,
+    marginRight: 5,
   }
 })

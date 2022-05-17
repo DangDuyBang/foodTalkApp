@@ -171,16 +171,7 @@ const AccountScreen = ({ navigation }) => {
                 }}
               />
 
-              {/* <AvatarUser
-                sizeFrame={110}
-                sizeImage={90}
-                position='absolute'
-                marginTop={-55}
-                marginLeft = {-45}
-                avatar_url={currentUser}
-              /> */}
               <View style={styles.avatarFrame}>
-
                 <Image
                   style={styles.avatarImage}
                   resizeMode='cover'
@@ -384,7 +375,7 @@ const styles = StyleSheet.create({
     height: 110,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: color.post,
+    backgroundColor: color.background,
     borderRadius: 120,
     position: 'absolute',
     marginTop: 195,

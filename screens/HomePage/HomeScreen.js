@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
     alert('Chức năng hiển thị nhà hàng gần đây')
   }
 
-  const { useFetchAllPost,useFetchComment, loading } = useFetchPost();
+  const { useFetchAllPost, useFetchComment, loading } = useFetchPost();
   const posts = useSelector(state => state.post.posts)
   const currentUser = useSelector(state => state.user.currentUser.data)
 
@@ -40,7 +40,11 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
-  const eventOpenCommentList = async  (post_id) => {
+  const eventOpenUserReactionList = () => {
+    navigation.navigate('UserReactionList')
+  }
+
+  const eventOpenCommentList = async (post_id) => {
     navigation.navigate('CommentList', { post_id: post_id })
     await useFetchComment(post_id)
   }
@@ -68,14 +72,14 @@ const HomeScreen = ({ navigation }) => {
           }}>
 
             <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-            <Image
-                    style={{ height: 40,  width: 40 , borderRadius: 100}}
-                    resizeMode='cover'
-                    source={{
-                        // uri: currentUser.avatar_url,
-                        uri: currentUser.avatar_url,
-                    }}
-                />
+              <Image
+                style={{ height: 40, width: 40, borderRadius: 100 }}
+                resizeMode='cover'
+                source={{
+                  // uri: currentUser.avatar_url,
+                  uri: currentUser.avatar_url,
+                }}
+              />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={eventNewPost}>
@@ -133,7 +137,7 @@ const HomeScreen = ({ navigation }) => {
           {
             posts && posts.length > 0 ?
               posts.map((post, index) =>
-                <Post post={post} key={post._id} onCommentList={eventOpenCommentList}></Post>
+                <Post post={post} key={post._id} onCommentList={eventOpenCommentList} onUserReactionList={eventOpenUserReactionList}></Post>
               )
               :
               <View style={{
