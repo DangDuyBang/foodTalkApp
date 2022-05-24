@@ -6,6 +6,7 @@ export const initialPostState = {
     },
     post: {
         comments: [],
+        reactions: [],
         commentPagination: {
             currentPage: 0,
             totalPage: 0,

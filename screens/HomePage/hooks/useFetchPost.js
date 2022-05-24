@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllComment, fetchAllPost, fetchUserPost } from "../../../services/PostServices"
-import { setComment, setPosts } from '../../../redux/postReducer'
+import { fetchAllComment, fetchAllPost, fetchAllReaction, fetchUserPost } from "../../../services/PostServices"
+import { setComment, setPosts, setReactions } from '../../../redux/postReducer'
 import { setSelectedUserPosts, setUserPosts } from "../../../redux/userReducer"
 
 const useFetchPost = () => {
@@ -21,6 +21,20 @@ const useFetchPost = () => {
         console.log(post_id)
         await fetchAllComment(post_id, commentPagination.currentPage).then(response => {
             dispatch(setComment(response.data))
+            setLoading(false)
+        }).catch(err => {
+            setLoading(false)
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
+
+    const useFetchReaction = async (post_id) => {
+        setLoading(true)
+        await fetchAllReaction(post_id).then(response => {
+            dispatch(setReactions(response.data))
             setLoading(false)
         }).catch(err => {
             setLoading(false)
@@ -78,7 +92,7 @@ const useFetchPost = () => {
 
     }
 
-    return ({ useFetchAllPost, useFetchComment, fetchUserPosts,fetchSelectedUserPosts, loading })
+    return ({ useFetchAllPost, useFetchComment, fetchUserPosts,fetchSelectedUserPosts, useFetchReaction, loading })
 }
 
 

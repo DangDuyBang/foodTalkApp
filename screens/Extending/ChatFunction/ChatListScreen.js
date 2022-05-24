@@ -1,10 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import color from '../../../contains/color'
 import ChatPreview from '../../../components/ChatPreview'
 import InputSearch from '../../../components/InputSearch'
 import { createStackNavigator } from "@react-navigation/stack";
+import useFetchChat from './hooks/useFetchChat'
+import { useSelector } from 'react-redux'
+import InfinityScrollView from '../../../components/InfinityScrollView'
 const Stack = createStackNavigator();
 
 const data = [
@@ -65,30 +68,10 @@ const data = [
     }, // Dot
 ]
 
-const ChatListScreen = ({ navigation }) => {
+const Chat = () => {
 
-    const Chat = () => {
-        return (
-            <View style={styles.container}>
-                <View style={{
-                    marginHorizontal: 15
-                }}>
-                    <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
-                </View>
-
-                <SafeAreaView style={{ flex: 1 }}>
-                    <FlatList
-                        data={lists}
-                        renderItem={({ item, index }) => {
-                            return <ChatPreview data={item} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />
-                        }}
-                    />
-                </SafeAreaView>
-            </View>
-        )
-    }
-
-    const [lists, setLists] = useState(data)
+    const { fetchChat } = useFetchChat()
+    const chats = useSelector(state => state.chat.chats)
 
     const deleteItem = index => {
         const arr = [...lists];
@@ -96,9 +79,38 @@ const ChatListScreen = ({ navigation }) => {
         setLists(arr);
     }
 
+    useEffect(() => {
+        fetchChat()
+
+        return () => {
+
+        }
+    }, [])
+
+
     const eventDetailChat = () => {
         navigation.navigate('DetailChat')
     }
+
+    return (
+        <View style={styles.container}>
+            <View style={{
+                marginHorizontal: 15
+            }}>
+                <InputSearch inputIcon='search' inputName='Search' widthSearch={320} />
+            </View>
+
+            <SafeAreaView style={{ flex: 1 }}>
+                <InfinityScrollView useLoads={fetchChat}>
+                    {chats && chats.map((chat, index) => <ChatPreview data={chat} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />)}
+                </InfinityScrollView>
+
+            </SafeAreaView>
+        </View>
+    )
+}
+
+const ChatListScreen = ({ navigation }) => {
 
     return (
         <Stack.Navigator>

@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
     alert('Chức năng hiển thị nhà hàng gần đây')
   }
 
-  const { useFetchAllPost, useFetchComment, loading } = useFetchPost();
+  const { useFetchAllPost, useFetchComment, useFetchReaction, loading } = useFetchPost();
   const posts = useSelector(state => state.post.posts)
   const currentUser = useSelector(state => state.user.currentUser.data)
 
@@ -40,8 +40,9 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
-  const eventOpenUserReactionList = () => {
-    navigation.navigate('UserReactionList')
+  const eventOpenUserReactionList = async (post_id) => {
+    navigation.navigate('UserReactionList', { post_id: post_id })
+    await useFetchReaction(post_id)
   }
 
   const eventOpenCommentList = async (post_id) => {

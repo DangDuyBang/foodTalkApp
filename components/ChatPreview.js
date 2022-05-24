@@ -28,7 +28,7 @@ const ChatPreview = (props) => {
                             <Image
                                 style={styles.tinyAvatar}
                                 source={{
-                                    uri: props.data.chatAvatar,
+                                    uri: props.data.user_1.avatar_url,
                                 }}
                             />
                         </View>
@@ -39,7 +39,7 @@ const ChatPreview = (props) => {
                                 null
                         }
                         <View style={styles.textContain}>
-                            <Text style={styles.chatUsername}>{props.data.nameUser}</Text>
+                            <Text style={styles.chatUsername}>{props.data.user_1.username}</Text>
                             {
                                 isSeen ?
                                     <View style={{
@@ -61,7 +61,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
+                                                    {/* {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`} */}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -77,7 +77,7 @@ const ChatPreview = (props) => {
                                         <Image
                                             style={styles.seenAvatar}
                                             source={{
-                                                uri: props.data.chatAvatar,
+                                                uri: props.data.user_1.avatar_url,
                                             }}
                                         />
                                         {/* <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} /> */}
@@ -103,7 +103,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`}
+                                                    {/* {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`} */}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●

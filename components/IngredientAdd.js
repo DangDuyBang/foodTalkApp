@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 
 import React, { useState, useRef, useEffect } from 'react'
 import color from '../contains/color'
 import IngredientRecommend from './IngredientRecommend'
-import { recommendationIngr, recommendationPairingIngr } from '../services/FoodServices'
+import { pairingIngr, recommendationIngr, recommendationPairingIngr } from '../services/FoodServices'
 import uuid from 'react-native-uuid';
 
 const IngredientAdd = (props) => {
@@ -14,6 +14,7 @@ const IngredientAdd = (props) => {
         unitIngredient: '',
     })
     const [ingrList, setIngrList] = useState([])
+    const [recommendI, setRecommendedI] = useState([])
 
     useEffect(async () => {
         await recommendationIngr(ingredient.nameIngredient.toLowerCase().replace(/\s/g, '_')).then(response => {
@@ -28,9 +29,21 @@ const IngredientAdd = (props) => {
     }, [ingredient.nameIngredient])
 
     useEffect(async () => {
-        await recommendationPairingIngr(ingrList).then(response => {
-            setRecommendedIngredient(response.data.ingredients.map(ingr => ({
-                _id: ingr.ingr
+        await pairingIngr(ingrList[ingrList.length - 1]).then(response => {
+            const data = response.data.filter(e => {
+                return !recommendI.includes(i => i.ingredient_name === e.ingredient_name)
+            })
+            setRecommendedI([...recommendI, ...data].sort((a, b) => {
+                if (a.prediction > b.prediction) return -1
+                if (a.prediction < b.prediction) return 1
+                return 0
+            }))
+            const dataList = recommendI.map(ingr => ingr.ingredient_name).filter(function (e) {
+                return !ingrList.includes(e)
+            })
+            console.log(dataList);
+            setRecommendedIngredient(dataList.map(ingr => ({
+                _id: ingr
             })))
         }).catch(err => {
             if (err.response) {
@@ -38,7 +51,6 @@ const IngredientAdd = (props) => {
                 // setError(...err, err.response.data.error)
             }
         })
-
     }, [ingrList])
 
 
@@ -135,9 +147,9 @@ const IngredientAdd = (props) => {
                         borderRadius: 8
                     }}
                     onChangeText={(text) => setIngredient({ ...ingredient, unitIngredient: text })}
+                    ref={inputRef}
                 />
                 <TextInput
-                    ref={inputRef}
                     value={ingredient.nameIngredient}
                     placeholder='Type an ingredient'
                     maxLength={20}
@@ -149,9 +161,9 @@ const IngredientAdd = (props) => {
                         fontSize: 16,
                         borderRadius: 8
                     }}
-                    onChangeText={(text) => {
+                    onChangeText={(text) =>
                         setIngredient({ ...ingredient, nameIngredient: text })
-                    }}
+                    }
                 />
 
                 <TouchableOpacity onPress={eventAddIngredient}>

@@ -126,24 +126,6 @@ const Post = (props) => {
                 <View style={styles.imageFrame}>
                     {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
                 </View>
-
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    style={{
-                        paddingRight: 20,
-                        borderColor: color.textIconSmall,
-                        marginLeft: 10,
-                        marginTop: 5,
-                        marginBottom: -10
-                    }}
-                >
-                    {props.post.foods && props.post.foods.length > 0 ? (
-                        props.post.foods.map((food) => (
-                            <RecipeShowed food={food} key={food._id} />
-                        ))
-                    ) : null}
-                </ScrollView>
             </View>
             <View style={styles.midPost}>
                 <View style={styles.heartCommentShareAndBookView}>
@@ -167,12 +149,26 @@ const Post = (props) => {
                             <FontAwesome style={styles.shareIcon} name='share' size={22} color={color.textIconSmall}></FontAwesome>
                         </TouchableOpacity>
                     </View>
-
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={{
+                            paddingRight: 20,
+                            borderColor: color.textIconSmall,
+                            marginLeft: 10,
+                        }}
+                    >
+                        {props.post.foods && props.post.foods.length > 0 ? (
+                            props.post.foods.map((food) => (
+                                <RecipeShowed food={food} key={food._id} />
+                            ))
+                        ) : null}
+                    </ScrollView>
 
                 </View>
             </View>
             <View style={styles.botPost}>
-                <TouchableOpacity onPress={props.onUserReactionList}>
+                <TouchableOpacity onPress={() => props.onUserReactionList(props.post._id)}>
                     <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
                 </TouchableOpacity>
 

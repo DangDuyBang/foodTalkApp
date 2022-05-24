@@ -3,22 +3,23 @@ import React from 'react'
 import color from '../contains/color'
 import AvatarUser from './AvatarUser'
 import { FontAwesome } from '@expo/vector-icons'
+import moment from 'moment'
 
-const UserReaction = () => {
+const UserReaction = (props) => {
     return (
         <TouchableOpacity>
             <View style={styles.container} >
                 <View style={styles.avatarAndName}>
                     <AvatarUser
                         sizeImage={50}
-                        profile={'https://i.pinimg.com/564x/20/ea/60/20ea60a9af3b1a7a4b754fd61688aba5.jpg'}
+                        profile={props.reaction}
                     />
 
-                    <Text style={{ color: color.errorColor, fontSize: 12, position: 'absolute', left: 35, top: 30 }}>❤</Text>
+                    {/* <Text style={{ color: color.errorColor, fontSize: 12, position: 'absolute', left: 35, top: 30 }}>❤</Text> */}
 
                     <View style={styles.textContain}>
-                        <Text style={styles.chatFullname}>Nguyen Nhut Tan</Text>
-                        <Text style={styles.chatUsername}>nntan_food</Text>
+                        <Text style={styles.chatFullname}>{props.reaction.username}</Text>
+                        <Text style={styles.chatUsername}>{props.reaction.first_name} {props.reaction.last_name}</Text>
                     </View>
                 </View>
             </View>
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         justifyContent: 'center',
         width: '80  %',
-        borderBottomWidth: 0.2,
     },
     chatFullname: {
         fontFamily: 'Roboto',

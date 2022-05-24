@@ -4,6 +4,18 @@ import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 
 const InputSearch = (props) => {
+    const [user, setUser] = React.useState([])
+    const [food, setFood] = React.useState([])
+    const [post, setPost] = React.useState([])
+    const [key, setKey] = React.useState('')
+
+    const handleKeyChange = async(text) => {
+        setKey(text)
+
+        
+    }
+
+
     return (
         <View style={[styles.wrapper, props.style]}>
             <View style={styles.container}>
@@ -15,8 +27,10 @@ const InputSearch = (props) => {
                 <TextInput
                     style={styles.inputStyle}
                     placeholder={props.inputName}
-                    onChangeText={props.setNameText}
+                    onChangeText={handleKeyChange}
                     onTouchCancel = {true}
+                    autoFocus={props.autoFocus}
+                    value = {key}
                 />
             </View>
         </View>

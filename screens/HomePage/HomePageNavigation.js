@@ -13,7 +13,7 @@ const HomePageNavigation = ({ navigation }) => {
   }
 
   const eventToSearch = () => {
-    navigation.navigate('Search')
+    navigation.navigate('Explore')
   }
 
   return (

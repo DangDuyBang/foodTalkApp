@@ -96,7 +96,6 @@ const NewRecipeScreen = ({ navigation }) => {
                         <Text style={styles.ingredientTittle}>Food Name</Text>
                         <TextInput
                             placeholder='Type name of food'
-                            maxLength={20}
                             style={{
                                 fontFamily: 'Roboto',
                                 borderBottomWidth: 0.5,

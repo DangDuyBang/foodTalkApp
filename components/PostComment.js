@@ -24,7 +24,7 @@ const PostComment = (props) => {
             </View>
             <View style = {styles.botAction}>
                 <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
-                <TouchableOpacity onPress={() => props.onReplyPress(currentUser.username, props.comment._id)}>
+                <TouchableOpacity onPress={() => props.onReplyPress(props.comment.author.username, props.comment._id)}>
                     <Text style={styles.replyButton}>Reply</Text>
                 </TouchableOpacity>
             </View>

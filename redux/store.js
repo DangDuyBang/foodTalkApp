@@ -3,12 +3,14 @@ import foodReducer from './foodReducer'
 import postReducer from './postReducer'
 import uiReducer from './uiReducer'
 import userReducer from './userReducer'
+import chatReducer from './chatReducer'
 
 export const store = configureStore({
   reducer: {
       user: userReducer,
       post: postReducer,
       ui: uiReducer,
-      food: foodReducer
+      food: foodReducer,
+      chat: chatReducer,
   },
 })

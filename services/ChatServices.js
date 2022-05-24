@@ -27,9 +27,9 @@ import { getStorage } from '../utils/Storage'
     return axios.post(`/api/chat/seen/${params}`)
 }
 
-export const fetchAllChat = async () => {
+export const fetchAllChat = async (currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/chat/chats`)
+    return axios.get(`/api/chat/chats/?page${currentPage}`)
 }
 
 /**

@@ -12,14 +12,16 @@ const initialState = {
     commentPagination: {
       currentPage: 0,
       totalPage: 0
-    }
-  },
+    },
 
-  userPosts: [],
-  userPostPagination: {
-    currentPage: 0,
-    totalPage: 0,
-  },
+    reactions: [],
+
+    userPosts: [],
+    userPostPagination: {
+      currentPage: 0,
+      totalPage: 0,
+    },
+  }
 }
 
 export const postSlice = createSlice({
@@ -64,6 +66,14 @@ export const postSlice = createSlice({
       state.currentPost.commentPagination.totalPage = action.payload.pagination.totalPage
     },
 
+    setReactions: (state, action) => {
+      state.currentPost.reactions.push(...action.payload.reacts.reactions)
+    },
+
+    deleteCurrentReaction: (state, action) => {
+      state.currentPost.reactions = []
+    },
+
     deleteCurrentPost: (state, action) => {
       state.currentPost.comments = []
       state.currentPost.commentPagination.currentPage = 0
@@ -71,22 +81,22 @@ export const postSlice = createSlice({
     },
 
     addComment: (state, action) => {
-      if(state.currentPost){
+      if (state.currentPost) {
         const index = state.currentPost.comments.findIndex(comment => comment._id === action.payload.parent)
-        if(index !== -1){
+        if (index !== -1) {
           state.currentPost.comments[index].children.push(action.payload)
         } else {
           state.currentPost.comments.unshift(action.payload)
         }
       }
 
-      const i = state.posts.findIndex(post=> post._id === action.payload.post)
+      const i = state.posts.findIndex(post => post._id === action.payload.post)
       state.posts[i].num_comment += 1
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment} = postSlice.actions
+export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment, setReactions, deleteCurrentReaction } = postSlice.actions
 
 export default postSlice.reducer

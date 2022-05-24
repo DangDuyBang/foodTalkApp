@@ -63,6 +63,12 @@ export const recommendationPairingIngr = async (ingrs) => {
     })
 }
 
+export const pairingIngr = async (params) => {
+    return axios.post('http://kitchenette.korea.ac.kr/api', {
+        name: params
+    })
+}
+
 export const fetchUserFoods = async (user_id, currentPage) => {
     //let token = await getStorage('@token')
     return axios.get(`/api/food/user-foods/${user_id}/?page=${currentPage}`)
