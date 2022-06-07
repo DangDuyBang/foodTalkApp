@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, InfinityScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, {useEffect} from 'react'
 import color from '../../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
@@ -6,6 +6,7 @@ import InputChat from '../../../components/InputChat'
 import { useDispatch, useSelector } from 'react-redux'
 import useFetchChat from './hooks/useFetchChat'
 import { removeMessages } from '../../../redux/chatReducer'
+import InfinityScrollView from '../../../components/InfinityScrollView'
 
 const DetailChatScreen = ({ navigation, route }) => {
     const currentChat = useSelector(state => state.chat.currentChat)

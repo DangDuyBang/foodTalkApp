@@ -3,6 +3,7 @@ import React from 'react'
 import color from '../../contains/color'
 import InputSearch from '../../components/InputSearch'
 import { AntDesign } from '@expo/vector-icons'
+import MessageText from '../../components/MessageText'
 
 const SearchScreen = ({ navigation }) => {
 
@@ -34,7 +35,19 @@ const SearchScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            
+            <MessageText
+                flexDirection='row'
+                messageSend='Hello, Can I help you?'
+                timeSend='8:26 AM' />
+            <MessageText
+                flexDirection='row-reverse'
+                display='none'
+                messageSend='My pleasure! I can do any thing for you? Let me know the things what I can do.'
+                timeSend='20:30 PM' />
+            <MessageText
+                flexDirection='row'
+                messageSend='Thanks very much. But I have just done.'
+                timeSend='20:32 PM' />
         </View>
     )
 }
@@ -44,10 +57,10 @@ export default SearchScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.background
+        backgroundColor: color.background,
+        paddingTop: 15
     },
     iconLeft: {
         marginHorizontal: 15
     },
-
 })
