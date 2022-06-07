@@ -6,9 +6,9 @@ import { Ionicons } from '@expo/vector-icons'
 
 const ChatPreview = (props) => {
 
-    const [isOnline, setIsOnline] = useState(props.data.Online)
+    const [isOnline, setIsOnline] = useState(false)
 
-    const [isSeen, setIsSeen] = useState(props.data.Seen)
+    const [isSeen, setIsSeen] = useState(false)
 
     const rightSwipe = () => {
         return (
@@ -21,7 +21,7 @@ const ChatPreview = (props) => {
     }
     return (
         <Swipeable renderRightActions={rightSwipe}>
-            <TouchableOpacity onPress={props.onDetailChat}>
+            <TouchableOpacity onPress={() => props.onDetailChat(props.data)}>
                 <View style={styles.container} >
                     <View style={styles.avatarAndName}>
                         <View style={styles.chatAvatarFrame}>
@@ -123,7 +123,7 @@ const ChatPreview = (props) => {
                         </View>
                     </View>
 
-                    <Text style={[{ color: props.colorHigh }, { fontWeight: props.bold }]}>{props.chatTime}</Text>
+                    {/* <Text style={[{ color: props.colorHigh }, { fontWeight: props.bold }]}>{props.chatTime}</Text> */}
                 </View>
             </TouchableOpacity>
         </Swipeable>

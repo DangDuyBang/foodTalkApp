@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllChat } from '../../../../services/ChatServices'
-import { setChat } from '../../../../redux/chatReducer'
+import { fetchAllChat, fetchAllMessage } from '../../../../services/ChatServices'
+import { setChat, setMessages } from '../../../../redux/chatReducer'
 
 const useFetchChat = () => {
 
@@ -20,8 +20,18 @@ const useFetchChat = () => {
         })
     }
 
+    const fetchMessages = async (chat_id) => {
+        await fetchAllMessage(chat_id, 0).then(response => {
+            dispatch(setMessages(response.data))
+        }).catch(error => {
+            if (error.response) {
+                console.log(error.response.data.error);
+            }
+        });
+    }
+
     return (
-        { fetchChat }
+        { fetchChat, fetchMessages }
     )
 }
 

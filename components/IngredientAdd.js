@@ -15,6 +15,7 @@ const IngredientAdd = (props) => {
     })
     const [ingrList, setIngrList] = useState([])
     const [recommendI, setRecommendedI] = useState([])
+    const [isRecommend, setIsRecommned] = useState(false)
 
     useEffect(async () => {
         await recommendationIngr(ingredient.nameIngredient.toLowerCase().replace(/\s/g, '_')).then(response => {
@@ -30,21 +31,23 @@ const IngredientAdd = (props) => {
 
     useEffect(async () => {
         await pairingIngr(ingrList[ingrList.length - 1]).then(response => {
-            const data = response.data.filter(e => {
-                return !recommendI.includes(i => i.ingredient_name === e.ingredient_name)
+            setRecommendedI([...recommendI, ...response.data.filter(e => {
+                return !recommendI.find(i => i.ingredient_name === e.ingredient_name)
             })
-            setRecommendedI([...recommendI, ...data].sort((a, b) => {
+            ].sort((a, b) => {
                 if (a.prediction > b.prediction) return -1
                 if (a.prediction < b.prediction) return 1
                 return 0
             }))
+
             const dataList = recommendI.map(ingr => ingr.ingredient_name).filter(function (e) {
                 return !ingrList.includes(e)
             })
-            console.log(dataList);
+
             setRecommendedIngredient(dataList.map(ingr => ({
                 _id: ingr
             })))
+
         }).catch(err => {
             if (err.response) {
                 console.log(err.response.data.error)
@@ -52,7 +55,6 @@ const IngredientAdd = (props) => {
             }
         })
     }, [ingrList])
-
 
 
     const eventAddIngredient = () => {

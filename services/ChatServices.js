@@ -35,7 +35,7 @@ export const fetchAllChat = async (currentPage) => {
 /**
  * @param {params} params chat_id string
  */
-export const fetchAllMessage = async (params) => {
+export const fetchAllMessage = async (params, currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/chat/messages/${params}`)
+    return axios.get(`/api/chat/messages/${params}/?page${currentPage}`)
 }

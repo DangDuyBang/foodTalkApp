@@ -4,7 +4,7 @@ import color from '../../../contains/color'
 import { useSelector } from 'react-redux'
 
 const ContentRecipeScreen = () => {
-    const currentFood = useSelector(state => state.food.currentFood)
+    const currentFood = useSelector(state => state.food.currentFood.data)
 
     return (
         <ScrollView>

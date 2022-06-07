@@ -1,10 +1,28 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, {useEffect} from 'react'
 import color from '../../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import InputChat from '../../../components/InputChat'
+import { useDispatch, useSelector } from 'react-redux'
+import useFetchChat from './hooks/useFetchChat'
+import { removeMessages } from '../../../redux/chatReducer'
 
-const DetailChatScreen = ({ navigation }) => {
+const DetailChatScreen = ({ navigation, route }) => {
+    const currentChat = useSelector(state => state.chat.currentChat)
+    const messages = useSelector(state => state.chat.messages)
+    const dispatch = useDispatch()
+
+    const {fetchMessages} = useFetchChat()
+
+    useEffect(() => {
+      fetchMessages(currentChat._id)
+    
+      return () => {
+        dispatch(removeMessages())
+      }
+    }, [])
+    
+    
     navigation.setOptions({
         headerTitle: () => (
             <View style={styles.userChatView}>
@@ -12,24 +30,24 @@ const DetailChatScreen = ({ navigation }) => {
                     <Image
                         style={styles.avatarUserChat}
                         source={{
-                            uri: 'https://i.pinimg.com/564x/35/e9/f7/35e9f7e7b6ce436d9360d3d7e7b50c92.jpg',
+                            uri: currentChat.user_1.avatar_url,
                         }}
                     />
                 </View>
                 <View style={styles.nameAndTimeViewUserChat}>
-                    <Text style={styles.nameUserChat}>Dang Duy Bang</Text>
-                    <Text style={styles.timeOnline}>Online</Text>
+                    <Text style={styles.nameUserChat}>{currentChat.user_1.username}</Text>
+                    <Text style={styles.timeOnline}>{currentChat.user_1.is_current}</Text>
                 </View>
             </View>
         ),
     })
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <InfinityScrollView>
                 <View style={styles.bodyView}>
 
                 </View>
-            </ScrollView>
+            </InfinityScrollView>
 
             <View style={styles.sendMessageView}>
                 <InputChat />

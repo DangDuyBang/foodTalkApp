@@ -1,11 +1,11 @@
 import { StyleSheet, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import color from '../../../contains/color'
 import RecipeComment from '../../../components/RecipeComment'
 import { useDispatch, useSelector } from 'react-redux'
 import InfinityScrollView from '../../../components/InfinityScrollView'
-import { addRate, setRate } from '../../../redux/foodReducer'
-import { createRateFood } from '../../../services/FoodServices'
+import { addRate, deleteCurrentFood, setRate } from '../../../redux/foodReducer'
+import { createRateFood, fetchAllRates } from '../../../services/FoodServices'
 import { Ionicons } from '@expo/vector-icons'
 
 const EvaluateRecipeScreen = ({ navigation }) => {
@@ -17,7 +17,7 @@ const EvaluateRecipeScreen = ({ navigation }) => {
         if (currentFood.ratePagination.currentPage > currentFood.ratePagination.totalPage) {
             return
         }
-        await fetchAllRates(currentFood._id, currentFood.ratePagination.currentPage).then(response => {
+        await fetchAllRates(currentFood.data._id, currentFood.ratePagination.currentPage).then(response => {
             dispatch(setRate(response.data))
         }).catch(err => {
             if (err.response) {
@@ -28,7 +28,7 @@ const EvaluateRecipeScreen = ({ navigation }) => {
     }
 
     const [payload, setPayload] = useState({
-        food: currentFood._id,
+        food: currentFood.data._id,
         score: 10
     })
 
@@ -59,6 +59,15 @@ const EvaluateRecipeScreen = ({ navigation }) => {
     const onRatingChange = (rate) => {
         setPayload({ ...payload, score: rate })
     }
+
+    useEffect(() => {
+      fetchRate()
+    
+      return () => {
+        dispatch(deleteCurrentFood())
+      }
+    }, [])
+    
 
     const CustomRatingBar = () => {
         return (

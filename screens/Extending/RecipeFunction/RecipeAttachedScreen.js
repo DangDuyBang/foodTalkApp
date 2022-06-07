@@ -52,25 +52,13 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
     }
 
 
-    const fetchRate = async (food_id) => {
-        if (ratePagination.currentPage > ratePagination.totalPage) {
-            return
-        }
-        await fetchAllRates(food_id, ratePagination.currentPage).then(response => {
-            dispatch(setRate(response.data))
-        }).catch(err => {
-            if (err.response) {
-                console.log(err.response.data.error)
-                // setError(...err, err.response.data.error)
-            }
-        })
-    }
 
-    const handleDetailRecipe =  async (food) => {
-        dispatch(setCurrenFood(food))
-        navigation.navigate('DetailRecipe')
-        await fetchRate(food._id)
-    }
+
+    // const handleDetailRecipe =  async (food) => {
+    //     dispatch(setCurrenFood(food))
+    //     navigation.navigate('DetailRecipe')
+    //     await fetchRate(food._id)
+    // }
 
     return (
         <View style={styles.container}>
@@ -86,7 +74,7 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                                     foodList={foodList}
                                     onAddAttachedRecipe={handlePlusAttachedRecipe}
                                     onMinusAttachedRecipe={handleMinusAttachedRecipe}
-                                    onDetailRecipe={handleDetailRecipe}
+                                    // onDetailRecipe={handleDetailRecipe}
                                 />
                             ))
                             :

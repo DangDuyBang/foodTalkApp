@@ -8,6 +8,7 @@ const initialState = {
   },
 
   currentFood: {
+    data: null,
     rates: [],
     ratePagination: {
       currentPage: 0,
@@ -35,14 +36,7 @@ export const foodSlice = createSlice({
     },
 
     setCurrenFood: (state, action) => {
-      state.currentFood = {
-        ...action.payload,
-        rates: [],
-        ratePagination: {
-          currentPage: 0,
-          totalPage: 0,
-        }
-      }
+      state.currentFood.data = action.payload
     },
 
     setRate: (state, action) => {
@@ -53,7 +47,7 @@ export const foodSlice = createSlice({
 
     addRate: (state, action) => {
       state.currentFood.rates.unshift(action.payload.rate)
-      state.currentFood.avg_score = action.payload.food.avg_score
+      state.currentFood.data.avg_score = action.payload.food.avg_score
       const index = state.foods.findIndex(food => food._id === action.payload.food._id)
       if (index !== -1) {
         state.foods[index].avg_score = action.payload.food.avg_score
@@ -62,6 +56,7 @@ export const foodSlice = createSlice({
 
     deleteCurrentFood: (state, action) => {
       state.currentFood = {
+        data: null,
         rates: [],
         ratePagination: {
           currentPage: 0,

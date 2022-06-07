@@ -1,11 +1,24 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrenFood, setRate } from '../redux/foodReducer'
+import { fetchAllRates } from '../services/FoodServices'
 
 const RecipePreview = (props) => {
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const ratePagination = useSelector(state => state.food.currentFood.ratePagination)
+
+    const handleDetailRecipe =  async (food) => {
+        dispatch(setCurrenFood(food))
+        navigation.navigate('DetailRecipe')
+    }
+
     return (
-        <TouchableOpacity onPress={() => props.onDetailRecipe(props.data)}>
+        <TouchableOpacity onPress={() => handleDetailRecipe(props.data)}>
             <View style={styles.container}>
                 <View style={styles.infoPostUser}>
                     <View style={styles.avatarFrame}>

@@ -2,8 +2,16 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, {  } from 'react'
 import color from '../contains/color'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrenFood, setRate } from '../redux/foodReducer'
+import { fetchAllRates } from '../services/FoodServices'
 
 const RecipePreviewPlus = (props) => {
+
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const ratePagination = useSelector(state => state.food.currentFood.ratePagination)
 
     const isOnFoodList = (foodList) => {
         const index = foodList.findIndex(food => food._id === props.data._id)
@@ -14,9 +22,16 @@ const RecipePreviewPlus = (props) => {
     }
 
 
+
+    const handleDetailRecipe =  async (food) => {
+        dispatch(setCurrenFood(food))
+        navigation.navigate('DetailRecipe')
+    }
+
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => props.onDetailRecipe(props.data)}>
+            <TouchableOpacity onPress={() => handleDetailRecipe(props.data)}>
                 <View style={styles.recipeView}>
                     <View style={styles.infoPostUser}>
                         <View style={styles.avatarFrame}>

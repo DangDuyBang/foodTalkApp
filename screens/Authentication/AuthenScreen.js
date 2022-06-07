@@ -41,7 +41,7 @@ const Stack = createStackNavigator();
 const AuthenScreen = () => {
 
   const isLoggedIn = useSelector(state => state.user.isLoggedIn)
-  const currentFood = useSelector(state => state.food.currentFood)
+  const currentFood = useSelector(state => state.food.currentFood.data)
 
   return (
     <NavigationContainer>
@@ -139,7 +139,7 @@ const AuthenScreen = () => {
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
             <Stack.Screen name="RecipeList" component={RecipeListScreen} />
-            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options={{
+            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options={currentFood&&{
               title: currentFood.name,
               headerRight: () => (
                 <View style={styles.rightView}>

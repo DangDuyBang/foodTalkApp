@@ -24,10 +24,10 @@ const RecipeListScreen = ({ navigation }) => {
 
     const foodsSearch = useSelector(state => state.food.foods)
 
-    const handleDetailRecipe = (data) => {
-        navigation.navigate('DetailRecipe')
-        dispatch(setCurrenFood(data))
-    }
+    // const handleDetailRecipe = (data) => {
+    //     navigation.navigate('DetailRecipe')
+    //     dispatch(setCurrenFood(data))
+    // }
 
     const eventNewRecipe = () => {
         navigation.navigate('NewRecipe')
@@ -44,7 +44,7 @@ const RecipeListScreen = ({ navigation }) => {
                                 <RecipePreview
                                     key={recipe._id}
                                     data={recipe}
-                                    onDetailRecipe={handleDetailRecipe}
+                                    // onDetailRecipe={handleDetailRecipe}
                                 />
                             ))
                             :
