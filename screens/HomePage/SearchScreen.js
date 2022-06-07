@@ -6,15 +6,35 @@ import { AntDesign } from '@expo/vector-icons'
 
 const SearchScreen = ({ navigation }) => {
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.searchView}>
+    navigation.setOptions({
+        title: '',
+        header: () => (
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                backgroundColor: color.background,
+                paddingTop: 10,
+                paddingRight: 80
+            }}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <AntDesign style={styles.iconLeft} name='arrowleft' size={26} color={color.textGray}></AntDesign>
                 </TouchableOpacity>
 
-                <InputSearch inputIcon='search' inputName='Search' />
+                <View>
+                    <InputSearch
+                        autoFocus={true}
+                        inputIcon='search'
+                        inputName='Search'
+                    />
+                </View>
+
             </View>
+        )
+    })
+
+    return (
+        <View style={styles.container}>
+            
         </View>
     )
 }
@@ -29,10 +49,5 @@ const styles = StyleSheet.create({
     iconLeft: {
         marginHorizontal: 15
     },
-    searchView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingTop: 15,
-        width: 330
-    },
+
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, InfinityScrollView } from 'react-native'
 import React, {useEffect} from 'react'
 import color from '../../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'

@@ -1,8 +1,8 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../../contains/color'
 import InputSearch from '../../components/InputSearch'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, FontAwesome } from '@expo/vector-icons'
 import { createStackNavigator } from "@react-navigation/stack";
 import Explore from './Explore'
 
@@ -14,11 +14,40 @@ const ExploreScreen = ({ navigation }) => {
     navigation.navigate('ChatNavigation')
   }
 
+  const eventToSearch = () => {
+    navigation.navigate('Search')
+  }
+
   return (
     <Stack.Navigator>
       <Stack.Screen name='ExplorePage' component={Explore} options={{
         headerTitle: () => (
-          <InputSearch inputIcon='search' inputName='Search' autoFocus = {true}/>
+          // <InputSearch inputIcon='search' inputName='Search' autoFocus = {true}/>
+          <TouchableOpacity onPress={eventToSearch}>
+            <View style={{
+              width: '100%',
+              flexDirection: 'row',
+              backgroundColor: color.inputColor,
+              paddingHorizontal: 15,
+              borderRadius: 25,
+              alignItems: 'center',
+              height: 40,
+            }}>
+              <FontAwesome
+                name='search'
+                size={20}
+                style={{
+                  color: color.textIconSmall,
+                  marginRight: 10,
+                }}
+              ></FontAwesome>
+              <Text style={{
+                color: color.hideColor
+              }}>
+                Search
+              </Text>
+            </View>
+          </TouchableOpacity>
         ),
         headerRight: () => (
           <View style={styles.chatFrame}>

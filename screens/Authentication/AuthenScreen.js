@@ -152,7 +152,7 @@ const AuthenScreen = () => {
             <Stack.Screen name="PersonalPage" component={PersonalPageScreen} />
 
             <Stack.Screen name="Search" component={SearchScreen} options={{
-              headerShown: false
+              headerShown: true
             }} />
           </Stack.Navigator>
       }
