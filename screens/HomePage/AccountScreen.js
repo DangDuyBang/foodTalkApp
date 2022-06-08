@@ -56,6 +56,11 @@ const AccountScreen = ({ navigation }) => {
     navigation.navigate('TermOfService')
   }
 
+  const eventMoreSetting = () => {
+    bs.current.snapTo(1)
+    navigation.navigate('MoreSetting')
+  }
+
   const eventLogout = () => {
     Alert.alert("LOG OUT!", "Are you sure you want to log out of this Account?", [
       {
@@ -95,6 +100,12 @@ const AccountScreen = ({ navigation }) => {
       <TouchableOpacity onPress={eventTermOfService}>
         <View style={styles.frameOptionSetting}>
           <Text style={styles.optionSetting}>Term of Service</Text>
+          <Text style={styles.optionSetting}>{'>'}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={eventMoreSetting}>
+        <View style={styles.frameOptionSetting}>
+          <Text style={styles.optionSetting}>More</Text>
           <Text style={styles.optionSetting}>{'>'}</Text>
         </View>
       </TouchableOpacity>
@@ -138,7 +149,7 @@ const AccountScreen = ({ navigation }) => {
       <Portal name="modal">
         <BottomSheet
           ref={bs}
-          snapPoints={['36%', -300]}
+          snapPoints={['41%', -300]}
           borderRadius={10}
           renderContent={renderInner}
           renderHeader={renderHeader}

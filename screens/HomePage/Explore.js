@@ -31,77 +31,77 @@ const ImagePic = {
 }
 
 
-const Explore = () => {
-   
+const Explore = ({ navigation }) => {
+
   return (
     <View style={styles.container}>
-    <ScrollView>
-      <View style={styles.bodyView}>
-        <SwipeSlide />
-        <ExploreItem
-          iconLeft='trending-up'
-          tittleLeft='Trending'
-          imagesPic1={ImagePic.imageTrending_first}
-          imagesPic2={ImagePic.imageTrending_second}
-          imagesPic3={ImagePic.imageTrending_third}
-          imagesPic4={ImagePic.imageTrending_fouth}
-          imagesPic5={ImagePic.imageTrending_fith}
-          imagesPic6={ImagePic.imageTrending_sixth}
-          imagesPic7={ImagePic.imageTrending_seventh}
-        />
-        <ExploreItem
-          iconLeft='restaurant-outline'
-          tittleLeft='Recent Restaurant'
-          imagesPic1={ImagePic.imageRestaurant_first}
-          imagesPic2={ImagePic.imageRestaurant_second}
-          imagesPic3={ImagePic.imageRestaurant_third}
-          imagesPic4={ImagePic.imageRestaurant_fouth}
-          imagesPic5={ImagePic.imageRestaurant_fith}
-          imagesPic6={ImagePic.imageRestaurant_sixth}
-          imagesPic7={ImagePic.imageRestaurant_seventh}
-        />
-        <ExploreItem
-          iconLeft='book-outline'
-          tittleLeft='Recipe'
-          imagesPic1={ImagePic.imageRecipe_first}
-          imagesPic2={ImagePic.imageRecipe_second}
-          imagesPic3={ImagePic.imageRecipe_third}
-          imagesPic4={ImagePic.imageRecipe_fouth}
-          imagesPic5={ImagePic.imageRecipe_fith}
-          imagesPic6={ImagePic.imageRecipe_sixth}
-          imagesPic7={ImagePic.imageRecipe_seventh}
-          onExploreFunction={() => navigation.navigate("RecipeList")}
-        />
-        <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
-      </View>
-    </ScrollView>
-  </View>
+      <ScrollView>
+        <View style={styles.bodyView}>
+          <SwipeSlide />
+          <ExploreItem
+            iconLeft='trending-up'
+            tittleLeft='Trending'
+            imagesPic1={ImagePic.imageTrending_first}
+            imagesPic2={ImagePic.imageTrending_second}
+            imagesPic3={ImagePic.imageTrending_third}
+            imagesPic4={ImagePic.imageTrending_fouth}
+            imagesPic5={ImagePic.imageTrending_fith}
+            imagesPic6={ImagePic.imageTrending_sixth}
+            imagesPic7={ImagePic.imageTrending_seventh}
+          />
+          <ExploreItem
+            iconLeft='restaurant-outline'
+            tittleLeft='Recent Restaurant'
+            imagesPic1={ImagePic.imageRestaurant_first}
+            imagesPic2={ImagePic.imageRestaurant_second}
+            imagesPic3={ImagePic.imageRestaurant_third}
+            imagesPic4={ImagePic.imageRestaurant_fouth}
+            imagesPic5={ImagePic.imageRestaurant_fith}
+            imagesPic6={ImagePic.imageRestaurant_sixth}
+            imagesPic7={ImagePic.imageRestaurant_seventh}
+          />
+          <ExploreItem
+            iconLeft='book-outline'
+            tittleLeft='Recipe'
+            imagesPic1={ImagePic.imageRecipe_first}
+            imagesPic2={ImagePic.imageRecipe_second}
+            imagesPic3={ImagePic.imageRecipe_third}
+            imagesPic4={ImagePic.imageRecipe_fouth}
+            imagesPic5={ImagePic.imageRecipe_fith}
+            imagesPic6={ImagePic.imageRecipe_sixth}
+            imagesPic7={ImagePic.imageRecipe_seventh}
+            onExploreFunction={() => navigation.navigate("RecipeList")}
+          />
+          <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
+        </View>
+      </ScrollView>
+    </View>
   )
 }
 
 export default Explore
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: color.background,
-      paddingBottom: 65
-    },
-    topView: {
-      flexDirection: 'row',
-      borderBottomWidth: 0.5,
-      alignItems: 'center'
-    },
-    chatFrame: {
-      // backgroundColor: color.post,
-      // width: 50,
-      // height: 50,
-      marginRight: 16,
-      borderRadius: 50,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    bodyView: {
-      paddingTop: 10
-    },
-  })
+  container: {
+    flex: 1,
+    backgroundColor: color.background,
+    paddingBottom: 65
+  },
+  topView: {
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    alignItems: 'center'
+  },
+  chatFrame: {
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    marginRight: 16,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  bodyView: {
+    paddingTop: 10
+  },
+})

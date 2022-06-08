@@ -28,6 +28,7 @@ import EditProfileScreen from '../Extending/Setting/EditProfileScreen';
 import ChangePasswordScreen from '../Extending/Setting/ChangePasswordScreen';
 import FeedbackScreen from '../Extending/Setting/FeedbackScreen';
 import TermOfServiceScreen from '../Extending/Setting/TermOfServiceScreen';
+import MoreSettingScreen from '../Extending/Setting/MoreSettingScreen';
 
 import RecipeListScreen from '../Extending/RecipeFunction/RecipeListScreen';
 
@@ -113,6 +114,7 @@ const AuthenScreen = () => {
             <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
             <Stack.Screen name="Feedback" component={FeedbackScreen} />
             <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
+            <Stack.Screen name="MoreSetting" component={MoreSettingScreen} />
 
             <Stack.Screen name="UserReactionList" component={UserReactionListScreen}
               options={{
