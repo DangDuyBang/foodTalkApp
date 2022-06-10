@@ -6,7 +6,7 @@ const initialState = {
     currentPage: 0,
     totalPage: 0,
   },
-  curerntChat: null,
+  currentChat: null,
   messages: [],
   messagesPagination: {
     currentPage: 0,
@@ -25,13 +25,19 @@ export const chatSlice = createSlice({
     },
 
     setCurrentChat: (state, action) => {
-      state.curerntChat = action.payload
+      state.currentChat = action.payload
     },
 
     setMessages: (state, action) => {
       state.messages = action.payload.messages
       state.messagesPagination.currentPage = 1
       state.messagesPagination.totalPage = action.payload.pagination.totalPage
+    },
+
+    addMessage: (state, action) => {
+      if(state.currentChat) {
+        state.messages.unshift(action.payload.content)
+      }
     },
 
     messagesPagination: (state, action) => {
@@ -49,6 +55,6 @@ export const chatSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setChat, setCurrentChat, setMessages, setMessagesPagination, removeMessages } = chatSlice.actions
+export const { setChat, setCurrentChat, setMessages, setMessagesPagination, removeMessages, addMessage } = chatSlice.actions
 
 export default chatSlice.reducer

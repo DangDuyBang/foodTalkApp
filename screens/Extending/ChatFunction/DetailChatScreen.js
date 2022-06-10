@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import color from '../../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import InputChat from '../../../components/InputChat'
@@ -7,23 +7,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import useFetchChat from './hooks/useFetchChat'
 import { removeMessages } from '../../../redux/chatReducer'
 import InfinityScrollView from '../../../components/InfinityScrollView'
+import MessageText from '../../../components/MessageText'
+import useChatAction from './hooks/useChatAction'
 
 const DetailChatScreen = ({ navigation, route }) => {
     const currentChat = useSelector(state => state.chat.currentChat)
     const messages = useSelector(state => state.chat.messages)
     const dispatch = useDispatch()
 
-    const {fetchMessages} = useFetchChat()
+    const { fetchMessages } = useFetchChat()
+    const { createMessage } = useChatAction()
 
     useEffect(() => {
-      fetchMessages(currentChat._id)
-    
-      return () => {
-        dispatch(removeMessages())
-      }
+        fetchMessages(currentChat._id)
+
+        return () => {
+            dispatch(removeMessages())
+        }
     }, [])
-    
-    
+
+
     navigation.setOptions({
         headerTitle: () => (
             <View style={styles.userChatView}>
@@ -44,14 +47,14 @@ const DetailChatScreen = ({ navigation, route }) => {
     })
     return (
         <View style={styles.container}>
-            <InfinityScrollView>
+            <InfinityScrollView reverse = {true} useLoadReverse={() => fetchMessages(currentChat._id)}>
                 <View style={styles.bodyView}>
-
+                    {messages && messages.slice(0).reverse().map((message, index) => <MessageText message={message} key={index} />)}
                 </View>
             </InfinityScrollView>
 
             <View style={styles.sendMessageView}>
-                <InputChat />
+                <InputChat createMessage={createMessage} />
             </View>
         </View>
     )

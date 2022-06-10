@@ -3,7 +3,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../../../firebase/firebase'
 import { signUpUser } from '../../../services/AuthServices';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { UIContext } from '../../../providers/UIProvider';
 import { useDispatch } from 'react-redux';
 import { setToast } from '../../../redux/uiReducer'
 
@@ -108,11 +107,9 @@ const useSignup = ({ navigation }) => {
             setLoading(false)
             if (data) {
                 dispatch(setToast({
-                    type: 'SET_TOAST', payload: {
-                        type: 'success',
-                        text1: 'Your account has been registered',
-                        text2: 'Your account has been registered. Please checked your email',
-                    }
+                    type: 'success',
+                    text1: 'Your account has been registered',
+                    text2: 'Your account has been registered. Please checked your email',
                 }))
                 navigation.goBack()
             }

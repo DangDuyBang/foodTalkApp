@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     image: {
-        resizeMode: 'stretch',
+        resizeMode: 'cover',
         width: 370,
         height: 250,
         borderRadius: 20,

@@ -3,12 +3,9 @@ import React, { useState } from 'react'
 import color from '../contains/color'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons } from '@expo/vector-icons'
+import moment from 'moment'
 
 const ChatPreview = (props) => {
-
-    const [isOnline, setIsOnline] = useState(false)
-
-    const [isSeen, setIsSeen] = useState(false)
 
     const rightSwipe = () => {
         return (
@@ -19,6 +16,7 @@ const ChatPreview = (props) => {
             </TouchableOpacity>
         )
     }
+
     return (
         <Swipeable renderRightActions={rightSwipe}>
             <TouchableOpacity onPress={() => props.onDetailChat(props.data)}>
@@ -33,7 +31,7 @@ const ChatPreview = (props) => {
                             />
                         </View>
                         {
-                            isOnline ?
+                            props.data.user_1.is_current ?
                                 <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
                                 :
                                 null
@@ -41,7 +39,7 @@ const ChatPreview = (props) => {
                         <View style={styles.textContain}>
                             <Text style={styles.chatUsername}>{props.data.user_1.username}</Text>
                             {
-                                isSeen ?
+                                true ?
                                     <View style={{
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
@@ -70,7 +68,7 @@ const ChatPreview = (props) => {
                                                     styles.timeRecentlyChat,
                                                     { color: color.textGray },
                                                 ]}>
-                                                    Dec 18
+                                                    {moment(props.data.lastMessage.created_at).fromNow()}
                                                 </Text>
                                             </View>
                                         </View>
@@ -123,7 +121,7 @@ const ChatPreview = (props) => {
                         </View>
                     </View>
 
-                    {/* <Text style={[{ color: props.colorHigh }, { fontWeight: props.bold }]}>{props.chatTime}</Text> */}
+                    {/* <Text style={[{ color: props.colorHigh }, { fontWeight: props.bold }]}>{props.data.lastMessage}</Text> */}
                 </View>
             </TouchableOpacity>
         </Swipeable>

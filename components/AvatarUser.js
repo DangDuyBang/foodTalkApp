@@ -2,16 +2,21 @@ import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedUserProfile } from '../redux/userReducer'
 
 const AvatarUser = (props) => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
+    const currentUser = useSelector(state => state.user.currentUser.data)
 
     const handlePress = () => {
-        navigation.navigate('PersonalPage')
-        dispatch(setSelectedUserProfile(props.profile))
+        if (props.profile._id === currentUser._id) {
+            navigation.navigate('Account')
+        } else {
+            navigation.navigate('PersonalPage')
+            dispatch(setSelectedUserProfile(props.profile))
+        }
         //dispatch(setSelectedUserProfile(props.user))
     }
 
@@ -22,7 +27,7 @@ const AvatarUser = (props) => {
                 { height: props.sizeFrame },
                 { width: props.sizeFrame },
                 { position: props.position },
-                { marginTop: props.marginTop },{ marginLeft: props.marginLeft}
+                { marginTop: props.marginTop }, { marginLeft: props.marginLeft }
             ]}>
                 <Image
                     style={[styles.avatarImage, { height: props.sizeImage }, { width: props.sizeImage }]}

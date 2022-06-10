@@ -8,6 +8,7 @@ import useFetchChat from './hooks/useFetchChat'
 import { useDispatch, useSelector } from 'react-redux'
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import { setCurrentChat } from '../../../redux/chatReducer'
+import { useNavigation } from '@react-navigation/native'
 const Stack = createStackNavigator();
 
 const Chat = () => {
@@ -15,6 +16,7 @@ const Chat = () => {
     const { fetchChat } = useFetchChat()
     const dispatch = useDispatch()
     const chats = useSelector(state => state.chat.chats)
+    const navigation = useNavigation()
 
     const deleteItem = index => {
         const arr = [...lists];
@@ -32,8 +34,8 @@ const Chat = () => {
 
 
     const eventDetailChat = (chat) => {
-        navigation.navigate('DetailChat')
         dispatch(setCurrentChat(chat))
+        navigation.navigate('DetailChat')
     }
 
     return (

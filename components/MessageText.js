@@ -1,28 +1,35 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import color from '../contains/color'
+import moment from 'moment'
+import { useSelector } from 'react-redux'
 
 const MessageText = (props) => {
+    const currentUser = useSelector(state => state.user.currentUser.data)
+
+    const isCurrentUser = () => {
+        return props.message.author._id === currentUser._id
+    }
 
     return (
-        <View style={[styles.container, { flexDirection: props.flexDirection }]}>
-            <View style={[styles.avatarFrame, { display: props.display }]}>
+        <View style={[styles.container, { flexDirection: isCurrentUser ? 'row-reverse' : 'row' }]}>
+            <View style={isCurrentUser ? { display: 'none' } : styles.avatarFrame}>
                 <Image
                     style={styles.avatarUserChat}
                     resizeMode='cover'
                     source={{
-                        uri: 'https://i.pinimg.com/564x/20/ea/60/20ea60a9af3b1a7a4b754fd61688aba5.jpg',
+                        uri: props.message.author.avatar_url,
                     }}
                 />
             </View>
             <View style={{
                 maxWidth: '60%',
-                flexDirection: props.flexDirection,
+                flexDirection: isCurrentUser ? 'row-reverse' : 'row',
             }}>
                 <View style={styles.messageFrame}>
-                    <Text style={styles.messageSend}>{props.messageSend}</Text>
+                    <Text style={styles.messageSend}>{props.message.content}</Text>
                 </View>
-                <Text style={styles.timeSend}>{props.timeSend}</Text>
+                <Text style={styles.timeSend}>{moment(props.message.created_at).fromNow()}</Text>
             </View>
         </View>
     )

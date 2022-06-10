@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { getStorage } from '../utils/Storage'
-
 
 /**
  * @param {params} params user_id string

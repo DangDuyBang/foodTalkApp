@@ -1,9 +1,25 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import color from '../contains/color'
+import { useSelector } from 'react-redux'
 
-const InputChat = () => {
+const InputChat = (props) => {
+    const currentChat = useSelector(state => state.chat.currentChat)
+    const [payload, setPayload] = useState({
+        content: '',
+        chat: currentChat._id
+    })
+
+    const handleTextChange = (text) => {
+        setPayload({...payload, content: text})
+    }
+
+    const handleSendMessage = () => {
+        props.createMessage(payload)
+        setPayload({...payload, content: ''})
+    }
+
     return (
         <View style={styles.container}>
             <View style={{
@@ -23,11 +39,13 @@ const InputChat = () => {
                     }}
                     placeholder="Write message ..."
                     multiline={true}
+                    value = {payload.content}
+                    onChangeText = {handleTextChange}
                 />
                 <TouchableOpacity>
                     <Ionicons style={styles.sendIcon} name='images' size={24} color={color.iconGreen}></Ionicons>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {handleSendMessage}>
                     <Ionicons style={styles.sendIcon} name='send' size={24} color={color.primary}></Ionicons>
                 </TouchableOpacity>
             </View>

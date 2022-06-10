@@ -5,15 +5,13 @@ import AvatarUser from '../components/AvatarUser'
 
 const User = (props) => {
 
-    const [isOnline, setIsOnline] = useState(props.data.Online)
-
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress = {() => props.fetchChatRoom(props.data)}>
             <View style={styles.container} >
                 <View style={styles.avatarAndName}>
                     <AvatarUser
                         sizeImage={50}
-                        propfile={props.data.chatAvatar}
+                        profile={props.data}
                     />
 
                     {/* <View style={styles.chatAvatarFrame}>
@@ -25,14 +23,14 @@ const User = (props) => {
                         />
                     </View> */}
                     {
-                        isOnline ?
+                        props.data.is_current ?
                             <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
                             :
                             null
                     }
                     <View style={styles.textContain}>
-                        <Text style={styles.chatFullname}>{props.data.Fullname}</Text>
-                        <Text style={styles.chatUsername}>{props.data.Username}</Text>
+                        <Text style={styles.chatFullname}>{props.data.username}</Text>
+                        <Text style={styles.chatUsername}>{props.data.last_name} {props.data.first_name}</Text>
                     </View>
                 </View>
             </View>

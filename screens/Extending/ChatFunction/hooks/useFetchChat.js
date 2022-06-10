@@ -7,6 +7,7 @@ const useFetchChat = () => {
 
     const dispatch = useDispatch()
     const chatPaginations = useSelector(state => state.chat.chatPaginations)
+    
     const fetchChat = async () => {
         if (chatPaginations.currentPage > chatPaginations.totalPage) {
             return

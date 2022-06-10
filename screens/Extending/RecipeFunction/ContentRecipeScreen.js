@@ -11,7 +11,7 @@ const ContentRecipeScreen = () => {
             <View style={styles.container}>
                 <Image
                     style={styles.coverImage}
-                    resizeMode='stretch'
+                    resizeMode='cover'
                     source={{
                         uri: currentFood.photo,
                     }}
