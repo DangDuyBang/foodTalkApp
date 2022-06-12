@@ -27,7 +27,7 @@ import axios from 'axios'
 
 export const fetchAllChat = async (currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/chat/chats/?page${currentPage}`)
+    return axios.get(`/api/chat/chats/?page=${currentPage}`)
 }
 
 /**
@@ -35,5 +35,5 @@ export const fetchAllChat = async (currentPage) => {
  */
 export const fetchAllMessage = async (params, currentPage) => {
     //let token = await getStorage('@token')
-    return axios.get(`/api/chat/messages/${params}/?page${currentPage}`)
+    return axios.get(`/api/chat/messages/${params}/?page=${currentPage}`)
 }

@@ -7,7 +7,7 @@ const useChatAction = () => {
     const dispatch = useDispatch()
     const createMessage = async (message) => {
         await sendMessage(message).then(response => {
-            dispatch(addMessage(response.data))
+            //dispatch(addMessage(response.data.content))
         })
             .catch(error => {
                 if (error.response) {

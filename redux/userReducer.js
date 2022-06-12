@@ -34,7 +34,7 @@ const initialState = {
         },
     },
     users: [],
-
+    usersSearch: []
 }
 
 export const userSlice = createSlice({
@@ -51,7 +51,8 @@ export const userSlice = createSlice({
         },
 
         follow: (state, action) => {
-            state.currentUser.following = action.payload.following
+            state.currentUser.data.following = action.payload.following
+            // state.selectedUserProfile.data.follower = action.payload.following
         },
 
         setSelectedUserProfile: (state, action) => {
@@ -106,6 +107,10 @@ export const userSlice = createSlice({
 
         addUserPost: (state, action) => {
             state.currentUser.posts.unshift(action.payload)
+        },
+
+        setUsersSearch: (state, action) => {
+            state.usersSearch = action.payload
         }
 
     },
@@ -123,7 +128,8 @@ export const {
     addUserFood,
     addUserPost,
     setSelectedUserFoods,
-    setSelectedUserPosts
+    setSelectedUserPosts,
+    setUsersSearch
 } = userSlice.actions
 
 export default userSlice.reducer

@@ -10,6 +10,7 @@ import toastConfig from './utils/ToastConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, addPost, likeUnlikePost } from './redux/postReducer';
 import { addNotification } from './redux/uiReducer';
+import { addMessage } from './redux/chatReducer';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -40,7 +41,7 @@ export default function App() {
       })
 
       socketio.on('new-message', ({ data }) => {
-        //({ type: 'ADD_MESSAGE', payload: data })
+        dispatch(addMessage(data))
       })
 
       socketio.on('message-seen', ({ data }) => {

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React, { useEffect } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import color from '../../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import InputChat from '../../../components/InputChat'
@@ -9,16 +9,45 @@ import { removeMessages } from '../../../redux/chatReducer'
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import MessageText from '../../../components/MessageText'
 import useChatAction from './hooks/useChatAction'
+import moment from 'moment'
 
 const DetailChatScreen = ({ navigation, route }) => {
     const currentChat = useSelector(state => state.chat.currentChat)
     const messages = useSelector(state => state.chat.messages)
+    const currentUser = useSelector(state => state.user.currentUser.data)
     const dispatch = useDispatch()
+    const ref = useRef()
 
-    const { fetchMessages } = useFetchChat()
+    const { fetchMessages, fetchMoreMessages } = useFetchChat()
     const { createMessage } = useChatAction()
 
+    const user = () => {
+        if (currentChat.user_1._id === currentUser._id)
+            return currentChat.user_2
+        else
+            return currentChat.user_1
+    }
+
     useEffect(() => {
+        navigation.setOptions({
+            headerTitle: () => (
+                <View style={styles.userChatView}>
+                    <View style={styles.avatarFrame}>
+                        <Image
+                            style={styles.avatarUserChat}
+                            source={{
+                                uri: user().avatar_url,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.nameAndTimeViewUserChat}>
+                        <Text style={styles.nameUserChat}>{user().username}</Text>
+                        <Text style={styles.timeOnline}>{moment(user().last_login).fromNow()}</Text>
+                    </View>
+                </View>
+            ),
+        })
+
         fetchMessages(currentChat._id)
 
         return () => {
@@ -27,35 +56,17 @@ const DetailChatScreen = ({ navigation, route }) => {
     }, [])
 
 
-    navigation.setOptions({
-        headerTitle: () => (
-            <View style={styles.userChatView}>
-                <View style={styles.avatarFrame}>
-                    <Image
-                        style={styles.avatarUserChat}
-                        source={{
-                            uri: currentChat.user_1.avatar_url,
-                        }}
-                    />
-                </View>
-                <View style={styles.nameAndTimeViewUserChat}>
-                    <Text style={styles.nameUserChat}>{currentChat.user_1.username}</Text>
-                    <Text style={styles.timeOnline}>{currentChat.user_1.is_current}</Text>
-                </View>
-            </View>
-        ),
-    })
+
     return (
         <View style={styles.container}>
-            <InfinityScrollView reverse = {true} useLoadReverse={() => fetchMessages(currentChat._id)}>
-                <View style={styles.bodyView}>
-                    {messages && messages.slice(0).reverse().map((message, index) => <MessageText message={message} key={index} />)}
+                <InfinityScrollView scrollEnd={true} reverse={true} useLoadReverse={() => fetchMoreMessages(currentChat._id)}>
+                    
+                        {messages && messages.slice(0).reverse().map((message, index) => <MessageText message={message} key={index} />)}
+                  
+                </InfinityScrollView>
+                <View style={styles.sendMessageView}>
+                    <InputChat createMessage={createMessage} />
                 </View>
-            </InfinityScrollView>
-
-            <View style={styles.sendMessageView}>
-                <InputChat createMessage={createMessage} />
-            </View>
         </View>
     )
 }
@@ -117,7 +128,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     bodyView: {
-        paddingHorizontal: 20
+        // paddingHorizontal: 20
     },
     sendMessageView: {
 

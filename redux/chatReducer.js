@@ -19,9 +19,14 @@ export const chatSlice = createSlice({
   initialState,
   reducers: {
     setChat: (state, action) => {
+      state.chats = action.payload.chats
+      state.chatPaginations.currentPage = 1
+      state.chatPaginations.totalPage = action.payload.pagination.totalPage
+    },
+
+    setChatPaginations: (state, action) => {
       state.chats.push(...action.payload.chats)
       state.chatPaginations.currentPage += 1
-      state.chatPaginations.totalPage = action.payload.pagination.totalPage
     },
 
     setCurrentChat: (state, action) => {
@@ -35,12 +40,17 @@ export const chatSlice = createSlice({
     },
 
     addMessage: (state, action) => {
+      const index = state.chats.findIndex(chat => chat._id === action.payload.chat)
+      if(index !== -1 ){
+        state.chats[index].lastMessage = action.payload
+      }
+
       if(state.currentChat) {
-        state.messages.unshift(action.payload.content)
+        state.messages.unshift(action.payload)
       }
     },
 
-    messagesPagination: (state, action) => {
+    setMessagesPagination: (state, action) => {
       state.messages.push(...action.payload.messages)
       state.messagesPagination.currentPage += 1
     },
@@ -55,6 +65,6 @@ export const chatSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setChat, setCurrentChat, setMessages, setMessagesPagination, removeMessages, addMessage } = chatSlice.actions
+export const { setChat, setCurrentChat, setMessages, setMessagesPagination, removeMessages, addMessage, setChatPaginations } = chatSlice.actions
 
 export default chatSlice.reducer

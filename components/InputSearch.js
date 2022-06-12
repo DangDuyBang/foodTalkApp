@@ -2,17 +2,45 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
+import { searchUser } from '../services/UserServices'
+import { useDispatch } from 'react-redux'
+import { setUsersSearch } from '../redux/userReducer'
+import { searchFood } from '../services/FoodServices'
+import { setFoodsSearch } from '../redux/foodReducer'
 
 const InputSearch = (props) => {
-    const [user, setUser] = React.useState([])
-    const [food, setFood] = React.useState([])
-    const [post, setPost] = React.useState([])
     const [key, setKey] = React.useState('')
+    const dispatch = useDispatch()
 
-    const handleKeyChange = async(text) => {
+    React.useEffect(async() => {
+        if (props.search) {
+            await searchUser(key).then(res =>
+                dispatch(setUsersSearch(res.data.users))
+            ).catch(err => {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                }
+            })
+
+            await searchFood(key).then(res =>
+                dispatch(setFoodsSearch(res.data.foods))
+            ).catch(err => {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                }
+            })
+        }
+
+        return () => {
+
+        }
+    }, [key])
+
+
+    const handleKeyChange = async (text) => {
         setKey(text)
 
-        
+
     }
 
 
@@ -28,9 +56,9 @@ const InputSearch = (props) => {
                     style={styles.inputStyle}
                     placeholder={props.inputName}
                     onChangeText={handleKeyChange}
-                    onTouchCancel = {true}
+                    onTouchCancel={true}
                     autoFocus={props.autoFocus}
-                    value = {key}
+                    value={key}
                 />
             </View>
         </View>
@@ -40,7 +68,7 @@ const InputSearch = (props) => {
 export default InputSearch
 
 const styles = StyleSheet.create({
-    wrapper:{
+    wrapper: {
         width: '100%',
         //paddingHorizontal: 10,
     },

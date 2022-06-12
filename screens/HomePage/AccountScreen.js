@@ -22,14 +22,11 @@ import useFetchPost from './hooks/useFetchPost'
 import InfinityScrollView from '../../components/InfinityScrollView'
 import useFetchFood from './hooks/useFetchFood'
 
-const Stack = createStackNavigator();
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = ({ navigation }) => {
   const currentUser = useSelector(state => state.user.currentUser.data)
-  const dispatch = useDispatch();
-  const userPostPagination = useSelector(state => state.post.userPostPagination)
 
 
   const eventChat = () => {
@@ -160,9 +157,14 @@ const AccountScreen = ({ navigation }) => {
       </Portal>
       <View style={styles.top}>
         <Text style={styles.nameUser}>{currentUser.username}</Text>
-        <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-          <Ionicons style={{ marginRight: 8 }} name='settings' size={24} color={color.textGray} />
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+            <Ionicons name='settings' style={{ marginRight: 15 }} size={28} color={color.primary} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPress = { eventChat }}>
+            <Ionicons name='chatbubble-ellipses-outline'  size={28} color={color.primary}></Ionicons>
+          </TouchableOpacity>
+        </View>
       </View>
       <Animated.View
         style={{
@@ -176,7 +178,7 @@ const AccountScreen = ({ navigation }) => {
               <Image
                 //source={require('../../contains//assetImages//background_signIn.jpg')}
                 style={styles.coverImage}
-                resizeMode='stretch'
+                resizeMode='cover'
                 source={{
                   uri: currentUser.cover_url,
                 }}
@@ -199,11 +201,6 @@ const AccountScreen = ({ navigation }) => {
                   <Ionicons name='pencil' size={18} color={color.textIconSmall}></Ionicons>
                 </TouchableOpacity>
               </View>
-            </View>
-            <View style={styles.chatFrame}>
-              <TouchableOpacity onPress={eventChat}>
-                <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
-              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.bot}>
@@ -351,13 +348,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
-    paddingTop: 13,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
   nameUser: {
-    fontSize: 20,
+    fontSize: 22,
     color: color.textGray,
     fontWeight: 'bold',
-    fontFamily: 'Roboto'
   },
   mid: {
     marginTop: 5,

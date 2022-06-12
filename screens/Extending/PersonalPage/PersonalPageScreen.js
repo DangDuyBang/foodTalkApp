@@ -18,17 +18,27 @@ const Tab = createMaterialTopTabNavigator();
 const PersonalPageScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const selectedUserProfile = useSelector(state => state.user.selectedUserProfile)
-    const {useFollow} = useUserAction()
+    const { useFollow } = useUserAction()
     navigation.setOptions({
         title: selectedUserProfile.data.username,
         headerRight: () => (
-            <TouchableOpacity>
-                <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={24} color={color.textGray} />
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+                {
+                    isFollowing() ?
+                        <TouchableOpacity onPress={eventDetailChat}>
+                            <Ionicons name='chatbubble-ellipses-outline' style={{ marginRight: 15 }} size={28} color={color.primary}></Ionicons>
+                        </TouchableOpacity>
+                        :
+                        null
+                }
+                <TouchableOpacity>
+                    <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={28} color={color.primary} />
+                </TouchableOpacity>
+            </View>
         )
     })
 
-    const currentUser = useSelector(state => state.user.currentUser.data)
+    const currentUser = useSelector(state => state.user.currentUser)
 
     const isFollowing = () => {
         const index = currentUser.data.following.findIndex(f => f._id === selectedUserProfile.data._id)
@@ -36,29 +46,27 @@ const PersonalPageScreen = ({ navigation }) => {
         return true
     }
 
-    //const [isFollowing, setIsFollowing] = useState(false)
 
-    
     const eventFollowing = () => {
         useFollow(selectedUserProfile.data._id)
     }
 
     const eventDetailChat = () => {
-        navigation.navigate('DetailChat')
+        navigation.navigate('ChatNavigation')
     }
 
-    const {fetchSelectedUserPosts} = useFetchPost()
-    const {fetchSelectedUserFoodsList} = useFetchFood()
+    const { fetchSelectedUserPosts } = useFetchPost()
+    const { fetchSelectedUserFoodsList } = useFetchFood()
 
     useEffect(() => {
-      fetchSelectedUserPosts()
-      fetchSelectedUserFoodsList()
-    
-      return () => {
-          dispatch(removeSelectedUserProfile())
-      }
+        fetchSelectedUserPosts()
+        fetchSelectedUserFoodsList()
+
+        return () => {
+            dispatch(removeSelectedUserProfile())
+        }
     }, [])
-    
+
 
     return (
         <View style={styles.container}>
@@ -90,16 +98,7 @@ const PersonalPageScreen = ({ navigation }) => {
                             <Text style={styles.fullName}>{selectedUserProfile.data.first_name + ' ' + selectedUserProfile.data.last_name}</Text>
                         </View>
                     </View>
-                    {
-                        isFollowing ?
-                            <View style={styles.chatFrame}>
-                                <TouchableOpacity onPress={eventDetailChat}>
-                                    <Ionicons name='chatbubble-ellipses-outline' size={42} color={color.primary}></Ionicons>
-                                </TouchableOpacity>
-                            </View>
-                            :
-                            null
-                    }
+
                 </View>
                 <View style={styles.bot}>
                     <View style={{
@@ -109,7 +108,7 @@ const PersonalPageScreen = ({ navigation }) => {
                         justifyContent: 'space-evenly'
                     }}>
                         {
-                            isFollowing ?
+                            isFollowing() ?
                                 <SubmitNoLogo
                                     eventButton={eventFollowing}
                                     nameButton='Following'
@@ -128,11 +127,11 @@ const PersonalPageScreen = ({ navigation }) => {
                     <View style={styles.followView}>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Following</Text>
-                            <Text style={styles.followNumberText}>{selectedUserProfile.data.following.lenght||0}</Text>
+                            <Text style={styles.followNumberText}>{selectedUserProfile.data.following.length || 0}</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Follower</Text>
-                            <Text style={styles.followNumberText}>{selectedUserProfile.data.follower.lenght||0}</Text>
+                            <Text style={styles.followNumberText}>{selectedUserProfile.data.follower.length || 0}</Text>
                         </View>
                         <View style={styles.followingView}>
                             <Text style={styles.followText}>Like</Text>

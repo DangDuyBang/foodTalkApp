@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const Chat = () => {
 
-    const { fetchChat } = useFetchChat()
+    const { fetchChat, fetchMoreChat } = useFetchChat()
     const dispatch = useDispatch()
     const chats = useSelector(state => state.chat.chats)
     const navigation = useNavigation()
@@ -25,7 +25,7 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        fetchChat()
+            fetchChat()
 
         return () => {
 
@@ -47,7 +47,7 @@ const Chat = () => {
             </View>
 
             <SafeAreaView style={{ flex: 1 }}>
-                <InfinityScrollView useLoads={fetchChat}>
+                <InfinityScrollView useLoads={fetchMoreChat}>
                     {chats && chats.map((chat, index) => <ChatPreview data={chat} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />)}
                 </InfinityScrollView>
 

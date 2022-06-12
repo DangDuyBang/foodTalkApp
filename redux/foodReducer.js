@@ -20,7 +20,9 @@ const initialState = {
   userFoodPagination: {
     currentPage: 0,
     totalPage: 0,
-  }
+  },
+
+  foodsSearch: []
 }
 
 export const foodSlice = createSlice({
@@ -64,10 +66,14 @@ export const foodSlice = createSlice({
         }
       }
     },
+
+    setFoodsSearch: (state, action) => {
+      state.foodsSearch = action.payload
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setFoods, addFood, setCurrenFood, deleteCurrentFood, setRate, addRate } = foodSlice.actions
+export const { setFoods, addFood, setCurrenFood, deleteCurrentFood, setRate, addRate, setFoodsSearch } = foodSlice.actions
 
 export default foodSlice.reducer

@@ -4,6 +4,7 @@ import color from '../contains/color'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons } from '@expo/vector-icons'
 import moment from 'moment'
+import { useSelector } from 'react-redux';
 
 const ChatPreview = (props) => {
 
@@ -17,6 +18,15 @@ const ChatPreview = (props) => {
         )
     }
 
+    const currentUser = useSelector(state => state.user.currentUser.data)
+
+    const user = () => {
+        if (props.data.user_1._id === currentUser._id)
+            return props.data.user_2
+            else
+        return props.data.user_1
+    }
+
     return (
         <Swipeable renderRightActions={rightSwipe}>
             <TouchableOpacity onPress={() => props.onDetailChat(props.data)}>
@@ -26,20 +36,20 @@ const ChatPreview = (props) => {
                             <Image
                                 style={styles.tinyAvatar}
                                 source={{
-                                    uri: props.data.user_1.avatar_url,
+                                    uri: user().avatar_url,
                                 }}
                             />
                         </View>
                         {
-                            props.data.user_1.is_current ?
+                            user().is_current ?
                                 <Text style={{ color: color.iconGreen, position: 'absolute', left: 35, top: 30 }}>●</Text>
                                 :
                                 null
                         }
                         <View style={styles.textContain}>
-                            <Text style={styles.chatUsername}>{props.data.user_1.username}</Text>
+                            <Text style={styles.chatUsername}>{user().username}</Text>
                             {
-                                true ?
+                                user().is_current ? 
                                     <View style={{
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
@@ -59,7 +69,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {/* {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`} */}
+                                                    {props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -75,7 +85,7 @@ const ChatPreview = (props) => {
                                         <Image
                                             style={styles.seenAvatar}
                                             source={{
-                                                uri: props.data.user_1.avatar_url,
+                                                uri: user().avatar_url,
                                             }}
                                         />
                                         {/* <Ionicons name='checkmark-circle-outline' size={16} color={color.textIconSmall} /> */}
@@ -101,7 +111,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {/* {props.data.chatRecently.length < 26 ? `${props.data.chatRecently}` : `${props.data.chatRecently.substring(0, 25)}...`} */}
+                                                    {props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -111,7 +121,7 @@ const ChatPreview = (props) => {
                                                     { color: color.textBlack },
                                                     { fontWeight: 'bold' }
                                                 ]}>
-                                                    Dec 18
+                                                    {moment(props.data.lastMessage.created_at).fromNow()}
                                                 </Text>
                                             </View>
                                         </View>
