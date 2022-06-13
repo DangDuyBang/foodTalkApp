@@ -12,12 +12,14 @@ const RecipePublicScreen = () => {
     const foods = useSelector(state => state.user.currentUser.foods)
 
     return (
+        <View style={styles.container}>
+            <InfinityScrollView onLoads={fetchUserFoodsList}>
+                {foods && foods.map(food => <RecipePreview data={food} key={food._id} />)}
+                {/* Sử dụng Component RecipePreview để hiển thị ở trang này */}
+                {/* <RecipePreview /> */}
+            </InfinityScrollView>
+        </View>
 
-        <InfinityScrollView onLoads={fetchUserFoodsList}>
-            {foods && foods.map(food => <RecipePreview data={food} key={food._id} />)}
-            {/* Sử dụng Component RecipePreview để hiển thị ở trang này */}
-            {/* <RecipePreview /> */}
-        </InfinityScrollView>
 
     )
 }
@@ -32,7 +34,6 @@ const styles = StyleSheet.create({
         // paddingVertical: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        //paddingTop: 110,
-        marginBottom: 10,
+        //paddingBottom: 130,
     },
 })

@@ -161,8 +161,8 @@ const AccountScreen = ({ navigation }) => {
           <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <Ionicons name='settings' style={{ marginRight: 15 }} size={28} color={color.primary} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPress = { eventChat }}>
-            <Ionicons name='chatbubble-ellipses-outline'  size={28} color={color.primary}></Ionicons>
+          <TouchableOpacity onPress={eventChat}>
+            <Ionicons name='chatbubble-ellipses-outline' size={28} color={color.primary}></Ionicons>
           </TouchableOpacity>
         </View>
       </View>
@@ -341,7 +341,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
-    marginBottom: 100,
   },
   top: {
     flexDirection: 'row',
@@ -429,7 +428,7 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     textAlign: 'center',
-    marginBottom: 35,
+    marginVertical: 35,
     fontFamily: 'Roboto',
     fontSize: 15,
     marginHorizontal: 30

@@ -5,6 +5,7 @@ import PostInAccount from '../../../components/PostInAccount'
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import { useSelector } from 'react-redux'
 import useFetchPost from '../../HomePage/hooks/useFetchPost'
+import LottieView from 'lottie-react-native'
 
 const ImagePic = {
     imagePost_first: 'https://i.pinimg.com/564x/3f/32/94/3f32941eb6f31b5b7b972da29aefa329.jpg',
@@ -20,10 +21,49 @@ const PublicPostScreen = () => {
     const posts = useSelector(state => state.user.selectedUserProfile.posts)
     const { fetchSelectedUserPosts } = useFetchPost()
 
+    if (posts.length === 0) {
+        return (
+            <View style={{
+                alignItems: 'center',
+                width: '100%',
+                backgroundColor: color.background
+            }}>
+                <Text style={{
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    marginTop: 50,
+                    textAlign: 'center'
+                }}>
+                    There's no thing at all {'\n'}
+                    User's posts will be display at here.
+                </Text>
+            </View>
+        )
+    }
+
     return (
         <InfinityScrollView onLoads={fetchSelectedUserPosts}>
             <View style={styles.container}>
-                {posts && posts.map(post => <PostInAccount imagePostInAccount={post.photos[0]} />)}
+                {
+                    posts && posts.length > 0 ?
+                        posts.map(post =>
+                            <PostInAccount imagePostInAccount={post.photos[0]} />
+                        )
+                        :
+                        <View style={{
+                            alignItems: 'center',
+                            width: '100%'
+                        }}>
+                            <LottieView
+                                source={require('../../../assets/lottie/data-loading-animation.json')}
+                                autoPlay loop
+                                style={{
+                                    width: 100,
+                                    height: 100,
+                                }}
+                            />
+                        </View>
+                }
             </View>
         </InfinityScrollView>
     )
@@ -36,7 +76,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.background,
         //paddingHorizontal: 10,
-        //paddingVertical: 10,
+        paddingTop: 5,
+        paddingBottom: 25,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
