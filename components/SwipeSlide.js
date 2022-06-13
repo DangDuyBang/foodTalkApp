@@ -31,7 +31,7 @@ const SwipeSlide = (props) => {
                     images1&&images1.map((e, index) =>
                         <Image
                             key={index}
-                            resizeMode='stretch'
+                            resizeMode='cover'
                             style={styles.wrap}
                             source={{ uri: e }}
                         />
