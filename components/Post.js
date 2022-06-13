@@ -176,7 +176,6 @@ const Post = (props) => {
                     <Text style={styles.commentNumber}>{props.post.num_comment === 0 ? 'No comment' : `View all ${props.post.num_comment} comments`}</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     )
 }

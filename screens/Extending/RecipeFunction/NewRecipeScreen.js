@@ -21,6 +21,7 @@ const NewRecipeScreen = ({ navigation }) => {
             </TouchableOpacity>
         )
     })
+    
     const renderInner = () => (
         <View style={styles.panel}>
             <View onPress={() => bs.current.snapTo(1)} style={{ alignItems: 'center' }}>

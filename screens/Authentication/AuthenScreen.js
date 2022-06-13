@@ -36,6 +36,8 @@ import { useSelector } from 'react-redux';
 import CreatePostNavigation from '../HomePage/CreatePostNavigation';
 import SearchScreen from '../HomePage/SearchScreen';
 
+import DetailedPostScreen from '../Extending/DetailPost/DetailedPostScreen';
+
 const Stack = createStackNavigator();
 
 
@@ -141,7 +143,7 @@ const AuthenScreen = () => {
               }} />
             <Stack.Screen name="NewRecipe" component={NewRecipeScreen} />
             <Stack.Screen name="RecipeList" component={RecipeListScreen} />
-            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options={currentFood&&{
+            <Stack.Screen name="DetailRecipe" component={DetailRecipeScreen} options={currentFood && {
               title: currentFood.name,
               headerRight: () => (
                 <View style={styles.rightView}>
@@ -156,6 +158,19 @@ const AuthenScreen = () => {
             <Stack.Screen name="Search" component={SearchScreen} options={{
               headerShown: true
             }} />
+
+            <Stack.Screen name="DetailedPost" component={DetailedPostScreen}
+              options={{
+                title: 'Reaction',
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                transitionSpec: {
+                  open: config,
+                  close: closeConfig,
+                },
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              }} />
+
           </Stack.Navigator>
       }
       {/* <HomePageScreen/> */}
