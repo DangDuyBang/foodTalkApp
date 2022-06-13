@@ -8,6 +8,7 @@ const initialState = {
   },
 
   currentPost: {
+    data: null,
     comments: [],
     commentPagination: {
       currentPage: 0,
@@ -21,7 +22,8 @@ const initialState = {
       currentPage: 0,
       totalPage: 0,
     },
-  }
+  },
+
 }
 
 export const postSlice = createSlice({
@@ -46,18 +48,37 @@ export const postSlice = createSlice({
       const index = state.posts.findIndex(post => post._id === _id)
       state.posts[index].num_heart = num_heart
       state.posts[index].reactions = reactions
+
+      if(state.currentPost.data) {
+        state.currentPost.data.num_heart = num_heart
+        state.currentPost.reactions = reactions
+      }
     },
 
     likePost: (state, action) => {
       const index = state.posts.findIndex(post => post._id === action.payload.post._id)
       state.posts[index].num_heart += 1
       state.posts[index].reactions.push(action.payload.user._id)
+
+      if(state.currentPost.data) {
+        state.currentPost.data.num_heart += 1
+        state.currentPost.data.reactions.push(action.payload.user._id)
+      }
     },
 
     unLikePost: (state, action) => {
       const index = state.posts.findIndex(post => post._id === action.payload.post._id)
       state.posts[index].num_heart -= 1
       state.posts[index].reactions = state.posts[index].reactions.filter(reaction => reaction !== action.payload.user._id)
+
+      if(state.currentPost.data) {
+        state.currentPost.data.num_heart -= 1
+        state.currentPost.data.reactions = state.currentPost.data.reactions.filter(reaction => reaction !== action.payload.user._id)
+      }
+    },
+
+    setCurrentPost: (state, action) => {
+      state.currentPost.data = action.payload
     },
 
     setComment: (state, action) => {
@@ -97,6 +118,6 @@ export const postSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment, setReactions, deleteCurrentReaction } = postSlice.actions
+export const { setPosts, likeUnlikePost, addPost, likePost, unLikePost, setComment, deleteCurrentPost, addComment, setReactions, deleteCurrentReaction, setCurrentPost} = postSlice.actions
 
 export default postSlice.reducer

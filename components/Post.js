@@ -45,7 +45,7 @@ const Post = (props) => {
         return true
     }
 
-    let isLikedUser = () => {
+    const isLikedUser = () => {
         return props.post.reactions.includes(currentUser._id)
     }
 

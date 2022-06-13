@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Share } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import color from '../../../contains/color'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 import LottieView from 'lottie-react-native'
@@ -8,24 +8,45 @@ import SwipeSlide from '../../../components/SwipeSlide'
 import RecipeShowed from '../../../components/RecipeShowed'
 import moment from 'moment'
 import PostComment from '../../../components/PostComment'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteCurrentPost, likePost, unLikePost } from '../../../redux/postReducer'
+import { likeDislikePost } from '../../../services/PostServices'
+import useUserAction from '../../HomePage/hooks/useUserAction'
+import useFetchPost from '../../HomePage/hooks/useFetchPost'
 
 const DetailedPostScreen = ({ navigation }) => {
+    const currentUser = useSelector(state => state.user.currentUser.data)
+    const dispatch = useDispatch()
+    const currentPost = useSelector(state => state.post.currentPost)
+    const { useFollow } = useUserAction()
+    const { useFetchComment, useFetchReaction } = useFetchPost()
 
-    navigation.setOptions({
-        title: 'Username của bài Post',
-        headerRight: () => (
-            <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.navigate("Search")}>
-                <FontAwesome
-                    name='search'
-                    size={22}
-                    style={{
-                        color: color.textIconSmall,
-                        marginRight: 10,
-                    }}
-                ></FontAwesome>
-            </TouchableOpacity>
-        )
-    })
+    useEffect(() => {
+        navigation.setOptions({
+            title: currentPost.data.author.username,
+            headerRight: () => (
+                <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.navigate("Search")}>
+                    <FontAwesome
+                        name='search'
+                        size={22}
+                        style={{
+                            color: color.textIconSmall,
+                            marginRight: 10,
+                        }}
+                    ></FontAwesome>
+                </TouchableOpacity>
+            )
+        })
+
+        useFetchComment(currentPost.data._id)
+        useFetchReaction(currentPost.data._id)
+
+        return () => {
+            dispatch(deleteCurrentPost())
+        }
+    }, [])
+
+
 
     const onShare = async () => {
         try {
@@ -46,32 +67,49 @@ const DetailedPostScreen = ({ navigation }) => {
         }
     };
 
-    const [isLiked, setIsLiked] = useState(false)
+    const isFollowed = () => {
+        if (currentUser._id === currentPost.data.author._id) return true
+        const index = currentUser.following.findIndex(f => false._id === currentPost.data.author._id)
+        if (index > -1) return true
+        return false
+    }
+
+    const isLikedUser = () => {
+        return currentPost.data.reactions.includes(currentUser._id)
+    }
+
 
     const animation = React.useRef(null);
     const isFirstRun = React.useRef(true);
 
     React.useEffect(() => {
-        if (isFirstRun.current) {
-            if (isLiked) {
-                animation.current.play(66, 66);
-            } else {
-                animation.current.play(19, 19);
-            }
-            isFirstRun.current = false;
-        } else if (isLiked) {
+        if (isLikedUser()) {
             animation.current.play(19, 50);
         } else {
             animation.current.play(0, 19);
         }
-    }, [isLiked]);
+    }, [currentPost.data.reactions])
 
-    const heartEvent = () => {
-        if (isLiked == false) {
-            setIsLiked(true)
-        } else if (isLiked == true) {
-            setIsLiked(false)
+    const heartEvent = async () => {
+        if (isLikedUser()) {
+            dispatch(unLikePost({ post: currentPost.data, user: currentUser }))
+
+        } else {
+            dispatch(likePost({ post: currentPost.data, user: currentUser }))
         }
+
+        await likeDislikePost(currentPost.data._id).then(res => {
+            console.log(res.data.message)
+        }).catch(err => {
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+    }
+
+    const followEvent = () => {
+        useFollow(currentPost.data.author._id)
     }
 
 
@@ -82,19 +120,17 @@ const DetailedPostScreen = ({ navigation }) => {
                     <View style={styles.avatarAndNameView}>
                         <AvatarUser
                             sizeImage={40}
-                            profile='https://i.pinimg.com/564x/e1/12/8b/e1128b291fa9c9a540157afe8f2c90f6.jpg'
+                            profile={currentPost.data.author}
                         />
                         <View style={styles.nameAndTimeView}>
                             <Text style={styles.nameUserText}>
-                                Dang Duy Bang
+                                {currentPost.data.author.username}
 
-                                {/* {props.post.author ? props.post.author.username : ''}
-
-                            {props.post.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
-                            {props.post.location && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {props.post.location.name}</Text>} */}
+                            {currentPost.data.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
+                            {currentPost.data.location && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {currentPost.data.location.name}</Text>}
                             </Text>
                             <Text style={styles.timePost}>
-                                a few minutes
+                                {moment(currentPost.data.created_at).fromNow()}
                                 {/* {moment(props.post.created_at).fromNow()} */}
                             </Text>
                         </View>
@@ -124,13 +160,13 @@ const DetailedPostScreen = ({ navigation }) => {
                             marginLeft: 25,
                             marginBottom: 10
                         }}>
-                            Hello
+                            {currentPost.data.content}
                         </Text>
                     }
 
                     <View style={styles.imageFrame}>
-                        <SwipeSlide />
-                        {/* {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null} */}
+
+                        {currentPost.data.photos && currentPost.data.photos.length > 0 ? <SwipeSlide photos={currentPost.data.photos} /> : null}
                     </View>
                 </View>
                 <View style={styles.midPost}>
@@ -163,75 +199,31 @@ const DetailedPostScreen = ({ navigation }) => {
                                 marginLeft: 10,
                             }}
                         >
-                            <RecipeShowed food='https://i.pinimg.com/564x/3d/43/b5/3d43b5816213b46616e178174f2c2dbb.jpg' />
-                            {
-                                /* {props.post.foods && props.post.foods.length > 0 ? (
-                                    props.post.foods.map((food) => (
-                                        <RecipeShowed food={food} key={food._id} />
-                                    ))
-                                ) : null} */
-                            }
+                            {/* <RecipeShowed food='https://i.pinimg.com/564x/3d/43/b5/3d43b5816213b46616e178174f2c2dbb.jpg' /> */}
+
+                            {currentPost.data.foods && currentPost.data.foods.length > 0 ? (
+                                currentPost.data.foods.map((food) => (
+                                    <RecipeShowed food={food} key={food._id} />
+                                ))
+                            ) : null}
+
                         </ScrollView>
 
                     </View>
                 </View>
                 <View style={styles.botPost}>
                     <TouchableOpacity>
-                        {/* <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text> */}
+                        <Text style={styles.heartNumber}>{currentPost.data.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${currentPost.data.num_heart - 1} others people` : `Liked by ${currentPost.data.num_heart} others people`}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity>
-                        {/* <Text style={styles.commentNumber}>{props.post.num_comment === 0 ? 'No comment' : `View all ${props.post.num_comment} comments`}</Text> */}
+                        <Text style={styles.commentNumber}>{currentPost.data.num_comment === 0 ? 'No comment' : `View all ${currentPost.data.num_comment} comments`}</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.commentListView}>
+                    {currentPost.comments && currentPost.comments.map(comment => <PostComment comment={comment} key={comment._id} />)}
                     {/* <PostComment /> */}
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
-                    <Text style={{
-                        marginBottom: 40
-                    }}>
-                        Hiển thị các comment của bài viết phía dưới này
-                    </Text>
                 </View>
             </ScrollView>
         </View>

@@ -3,10 +3,22 @@ import React from 'react'
 import color from '../contains/color'
 import moment from 'moment'
 import AvatarUser from '../components/AvatarUser'
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setCurrentPost } from '../redux/postReducer'
 
 const NotifyPreview = (props) => {
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const handlePress = () => {
+        if(props.data.notify_type === 'POST') {
+            dispatch(setCurrentPost(props.data.post_data))
+            navigation.navigate('DetailedPost')
+        }
+    }
+
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePress}>
             <View style={styles.container} >
                 <View style={styles.avatarAndName}>
                     <AvatarUser
