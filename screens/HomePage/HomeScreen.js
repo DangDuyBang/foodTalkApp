@@ -14,8 +14,7 @@ import InfinityScrollView from '../../components/InfinityScrollView'
 const HomeScreen = ({ navigation }) => {
 
   const eventRecentRestaurant = () => {
-    // alert('Chức năng hiển thị nhà hàng gần đây')
-    navigation.navigate("DetailedPost")
+    alert('Chọn ảnh xong vào màn hình tạo Post')
   }
 
   const { useFetchAllPost, useFetchComment, useFetchReaction, loading } = useFetchPost();
