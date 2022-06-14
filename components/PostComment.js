@@ -28,7 +28,7 @@ const PostComment = (props) => {
             </View>
             <View style = {styles.botAction}>
                 <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
-                <TouchableOpacity onPress={handleReply}>
+                <TouchableOpacity onPress={handleReply} style={{display: props.display}}>
                     <Text style={styles.replyButton}>Reply</Text>
                 </TouchableOpacity>
             </View>

@@ -140,6 +140,7 @@ const CommentListScreen = ({ navigation, route }) => {
                                     comment={i}
                                     onReplyPress={handleReplyPress}
                                     leftMargin={60}
+                                    display='none'
                                 />
                             })}
                         </>
@@ -158,6 +159,7 @@ const CommentListScreen = ({ navigation, route }) => {
                             content={payload.content}
                             loading={loading}
                             isReply={isReplyPress}
+                            autoFocus={true}
                         />
                         :
                         <InputComment
@@ -168,6 +170,7 @@ const CommentListScreen = ({ navigation, route }) => {
                             content={payload.content}
                             isReply={isReplyPress}
                             loading={loading}
+                            autoFocus={true}
                         />
                 }
             </View>

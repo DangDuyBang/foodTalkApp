@@ -29,6 +29,7 @@ const InputComment = (props) => {
                 alignItems: 'center'
             }}>
                 <TextInput
+                    autoFocus={props.autoFocus}
                     value={props.content}
                     onChangeText={props.onChangeText}
                     maxLength={100}
