@@ -47,7 +47,7 @@ const PublicPostScreen = () => {
                 {
                     posts && posts.length > 0 ?
                         posts.map(post =>
-                            <PostInAccount imagePostInAccount={post.photos[0]} />
+                            <PostInAccount post={post} />
                         )
                         :
                         <View style={{

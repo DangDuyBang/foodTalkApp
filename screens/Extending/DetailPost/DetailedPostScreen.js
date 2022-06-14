@@ -126,8 +126,8 @@ const DetailedPostScreen = ({ navigation }) => {
                             <Text style={styles.nameUserText}>
                                 {currentPost.data.author.username}
 
-                            {currentPost.data.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
-                            {currentPost.data.location && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {currentPost.data.location.name}</Text>}
+                                {currentPost.data.location.name !== '' && <Text style={[styles.nameUserText, { fontWeight: 'normal' }, { fontSize: 14 }]}> is in</Text>}
+                                {currentPost.data.location && <Text style={[styles.nameUserText, { fontSize: 14 }]}> {currentPost.data.location.name}</Text>}
                             </Text>
                             <Text style={styles.timePost}>
                                 {moment(currentPost.data.created_at).fromNow()}
@@ -216,13 +216,30 @@ const DetailedPostScreen = ({ navigation }) => {
                         <Text style={styles.heartNumber}>{currentPost.data.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${currentPost.data.num_heart - 1} others people` : `Liked by ${currentPost.data.num_heart} others people`}</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Text style={styles.commentNumber}>{currentPost.data.num_comment === 0 ? 'No comment' : `View all ${currentPost.data.num_comment} comments`}</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 <View style={styles.commentListView}>
-                    {currentPost.comments && currentPost.comments.map(comment => <PostComment comment={comment} key={comment._id} />)}
+                    {currentPost.comments && currentPost.comments.map(comment => {
+                        return <>
+                            <PostComment comment={comment} key={comment._id} />
+
+                            {
+                                comment.children && comment.children.map((i, index) => {
+                                    return <PostComment
+                                        key={i._id}
+                                        comment={i}
+                                        leftMargin={60}
+                                    />
+                                })
+                            }
+                        </>
+
+                    })
+
+                    }
                     {/* <PostComment /> */}
                 </View>
             </ScrollView>
@@ -317,7 +334,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
     },
     commentListView: {
-        paddingHorizontal: 20,
         paddingVertical: 10,
     }
 })

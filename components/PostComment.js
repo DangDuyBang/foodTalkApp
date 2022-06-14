@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux'
 
 const PostComment = (props) => {
     const currentUser = useSelector(state => state.user.currentUser.data)
+    const handleReply = () => {
+        if(props.onReplyPress)
+        props.onReplyPress(props.comment.author.username, props.comment._id)
+    }
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
@@ -24,7 +28,7 @@ const PostComment = (props) => {
             </View>
             <View style = {styles.botAction}>
                 <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
-                <TouchableOpacity onPress={() => props.onReplyPress(props.comment.author.username, props.comment._id)}>
+                <TouchableOpacity onPress={handleReply}>
                     <Text style={styles.replyButton}>Reply</Text>
                 </TouchableOpacity>
             </View>

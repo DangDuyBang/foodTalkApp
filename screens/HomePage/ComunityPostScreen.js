@@ -37,7 +37,7 @@ const ComunityPostScreen = () => {
                 {
                     currentUser.posts && currentUser.posts.length > 0 ?
                         currentUser.posts.map(post =>
-                            <PostInAccount key={post._id} imagePostInAccount={post.photos[0]} />
+                            <PostInAccount key={post._id} post={post} />
                         )
                         :
                         <View style={{
