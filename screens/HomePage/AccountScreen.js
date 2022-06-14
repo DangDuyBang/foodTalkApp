@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import color from '../../contains/color'
-import { Ionicons, AntDesign } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 import ComunityPostScreen from './ComunityPostScreen'
 import HeartedPostScreen from './HeartedPostScreen'
@@ -9,24 +9,23 @@ import PrivatePostScreen from './PrivatePostScreen'
 import RecipePublicScreen from './RecipePublicScreen'
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createStackNavigator } from "@react-navigation/stack";
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { Portal } from '@gorhom/portal';
 import { useSelector, useDispatch } from 'react-redux'
-import AvatarUser from '../../components/AvatarUser'
-import { fetchUserPost } from '../../services/PostServices'
-import { setUserPosts } from '../../redux/userReducer'
+import { logout } from '../../redux/userReducer'
 import useFetchPost from './hooks/useFetchPost'
-import InfinityScrollView from '../../components/InfinityScrollView'
 import useFetchFood from './hooks/useFetchFood'
+import { logoutUser } from '../../services/AuthServices'
+import axios from 'axios'
 
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = ({ navigation }) => {
   const currentUser = useSelector(state => state.user.currentUser.data)
+  const dispatch = useDispatch()
 
 
   const eventChat = () => {
@@ -58,6 +57,19 @@ const AccountScreen = ({ navigation }) => {
     navigation.navigate('MoreSetting')
   }
 
+  const handleLogout = async () => {
+    dispatch(logout())
+    await logoutUser()
+      .then(res => console.log(res.data.message))
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data.err);
+        }
+      })
+
+    axios.defaults.headers.common['Authorization'] = ''
+  }
+
   const eventLogout = () => {
     Alert.alert("LOG OUT!", "Are you sure you want to log out of this Account?", [
       {
@@ -65,7 +77,7 @@ const AccountScreen = ({ navigation }) => {
         onPress: () => null,
         style: "cancel"
       },
-      { text: "YES", onPress: () => navigation.navigate('SignIn') }
+      { text: "YES", onPress: handleLogout }
     ]);
     return true;
   }

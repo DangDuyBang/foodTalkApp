@@ -13,6 +13,9 @@ import { deleteCurrentPost, likePost, unLikePost } from '../../../redux/postRedu
 import { likeDislikePost } from '../../../services/PostServices'
 import useUserAction from '../../HomePage/hooks/useUserAction'
 import useFetchPost from '../../HomePage/hooks/useFetchPost'
+import InputComment from '../../../components/InputComment'
+import InfinityScrollView from '../../../components/InfinityScrollView'
+import { createComment } from '../../../services/PostServices'
 
 const DetailedPostScreen = ({ navigation }) => {
     const currentUser = useSelector(state => state.user.currentUser.data)
@@ -20,10 +23,87 @@ const DetailedPostScreen = ({ navigation }) => {
     const currentPost = useSelector(state => state.post.currentPost)
     const { useFollow } = useUserAction()
     const { useFetchComment, useFetchReaction } = useFetchPost()
+    const [payload, setPayload] = useState({
+        post: currentPost.data._id,
+        content: '',
+    })
+
+    const [loading, setLoading] = useState(false)
+
+    const [isReplyPress, setIsReplyPress] = useState(false)
+
+    const handleReplyPress = (nameUserComment, comment_id) => {
+        if (isReplyPress == false) {
+            setIsReplyPress(true)
+            setNameUser(nameUserComment)
+            setPayload({
+                ...payload,
+                parent: comment_id
+            })
+        }
+    }
+
+    const handleCloseReplying = () => {
+        if (isReplyPress == true) {
+            const data = { ...payload }
+            delete data['parent']
+            setPayload({
+                ...data
+            })
+            setIsReplyPress(false)
+        }
+    }
+
+    const handleAddComment = async () => {
+        setLoading(true)
+        await createComment(payload).then(response => {
+            setPayload({
+                post: currentPost.data._id,
+                content: '',
+            })
+            setLoading(false)
+        }).catch(err => {
+            setLoading(false)
+            if (err.response) {
+                console.log(err.response.data.error)
+                // setError(...err, err.response.data.error)
+            }
+        })
+
+    }
+
+    const handleAddReplyComment = async () => {
+        if (isReplyPress) {
+            setLoading(true)
+            await createComment(payload).then(response => {
+                setPayload({
+                    post: currentPost.data._id,
+                    content: '',
+                })
+                setIsReplyPress(false)
+                setLoading(false)
+
+            }).catch(err => {
+                setLoading(false)
+
+                if (err.response) {
+                    console.log(err.response.data.error)
+                    // setError(...err, err.response.data.error)
+                }
+            })
+        }
+    }
+
+    const onChangeContent = (text) => {
+        setPayload({
+            ...payload,
+            content: text
+        })
+    }
 
     useEffect(() => {
         navigation.setOptions({
-            title: currentPost.data.author.username,
+            headerTitle: () => null,
             headerRight: () => (
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.navigate("Search")}>
                     <FontAwesome
@@ -115,7 +195,7 @@ const DetailedPostScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <InfinityScrollView useLoads={useFetchComment}>
                 <View style={styles.topPost}>
                     <View style={styles.avatarAndNameView}>
                         <AvatarUser
@@ -221,10 +301,11 @@ const DetailedPostScreen = ({ navigation }) => {
                     </TouchableOpacity> */}
                 </View>
 
+
                 <View style={styles.commentListView}>
                     {currentPost.comments && currentPost.comments.map(comment => {
                         return <>
-                            <PostComment comment={comment} key={comment._id} />
+                            <PostComment onReplyPress={handleReplyPress} comment={comment} key={comment._id} />
 
                             {
                                 comment.children && comment.children.map((i, index) => {
@@ -242,7 +323,33 @@ const DetailedPostScreen = ({ navigation }) => {
                     }
                     {/* <PostComment /> */}
                 </View>
-            </ScrollView>
+            </InfinityScrollView>
+
+
+            <View style={styles.commentTypeView}>
+                {
+                    isReplyPress ?
+                        <InputComment
+                            nameUserReply={nameUser}
+                            onCloseReply={handleCloseReplying}
+                            onAddComment={handleAddReplyComment}
+                            onChangeText={onChangeContent}
+                            content={payload.content}
+                            loading={loading}
+                            isReply={isReplyPress}
+                        />
+                        :
+                        <InputComment
+                            nameUserReply='none'
+                            displayReply='none'
+                            onAddComment={handleAddComment}
+                            onChangeText={onChangeContent}
+                            content={payload.content}
+                            isReply={isReplyPress}
+                            loading={loading}
+                        />
+                }
+            </View>
         </View>
     )
 }
@@ -335,5 +442,8 @@ const styles = StyleSheet.create({
     },
     commentListView: {
         paddingVertical: 10,
+    },
+    commentTypeView: {
+        paddingTop: 5,
     }
 })

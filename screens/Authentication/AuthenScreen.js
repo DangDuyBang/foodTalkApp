@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { NavigationContainer } from '@react-navigation/native';
@@ -37,6 +37,7 @@ import CreatePostNavigation from '../HomePage/CreatePostNavigation';
 import SearchScreen from '../HomePage/SearchScreen';
 
 import DetailedPostScreen from '../Extending/DetailPost/DetailedPostScreen';
+import { getStorage, saveStorage } from '../../utils/Storage';
 
 const Stack = createStackNavigator();
 
@@ -50,45 +51,45 @@ const AuthenScreen = () => {
     <NavigationContainer>
       {
         !isLoggedIn ?
-          (
-            <Stack.Navigator
-              initialRouteName="Spash"
-            >
-              <Stack.Screen name="Splash" component={SplashScreen} options={{
-                headerShown: false,
-              }} />
-              <Stack.Screen name="Start" component={StartScreen} options={{
-                headerShown: false,
-              }} />
-              <Stack.Screen name="SignIn" component={SignInScreen} options={
-                { headerShown: false }
-              } />
-              <Stack.Screen name="SignUp" component={SignUpScreen}
-                options={{
-                  gestureEnabled: true,
-                  gestureDirection: 'horizontal',
-                  transitionSpec: {
-                    open: config,
-                    close: closeConfig,
-                  },
-                  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                  title: 'Create your new account'
-                }}
-              />
-              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}
-                options={{
-                  gestureEnabled: true,
-                  gestureDirection: 'horizontal',
-                  transitionSpec: {
-                    open: config,
-                    close: closeConfig,
-                  },
-                  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                  title: 'Reset password'
-                }}
-              />
-            </Stack.Navigator>
-          ) :
+
+          <Stack.Navigator
+            initialRouteName= "Spash"
+          >
+            <Stack.Screen name="Splash" component={SplashScreen} options={{
+              headerShown: false,
+            }} />
+            <Stack.Screen name="Start" component={StartScreen} options={{
+              headerShown: false,
+            }} />
+            <Stack.Screen name="SignIn" component={SignInScreen} options={
+              { headerShown: false }
+            } />
+            <Stack.Screen name="SignUp" component={SignUpScreen}
+              options={{
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                transitionSpec: {
+                  open: config,
+                  close: closeConfig,
+                },
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                title: 'Create your new account'
+              }}
+            />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}
+              options={{
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                transitionSpec: {
+                  open: config,
+                  close: closeConfig,
+                },
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                title: 'Reset password'
+              }}
+            />
+          </Stack.Navigator>
+          :
           <Stack.Navigator initialRouteName='BottomSheet'>
             <Stack.Screen name='BottomSheet' component={HomePageScreen} options={{
               headerShown: false,
@@ -172,53 +173,8 @@ const AuthenScreen = () => {
               }} />
 
           </Stack.Navigator>
+
       }
-      {/* <HomePageScreen/> */}
-      {/* <Stack.Navigator
-        initialRouteName="Spash"
-        screenOptions={{
-          // header: () => null,
-          //gestureEnabled: true,
-          //gestureDirection: 'horizontal',
-        }}
-      //headerMode="none"
-      >
-        <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} options = {
-          {headerShown : false}
-        }/>
-        <Stack.Screen name="SignUp" component={SignUpScreen}
-          options={{
-            gestureEnabled: true,
-            gestureDirection: 'horizontal',
-            transitionSpec: {
-              open: config,
-              close: closeConfig,
-            },
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            title: 'Create your new account'
-          }}
-        />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options ={{
-          title: 'Reset password'
-        }}/>
-        <Stack.Screen name="HomePage" component={HomePageScreen} options = {{
-          headerLeft: null, 
-        }}/>
-
-        <Stack.Screen name="Loading" component={LoadingScreen} />
-        
-        <Stack.Screen name="Chat" component={ChatScreen} />
-       
-        
-        
-        
-        
-
-        
-        
-      </Stack.Navigator> */}
     </NavigationContainer>
   )
 }

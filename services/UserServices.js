@@ -1,8 +1,6 @@
 import axios from 'axios'
-import { getStorage } from '../utils/Storage'
 
 export const fetchCurrentUser = async () => {
-    //let token = await getStorage('@token')
     return axios.get(`/api/user/me`)
 }
 
@@ -10,7 +8,6 @@ export const fetchCurrentUser = async () => {
  * @param {params} params userID string
  */
 export const fetchUserById = async (params) => {
-    //let token = await getStorage('@token')
     return axios.get(`/api/user/fetchUserById/${params}`)
 }
 

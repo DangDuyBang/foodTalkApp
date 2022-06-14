@@ -15,7 +15,7 @@ export const saveStorage = async (key, val) => {
 
 export const getStorage = async (key) => {
     try{
-        storage = await AsyncStorage.getItem(key)
+        const storage = await AsyncStorage.getItem(key)
         return JSON.parse(storage)
     } catch(err) {
         return null

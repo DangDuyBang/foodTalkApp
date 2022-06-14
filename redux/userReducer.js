@@ -111,6 +111,43 @@ export const userSlice = createSlice({
 
         setUsersSearch: (state, action) => {
             state.usersSearch = action.payload
+        },
+
+        logout: (state, action) => {
+            state.isLoggedIn = false
+            // state.currentUser = {
+            //     data: null,
+            //     foods: [],
+            //     posts: [],
+            //     postPagination: {
+            //         currentPage: 0,
+            //         totalPages: 0,
+
+            //     },
+            //     foodPagination: {
+            //         currentPage: 0,
+            //         totalPages: 0,
+
+            //     },
+            // }
+            state.socketio = null
+            state.selectedUserProfile = {
+                data: null,
+                foods: [],
+                posts: [],
+                postPagination: {
+                    currentPage: 0,
+                    totalPages: 0,
+
+                },
+                foodPagination: {
+                    currentPage: 0,
+                    totalPages: 0,
+
+                },
+            }
+            state.users = []
+            state.usersSearch = []
         }
 
     },
@@ -129,7 +166,8 @@ export const {
     addUserPost,
     setSelectedUserFoods,
     setSelectedUserPosts,
-    setUsersSearch
+    setUsersSearch,
+    logout
 } = userSlice.actions
 
 export default userSlice.reducer

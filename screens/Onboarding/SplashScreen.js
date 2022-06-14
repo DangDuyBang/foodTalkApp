@@ -2,6 +2,7 @@ import { StyleSheet, View, Animated, Dimensions } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import color from '../../contains/color';
+import { getStorage, saveStorage } from '../../utils/Storage';
 
 const SplashScreen = ({ navigation }) => {
 

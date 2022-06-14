@@ -49,7 +49,7 @@ export const postSlice = createSlice({
       state.posts[index].num_heart = num_heart
       state.posts[index].reactions = reactions
 
-      if(state.currentPost.data) {
+      if(state.currentPost.data && state.currentPost.data._id === _id) {
         state.currentPost.data.num_heart = num_heart
         state.currentPost.reactions = reactions
       }
@@ -60,7 +60,7 @@ export const postSlice = createSlice({
       state.posts[index].num_heart += 1
       state.posts[index].reactions.push(action.payload.user._id)
 
-      if(state.currentPost.data) {
+      if(state.currentPost.data && state.currentPost.data._id == action.payload.post._id) {
         state.currentPost.data.num_heart += 1
         state.currentPost.data.reactions.push(action.payload.user._id)
       }
@@ -71,7 +71,7 @@ export const postSlice = createSlice({
       state.posts[index].num_heart -= 1
       state.posts[index].reactions = state.posts[index].reactions.filter(reaction => reaction !== action.payload.user._id)
 
-      if(state.currentPost.data) {
+      if(state.currentPost.data && state.currentPost.data._id == action.payload.post._id) {
         state.currentPost.data.num_heart -= 1
         state.currentPost.data.reactions = state.currentPost.data.reactions.filter(reaction => reaction !== action.payload.user._id)
       }
@@ -105,7 +105,7 @@ export const postSlice = createSlice({
       if (state.currentPost) {
         const index = state.currentPost.comments.findIndex(comment => comment._id === action.payload.parent)
         if (index !== -1) {
-          state.currentPost.comments[index].children.push(action.payload)
+          state.currentPost.comments[index].children.unshift(action.payload)
         } else {
           state.currentPost.comments.unshift(action.payload)
         }

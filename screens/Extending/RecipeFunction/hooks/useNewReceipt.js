@@ -7,6 +7,7 @@ import { createFood } from '../../../../services/FoodServices';
 import { useDispatch } from 'react-redux'
 import { setToast } from '../../../../redux/uiReducer'
 import { addFood } from '../../../../redux/foodReducer'
+import { addUserFood } from '../../../../redux/userReducer';
 
 function useNewReceipt({ navigation }) {
   const [uri, setUri] = useState(null)
@@ -84,13 +85,13 @@ function useNewReceipt({ navigation }) {
           photo: downloadURL
         }).then(response => {
           dispatch(addFood(response.data.food))
+          dispatch(addUserFood(response.data.food))
           dispatch(setToast({
             type: 'success',
             text1: 'Success',
             text2: response.data.message
           }))
           setLoading(false)
-          navigation.goBack()
         }).catch(err => {
           setLoading(false)
           if (err.response) {
@@ -106,6 +107,8 @@ function useNewReceipt({ navigation }) {
 
       })
     })
+
+    navigation.goBack()
 
   }
 
