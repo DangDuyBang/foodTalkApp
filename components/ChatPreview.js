@@ -69,7 +69,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.lastMessage && props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
+                                                    {props.data.lastMessage && (props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`)}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -78,7 +78,7 @@ const ChatPreview = (props) => {
                                                     styles.timeRecentlyChat,
                                                     { color: color.textGray },
                                                 ]}>
-                                                    {moment(props.data.lastMessage.created_at).fromNow()}
+                                                    {props.data.lastMessage &&moment(props.data.lastMessage.created_at).fromNow()}
                                                 </Text>
                                             </View>
                                         </View>
@@ -111,7 +111,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.lastMessage && props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
+                                                    {props.data.lastMessage  && (props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`)}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -121,7 +121,7 @@ const ChatPreview = (props) => {
                                                     { color: color.textBlack },
                                                     { fontWeight: 'bold' }
                                                 ]}>
-                                                    {moment(props.data.lastMessage.created_at).fromNow()}
+                                                    {props.data.lastMessage && moment(props.data.lastMessage.created_at).fromNow()}
                                                 </Text>
                                             </View>
                                         </View>

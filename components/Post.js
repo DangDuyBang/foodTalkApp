@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Share } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Share } from 'react-native'
 import React from 'react'
 import color from '../contains/color'
 import { FontAwesome } from '@expo/vector-icons'

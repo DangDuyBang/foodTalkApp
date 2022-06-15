@@ -91,11 +91,11 @@ export const postSlice = createSlice({
       state.currentPost.reactions.push(...action.payload.reacts.reactions)
     },
 
-    deleteCurrentReaction: (state, action) => {
+    deleteCurrentReaction: (state) => {
       state.currentPost.reactions = []
     },
 
-    deleteCurrentPost: (state, action) => {
+    deleteCurrentPost: (state) => {
       state.currentPost.comments = []
       state.currentPost.commentPagination.currentPage = 0
       state.currentPost.commentPagination.totalPage = 0

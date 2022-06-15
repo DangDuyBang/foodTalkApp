@@ -41,7 +41,7 @@ const SwipeSlide = (props) => {
             </ScrollView>
             <View style={styles.wrapDot}>
                 {
-                    images1&&images1.map((e, index) =>
+                    images1&&images1.map((index) =>
                         <Text
                             key={index}
                             style={imgActive == index ? styles.dotActive : styles.dot}
