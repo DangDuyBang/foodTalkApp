@@ -54,7 +54,7 @@ const NotifyPreview = (props) => {
                                 <Text style={[
                                     styles.timeNotify,
                                 ]}>
-                                    {moment(props.data.create_at).fromNow()}
+                                    {moment(props.data.created_at).fromNow()}
                                 </Text>
                             </View>
                         </View>

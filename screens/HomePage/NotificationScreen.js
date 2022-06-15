@@ -6,7 +6,7 @@ import NotifyPreview from '../../components/NotifyPreview';
 import {useSelector} from 'react-redux'
 
 const Stack = createStackNavigator();
-const NotificationScreen = ({ navigation }) => {
+const NotificationScreen = ({ }) => {
 
  const notifications = useSelector(state => state.ui.notifications)
 
@@ -14,7 +14,7 @@ const NotificationScreen = ({ navigation }) => {
     <View style={styles.container}>
         <SafeAreaView style={{ flex: 1 }}>
           <FlatList
-            data={notifications}
+            data={notifications.slice(0).reverse()}
             renderItem={({item}) => {
               return <NotifyPreview key={item._id} data={item} />
             }}
