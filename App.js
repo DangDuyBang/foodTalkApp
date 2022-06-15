@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addComment, addPost, likeUnlikePost } from './redux/postReducer';
 import { addNotification } from './redux/uiReducer';
 import { addMessage } from './redux/chatReducer';
+import { addRate } from './redux/foodReducer';
+import { setSocketio } from './redux/userReducer';
 
 axios.defaults.baseURL = 'https://foodtalk-backend.herokuapp.com'
 
@@ -53,7 +55,7 @@ export default function App() {
       })
 
       socketio.on('new-food-rate', ({ data }) => {
-        //foodDispatch({ type: 'ADD_RATE', payload: data })
+        dispatch(addRate(data))
       })
 
       socketio.on('delete-food-rate', ({ data }) => {
@@ -90,7 +92,7 @@ export default function App() {
 
       return () => {
         socketio.disconnect()
-        //userDispatch({ type: 'SET_SOCKETIO', payload: null })
+        //dispatch(setSocketio(null))
         console.log('disconnect')
       }
     }

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import color from '../../contains/color'
@@ -7,7 +7,7 @@ import InputPass from '../../components/InputPass'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { CheckBox } from 'react-native-elements'
 import useSignup from './hooks/useSignup'
-
+const HEIGHT = Dimensions.get('window').height;
 const SignUpScreen = ({ navigation }) => {
   const { loading, error, uri, checked, handleCheckedChange, handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync } = useSignup({ navigation })
 
@@ -15,9 +15,8 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
         <View style={styles.body}>
-          <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
+          {/* <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
             <View style={styles.avatarFrame}>
               {uri ? <Image style={styles.avatar} source={uri} /> :
                 <FontAwesome
@@ -26,7 +25,7 @@ const SignUpScreen = ({ navigation }) => {
                   style={styles.iconCamera}
                 ></FontAwesome>}
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <InputText inputIcon='user' inputName='Username' setNameText={handleUsernameChange} />
           <InputText inputIcon='pencil' inputName='First Name' setNameText={handleFirstNameChange} />
@@ -55,8 +54,6 @@ const SignUpScreen = ({ navigation }) => {
           </TouchableOpacity>
           <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} loading={loading} />
         </View>
-      </ScrollView>
-
     </View>
   )
 }
@@ -66,7 +63,10 @@ export default SignUpScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: HEIGHT,
     backgroundColor: color.background,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   iconArrow: {
     marginRight: 15,

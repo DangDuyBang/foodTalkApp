@@ -2,9 +2,9 @@ import { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../../../../firebase/firebase';
 import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage';
-import { updateProfile } from '../../../../services/AuthServices';
+import { updateAvatarPic, updateCoverPic, updateProfile } from '../../../../services/AuthServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from '../../../../redux/userReducer';
+import { setCurrentUser, updateAvatar, updateCover } from '../../../../redux/userReducer';
 import { setToast } from '../../../../redux/uiReducer';
 
 function useEditProfile({ navigation }) {
@@ -65,12 +65,14 @@ function useEditProfile({ navigation }) {
     }
 
     const changeProfile = async () => {
-        if(payload.username === currentUser.username){
-            const data = {...payload}
+        if (payload.username === currentUser.username) {
+            const data = { ...payload }
             delete payload['username']
-            setPayload({...data})
+            setPayload({ ...data })
 
         }
+
+        console.log(payload);
         await updateProfile(payload).then(respone => {
             dispatch(setCurrentUser(respone.data.user))
             dispatch(setToast({
@@ -91,10 +93,11 @@ function useEditProfile({ navigation }) {
     }
 
     const onChangeProfile = async () => {
+        const metadata = {
+            contentType: 'image/jpeg',
+        };
+
         if (uriCover) {
-            const metadata = {
-                contentType: 'image/jpeg',
-            };
 
             let filename = `cover/user${Date.now()}-${payload.username}`
             const imageRef = ref(storage, `images/${filename}`)
@@ -102,27 +105,20 @@ function useEditProfile({ navigation }) {
             const blob = await img.blob()
 
             uploadBytesResumable(imageRef, blob, metadata).then(snapshot => {
-                getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-                    setPayload({ ...payload, cover_url: downloadURL })
-
-                    if (uriAvatar) {
-                        let file = `avatar/user-${Date.now()}-${payload.username}`
-                        const iRef = ref(storage, `images/${file}`)
-                        const i = await fetch(uriAvatar.uri)
-                        const b = await i.blob()
-
-                        uploadBytesResumable(iRef, b, metadata).then(s => {
-                            getDownloadURL(s.ref).then((d) => {
-                                setPayload({ ...payload, avatar_url: d })
-                                changeProfile()
-                            })
+                getDownloadURL(snapshot.ref).then((downloadURL) => {
+                    dispatch(updateCover(downloadURL))
+                    updateCoverPic({ cover_url: downloadURL })
+                        .then(response => console.log(response.data.message))
+                        .catch(err => {
+                            if (err.respone) {
+                                console.log(err.respone.data.error);
+                            }
                         })
-                    } else {
-                        changeProfile()
-                    }
                 })
             })
-        } else if (uriAvatar) {
+        }
+
+        if (uriAvatar) {
             let file = `avatar/user-${Date.now()}-${payload.username}`
             const iRef = ref(storage, `images/${file}`)
             const i = await fetch(uriAvatar.uri)
@@ -130,13 +126,19 @@ function useEditProfile({ navigation }) {
 
             uploadBytesResumable(iRef, b, metadata).then(snapshot => {
                 getDownloadURL(snapshot.ref).then((downloadURL) => {
-                    setPayload({ ...payload, avatar_url: downloadURL })
-                    changeProfile()
+                    dispatch(updateAvatar(downloadURL))
+                    updateAvatarPic({ avatar_url: downloadURL })
+                        .then(response => console.log(response.data.message))
+                        .catch(err => {
+                            if (err.respone) {
+                                console.log(err.respone.data.error)
+                            }
+                        })
                 })
             })
-        } else {
-            changeProfile()
+
         }
+        changeProfile()
     }
 
     return {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import PostComment from '../../../components/PostComment'
 import color from '../../../contains/color'
@@ -6,10 +6,10 @@ import InputComment from '../../../components/InputComment'
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import useFetchPost from '../../HomePage/hooks/useFetchPost'
 import { useSelector, useDispatch } from 'react-redux'
-import { addComment, deleteCurrentPost } from '../../../redux/postReducer'
+import { deleteCurrentPost } from '../../../redux/postReducer'
 import { createComment } from '../../../services/PostServices'
 
-const CommentListScreen = ({ navigation, route }) => {
+const CommentListScreen = ({ route }) => {
 
     const { post_id } = route.params
     const dispatch = useDispatch()
@@ -50,7 +50,7 @@ const CommentListScreen = ({ navigation, route }) => {
     }
 
     const handleCloseReplying = () => {
-        if (isReplyPress == true) {
+        if (isReplyPress === true) {
             const data = { ...payload }
             delete data['parent']
             setPayload({
@@ -62,7 +62,7 @@ const CommentListScreen = ({ navigation, route }) => {
 
     const handleAddComment = async () => {
         setLoading(true)
-        await createComment(payload).then(response => {
+        await createComment(payload).then(() => {
             setPayload({
                 post: post_id,
                 content: '',
@@ -81,7 +81,7 @@ const CommentListScreen = ({ navigation, route }) => {
     const handleAddReplyComment = async () => {
         if (isReplyPress) {
             setLoading(true)
-            await createComment(payload).then(response => {
+            await createComment(payload).then(() => {
                 setPayload({
                     post: post_id,
                     content: '',
@@ -126,7 +126,7 @@ const CommentListScreen = ({ navigation, route }) => {
                         onReplyPress={() => handleReplyPress('ga_food_talk')}
                     /> */}
                 {
-                    comments && comments.map((item, index) => {
+                    comments && comments.map((item) => {
                         return <>
                             <PostComment
                                 key={item._id}
@@ -135,7 +135,7 @@ const CommentListScreen = ({ navigation, route }) => {
                                 reply
                             />
 
-                            {item.children && item.children.map((i, index) => {
+                            {item.children && item.children.map((i) => {
                                 return <PostComment
                                     key={i._id}
                                     comment={i}

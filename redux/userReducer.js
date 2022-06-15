@@ -117,6 +117,14 @@ export const userSlice = createSlice({
             state.usersSearch = action.payload
         },
 
+        updateCover: (state, action) => {
+            state.currentUser.data.cover_url = action.payload
+        },
+
+        updateAvatar: (state, action) => {
+            state.currentUser.data.avatar_url = action.payload
+        },
+
         logout: (state, action) => {
             state.isLoggedIn = false
             // state.currentUser = {
@@ -172,7 +180,9 @@ export const {
     setSelectedUserPosts,
     setUsersSearch,
     logout,
-    unfollow
+    unfollow,
+    updateAvatar,
+    updateCover
 } = userSlice.actions
 
 export default userSlice.reducer

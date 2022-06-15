@@ -1,3 +1,4 @@
+import { async } from '@firebase/util'
 import axios from 'axios'
 import { getStorage } from '../utils/Storage'
 
@@ -34,4 +35,13 @@ export const resetPassword = async () => {
 
 export const updateProfile = async (payload) => {
     return axios.post('/api/auth/update-profile', payload)
+}
+
+
+export const updateCoverPic = async (payload) => {
+    return axios.post('/api/auth/update-cover', payload)
+}
+
+export const updateAvatarPic = async (payload) => {
+    return axios.post('/api/auth/update-avatar', payload)
 }

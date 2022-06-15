@@ -48,11 +48,13 @@ export const foodSlice = createSlice({
     },
 
     addRate: (state, action) => {
-      state.currentFood.rates.unshift(action.payload.rate)
-      state.currentFood.data.avg_score = action.payload.food.avg_score
-      const index = state.foods.findIndex(food => food._id === action.payload.food._id)
-      if (index !== -1) {
-        state.foods[index].avg_score = action.payload.food.avg_score
+      if(state.currentFood.data) {
+        state.currentFood.rates.unshift(action.payload.rate)
+        state.currentFood.data.avg_score = action.payload.food.avg_score
+        const index = state.foods.findIndex(food => food._id === action.payload.food._id)
+        if (index !== -1) {
+          state.foods[index].avg_score = action.payload.food.avg_score
+        }
       }
     },
 
