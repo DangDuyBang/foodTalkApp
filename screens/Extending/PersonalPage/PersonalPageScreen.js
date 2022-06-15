@@ -18,37 +18,22 @@ const Tab = createMaterialTopTabNavigator();
 const PersonalPageScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const selectedUserProfile = useSelector(state => state.user.selectedUserProfile)
-    const { useFollow } = useUserAction()
-    navigation.setOptions({
-        title: selectedUserProfile.data.username,
-        headerRight: () => (
-            <View style={{ flexDirection: 'row' }}>
-                {
-                    isFollowing() ?
-                        <TouchableOpacity onPress={eventDetailChat}>
-                            <Ionicons name='chatbubble-ellipses-outline' style={{ marginRight: 15 }} size={28} color={color.primary}></Ionicons>
-                        </TouchableOpacity>
-                        :
-                        null
-                }
-                <TouchableOpacity>
-                    <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={28} color={color.primary} />
-                </TouchableOpacity>
-            </View>
-        )
-    })
+    const { useFollow, useUnfollow } = useUserAction()
 
     const currentUser = useSelector(state => state.user.currentUser)
 
     const isFollowing = () => {
         const index = currentUser.data.following.findIndex(f => f._id === selectedUserProfile.data._id)
-        if (index === -1) return false
-        return true
+        return index !== -1
     }
 
 
     const eventFollowing = () => {
         useFollow(selectedUserProfile.data._id)
+    }
+
+    const eventUnfollowing = async () => {
+        await useUnfollow(selectedUserProfile.data._id)
     }
 
     const eventDetailChat = () => {
@@ -59,6 +44,26 @@ const PersonalPageScreen = ({ navigation }) => {
     const { fetchSelectedUserFoodsList } = useFetchFood()
 
     useEffect(() => {
+        navigation.setOptions({
+            title: selectedUserProfile.data.username,
+            headerRight: () => (
+                <View style={{ flexDirection: 'row' }}>
+                    {
+                        isFollowing() ?
+                            <TouchableOpacity onPress={eventDetailChat}>
+                                <Ionicons name='chatbubble-ellipses-outline' style={{ marginRight: 15 }} size={28} color={color.primary}></Ionicons>
+                            </TouchableOpacity>
+                            :
+                            null
+                    }
+                    <TouchableOpacity>
+                        <Entypo name='dots-three-horizontal' style={{ marginRight: 15 }} size={28} color={color.primary} />
+                    </TouchableOpacity>
+                </View>
+            )
+        })
+
+
         fetchSelectedUserPosts()
         fetchSelectedUserFoodsList()
 
@@ -110,7 +115,7 @@ const PersonalPageScreen = ({ navigation }) => {
                         {
                             isFollowing() ?
                                 <SubmitNoLogo
-                                    eventButton={eventFollowing}
+                                    eventButton={eventUnfollowing}
                                     nameButton='Following'
                                     colorView={color.inputColor}
                                     colorName={color.textIconSmall}

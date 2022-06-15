@@ -55,6 +55,10 @@ export const userSlice = createSlice({
             // state.selectedUserProfile.data.follower = action.payload.following
         },
 
+        unfollow: (state, action) => {
+            state.currentUser.data.following = state.currentUser.data.following.filter(u => u._id !== action.payload)
+        },
+
         setSelectedUserProfile: (state, action) => {
             state.selectedUserProfile.data = action.payload
         },
@@ -167,7 +171,8 @@ export const {
     setSelectedUserFoods,
     setSelectedUserPosts,
     setUsersSearch,
-    logout
+    logout,
+    unfollow
 } = userSlice.actions
 
 export default userSlice.reducer

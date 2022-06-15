@@ -6,20 +6,30 @@ import AvatarUser from '../components/AvatarUser'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { setCurrentPost } from '../redux/postReducer'
+import { seenNotification } from '../redux/uiReducer'
+import { seenNoti } from '../services/UserServices'
 
 const NotifyPreview = (props) => {
     const navigation = useNavigation()
     const dispatch = useDispatch()
-    const handlePress = () => {
-        if(props.data.notify_type === 'POST') {
+    const handlePress = async () => {
+        if (props.data.notify_type === 'POST') {
             dispatch(setCurrentPost(props.data.post_data))
             navigation.navigate('DetailedPost')
+        }
+        if (!props.data.is_seen) {
+            dispatch(seenNotification(props.data._id))
+            await seenNoti(props.data._id).then(res => console.log(res.data.message)).catch(err => {
+                if (err.response) {
+                    console.log(err.response.data.error);
+                }
+            })
         }
     }
 
     return (
         <TouchableOpacity onPress={handlePress}>
-            <View style={styles.container} >
+            <View style={props.data.is_seen ? styles.container : [styles.container, { backgroundColor: color.post }]} >
                 <View style={styles.avatarAndName}>
                     <AvatarUser
                         sizeImage={50}

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import color from '../contains/color'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Ionicons } from '@expo/vector-icons'
@@ -23,8 +23,8 @@ const ChatPreview = (props) => {
     const user = () => {
         if (props.data.user_1._id === currentUser._id)
             return props.data.user_2
-            else
-        return props.data.user_1
+        else
+            return props.data.user_1
     }
 
     return (
@@ -49,7 +49,7 @@ const ChatPreview = (props) => {
                         <View style={styles.textContain}>
                             <Text style={styles.chatUsername}>{user().username}</Text>
                             {
-                                user().is_current ? 
+                                user().is_current ?
                                     <View style={{
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
@@ -69,7 +69,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
+                                                    {props.data.lastMessage && props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●
@@ -111,7 +111,7 @@ const ChatPreview = (props) => {
                                                 ]}
                                                     numberOfLines={1}
                                                 >
-                                                    {props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
+                                                    {props.data.lastMessage && props.data.lastMessage.content.length < 26 ? `${props.data.lastMessage.content}` : `${props.data.lastMessage.content.substring(0, 25)}...`}
                                                 </Text>
                                                 <Text style={[styles.timeRecentlyChat, { fontSize: 3 }]}>
                                                     ●

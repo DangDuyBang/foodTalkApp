@@ -23,10 +23,18 @@ export const uiSlice = createSlice({
       state.notifications.unshift(action.payload)
     },
 
+    seenNotification: (state, action) => {
+      const index = state.notifications.findIndex(n => n._id === action.payload)
+      if (index > -1) {
+        state.notifications[index].is_seen = true
+      }
+    },
+
+
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setToast, setNoti, addNotification } = uiSlice.actions
+export const { setToast, setNoti, addNotification, seenNotification } = uiSlice.actions
 
 export default uiSlice.reducer

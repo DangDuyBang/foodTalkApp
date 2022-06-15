@@ -30,6 +30,12 @@ const ImagePic = {
   imageRecipe_seventh: 'https://i.pinimg.com/564x/d8/26/da/d826da1074a62f23e3b0e1e86b0593d5.jpg',
 }
 
+const swipeSlidePhotos = [
+  'https://cdn.pixabay.com/photo/2020/03/28/14/53/fried-chicken-4977369_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2016/11/18/14/39/beans-1834984_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2017/09/28/18/13/bread-2796393_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2016/11/19/12/54/drink-1839134_960_720.jpg'
+]
 
 const Explore = ({ navigation }) => {
 
@@ -37,7 +43,7 @@ const Explore = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.bodyView}>
-          <SwipeSlide />
+          <SwipeSlide photos={swipeSlidePhotos} />
           <ExploreItem
             iconLeft='trending-up'
             tittleLeft='Trending'
@@ -72,7 +78,14 @@ const Explore = ({ navigation }) => {
             imagesPic7={ImagePic.imageRecipe_seventh}
             onExploreFunction={() => navigation.navigate("RecipeList")}
           />
-          <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review' />
+          <ExploreItem iconLeft='fast-food-outline' tittleLeft='Food Review'
+            imagesPic1={ImagePic.imageTrending_first}
+            imagesPic2={ImagePic.imageTrending_second}
+            imagesPic3={ImagePic.imageTrending_third}
+            imagesPic4={ImagePic.imageTrending_fouth}
+            imagesPic5={ImagePic.imageTrending_fith}
+            imagesPic6={ImagePic.imageTrending_sixth}
+            imagesPic7={ImagePic.imageTrending_seventh} />
         </View>
       </ScrollView>
     </View>

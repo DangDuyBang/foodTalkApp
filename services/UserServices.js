@@ -35,3 +35,7 @@ export const fetchUserById = async (params) => {
     //let token = await getStorage('@token')
     return axios.post(`/api/user/unfollow/${params}`)
 }
+
+export const seenNoti = async(params) => {
+    return axios.post(`/api/user/seen-noti/${params}`)
+}

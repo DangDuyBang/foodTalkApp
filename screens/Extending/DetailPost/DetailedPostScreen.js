@@ -370,7 +370,7 @@ const DetailedPostScreen = ({ navigation }) => {
                     <View style={styles.commentListView}>
                         {currentPost.comments && currentPost.comments.map(comment => {
                             return <>
-                                <PostComment onReplyPress={handleReplyPress} comment={comment} key={comment._id} />
+                                <PostComment onReplyPress={handleReplyPress} reply comment={comment} key={comment._id} />
 
                                 {
                                     comment.children && comment.children.map((i, index) => {
@@ -378,6 +378,7 @@ const DetailedPostScreen = ({ navigation }) => {
                                             key={i._id}
                                             comment={i}
                                             leftMargin={60}
+                                            reply = {false}
                                         />
                                     })
                                 }

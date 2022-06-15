@@ -41,8 +41,7 @@ const Post = (props) => {
     const isFollowed = () => {
         if (currentUser._id === props.post.author._id) return true
         const index = currentUser.following.findIndex(f => f._id === props.post.author._id)
-        if (index === -1) return false
-        return true
+        return index !== -1
     }
 
     const isLikedUser = () => {

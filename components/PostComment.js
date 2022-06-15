@@ -5,10 +5,10 @@ import moment from 'moment'
 import { useSelector } from 'react-redux'
 
 const PostComment = (props) => {
-    const currentUser = useSelector(state => state.user.currentUser.data)
+
     const handleReply = () => {
-        if(props.onReplyPress)
-        props.onReplyPress(props.comment.author.username, props.comment._id)
+        if (props.onReplyPress)
+            props.onReplyPress(props.comment.author.username, props.comment._id)
     }
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
@@ -26,11 +26,11 @@ const PostComment = (props) => {
                     <Text style={styles.firstCommentText}>{props.comment.content}</Text>
                 </View>
             </View>
-            <View style = {styles.botAction}>
+            <View style={styles.botAction}>
                 <Text style={styles.timeComment}>{moment(props.comment.created_at).fromNow()}</Text>
-                <TouchableOpacity onPress={handleReply} style={{display: props.display}}>
+                {props.reply && <TouchableOpacity onPress={handleReply} style={{ display: props.display }}>
                     <Text style={styles.replyButton}>Reply</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         </View>
     )

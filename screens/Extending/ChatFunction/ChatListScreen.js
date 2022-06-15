@@ -27,9 +27,6 @@ const Chat = () => {
     useEffect(() => {
             fetchChat()
 
-        return () => {
-
-        }
     }, [])
 
 

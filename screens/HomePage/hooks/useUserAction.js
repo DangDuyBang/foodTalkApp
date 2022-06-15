@@ -1,6 +1,6 @@
 import { followUser, unfollowUser } from '../../../services/UserServices'
 import { useDispatch } from 'react-redux'
-import { follow } from '../../../redux/userReducer'
+import { follow, unfollow } from '../../../redux/userReducer'
 import { useState } from 'react'
 
 const useUserAction = () => {
@@ -19,8 +19,9 @@ const useUserAction = () => {
     }
 
     const useUnfollow = async (user_id) => {
+        dispatch(unfollow(user_id))
         await unfollowUser(user_id).then(response => {
-            dispatch(follow(response.data.data))
+            console.log(response.data.message);
         }).catch(err => {
             if (err.response) {
                 console.log(err.response.data.error)

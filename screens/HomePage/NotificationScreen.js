@@ -15,7 +15,7 @@ const NotificationScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
           <FlatList
             data={notifications}
-            renderItem={({ item, index }) => {
+            renderItem={({item}) => {
               return <NotifyPreview key={item._id} data={item} />
             }}
           />

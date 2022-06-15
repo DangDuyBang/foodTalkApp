@@ -3,7 +3,6 @@ import React from 'react'
 import InputSearch from '../../../components/InputSearch'
 import color from '../../../contains/color'
 import User from '../../../components/User'
-import { createStackNavigator } from "@react-navigation/stack";
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentChat } from '../../../redux/chatReducer'
@@ -11,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { createChatRoom } from '../../../services/ChatServices'
 
 const UserList = () => {
-    const followers = useSelector(state => state.user.currentUser.data.follower)
+    const followers = useSelector(state => state.user.currentUser.data.following)
     const chats = useSelector(state => state.chat.chats)
     const dispatch = useDispatch()
     const navigation = useNavigation()

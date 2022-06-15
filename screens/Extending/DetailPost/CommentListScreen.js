@@ -39,7 +39,7 @@ const CommentListScreen = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false)
 
     const handleReplyPress = (nameUserComment, comment_id) => {
-        if (isReplyPress == false) {
+        if (isReplyPress === false) {
             setIsReplyPress(true)
             setNameUser(nameUserComment)
             setPayload({
@@ -132,6 +132,7 @@ const CommentListScreen = ({ navigation, route }) => {
                                 key={item._id}
                                 comment={item}
                                 onReplyPress={handleReplyPress}
+                                reply
                             />
 
                             {item.children && item.children.map((i, index) => {

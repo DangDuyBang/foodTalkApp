@@ -63,6 +63,11 @@ const useSignIn = () => {
             console.log(err);
             if (err.response) {
                 console.log(err.response.data.error)
+                dispatch(setToast({
+                    type: 'error',
+                    text1: 'Login failed',
+                    text2: err.response.data.error,
+                }))
                 setError(...err, err.response.data.error)
             }
         }

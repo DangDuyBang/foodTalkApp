@@ -109,7 +109,7 @@ const useSignup = ({ navigation }) => {
                 dispatch(setToast({
                     type: 'success',
                     text1: 'Your account has been registered',
-                    text2: 'Your account has been registered. Please checked your email',
+                    text2: 'Please checked your email',
                 }))
                 navigation.goBack()
             }
