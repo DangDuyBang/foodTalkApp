@@ -113,10 +113,10 @@ const useSignup = ({ navigation }) => {
                 }))
                 navigation.goBack()
             }
-        } catch (error) {
-            if (error.response) {
-                console.log(error.response.data.error)
-                setError(...err, error.response.data.error)
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response.data.error)
+                setError(...err, e.response.data.error)
             }
             setLoading(false)
         }

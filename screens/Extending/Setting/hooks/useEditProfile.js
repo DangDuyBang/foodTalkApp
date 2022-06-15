@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../../../../firebase/firebase';
 import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage';
@@ -6,7 +6,6 @@ import { updateProfile } from '../../../../services/AuthServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from '../../../../redux/userReducer';
 import { setToast } from '../../../../redux/uiReducer';
-import { async } from '@firebase/util';
 
 function useEditProfile({ navigation }) {
     const currentUser = useSelector(state => state.user.currentUser.data);
@@ -112,9 +111,9 @@ function useEditProfile({ navigation }) {
                         const i = await fetch(uriAvatar.uri)
                         const b = await i.blob()
 
-                        uploadBytesResumable(iRef, b, metadata).then(snapshot => {
-                            getDownloadURL(snapshot.ref).then((downloadURL) => {
-                                setPayload({ ...payload, avatar_url: downloadURL })
+                        uploadBytesResumable(iRef, b, metadata).then(s => {
+                            getDownloadURL(s.ref).then((d) => {
+                                setPayload({ ...payload, avatar_url: d })
                                 changeProfile()
                             })
                         })

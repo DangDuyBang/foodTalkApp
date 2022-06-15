@@ -4,7 +4,7 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useEffect } from 'react'
 import { PortalProvider } from '@gorhom/portal';
-import { LogBox, YellowBox } from 'react-native';
+import { LogBox } from 'react-native';
 import Toast from 'react-native-toast-message';
 import toastConfig from './utils/ToastConfig';
 import { useDispatch, useSelector } from 'react-redux';
