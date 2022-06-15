@@ -10,12 +10,11 @@ import moment from 'moment'
 import PostComment from '../../../components/PostComment'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteCurrentPost, likePost, unLikePost } from '../../../redux/postReducer'
-import { likeDislikePost } from '../../../services/PostServices'
+import { likeDislikePost, createComment } from '../../../services/PostServices'
 import useUserAction from '../../HomePage/hooks/useUserAction'
 import useFetchPost from '../../HomePage/hooks/useFetchPost'
 import InputComment from '../../../components/InputComment'
 import InfinityScrollView from '../../../components/InfinityScrollView'
-import { createComment } from '../../../services/PostServices'
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { setToast } from '../../../redux/uiReducer';
@@ -34,9 +33,10 @@ const DetailedPostScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
 
     const [isReplyPress, setIsReplyPress] = useState(false)
+    const [nameUser, setNameUser] = useState('')
 
     const handleReplyPress = (nameUserComment, comment_id) => {
-        if (isReplyPress == false) {
+        if (isReplyPress === false) {
             setIsReplyPress(true)
             setNameUser(nameUserComment)
             setPayload({
@@ -47,7 +47,7 @@ const DetailedPostScreen = ({ navigation }) => {
     }
 
     const handleCloseReplying = () => {
-        if (isReplyPress == true) {
+        if (isReplyPress === true) {
             const data = { ...payload }
             delete data['parent']
             setPayload({

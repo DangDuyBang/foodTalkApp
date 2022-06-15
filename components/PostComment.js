@@ -10,6 +10,7 @@ const PostComment = (props) => {
         if (props.onReplyPress)
             props.onReplyPress(props.comment.author.username, props.comment._id)
     }
+    
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
