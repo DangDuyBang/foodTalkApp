@@ -106,7 +106,11 @@ const DetailedPostScreen = ({ navigation }) => {
 
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: () => null,
+            headerTitle: () => (
+                <Text style={styles.nameUserText}>
+                    {currentPost.data.author.username}
+                </Text>
+            ),
             headerRight: () => (
                 <TouchableOpacity style={{ marginRight: 12 }} onPress={() => navigation.navigate("Search")}>
                     <FontAwesome
@@ -378,7 +382,7 @@ const DetailedPostScreen = ({ navigation }) => {
                                             key={i._id}
                                             comment={i}
                                             leftMargin={60}
-                                            reply = {false}
+                                            reply={false}
                                         />
                                     })
                                 }

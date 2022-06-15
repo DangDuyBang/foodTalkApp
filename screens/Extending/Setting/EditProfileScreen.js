@@ -105,7 +105,7 @@ const EditProfileScreen = ({ navigation }) => {
                                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                                 <Image
                                                     style={styles.coverImage}
-                                                    resizeMode='stretch'
+                                                    resizeMode='cover'
                                                     source={{
                                                         uri: currentUser.cover_url,
                                                     }}
@@ -116,7 +116,7 @@ const EditProfileScreen = ({ navigation }) => {
                                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                                 <Image
                                                     style={styles.coverImage}
-                                                    resizeMode='stretch'
+                                                    resizeMode='cover'
                                                     source={uriCover}
                                                 />
                                                 {/* <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={30} color={color.textGray}></Ionicons> */}
