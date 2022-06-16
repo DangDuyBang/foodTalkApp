@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import React from 'react'
 import color from '../../../contains/color'
 import { useSelector } from 'react-redux'
+import uuid from 'react-native-uuid';
 
 const ContentRecipeScreen = () => {
     const currentFood = useSelector(state => state.food.currentFood.data)
@@ -18,9 +19,9 @@ const ContentRecipeScreen = () => {
                 />
                 <Text style={styles.nameRecipe}>{currentFood.name}</Text>
                 <Text style={styles.ingredientTittle}>Ingredients</Text>
-                {currentFood.ingredients.map((ingr, index) => <Text key={index} style={styles.ingredientContent}>{ingr}</Text>)}
+                {currentFood.ingredients.map((ingr) => <Text key={uuid.v4()} style={styles.ingredientContent}>{ingr}</Text>)}
                 <Text style={styles.processTittle}>Process</Text>
-                {currentFood.recipe.map((r, index) => <Text key={index} style={styles.processContent}>{index + 1}. {r}</Text>)}
+                {currentFood.recipe.map((r, index) => <Text key={uuid.v4()} style={styles.processContent}>{index + 1}. {r}</Text>)}
             </View>
         </ScrollView>
 

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentChat } from '../../../redux/chatReducer'
 import { useNavigation } from '@react-navigation/native'
 import { createChatRoom } from '../../../services/ChatServices'
+import uuid from 'react-native-uuid';
 
 const UserList = () => {
     const followers = useSelector(state => state.user.currentUser.data.following)
@@ -42,7 +43,7 @@ const UserList = () => {
 
             <SafeAreaView style={{ flex: 1 }}>
                 <InfinityScrollView>
-                    {followers && followers.map((user, index) => <User key={index} fetchChatRoom={fetchChatRoom} data={user}></User>)}
+                    {followers && followers.map((user) => <User key={uuid.v4()} fetchChatRoom={fetchChatRoom} data={user}></User>)}
                 </InfinityScrollView>
             </SafeAreaView>
         </View>

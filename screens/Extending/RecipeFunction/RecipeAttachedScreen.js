@@ -8,6 +8,7 @@ import RecipeChosen from '../../../components/RecipeChosen'
 import useRecipeActions from './hooks/useRecipeActions'
 import { useDispatch, useSelector } from 'react-redux'
 import LottieView from 'lottie-react-native'
+import uuid from 'react-native-uuid';
 import { setCurrenFood, setRate } from '../../../redux/foodReducer'
 import { fetchAllRates } from '../../../services/FoodServices'
 
@@ -69,7 +70,7 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                         foodsSearch.length !== 0 ?
                             foodsSearch.map(recipe => (
                                 <RecipePreviewPlus
-                                    key={recipe._id} 
+                                    key={uuid.v4()} 
                                     data={recipe}
                                     foodList={foodList}
                                     onAddAttachedRecipe={handlePlusAttachedRecipe}
@@ -143,7 +144,7 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
                     <View style={styles.recipeChosenView}>
                         {
                             foodList.map((item, index) => {
-                                return <RecipeChosen key={index} foodName={item} onDeleteAttachedRecipe={handleMinusAttachedRecipe} />
+                                return <RecipeChosen key={uuid.v4()} foodName={item} onDeleteAttachedRecipe={handleMinusAttachedRecipe} />
                             })
                         }
                     </View>

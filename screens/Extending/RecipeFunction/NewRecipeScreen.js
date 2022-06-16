@@ -9,6 +9,7 @@ import IngredientShow from '../../../components/IngredientShow'
 import useNewReceipt from './hooks/useNewReceipt'
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import uuid from 'react-native-uuid';
 
 const NewRecipeScreen = ({ navigation }) => {
     const { loading, name, processList, ingredientList, uri, handleAddProcess, handleAddIngrdient, handleAddRecipe, handleChangeName, handleDeleteProcess, handleDeleteIngredient, openImagePickerAsync } = useNewReceipt({ navigation })
@@ -112,7 +113,7 @@ const NewRecipeScreen = ({ navigation }) => {
                         <View>
                             {
                                 ingredientList.map((item, index) => {
-                                    return <IngredientShow key={index} ingredientAn={item} onDeleteIngredient={() => handleDeleteIngredient(index)} />
+                                    return <IngredientShow key={uuid.v4()} ingredientAn={item} onDeleteIngredient={() => handleDeleteIngredient(index)} />
                                 })
                             }
                         </View>
@@ -121,7 +122,7 @@ const NewRecipeScreen = ({ navigation }) => {
                         <View>
                             {
                                 processList.map((item, index) => {
-                                    return <ProcessShow key={index} step={item} indexNumber={index + 1} onDeleteProcess={() => handleDeleteProcess(index)} />
+                                    return <ProcessShow key={uuid.v4()} step={item} indexNumber={index + 1} onDeleteProcess={() => handleDeleteProcess(index)} />
                                 })
                             }
                         </View>

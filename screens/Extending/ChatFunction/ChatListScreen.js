@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import InfinityScrollView from '../../../components/InfinityScrollView'
 import { setCurrentChat } from '../../../redux/chatReducer'
 import { useNavigation } from '@react-navigation/native'
+import uuid from 'react-native-uuid';
 const Stack = createStackNavigator();
 
 const Chat = () => {
@@ -45,7 +46,7 @@ const Chat = () => {
 
             <SafeAreaView style={{ flex: 1 }}>
                 <InfinityScrollView useLoads={fetchMoreChat}>
-                    {chats && chats.map((chat, index) => <ChatPreview data={chat} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />)}
+                    {chats && chats.map((chat, index) => <ChatPreview data={chat} key = {uuid.v4()} deleteChatEvent={() => deleteItem(index)} onDetailChat={eventDetailChat} />)}
                 </InfinityScrollView>
 
             </SafeAreaView>

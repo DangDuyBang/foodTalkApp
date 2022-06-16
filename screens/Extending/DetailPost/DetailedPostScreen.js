@@ -18,6 +18,7 @@ import InfinityScrollView from '../../../components/InfinityScrollView'
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { setToast } from '../../../redux/uiReducer';
+import uuid from 'react-native-uuid';
 
 const DetailedPostScreen = ({ navigation }) => {
     const currentUser = useSelector(state => state.user.currentUser.data)
@@ -156,9 +157,8 @@ const DetailedPostScreen = ({ navigation }) => {
 
     const isFollowed = () => {
         if (currentUser._id === currentPost.data.author._id) return true
-        const index = currentUser.following.findIndex(f => false._id === currentPost.data.author._id)
-        if (index > -1) return true
-        return false
+        const index = currentUser.following.findIndex(f => f._id === currentPost.data.author._id)
+        return index > -1;
     }
 
     const isLikedUser = () => {
@@ -352,7 +352,7 @@ const DetailedPostScreen = ({ navigation }) => {
 
                                 {currentPost.data.foods && currentPost.data.foods.length > 0 ? (
                                     currentPost.data.foods.map((food) => (
-                                        <RecipeShowed food={food} key={food._id} />
+                                        <RecipeShowed food={food} key={uuid.v4()} />
                                     ))
                                 ) : null}
 
@@ -374,12 +374,12 @@ const DetailedPostScreen = ({ navigation }) => {
                     <View style={styles.commentListView}>
                         {currentPost.comments && currentPost.comments.map(comment => {
                             return <>
-                                <PostComment onReplyPress={handleReplyPress} reply comment={comment} key={comment._id} />
+                                <PostComment onReplyPress={handleReplyPress} reply comment={comment} key={uuid.v4()} />
 
                                 {
-                                    comment.children && comment.children.map((i, index) => {
+                                    comment.children && comment.children.map((i) => {
                                         return <PostComment
-                                            key={i._id}
+                                            key={uuid.v4()}
                                             comment={i}
                                             leftMargin={60}
                                             reply={false}

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import InfinityScrollView from '../../components/InfinityScrollView'
 import useFetchPost from './hooks/useFetchPost'
 import LottieView from 'lottie-react-native'
+import uuid from 'react-native-uuid';
 
 const ComunityPostScreen = () => {
     const currentUser = useSelector(state => state.user.currentUser)
@@ -37,7 +38,7 @@ const ComunityPostScreen = () => {
                 {
                     currentUser.posts && currentUser.posts.length > 0 ?
                         currentUser.posts.map(post =>
-                            <PostInAccount key={post._id} post={post} />
+                            <PostInAccount key={uuid.v4()} post={post} />
                         )
                         :
                         <View style={{

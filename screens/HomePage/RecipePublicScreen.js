@@ -5,6 +5,7 @@ import RecipePreview from '../../components/RecipePreview'
 import useFetchFood from './hooks/useFetchFood'
 import InfinityScrollView from '../../components/InfinityScrollView'
 import { useSelector } from 'react-redux'
+import uuid from 'react-native-uuid';
 
 const RecipePublicScreen = () => {
 
@@ -14,7 +15,7 @@ const RecipePublicScreen = () => {
     return (
         <View style={styles.container}>
             <InfinityScrollView onLoads={fetchUserFoodsList}>
-                {foods && foods.map(food => <RecipePreview data={food} key={food._id} />)}
+                {foods && foods.map(food => <RecipePreview data={food} key={uuid.v4()} />)}
                 {/* Sử dụng Component RecipePreview để hiển thị ở trang này */}
                 {/* <RecipePreview /> */}
             </InfinityScrollView>

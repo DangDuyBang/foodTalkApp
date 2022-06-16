@@ -8,6 +8,7 @@ import useFetchPost from '../../HomePage/hooks/useFetchPost'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteCurrentPost } from '../../../redux/postReducer'
 import { createComment } from '../../../services/PostServices'
+import uuid from 'react-native-uuid';
 
 const CommentListScreen = ({ route }) => {
 
@@ -129,7 +130,7 @@ const CommentListScreen = ({ route }) => {
                     comments && comments.map((item) => {
                         return <>
                             <PostComment
-                                key={item._id}
+                                key={uuid.v4()}
                                 comment={item}
                                 onReplyPress={handleReplyPress}
                                 reply
@@ -137,7 +138,7 @@ const CommentListScreen = ({ route }) => {
 
                             {item.children && item.children.map((i) => {
                                 return <PostComment
-                                    key={i._id}
+                                    key={uuid.v4()}
                                     comment={i}
                                     onReplyPress={handleReplyPress}
                                     leftMargin={60}

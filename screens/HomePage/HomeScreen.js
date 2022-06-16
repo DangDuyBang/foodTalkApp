@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native'
 import Shortcut from '../../components/Shortcut'
 import InfinityScrollView from '../../components/InfinityScrollView'
+import uuid from 'react-native-uuid';
 
 const HomeScreen = ({ navigation }) => {
 
@@ -137,8 +138,8 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.body}>
           {
             posts && posts.length > 0 ?
-              posts.map((post, index) =>
-                <Post post={post} key={post._id} onCommentList={eventOpenCommentList} onUserReactionList={eventOpenUserReactionList}></Post>
+              posts.map((post) =>
+                <Post post={post} key={uuid.v4()} onCommentList={eventOpenCommentList} onUserReactionList={eventOpenUserReactionList}></Post>
               )
               :
               <View style={{

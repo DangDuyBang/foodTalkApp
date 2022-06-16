@@ -6,6 +6,7 @@ import InfinityScrollView from '../../../components/InfinityScrollView'
 import { useSelector } from 'react-redux'
 import useFetchPost from '../../HomePage/hooks/useFetchPost'
 import LottieView from 'lottie-react-native'
+import uuid from 'react-native-uuid';
 
 const ImagePic = {
     imagePost_first: 'https://i.pinimg.com/564x/3f/32/94/3f32941eb6f31b5b7b972da29aefa329.jpg',
@@ -47,7 +48,7 @@ const PublicPostScreen = () => {
                 {
                     posts && posts.length > 0 ?
                         posts.map(post =>
-                            <PostInAccount post={post} key = {post._id}/>
+                            <PostInAccount post={post} key = {uuid.v4()}/>
                         )
                         :
                         <View style={{

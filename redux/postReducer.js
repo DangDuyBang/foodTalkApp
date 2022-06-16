@@ -107,7 +107,7 @@ export const postSlice = createSlice({
         if (index !== -1) {
           state.currentPost.comments[index].children.unshift(action.payload)
         } else {
-          state.currentPost.comments.unshift(action.payload)
+          state.currentPost.comments.push(action.payload)
         }
       }
 
