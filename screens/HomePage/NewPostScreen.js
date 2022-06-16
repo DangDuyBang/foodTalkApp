@@ -7,6 +7,7 @@ import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { useCreatePost } from './hooks/useCreatePost'
 import RecipeShowed from '../../components/RecipeShowed'
 import { useSelector } from 'react-redux'
+import uuid from 'react-native-uuid';
 
 const NewPostScreen = ({ navigation, route }) => {
     //cập nhật thêm checkin với foods
@@ -89,7 +90,7 @@ const NewPostScreen = ({ navigation, route }) => {
                         }}>
                             {foods && foods.map(food => (
                                 <RecipeShowed
-                                    key={food.id}
+                                    key={uuid.v4()}
                                     food={food}
                                 />
                             ))}

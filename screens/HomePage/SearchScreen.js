@@ -7,6 +7,7 @@ import MessageText from '../../components/MessageText'
 import { useDispatch, useSelector } from 'react-redux'
 import RecipePreview from '../../components/RecipePreview'
 import { setSelectedUserProfile } from '../../redux/userReducer'
+import uuid from 'react-native-uuid';
 
 const SearchScreen = ({ navigation }) => {
     const usersSearch = useSelector(state => state.user.usersSearch)
@@ -98,8 +99,8 @@ const SearchScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {usersSearch && usersSearch.map((user, index) => <Users user={user} key={user._id} />)}
-            {foodsSearch && foodsSearch.map((food, index) => <RecipePreview data={food} key={food._id} />)}
+            {usersSearch && usersSearch.map((user, index) => <Users user={user} key={uuid.v4()} />)}
+            {foodsSearch && foodsSearch.map((food, index) => <RecipePreview data={food} key={uuid.v4()} />)}
         </View>
     )
 }

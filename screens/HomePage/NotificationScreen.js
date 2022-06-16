@@ -4,9 +4,10 @@ import color from '../../contains/color'
 import { createStackNavigator } from "@react-navigation/stack";
 import NotifyPreview from '../../components/NotifyPreview';
 import {useSelector} from 'react-redux'
+import uuid from 'react-native-uuid';
 
 const Stack = createStackNavigator();
-const NotificationScreen = ({ }) => {
+const NotificationScreen = () => {
 
  const notifications = useSelector(state => state.ui.notifications)
 
@@ -15,8 +16,9 @@ const NotificationScreen = ({ }) => {
         <SafeAreaView style={{ flex: 1 }}>
           <FlatList
             data={notifications.slice(0).reverse()}
+            keyExtractor={item => uuid.v4()}
             renderItem={({item}) => {
-              return <NotifyPreview key={item._id} data={item} />
+              return <NotifyPreview data={item} />
             }}
           />
         </SafeAreaView>

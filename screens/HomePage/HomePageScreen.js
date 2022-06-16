@@ -8,12 +8,16 @@ import color from '../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
 import HomePageNavigation from './HomePageNavigation'
 import NotiNavigation from './NotiNavigation'
+import { useSelector } from 'react-redux'
 
 const Tab = createBottomTabNavigator();
 
 const HomePageScreen = ({ navigation }) => {
 
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
+  const notifications = useSelector(state => state.ui.notifications)
+
+
 
   return (
     <Tab.Navigator
@@ -119,7 +123,9 @@ const HomePageScreen = ({ navigation }) => {
             </View>
 
           </View>
-        )
+        ),
+
+        tabBarBadge: notifications.filter(n => n.is_seen === false).length === 0 ? null : notifications.filter(n => n.is_seen === false).length,
       }} />
       <Tab.Screen name="Account" component={AccountScreen} options={{
         tabBarIcon: ({ focused }) => (

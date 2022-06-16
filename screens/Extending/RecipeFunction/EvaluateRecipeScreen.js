@@ -7,8 +7,9 @@ import InfinityScrollView from '../../../components/InfinityScrollView'
 import { addRate, deleteCurrentFood, setRate } from '../../../redux/foodReducer'
 import { createRateFood, fetchAllRates } from '../../../services/FoodServices'
 import { Ionicons } from '@expo/vector-icons'
+import uuid from 'react-native-uuid';
 
-const EvaluateRecipeScreen = ({ navigation }) => {
+const EvaluateRecipeScreen = () => {
 
     const currentFood = useSelector(state => state.food.currentFood)
     const dispatch = useDispatch()
@@ -77,7 +78,7 @@ const EvaluateRecipeScreen = ({ navigation }) => {
                         return (
                             <TouchableOpacity
                                 activeOpacity={0.7}
-                                key={item}
+                                key={uuid.v4()}
                                 onPress={() => onRatingChange(item)}
                             >
                                 <Image
@@ -103,7 +104,7 @@ const EvaluateRecipeScreen = ({ navigation }) => {
                     {
                         currentFood.rates && currentFood.rates.map((item) => {
                             return <RecipeComment
-                                key={item._id}
+                                key={uuid.v4()}
                                 rate={item}
                             />
                         })

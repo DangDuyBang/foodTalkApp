@@ -7,6 +7,7 @@ import RecipePreview from '../../../components/RecipePreview'
 import useRecipeActions from './hooks/useRecipeActions'
 import { useSelector } from 'react-redux'
 import LottieView from 'lottie-react-native'
+import uuid from 'react-native-uuid';
 import { setCurrenFood } from '../../../redux/foodReducer'
 
 const RecipeListScreen = ({ navigation }) => {
@@ -42,7 +43,7 @@ const RecipeListScreen = ({ navigation }) => {
                         foodsSearch.length !== 0 ?
                             foodsSearch.map(recipe => (
                                 <RecipePreview
-                                    key={recipe._id}
+                                    key={uuid.v4()}
                                     data={recipe}
                                     // onDetailRecipe={handleDetailRecipe}
                                 />

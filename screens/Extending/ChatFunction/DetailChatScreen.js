@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import color from '../../../contains/color'
-import { FontAwesome } from '@expo/vector-icons'
 import InputChat from '../../../components/InputChat'
 import { useDispatch, useSelector } from 'react-redux'
 import useFetchChat from './hooks/useFetchChat'
@@ -10,13 +9,13 @@ import InfinityScrollView from '../../../components/InfinityScrollView'
 import MessageText from '../../../components/MessageText'
 import useChatAction from './hooks/useChatAction'
 import moment from 'moment'
+import uuid from 'react-native-uuid';
 
-const DetailChatScreen = ({ navigation, route }) => {
+const DetailChatScreen = ({ navigation }) => {
     const currentChat = useSelector(state => state.chat.currentChat)
     const messages = useSelector(state => state.chat.messages)
     const currentUser = useSelector(state => state.user.currentUser.data)
     const dispatch = useDispatch()
-    const ref = useRef()
 
     const { fetchMessages, fetchMoreMessages } = useFetchChat()
     const { createMessage } = useChatAction()
@@ -59,14 +58,14 @@ const DetailChatScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-                <InfinityScrollView scrollEnd={true} reverse={true} useLoadReverse={() => fetchMoreMessages(currentChat._id)}>
-                    
-                        {messages && messages.slice(0).reverse().map((message, index) => <MessageText message={message} key={index} />)}
-                  
-                </InfinityScrollView>
-                <View style={styles.sendMessageView}>
-                    <InputChat createMessage={createMessage} />
-                </View>
+            <InfinityScrollView scrollEnd={true} reverse={true} useLoadReverse={() => fetchMoreMessages(currentChat._id)}>
+
+                {messages && messages.slice(0).reverse().map((message) => <MessageText message={message} key={uuid.v4()} />)}
+
+            </InfinityScrollView>
+            <View style={styles.sendMessageView}>
+                <InputChat createMessage={createMessage} />
+            </View>
         </View>
     )
 }

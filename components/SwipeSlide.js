@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image } from 'react-native'
 import React, {useState} from 'react'
 import color from '../contains/color';
+import uuid from 'react-native-uuid';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -30,7 +31,7 @@ const SwipeSlide = (props) => {
                 {
                     images1&&images1.map((e, index) =>
                         <Image
-                            key={index}
+                            key={uuid.v4()}
                             resizeMode='cover'
                             style={styles.wrap}
                             source={{ uri: e }}
@@ -43,7 +44,7 @@ const SwipeSlide = (props) => {
                 {
                     images1&&images1.map((index) =>
                         <Text
-                            key={index}
+                            key={uuid.v4()}
                             style={imgActive == index ? styles.dotActive : styles.dot}
                         >
                             ●

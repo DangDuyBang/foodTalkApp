@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { likePost, unLikePost } from '../redux/postReducer'
 import useUserAction from '../screens/HomePage/hooks/useUserAction'
 import AvatarUser from './AvatarUser'
+import uuid from 'react-native-uuid';
 
 const Post = (props) => {
 
@@ -159,7 +160,7 @@ const Post = (props) => {
                     >
                         {props.post.foods && props.post.foods.length > 0 ? (
                             props.post.foods.map((food) => (
-                                <RecipeShowed food={food} key={food._id} />
+                                <RecipeShowed food={food} key={uuid.v4()} />
                             ))
                         ) : null}
                     </ScrollView>
