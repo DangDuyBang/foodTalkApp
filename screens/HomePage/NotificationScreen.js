@@ -3,26 +3,26 @@ import React from 'react'
 import color from '../../contains/color'
 import { createStackNavigator } from "@react-navigation/stack";
 import NotifyPreview from '../../components/NotifyPreview';
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import uuid from 'react-native-uuid';
 
 const Stack = createStackNavigator();
 const NotificationScreen = () => {
 
- const notifications = useSelector(state => state.ui.notifications)
+  const notifications = useSelector(state => state.ui.notifications)
 
   return (
     <View style={styles.container}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <FlatList
-            data={notifications.slice(0).reverse()}
-            keyExtractor={item => uuid.v4()}
-            renderItem={({item}) => {
-              return <NotifyPreview data={item} />
-            }}
-          />
-        </SafeAreaView>
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList
+          data={notifications.slice(0).reverse()}
+          keyExtractor={item => uuid.v4()}
+          renderItem={({ item }) => {
+            return <NotifyPreview data={item} />
+          }}
+        />
+      </SafeAreaView>
+    </View>
   )
 }
 
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: color.background,
+    paddingBottom: 70,
   },
   chatFrame: {
     marginRight: 16,

@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        //paddingBottom: 130,
+        paddingBottom: 130,
     },
 })
