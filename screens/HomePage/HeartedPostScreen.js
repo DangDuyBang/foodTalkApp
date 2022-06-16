@@ -5,7 +5,21 @@ import color from '../../contains/color'
 const HeartedPostScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HeartedPostScreen</Text>
+      <View style={{
+        alignItems: 'center',
+        width: '100%',
+        backgroundColor: color.background
+      }}>
+        <Text style={{
+          fontWeight: 'bold',
+          fontSize: 16,
+          marginTop: 50,
+          textAlign: 'center'
+        }}>
+          There's no thing at all {'\n'}
+          User's posts will be display at here.
+        </Text>
+      </View>
     </View>
   )
 }
@@ -13,12 +27,10 @@ const HeartedPostScreen = () => {
 export default HeartedPostScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // paddingTop: 5,
-        // paddingBottom: 130,
-        backgroundColor: color.background,
-    }
+  container: {
+    flex: 1,
+    // paddingTop: 5,
+    // paddingBottom: 130,
+    backgroundColor: color.background,
+  }
 })

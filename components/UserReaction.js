@@ -1,11 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import color from '../contains/color'
 import AvatarUser from './AvatarUser'
+import LottieView from 'lottie-react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import moment from 'moment'
 
 const UserReaction = (props) => {
+
+    const animation = React.useRef(null);
+    React.useEffect(() => {
+        animation.current.play(19, 50);
+    }, [])
+
     return (
         <TouchableOpacity>
             <View style={styles.container} >
@@ -22,6 +29,21 @@ const UserReaction = (props) => {
                         <Text style={styles.chatUsername}>{props.reaction.first_name} {props.reaction.last_name}</Text>
                     </View>
                 </View>
+                <View style={{
+                    alignItems: 'center',
+                }}>
+                    <LottieView
+                        ref={animation}
+                        source={require('../assets/lottie/44921-like-animation.json')}
+                        autoPlay={false}
+                        loop={false}
+                        speed={2}
+                        style={{
+                            width: 50,
+                            height: 50,
+                        }}
+                    />
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -34,7 +56,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 15,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
     },
     avatarAndName: {
         flexDirection: 'row',

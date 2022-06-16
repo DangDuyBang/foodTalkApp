@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import color from '../contains/color';
 import uuid from 'react-native-uuid';
 
@@ -29,9 +29,9 @@ const SwipeSlide = (props) => {
                 style={styles.wrap}
             >
                 {
-                    images1&&images1.map((e, index) =>
+                    images1 && images1.map((e, index) =>
                         <Image
-                            key={uuid.v4()}
+                            key={e}
                             resizeMode='cover'
                             style={styles.wrap}
                             source={{ uri: e }}
@@ -42,9 +42,9 @@ const SwipeSlide = (props) => {
             </ScrollView>
             <View style={styles.wrapDot}>
                 {
-                    images1&&images1.map((index) =>
+                    images1 && images1.map((e, index) =>
                         <Text
-                            key={uuid.v4()}
+                            key={e}
                             style={imgActive == index ? styles.dotActive : styles.dot}
                         >
                             ●
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
     dot: {
         margin: 3,
-        color: 'white',
+        color: color.background,
         fontSize: 10,
     },
 })

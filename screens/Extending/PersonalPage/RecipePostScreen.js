@@ -5,7 +5,21 @@ import color from '../../../contains/color'
 const RecipePostScreen = () => {
     return (
         <View style={styles.container}>
-            <Text>RecipePostScreen</Text>
+            <View style={{
+                alignItems: 'center',
+                width: '100%',
+                backgroundColor: color.background
+            }}>
+                <Text style={{
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    marginTop: 50,
+                    textAlign: 'center'
+                }}>
+                    There's no thing at all {'\n'}
+                    User's recipes will be display at here.
+                </Text>
+            </View>
         </View>
     )
 }

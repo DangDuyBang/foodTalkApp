@@ -7,6 +7,8 @@ import InputPass from '../../components/InputPass'
 import SubmitNoLogo from '../../components/SubmitNoLogo'
 import { CheckBox } from 'react-native-elements'
 import useSignup from './hooks/useSignup'
+import LottieView from 'lottie-react-native'
+
 const HEIGHT = Dimensions.get('window').height;
 const SignUpScreen = ({ navigation }) => {
   const { loading, error, uri, checked, handleCheckedChange, handleUsernameChange, handleFirstNameChange, handleLastNameChange, handleEmailChange, handlePasswordChange, handleConfirmPasswordChange, handleConfirm, openImagePickerAsync } = useSignup({ navigation })
@@ -15,6 +17,22 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
+
+        <View style={{
+          alignItems: 'center',
+          marginBottom: 15
+        }}>
+          <LottieView
+            source={require('../../assets/lottie/cooking_signup.json')}
+            autoPlay loop
+            style={{
+              width: 210,
+              height: 210,
+            }}
+          />
+        </View>
+
         <View style={styles.body}>
           {/* <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
             <View style={styles.avatarFrame}>
@@ -54,6 +72,7 @@ const SignUpScreen = ({ navigation }) => {
           </TouchableOpacity>
           <SubmitNoLogo nameButton='SIGN UP' colorView={color.primary} colorName={color.background} eventButton={handleConfirm} loading={loading} />
         </View>
+      </ScrollView>
     </View>
   )
 }
@@ -78,7 +97,7 @@ const styles = StyleSheet.create({
     color: color.textGray
   },
   body: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tittle: {
     marginTop: 10,
@@ -108,6 +127,7 @@ const styles = StyleSheet.create({
   bot: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 10
   },
   checkBoxView: {
     backgroundColor: color.background,
