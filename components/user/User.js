@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
-import color from '../contains/color'
-import AvatarUser from '../components/AvatarUser'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React from 'react'
+import color from '../../contains/color'
+import AvatarUser from './AvatarUser'
 
 const User = (props) => {
 

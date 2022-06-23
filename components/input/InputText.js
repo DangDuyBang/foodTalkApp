@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import { Entypo } from '@expo/vector-icons'
-import color from '../contains/color'
-import * as Animatable from 'react-native-animatable';
+import color from '../../contains/color'
 
 const InputText = (props) => {
 

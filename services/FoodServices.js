@@ -1,75 +1,65 @@
-import axios from 'axios'
-import { getStorage } from '../utils/Storage'
+import axios from "axios";
+import { getStorage } from "../utils/Storage";
 
 /**
  * @param {payload} payload { name, ingredients, recipe, about = '', photo = '' }
  */
 export const createFood = async (payload) => {
-    //let token = await getStorage('@token')
-    return axios.post(`/api/food/create`, payload)
-}
+  return axios.post(`/api/food/create`, payload);
+};
 
 /**
  * @param {payload} payload { food, content, score }
  */
 export const createRateFood = async (payload) => {
-    //let token = await getStorage('@token')
-    return axios.post(`/api/food/rate`, payload)
-}
+  return axios.post(`/api/food/rate`, payload);
+};
 
 /**
  * @param {params} parmas food_id string
  */
 export const fetchFoodById = async (params) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/foods/${params}`)
-}
+  return axios.get(`/api/food/foods/${params}`);
+};
 
 /**
  * @param {params} parmas food_id string
  */
 export const searchFood = async (params) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/search/${params}`)
-}
+  return axios.get(`/api/food/search/${params}`);
+};
 
 /**
  * @param {params} parmas food_id string
  */
- export const fetchAllRates = async (food_id, currentPage) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/rate/${food_id}/?page=${currentPage}`)
-}
-
+export const fetchAllRates = async (food_id, currentPage) => {
+  return axios.get(`/api/food/rate/${food_id}/?page=${currentPage}`);
+};
 
 /**
  * @param {params} parmas ingredient name
  */
 export const recommendationIngr = async (params) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/ingredients/${params}`)
-}
-
+  return axios.get(`/api/food/ingredients/${params}`);
+};
 
 /**
  * @param {ingrs} ingrs array of ingredients name
  */
 export const recommendationPairingIngr = async (ingrs) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/pairing/ingredients`, {
-        params: {
-            ingrs: ingrs
-        }
-    })
-}
+  return axios.get(`/api/food/pairing/ingredients`, {
+    params: {
+      ingrs: ingrs,
+    },
+  });
+};
 
 export const pairingIngr = async (params) => {
-    return axios.post('http://kitchenette.korea.ac.kr/api', {
-        name: params
-    })
-}
+  return axios.post("http://kitchenette.korea.ac.kr/api", {
+    name: params,
+  });
+};
 
 export const fetchUserFoods = async (user_id, currentPage) => {
-    //let token = await getStorage('@token')
-    return axios.get(`/api/food/user-foods/${user_id}/?page=${currentPage}`)
-}
+  return axios.get(`/api/food/user-foods/${user_id}/?page=${currentPage}`);
+};

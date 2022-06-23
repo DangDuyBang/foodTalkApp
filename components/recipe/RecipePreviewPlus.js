@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React, {  } from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrenFood, setRate } from '../redux/foodReducer'
-import { fetchAllRates } from '../services/FoodServices'
+import { setCurrenFood } from '../../redux/foodReducer'
 
 const RecipePreviewPlus = (props) => {
 

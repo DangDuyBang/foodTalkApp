@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Share } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
-import SwipeSlide from './SwipeSlide'
+import SwipeSlide from '../SwipeSlide'
 import LottieView from 'lottie-react-native'
-import RecipeShowed from './RecipeShowed'
+import RecipeShowed from '../recipe/RecipeShowed'
 import moment from 'moment'
-import { likeDislikePost } from '../services/PostServices'
+import { likeDislikePost } from '../../services/PostServices'
 import { useSelector, useDispatch } from 'react-redux'
-import { likePost, unLikePost } from '../redux/postReducer'
-import useUserAction from '../screens/HomePage/hooks/useUserAction'
-import AvatarUser from './AvatarUser'
+import { likePost, unLikePost } from '../../redux/postReducer'
+import useUserAction from '../../screens/HomePage/hooks/useUserAction'
+import AvatarUser from '../user/AvatarUser'
 import uuid from 'react-native-uuid';
 
 const Post = (props) => {
@@ -134,7 +134,7 @@ const Post = (props) => {
                             <LottieView
                                 ref={animation}
                                 style={styles.heartIconLottie}
-                                source={require("../assets/lottie/44921-like-animation.json")}
+                                source={require("../../assets/lottie/44921-like-animation.json")}
                                 autoPlay={false}
                                 loop={false}
                                 speed={1}

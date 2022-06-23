@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { setCurrentPost } from '../redux/postReducer'
+import { setCurrentPost } from '../../redux/postReducer'
 const WIDTH = Dimensions.get('window').width
 
 const PostInAccount = (props) => {

@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
-import color from '../contains/color'
+import React from 'react'
+import color from '../../contains/color'
 import AvatarUser from './AvatarUser'
 import LottieView from 'lottie-react-native'
-import { FontAwesome } from '@expo/vector-icons'
-import moment from 'moment'
 
 const UserReaction = (props) => {
 
@@ -34,7 +32,7 @@ const UserReaction = (props) => {
                 }}>
                     <LottieView
                         ref={animation}
-                        source={require('../assets/lottie/44921-like-animation.json')}
+                        source={require('../../assets/lottie/44921-like-animation.json')}
                         autoPlay={false}
                         loop={false}
                         speed={2}

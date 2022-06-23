@@ -1,10 +1,10 @@
 import React from 'react'
-import ImageBrowserScreen from '../Extending/ImagePicker/ImagePickerMultiple'
-import IMLocationSelectorModal from '../Extending/Map/Map'
-import RecipeAttachedScreen from '../Extending/RecipeFunction/RecipeAttachedScreen'
+import ImageBrowserScreen from '../../screens/Extending/ImagePicker/ImagePickerMultiple'
+import IMLocationSelectorModal from '../../screens/Extending/Map/Map'
+import RecipeAttachedScreen from '../../screens/Extending/RecipeFunction/RecipeAttachedScreen'
 import { createStackNavigator } from "@react-navigation/stack";
 import { config, closeConfig } from '../../utils/ScreenConfig'
-import NewPostScreen from './NewPostScreen'
+import NewPostScreen from '../../screens/HomePage/NewPostScreen'
 
 const Stack = createStackNavigator();
 
@@ -29,7 +29,6 @@ const CreatePostNavigation = () => {
                         open: config,
                         close: closeConfig,
                     },
-                    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 }}
             />
         </Stack.Navigator>

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 
 const RecipeShowed = (props) => {
     return (

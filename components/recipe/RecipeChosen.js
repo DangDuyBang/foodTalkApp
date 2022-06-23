@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 
 const RecipeChosen = (props) => {

@@ -3,7 +3,7 @@ import React from 'react'
 import color from '../../contains/color'
 import { Ionicons } from '@expo/vector-icons'
 import ChatPreview from '../../components/ChatPreview'
-import InputSearch from '../../components/InputSearch'
+import InputSearch from '../../components/input/InputSearch'
 
 // 
 //                                                                       \              /

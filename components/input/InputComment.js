@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 const InputComment = (props) => {

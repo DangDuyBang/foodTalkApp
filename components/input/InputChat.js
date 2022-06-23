@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { useSelector } from 'react-redux'
 
 const InputChat = (props) => {

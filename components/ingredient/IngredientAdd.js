@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import IngredientRecommend from './IngredientRecommend'
-import { pairingIngr, recommendationIngr, recommendationPairingIngr } from '../services/FoodServices'
+import { pairingIngr, recommendationIngr } from '../../services/FoodServices'
 import uuid from 'react-native-uuid';
 
 const IngredientAdd = (props) => {

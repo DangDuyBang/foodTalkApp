@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { FontAwesome } from '@expo/vector-icons'
-import { searchUser } from '../services/UserServices'
+import { searchUser } from '../../services/UserServices'
 import { useDispatch } from 'react-redux'
-import { setUsersSearch } from '../redux/userReducer'
-import { searchFood } from '../services/FoodServices'
-import { setFoodsSearch } from '../redux/foodReducer'
+import { setUsersSearch } from '../../redux/userReducer'
+import { searchFood } from '../../services/FoodServices'
+import { setFoodsSearch } from '../../redux/foodReducer'
 
 const InputSearch = (props) => {
     const [key, setKey] = React.useState('')

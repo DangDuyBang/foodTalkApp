@@ -1,9 +1,9 @@
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import color from '../contains/color'
+import color from '../../contains/color'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSelectedUserProfile } from '../redux/userReducer'
+import { setSelectedUserProfile } from '../../redux/userReducer'
 
 const AvatarUser = (props) => {
     const dispatch = useDispatch()

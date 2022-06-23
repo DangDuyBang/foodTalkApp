@@ -1,4 +1,4 @@
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 
 /*
   1. Create the config
@@ -11,16 +11,15 @@ const toastConfig = {
   success: (props) => (
     <BaseToast
       {...props}
-      style={{ borderLeftColor: 'green'}}
+      style={{ borderLeftColor: "green" }}
       contentContainerStyle={{ paddingHorizontal: 12 }}
       text1Style={{
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: "bold",
       }}
-
       text2Style={{
-          fontSize: 13,
-          color: 'black'
+        fontSize: 13,
+        color: "black",
       }}
     />
   ),
@@ -31,15 +30,14 @@ const toastConfig = {
   error: (props) => (
     <ErrorToast
       {...props}
-      style={{ borderLeftColor: 'red' }}
+      style={{ borderLeftColor: "red" }}
       contentContainerStyle={{ paddingHorizontal: 12 }}
       text1Style={{
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: "bold",
       }}
-
       text2Style={{
-          fontSize: 12,
+        fontSize: 12,
       }}
     />
   ),
@@ -50,9 +48,6 @@ const toastConfig = {
     I can consume any custom `props` I want.
     They will be passed when calling the `show` method (see below)
   */
-
-  
 };
-
 
 export default toastConfig;

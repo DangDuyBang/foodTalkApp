@@ -1,30 +1,26 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
-import color from '../../../contains/color'
-import { Ionicons } from '@expo/vector-icons'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import color from "../../../contains/color";
 
 const TermOfServiceScreen = ({ navigation }) => {
+  navigation.setOptions({
+    title: "Term of Service",
+  });
 
-    navigation.setOptions({
-        title: 'Term of Service',
-    })
+  return (
+    <View style={styles.container}>
+      <Text>Term of Service</Text>
+    </View>
+  );
+};
 
-    return (
-        <View style={styles.container}>
-            <Text>Term of Service</Text>
-        </View>
-    )
-}
-
-export default TermOfServiceScreen
+export default TermOfServiceScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: color.background,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-
-})
+  container: {
+    flex: 1,
+    backgroundColor: color.background,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
