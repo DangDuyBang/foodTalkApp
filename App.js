@@ -12,7 +12,6 @@ import { addComment, addPost, likeUnlikePost } from "./redux/postReducer";
 import { addNotification } from "./redux/uiReducer";
 import { addMessage } from "./redux/chatReducer";
 import { addRate } from "./redux/foodReducer";
-import { setSocketio } from "./redux/userReducer";
 
 axios.defaults.baseURL = "https://foodtalk-backend.herokuapp.com";
 

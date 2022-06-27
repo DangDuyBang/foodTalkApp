@@ -11,13 +11,17 @@ import LottieView from "lottie-react-native";
 import Shortcut from "../../components/Shortcut";
 import InfinityScrollView from "../../components/InfinityScrollView";
 import uuid from "react-native-uuid";
+import Navigators from "../../navigators/navigators/Navigators";
 
-const HomeScreen = ({ navigation }) => {
-  const eventRecentRestaurant = () => {
-    navigation.navigate("NewPost", { chooseImage: true });
-  };
-
-  const { useFetchAllPost, useFetchComment, useFetchReaction } = useFetchPost();
+const HomeScreen = () => {
+  const {
+    navigateToCommentList,
+    navigateToNewPost,
+    navigateToNewRecipe,
+    navigateToAccount,
+    navigateToUserReaction,
+  } = Navigators();
+  const { useFetchAllPost } = useFetchPost();
   const posts = useSelector((state) => state.post.posts);
   const currentUser = useSelector((state) => state.user.currentUser.data);
 
@@ -28,20 +32,6 @@ const HomeScreen = ({ navigation }) => {
   React.useEffect(() => {
     useLoads();
   }, []);
-
-  const eventNewPost = () => {
-    navigation.navigate("NewPost");
-  };
-
-  const eventOpenUserReactionList = async (post_id) => {
-    navigation.navigate("UserReactionList", { post_id: post_id });
-    await useFetchReaction(post_id);
-  };
-
-  const eventOpenCommentList = async (post_id) => {
-    navigation.navigate("CommentList", { post_id: post_id });
-    await useFetchComment(post_id);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,7 +55,7 @@ const HomeScreen = ({ navigation }) => {
               paddingHorizontal: 20,
             }}
           >
-            <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+            <TouchableOpacity onPress={navigateToAccount}>
               <Image
                 style={{ height: 40, width: 40, borderRadius: 100 }}
                 resizeMode="cover"
@@ -76,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={eventNewPost}>
+            <TouchableOpacity onPress={navigateToNewPost}>
               <View
                 style={{
                   backgroundColor: color.inputColor,
@@ -101,7 +91,7 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={eventRecentRestaurant}>
+            <TouchableOpacity onPress={navigateToNewPost}>
               <MaterialIcons
                 name="photo-library"
                 size={28}
@@ -119,9 +109,7 @@ const HomeScreen = ({ navigation }) => {
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
                 iconColor={color.primary}
-                onFunction={() => {
-                  navigation.navigate("NewRecipe");
-                }}
+                onFunction={navigateToNewRecipe}
               />
               <Shortcut
                 nameShortcut="Recent Restaurant"
@@ -148,8 +136,8 @@ const HomeScreen = ({ navigation }) => {
               <Post
                 post={post}
                 key={uuid.v4()}
-                onCommentList={eventOpenCommentList}
-                onUserReactionList={eventOpenUserReactionList}
+                onCommentList={navigateToCommentList}
+                onUserReactionList={navigateToUserReaction}
               ></Post>
             ))
           ) : (

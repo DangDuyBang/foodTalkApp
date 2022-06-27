@@ -1,18 +1,20 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native'
-import React from 'react'
-import color from '../../contains/color'
-import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
-import { setCurrentPost } from '../../redux/postReducer'
-const WIDTH = Dimensions.get('window').width
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import React from "react";
+import color from "../../contains/color";
+import Navigators from "../../navigators/navigators/Navigators";
+const WIDTH = Dimensions.get("window").width;
 
 const PostInAccount = (props) => {
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
+  const { navigateToDetailPost } = Navigators();
   const handlePress = () => {
-    dispatch(setCurrentPost(props.post))
-    navigation.navigate('DetailedPost')
-  }
+    navigateToDetailPost(props.post);
+  };
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.container}>
@@ -24,21 +26,21 @@ const PostInAccount = (props) => {
         />
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default PostInAccount
+export default PostInAccount;
 
 const styles = StyleSheet.create({
   container: {
     width: WIDTH / 3,
     height: WIDTH / 3,
     backgroundColor: color.textIconSmall,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   imagePostInAccount: {
-    width: '100%',
-    height: '100%',
-  }
-})
+    width: "100%",
+    height: "100%",
+  },
+});

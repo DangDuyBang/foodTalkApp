@@ -27,40 +27,45 @@ import useFetchPost from "./hooks/useFetchPost";
 import useFetchFood from "./hooks/useFetchFood";
 import { logoutUser } from "../../services/AuthServices";
 import axios from "axios";
+import Navigators from "../../navigators/navigators/Navigators";
 
 const Tab = createMaterialTopTabNavigator();
 
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = () => {
   const currentUser = useSelector((state) => state.user.currentUser.data);
   const dispatch = useDispatch();
-
-  const eventChat = () => {
-    navigation.navigate("ChatNavigation");
-  };
+  const {
+    navigateToChat,
+    navigateToEditProfile,
+    navigateToMoreSetting,
+    navigateToTermOfService,
+    navigateToChangePassword,
+    navigateToFeedBack,
+  } = Navigators();
 
   const eventEditProfile = () => {
     bs.current.snapTo(1);
-    navigation.navigate("EditProfile");
+    navigateToEditProfile();
   };
 
   const eventChangePassword = () => {
     bs.current.snapTo(1);
-    navigation.navigate("ChangePassword");
+    navigateToChangePassword();
   };
 
   const eventFeedback = () => {
     bs.current.snapTo(1);
-    navigation.navigate("Feedback");
+    navigateToFeedBack();
   };
 
   const eventTermOfService = () => {
     bs.current.snapTo(1);
-    navigation.navigate("TermOfService");
+    navigateToTermOfService();
   };
 
   const eventMoreSetting = () => {
     bs.current.snapTo(1);
-    navigation.navigate("MoreSetting");
+    navigateToMoreSetting();
   };
 
   const handleLogout = async () => {
@@ -222,7 +227,7 @@ const AccountScreen = ({ navigation }) => {
               color={color.primary}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={eventChat}>
+          <TouchableOpacity onPress={navigateToChat}>
             <Ionicons
               name="chatbubble-ellipses-outline"
               size={28}
@@ -298,26 +303,6 @@ const AccountScreen = ({ navigation }) => {
               <Text style={styles.aboutText}>{currentUser.about}</Text>
             )}
           </View>
-
-          {/* <TouchableOpacity onPress={() => navigation.navigate('PersonalPage')}>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 10
-            }}>
-              <AntDesign name='book' size={20} color={color.primary}></AntDesign>
-              <Text style={{
-                fontFamily: 'Roboto',
-                color: color.primary,
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginLeft: 5
-              }}>
-                Recipe
-              </Text>
-            </View>
-          </TouchableOpacity> */}
 
           <Tab.Navigator
             tabBarOptions={{

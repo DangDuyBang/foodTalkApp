@@ -5,18 +5,16 @@ import ChatPreview from "../../../components/ChatPreview";
 import InputSearch from "../../../components/input/InputSearch";
 import { createStackNavigator } from "@react-navigation/stack";
 import useFetchChat from "./hooks/useFetchChat";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import InfinityScrollView from "../../../components/InfinityScrollView";
-import { setCurrentChat } from "../../../redux/chatReducer";
-import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
+import Navigators from "../../../navigators/navigators/Navigators";
 const Stack = createStackNavigator();
 
 const Chat = () => {
   const { fetchChat, fetchMoreChat } = useFetchChat();
-  const dispatch = useDispatch();
   const chats = useSelector((state) => state.chat.chats);
-  const navigation = useNavigation();
+  const { navigateToDetailChat } = Navigators();
 
   const deleteItem = (index) => {
     const arr = [...lists];
@@ -29,8 +27,7 @@ const Chat = () => {
   }, []);
 
   const eventDetailChat = (chat) => {
-    dispatch(setCurrentChat(chat));
-    navigation.navigate("DetailChat");
+    navigateToDetailChat(chat);
   };
 
   return (

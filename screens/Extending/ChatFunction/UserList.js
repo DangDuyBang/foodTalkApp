@@ -4,32 +4,28 @@ import InputSearch from "../../../components/input/InputSearch";
 import color from "../../../contains/color";
 import User from "../../../components/user/User";
 import InfinityScrollView from "../../../components/InfinityScrollView";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentChat } from "../../../redux/chatReducer";
-import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import { createChatRoom } from "../../../services/ChatServices";
 import uuid from "react-native-uuid";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 const UserList = () => {
   const followers = useSelector(
     (state) => state.user.currentUser.data.following
   );
   const chats = useSelector((state) => state.chat.chats);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const { navigateToDetailChat } = Navigators();
 
   const fetchChatRoom = (user) => {
     const index = chats.indexOf(
       (i) => i.user_1._id === user._id || i.user_2._id === user._id
     );
     if (index != -1) {
-      dispatch(setCurrentChat(chats[index]));
-      navigation.navigate("DetailChat");
+      navigateToDetailChat(chats[index]);
     } else {
       createChatRoom(user._id)
         .then((res) => {
-          dispatch(setCurrentChat(res.data.room));
-          navigation.navigate("DetailChat");
+          navigateToDetailChat(res.data.room);
         })
         .catch((err) => {
           if (err.response) {

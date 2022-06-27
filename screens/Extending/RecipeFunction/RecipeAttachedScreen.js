@@ -15,10 +15,11 @@ import useRecipeActions from "./hooks/useRecipeActions";
 import { useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 const RecipeAttachedScreen = ({ navigation, route }) => {
   const { handleSearchChange } = useRecipeActions();
-
+  const { navigateToNewRecipe } = Navigators();
   const foodsSearch = useSelector((state) => state.food.foods);
 
   navigation.setOptions({
@@ -50,10 +51,6 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
   const handleMinusAttachedRecipe = (obj) => {
     const data = foodList.filter((value) => value != obj);
     setFoodList(data);
-  };
-
-  const eventNewRecipe = () => {
-    navigation.navigate("NewRecipe");
   };
 
   return (
@@ -106,7 +103,7 @@ const RecipeAttachedScreen = ({ navigation, route }) => {
           right: "1%",
         }}
       >
-        <TouchableOpacity onPress={eventNewRecipe}>
+        <TouchableOpacity onPress={navigateToNewRecipe}>
           <View
             style={{
               width: 55,

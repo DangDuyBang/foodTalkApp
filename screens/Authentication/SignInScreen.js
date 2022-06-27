@@ -16,8 +16,11 @@ import SubmitLogo from "../../components/SubmitLogo";
 import * as Animatable from "react-native-animatable";
 import useSignIn from "./hooks/useSignIn";
 import LoadingScreen from "../Onboarding/LoadingScreen";
+import Navigators from "../../navigators/navigators/Navigators";
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = () => {
+  const { navigateToSignUp, navigateToForgotPassword, navigateToHomePage } =
+    Navigators();
   const {
     loading,
     error,
@@ -25,20 +28,6 @@ const SignInScreen = ({ navigation }) => {
     handlePasswordChange,
     handleEmailChange,
   } = useSignIn();
-
-  const eventSignInWithGoogle = () => {
-    navigation.navigate("HomePage");
-  };
-
-  const eventSignUp = () => {
-    navigation.navigate("SignUp");
-  };
-
-  const eventForgotPassword = () => {
-    navigation.navigate("ForgotPassword");
-  };
-
-  console.log(loading);
 
   return (
     <>
@@ -105,13 +94,13 @@ const SignInScreen = ({ navigation }) => {
               </View>
 
               <SubmitLogo
-                eventButton={eventSignInWithGoogle}
+                eventButton={navigateToHomePage}
                 nameButton="SIGN IN WITH GOOGLE"
                 colorView={color.primary}
                 colorName={color.background}
               />
 
-              <TouchableOpacity onPress={eventForgotPassword}>
+              <TouchableOpacity onPress={navigateToForgotPassword}>
                 <Text
                   style={{
                     marginTop: 10,
@@ -124,7 +113,7 @@ const SignInScreen = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={eventSignUp}>
+              <TouchableOpacity onPress={navigateToSignUp}>
                 <Text
                   style={{
                     marginTop: 10,

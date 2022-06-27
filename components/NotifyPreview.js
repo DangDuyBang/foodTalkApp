@@ -1,21 +1,20 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import color from "../contains/color";
 import moment from "moment";
 import AvatarUser from "../components/user/AvatarUser";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setCurrentPost } from "../redux/postReducer";
 import { seenNotification } from "../redux/uiReducer";
 import { seenNoti } from "../services/UserServices";
+import Navigators from "../navigators/navigators/Navigators";
 
 const NotifyPreview = (props) => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const { navigateToDetailPost } = Navigators();
   const handlePress = async () => {
     if (props.data.notify_type === "POST") {
-      dispatch(setCurrentPost(props.data.post_data));
-      navigation.navigate("DetailedPost");
+      navigateToDetailPost(props.data.post_data);
     }
     if (!props.data.is_seen) {
       dispatch(seenNotification(props.data._id));

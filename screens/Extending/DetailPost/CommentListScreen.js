@@ -22,7 +22,7 @@ const CommentListScreen = ({ route }) => {
   };
 
   useEffect(() => {
-    //fetchComment()
+    fetchComment()
 
     return () => {
       dispatch(deleteCurrentPost());
@@ -112,21 +112,6 @@ const CommentListScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <InfinityScrollView useLoads={fetchComment}>
-        {/* <PostComment
-                        avatar='https://i.pinimg.com/736x/5a/27/28/5a272830589d98e6df4afdbbcec6123c.jpg'
-                        nameCommenter='khoa_food_talk'
-                        timeComment='30 minutes ago'
-                        contentComment='Wow ! Congratulation. I want it'
-                        onReplyPress={() => handleReplyPress('khoa_food_talk')}
-                    />
-                    <PostComment
-                        avatar='https://i.pinimg.com/736x/00/5d/6a/005d6a1a3f1570f69d05890fdc108b22.jpg'
-                        nameCommenter='ga_food_talk'
-                        timeComment='25 minutes ago'
-                        contentComment='Hmmm! Look great !'
-                        leftMargin={80}
-                        onReplyPress={() => handleReplyPress('ga_food_talk')}
-                    /> */}
         {comments &&
           comments.map((item) => {
             return (

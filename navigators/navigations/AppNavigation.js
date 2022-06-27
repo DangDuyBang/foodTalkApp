@@ -6,6 +6,8 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useSelector } from "react-redux";
 import SignInScreen from "../../screens/Authentication/SignInScreen";
 import SignUpScreen from "../../screens/Authentication/SignUpScreen";
 import HomePageNavigation from "./HomePageNavigation";
@@ -37,7 +39,6 @@ import MoreSettingScreen from "../../screens/Extending/Setting/MoreSettingScreen
 
 import RecipeListScreen from "../../screens/Extending/RecipeFunction/RecipeListScreen";
 
-import { useSelector } from "react-redux";
 import CreatePostNavigation from "./CreatePostNavigation";
 import SearchScreen from "../../screens/HomePage/SearchScreen";
 
@@ -46,6 +47,7 @@ import ContentRecipeScreen from "../../screens/Extending/RecipeFunction/ContentR
 import EvaluateRecipeScreen from "../../screens/Extending/RecipeFunction/EvaluateRecipeScreen";
 
 const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const DetailRecipeNavigation = () => {
   return (

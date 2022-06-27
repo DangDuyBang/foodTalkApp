@@ -1,4 +1,4 @@
-import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
+import { BaseToast, ErrorToast } from "react-native-toast-message";
 
 /*
   1. Create the config

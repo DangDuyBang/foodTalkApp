@@ -9,15 +9,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../screens/HomePage/HomeScreen";
 import Explore from "../../screens/HomePage/Explore";
 import NotificationScreen from "../../screens/HomePage/NotificationScreen";
-
+import Navigators from "../navigators/Navigators";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const NotiNavigation = ({ navigation }) => {
-  const eventChat = () => {
-    navigation.navigate("ChatNavigation");
-  };
+const NotiNavigation = () => {
+  const { navigateToChat } = Navigators();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -27,7 +26,7 @@ const NotiNavigation = ({ navigation }) => {
           title: "Notifications",
           headerRight: () => (
             <View style={styles.chatFrame}>
-              <TouchableOpacity onPress={eventChat}>
+              <TouchableOpacity onPress={navigateToChat}>
                 <Ionicons
                   name="chatbubble-ellipses-outline"
                   size={28}
@@ -42,14 +41,8 @@ const NotiNavigation = ({ navigation }) => {
   );
 };
 
-const ExploreScreen = ({ navigation }) => {
-  const eventChat = () => {
-    navigation.navigate("ChatNavigation");
-  };
-
-  const eventToSearch = () => {
-    navigation.navigate("Search");
-  };
+const ExploreScreen = () => {
+  const { navigateToChat, navigateToSearch } = Navigators();
 
   return (
     <Stack.Navigator>
@@ -58,8 +51,7 @@ const ExploreScreen = ({ navigation }) => {
         component={Explore}
         options={{
           headerTitle: () => (
-            // <InputSearch inputIcon='search' inputName='Search' autoFocus = {true}/>
-            <TouchableOpacity onPress={eventToSearch}>
+            <TouchableOpacity onPress={navigateToSearch}>
               <View
                 style={{
                   width: "100%",
@@ -89,31 +81,27 @@ const ExploreScreen = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           ),
-          headerRight: () => (
-            <View style={styles.chatFrame}>
-              <TouchableOpacity onPress={eventChat}>
-                <Ionicons
-                  name="chatbubble-ellipses-outline"
-                  size={28}
-                  color={color.primary}
-                ></Ionicons>
-              </TouchableOpacity>
-            </View>
-          ),
+          headerRight: () => {
+            return (
+              <View style={styles.chatFrame}>
+                <TouchableOpacity onPress={navigateToChat}>
+                  <Ionicons
+                    name="chatbubble-ellipses-outline"
+                    size={28}
+                    color={color.primary}
+                  ></Ionicons>
+                </TouchableOpacity>
+              </View>
+            );
+          },
         }}
       />
     </Stack.Navigator>
   );
 };
 
-const HomePage = ({ navigation }) => {
-  const eventChat = () => {
-    navigation.navigate("ChatNavigation");
-  };
-
-  const eventToSearch = () => {
-    navigation.navigate("Search");
-  };
+const HomePage = () => {
+  const { navigateToChat, navigateToSearch } = Navigators();
 
   return (
     <Stack.Navigator>
@@ -125,7 +113,7 @@ const HomePage = ({ navigation }) => {
           headerRight: () => (
             <View style={styles.iconRightTop}>
               <View style={styles.searchUserFrame}>
-                <TouchableOpacity onPress={eventToSearch}>
+                <TouchableOpacity onPress={navigateToSearch}>
                   <Ionicons
                     name="search-outline"
                     size={28}
@@ -134,7 +122,7 @@ const HomePage = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
               <View style={styles.chatFrame}>
-                <TouchableOpacity onPress={eventChat}>
+                <TouchableOpacity onPress={navigateToChat}>
                   <Ionicons
                     name="chatbubble-ellipses-outline"
                     size={28}
@@ -336,19 +324,11 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   searchUserFrame: {
-    // backgroundColor: color.post,
-    // width: 50,
-    // height: 50,
-    // borderRadius: 50,
     marginRight: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   chatFrame: {
-    // backgroundColor: color.post,
-    // width: 50,
-    // height: 50,
-    // borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },

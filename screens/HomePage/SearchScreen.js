@@ -3,16 +3,16 @@ import React, { useEffect } from "react";
 import color from "../../contains/color";
 import InputSearch from "../../components/input/InputSearch";
 import { AntDesign } from "@expo/vector-icons";
-import MessageText from "../../components/MessageText";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import RecipePreview from "../../components/recipe/RecipePreview";
-import { setSelectedUserProfile } from "../../redux/userReducer";
 import uuid from "react-native-uuid";
+import Navigators from "../../navigators/navigators/Navigators";
 
 const SearchScreen = ({ navigation }) => {
   const usersSearch = useSelector((state) => state.user.usersSearch);
   const foodsSearch = useSelector((state) => state.food.foodsSearch);
 
+  const { navigateToAccount, navigateToPersonalPage } = Navigators();
   useEffect(() => {
     navigation.setOptions({
       title: "",
@@ -46,19 +46,15 @@ const SearchScreen = ({ navigation }) => {
         </View>
       ),
     });
-
-    return () => {};
   }, []);
 
   const Users = ({ user }) => {
     const currentUser = useSelector((state) => state.user.currentUser.data);
-    const dispatch = useDispatch();
     const handlePress = () => {
       if (user._id === currentUser._id) {
-        navigation.navigate("Account");
+        navigateToAccount();
       } else {
-        navigation.navigate("PersonalPage");
-        dispatch(setSelectedUserProfile(user));
+        navigateToPersonalPage(user);
       }
       //dispatch(setSelectedUserProfile(props.user))
     };

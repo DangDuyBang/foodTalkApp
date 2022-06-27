@@ -1,7 +1,5 @@
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import { StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
-import * as Animatable from "react-native-animatable";
-import SubmitNoLogo from "../../components/SubmitNoLogo";
 import color from "../../contains/color";
 import Onboarding from "react-native-onboarding-swiper";
 

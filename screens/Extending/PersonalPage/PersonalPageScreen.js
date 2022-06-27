@@ -18,6 +18,7 @@ import useFetchPost from "../../HomePage/hooks/useFetchPost";
 import useFetchFood from "../../HomePage/hooks/useFetchFood";
 import { removeSelectedUserProfile } from "../../../redux/userReducer";
 import useUserAction from "../../HomePage/hooks/useUserAction";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,6 +30,8 @@ const PersonalPageScreen = ({ navigation }) => {
   const { useFollow, useUnfollow } = useUserAction();
 
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  const { navigateToChat } = Navigators();
 
   const isFollowing = () => {
     const index = currentUser.data.following.findIndex(
@@ -45,10 +48,6 @@ const PersonalPageScreen = ({ navigation }) => {
     await useUnfollow(selectedUserProfile.data._id);
   };
 
-  const eventDetailChat = () => {
-    navigation.navigate("ChatNavigation");
-  };
-
   const { fetchSelectedUserPosts } = useFetchPost();
   const { fetchSelectedUserFoodsList } = useFetchFood();
 
@@ -58,7 +57,7 @@ const PersonalPageScreen = ({ navigation }) => {
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
           {isFollowing() ? (
-            <TouchableOpacity onPress={eventDetailChat}>
+            <TouchableOpacity onPress={navigateToChat}>
               <Ionicons
                 name="chatbubble-ellipses-outline"
                 style={{ marginRight: 15 }}

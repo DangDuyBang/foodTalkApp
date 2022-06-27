@@ -1,6 +1,4 @@
-import {
-  TransitionSpecs,
-} from "@react-navigation/stack";
+import { TransitionSpecs } from "@react-navigation/stack";
 import { Easing } from "react-native-reanimated";
 
 export const config = {

@@ -23,7 +23,6 @@ import {
   unLikePost,
 } from "../../../redux/postReducer";
 import { likeDislikePost, createComment } from "../../../services/PostServices";
-import useUserAction from "../../HomePage/hooks/useUserAction";
 import useFetchPost from "../../HomePage/hooks/useFetchPost";
 import InputComment from "../../../components/input/InputComment";
 import InfinityScrollView from "../../../components/InfinityScrollView";
@@ -31,12 +30,12 @@ import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import { setToast } from "../../../redux/uiReducer";
 import uuid from "react-native-uuid";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 const DetailedPostScreen = ({ navigation }) => {
   const currentUser = useSelector((state) => state.user.currentUser.data);
   const dispatch = useDispatch();
   const currentPost = useSelector((state) => state.post.currentPost);
-  const { useFollow } = useUserAction();
   const { useFetchComment, useFetchReaction } = useFetchPost();
   const [payload, setPayload] = useState({
     post: currentPost.data._id,
@@ -47,6 +46,8 @@ const DetailedPostScreen = ({ navigation }) => {
 
   const [isReplyPress, setIsReplyPress] = useState(false);
   const [nameUser, setNameUser] = useState("");
+
+  const { navigateToSearch } = Navigators();
 
   const handleReplyPress = (nameUserComment, comment_id) => {
     if (isReplyPress === false) {
@@ -129,7 +130,7 @@ const DetailedPostScreen = ({ navigation }) => {
       headerRight: () => (
         <TouchableOpacity
           style={{ marginRight: 12 }}
-          onPress={() => navigation.navigate("Search")}
+          onPress={navigateToSearch}
         >
           <FontAwesome
             name="search"
@@ -169,14 +170,6 @@ const DetailedPostScreen = ({ navigation }) => {
     } catch (error) {
       alert(error.message);
     }
-  };
-
-  const isFollowed = () => {
-    if (currentUser._id === currentPost.data.author._id) return true;
-    const index = currentUser.following.findIndex(
-      (f) => f._id === currentPost.data.author._id
-    );
-    return index > -1;
   };
 
   const isLikedUser = () => {

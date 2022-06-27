@@ -17,7 +17,8 @@ const UserReactionListScreen = ({ route }) => {
     useFetchReaction(post_id);
   };
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    fetchReacts();
     return () => {
       dispatch(deleteCurrentReaction());
     };

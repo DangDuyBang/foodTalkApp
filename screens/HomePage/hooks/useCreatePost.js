@@ -21,8 +21,8 @@ export const useCreatePost = (props) => {
         setIsPublic(!isPublic)
     }
 
-    const onRecipeConfirm = (foods) => {
-        setFoods(foods)
+    const onRecipeConfirm = (f) => {
+        setFoods(f)
     }
 
     const eventRecipeAttached = () => {
@@ -33,8 +33,8 @@ export const useCreatePost = (props) => {
         navigation.navigate('ImagePickerMultiple', { onCallBack: onSetPhotos })
     }
 
-    const onSetPhotos = (photos) => {
-        setPhotos(photos)
+    const onSetPhotos = (p) => {
+        setPhotos(p)
     }
 
     const onCancel = () => {
@@ -45,9 +45,9 @@ export const useCreatePost = (props) => {
         setContent(text)
     }
 
-    const onDone = (address, region) => {
+    const onDone = (address, reg) => {
         setLocation(address)
-        setRegion(region)
+        setRegion(reg)
     }
 
     const onPressCheckIn = () => {

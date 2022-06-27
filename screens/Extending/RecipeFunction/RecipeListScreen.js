@@ -1,11 +1,5 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
+import React from "react";
 import color from "../../../contains/color";
 import { AntDesign } from "@expo/vector-icons";
 import InputSearch from "../../../components/input/InputSearch";
@@ -14,30 +8,25 @@ import useRecipeActions from "./hooks/useRecipeActions";
 import { useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
-import { setCurrenFood } from "../../../redux/foodReducer";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 const RecipeListScreen = ({ navigation }) => {
+  const { navigateToNewRecipe } = Navigators();
   navigation.setOptions({
     title: "Explore Recipe",
     headerRight: () => (
-      <TouchableOpacity style={{ marginRight: 20 }} onPress={eventNewRecipe}>
+      <TouchableOpacity
+        style={{ marginRight: 20 }}
+        onPress={navigateToNewRecipe}
+      >
         <AntDesign name="plus" size={30} color={color.primary}></AntDesign>
       </TouchableOpacity>
     ),
   });
 
-  const { loading, handleSearchChange } = useRecipeActions();
+  const { handleSearchChange } = useRecipeActions();
 
   const foodsSearch = useSelector((state) => state.food.foods);
-
-  // const handleDetailRecipe = (data) => {
-  //     navigation.navigate('DetailRecipe')
-  //     dispatch(setCurrenFood(data))
-  // }
-
-  const eventNewRecipe = () => {
-    navigation.navigate("NewRecipe");
-  };
 
   return (
     <View style={styles.container}>
