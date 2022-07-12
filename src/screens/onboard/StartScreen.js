@@ -3,6 +3,8 @@ import React from "react";
 import color from "../../assets/color/color";
 import Onboarding from "react-native-onboarding-swiper";
 
+let bgOnb = "#FFEFDC"
+
 const StartScreen = ({ navigation }) => {
   return (
     <Onboarding
@@ -10,33 +12,36 @@ const StartScreen = ({ navigation }) => {
       onDone={() => navigation.navigate("SignIn")}
       pages={[
         {
-          backgroundColor: "#a6e4d0",
+          backgroundColor: bgOnb,
           image: (
             <Image
-              source={require("../../assets/onboardImages/onboard_1.png")}
+              style={styles.imageOnboard}
+              source={require("../../assets/onboardImages/learnfood.png")}
             />
           ),
-          title: "Onboarding 1",
+          title: "Learn Cooking",
+          subtitle: "Hi, Welcome to FoodTalk that providing exciting knowledge about food in the world. Learning to cook is never difficult. Let's go !",
+        },
+        {
+          backgroundColor: bgOnb,
+          image: (
+            <Image
+              style={styles.imageOnboard}
+              source={require("../../assets/onboardImages/sharefood.png")}
+            />
+          ),
+          title: "Share Food",
           subtitle: "Done with React Native Onboarding Swiper",
         },
         {
-          backgroundColor: "#fdeb93",
+          backgroundColor: bgOnb,
           image: (
             <Image
-              source={require("../../assets/onboardImages/onboard_2.png")}
+              style={styles.imageOnboard}
+              source={require("../../assets/onboardImages/connectfriend.png")}
             />
           ),
-          title: "Onboarding 2",
-          subtitle: "Done with React Native Onboarding Swiper",
-        },
-        {
-          backgroundColor: "#e9bcbe",
-          image: (
-            <Image
-              source={require("../../assets/onboardImages/onboard_3.png")}
-            />
-          ),
-          title: "Onboarding 3",
+          title: "Connect with Friends",
           subtitle: "Done with React Native Onboarding Swiper",
         },
       ]}
@@ -80,4 +85,8 @@ const styles = StyleSheet.create({
     height: 850,
     position: "absolute",
   },
+  imageOnboard: {
+    width: 300,
+    height: 300
+  }
 });
