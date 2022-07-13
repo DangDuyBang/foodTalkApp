@@ -150,12 +150,13 @@ const HomePageNavigation = () => {
 
         style: {
           backgroundColor: color.background,
-          position: "absolute",
-          bottom: 5,
-          marginHorizontal: 10,
+          //position: "absolute",
+          //bottom: 5,
+          //marginHorizontal: 10,
+          //borderRadius: 10,
 
           height: 60,
-          borderRadius: 10,
+
 
           shadowColor: "#000",
           shadowOpacity: 0.2,
@@ -188,7 +189,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.background,
+                    backgroundColor: color.background,
                     marginBottom: 15,
                   }}
                 ></View>
@@ -223,7 +224,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.background,
+                    backgroundColor: color.background,
                     marginBottom: 12,
                   }}
                 ></View>
@@ -259,7 +260,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.background,
+                    backgroundColor: color.background,
                     marginBottom: 14,
                   }}
                 ></View>
@@ -299,7 +300,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.background,
+                    backgroundColor: color.background,
                     marginBottom: 14,
                   }}
                 ></View>

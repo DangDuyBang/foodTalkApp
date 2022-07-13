@@ -15,7 +15,7 @@ export const data = [
     },
     {
         id: 2,
-        uri: 'https://v16-webapp.tiktok.com/0ae7f68007c755c166356f0378be5e21/62ceb90f/video/tos/useast2a/tos-useast2a-pve-0037-aiso/7c47a707ed904e21a5b8d6fce82e2db1/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3166&bt=1583&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZVD4Xwe2NMHQml7Gb&mime_type=video_mp4&qs=0&rc=Ojg5Zmg5aWZnNDQ1aWg3OUBpajVocTc6ZnUzZDMzZjgzM0AzXmNjLmJfXzUxLzViY2I2YSMyNWVhcjRvNmFgLS1kL2Nzcw%3D%3D&l=202207130622140102440750711713E4BB.mp4',
+        uri: 'https://v16-webapp.tiktok.com/a647f8df932d796af11aa3b81565cf20/62cee60e/video/tos/useast2a/tos-useast2a-pve-0037-aiso/ed8a638611b04997aad4883e05a353cc/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2948&bt=1474&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZtwVXwe2NFIBml7Gb&mime_type=video_mp4&qs=0&rc=NDk2OWQ4ZDw3OzU0aDs1ZEBpMzhtN2g6Zjg5PDMzZjgzM0BiNl8uMzVhX2AxMi9gLjMxYSNwajFgcjRnMmdgLS1kL2Nzcw%3D%3D&l=202207130934130102450191061D040C61.mp4',
         caption: 'Hattrick call Messi',
         channelName: 'playsoccer',
         musicName: 'Song #2',
@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 3,
-        uri: 'https://v16-webapp.tiktok.com/f83cd5f9b6165b6df10dc773e2d769a2/62ceb984/video/tos/alisg/tos-alisg-pve-0037/c6ef04026faa4bdeadfe08558a363520/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=1232&bt=616&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z_X4Xwe2NCYhml7Gb&mime_type=video_mp4&qs=0&rc=NmdpOGU7OGg3ZjVpZzY5O0BpanJqcDg6ZnM6OzMzODgzNEBiYjVfXmBiX18xNC9iYS9iYSNxNDZlcjQwL2xgLS1kLy1zcw%3D%3D&l=202207130623350102440291880912E02F.mp4',
+        uri: 'https://v16-webapp.tiktok.com/81907c5ef11d49652026381850651e5d/62cee679/video/tos/maliva/tos-maliva-ve-0068c799-us/dda924ea669b4f50a4fe442bafeab7e4/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4774&bt=2387&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZtwVXwe2NFIBml7Gb&mime_type=video_mp4&qs=0&rc=NmVkNmY6ZmU3ZGg6OThmO0BpajtpOTk6Znd4ZDMzZzczNEBiYC5gYi0wXjQxYTFgXi0wYSNsMDVycjRfZnBgLS1kMS9zcw%3D%3D&l=202207130934130102450191061D040C61.mp4',
         caption: 'Hot new',
         channelName: 'newnews',
         musicName: 'Song #3',
@@ -35,7 +35,7 @@ export const data = [
     },
     {
         id: 4,
-        uri: 'https://v16-webapp.tiktok.com/a4b76745d62c55a39b0df8009c2a4504/62cee5c6/video/tos/useast2a/tos-useast2a-pve-0037-aiso/23ffe795f5f94b5280d67367179f25a6/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3450&bt=1725&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z-.VXwe2NY2hml7Gb&mime_type=video_mp4&qs=0&rc=Ozw1MzNoM2Q1Ojs4Njs4OEBpM3ZmbDQ6Zjt0ZDMzZjgzM0A2Ll5fMzQxNjExYTNgXy1iYSMycnIxcjRnXnFgLS1kL2Nzcw%3D%3D&l=202207130933010102440890710E03DB23.mp4',
+        uri: 'https://v16-webapp.tiktok.com/d93e5f7e14d359e41e4aac9e6d960fb1/62cf3048/video/tos/useast2a/tos-useast2a-pve-0037c001-aiso/d992ca7b477146518b98ca0af692a7d0/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2986&bt=1493&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z6nwXwe2N0chml7Gb&mime_type=video_mp4&qs=0&rc=ZWU4PGZpZmhoZDYzZjhkNUBpM29tOzk6Zmh5PDMzZjgzM0AzNGNfNV5jXjUxLjItMjMyYSNjbGQxcjQwcW5gLS1kL2Nzcw%3D%3D&l=20220713145056010245040102112F199A.mp4',
         caption: 'hehe',
         channelName: 'khaicakhia',
         musicName: 'Song #4',

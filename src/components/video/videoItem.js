@@ -6,7 +6,7 @@ import color from '../../assets/color/color';
 import { Easing } from 'react-native-reanimated';
 import { windowHeight, windowWidth } from '../../constants/Constants';
 
-export default function VideoItem({ data, isActive }) {
+export default function VideoItem({ data, isActive }, props) {
 
     const { uri, caption, channelName, musicName, likes, comments, avatarUri } = data;
 
@@ -124,17 +124,18 @@ export default function VideoItem({ data, isActive }) {
         }
     }, [isActive, triggerAnimation, discAnimatedValue, musicNoteAnimatedValue1, musicNoteAnimatedValue2])
 
-    const bottomTabHeight = useBottomTabBarHeight() - 30;
+    const bottomTabHeight = useBottomTabBarHeight() + 25;
 
     return (
         <View style={[styles.container, { height: windowHeight - bottomTabHeight }]}>
             <Video
                 source={{ uri }}
                 style={styles.video}
-                resizeMode="cover"
+                resizeMode="contain"
                 shouldPlay={isActive}
                 isLooping
                 isMuted={false}
+                useNativeControls={true}
             />
 
             <View style={styles.bottomView}>
@@ -200,7 +201,7 @@ export default function VideoItem({ data, isActive }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: windowWidth
+        width: windowWidth,
     },
     video: {
         position: 'absolute',
@@ -209,11 +210,11 @@ const styles = StyleSheet.create({
     },
     bottomView: {
         position: 'absolute',
-        bottom: 60,
+        bottom: 25,
         flexDirection: 'row',
         width: '100%',
         paddingHorizontal: 8,
-        paddingBottom: 16,
+        //paddingBottom: 16,
     },
     bottomLeftView: {
         flex: 4,
