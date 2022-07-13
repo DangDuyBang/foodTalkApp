@@ -1,0 +1,66 @@
+import { Dimensions } from "react-native"
+
+export const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
+
+export const data = [
+    {
+        id: 1,
+        uri: 'https://v16-webapp.tiktok.com/16f1dd163ac5cd8b5976308d1e93a1e1/62ceb8ac/video/tos/useast2a/tos-useast2a-pve-0037-aiso/14c143d02f9640c0a1dd7d55950ef6bb/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4166&bt=2083&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZET4Xwe2NVzQml7Gb&mime_type=video_mp4&qs=0&rc=ZGdkZGk5NGczNDtnZGk8aUBpamlkaTg6ZjpxZDMzZjgzM0AwLmJfLjYuNS8xLl9jNC4vYSNmZDVncjQwMF9gLS1kL2Nzcw%3D%3D&l=202207130620430102452480471912D935.mp4',
+        caption: 'Cute dog shaking the hand',
+        channelName: 'cutedog',
+        musicName: 'Song #1',
+        likes: 4321,
+        comments: 2841,
+        avatarUri: 'https://i.pinimg.com/564x/3e/cc/4c/3ecc4c374c076b8b3c567946b17adfe5.jpg',
+    },
+    {
+        id: 2,
+        uri: 'https://v16-webapp.tiktok.com/0ae7f68007c755c166356f0378be5e21/62ceb90f/video/tos/useast2a/tos-useast2a-pve-0037-aiso/7c47a707ed904e21a5b8d6fce82e2db1/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3166&bt=1583&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZVD4Xwe2NMHQml7Gb&mime_type=video_mp4&qs=0&rc=Ojg5Zmg5aWZnNDQ1aWg3OUBpajVocTc6ZnUzZDMzZjgzM0AzXmNjLmJfXzUxLzViY2I2YSMyNWVhcjRvNmFgLS1kL2Nzcw%3D%3D&l=202207130622140102440750711713E4BB.mp4',
+        caption: 'Hattrick call Messi',
+        channelName: 'playsoccer',
+        musicName: 'Song #2',
+        likes: 1005,
+        comments: 241,
+        avatarUri: 'https://i.pinimg.com/736x/de/90/a8/de90a89abea2e2c60b640cd505a6ea17.jpg',
+    },
+    {
+        id: 3,
+        uri: 'https://v16-webapp.tiktok.com/f83cd5f9b6165b6df10dc773e2d769a2/62ceb984/video/tos/alisg/tos-alisg-pve-0037/c6ef04026faa4bdeadfe08558a363520/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=1232&bt=616&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z_X4Xwe2NCYhml7Gb&mime_type=video_mp4&qs=0&rc=NmdpOGU7OGg3ZjVpZzY5O0BpanJqcDg6ZnM6OzMzODgzNEBiYjVfXmBiX18xNC9iYS9iYSNxNDZlcjQwL2xgLS1kLy1zcw%3D%3D&l=202207130623350102440291880912E02F.mp4',
+        caption: 'Hot new',
+        channelName: 'newnews',
+        musicName: 'Song #3',
+        likes: 821,
+        comments: 841,
+        avatarUri: 'https://i.pinimg.com/564x/9c/f4/eb/9cf4eb7095e22b88aae43169fcd6af78.jpg',
+    },
+    {
+        id: 4,
+        uri: 'https://v16-webapp.tiktok.com/a4b76745d62c55a39b0df8009c2a4504/62cee5c6/video/tos/useast2a/tos-useast2a-pve-0037-aiso/23ffe795f5f94b5280d67367179f25a6/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3450&bt=1725&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z-.VXwe2NY2hml7Gb&mime_type=video_mp4&qs=0&rc=Ozw1MzNoM2Q1Ojs4Njs4OEBpM3ZmbDQ6Zjt0ZDMzZjgzM0A2Ll5fMzQxNjExYTNgXy1iYSMycnIxcjRnXnFgLS1kL2Nzcw%3D%3D&l=202207130933010102440890710E03DB23.mp4',
+        caption: 'hehe',
+        channelName: 'khaicakhia',
+        musicName: 'Song #4',
+        likes: 521,
+        comments: 1041,
+        avatarUri: 'https://i.pinimg.com/564x/aa/05/64/aa05647185df49ac23c7a16986d94612.jpg',
+    },
+    {
+        id: 5,
+        uri: 'https://v16-webapp.tiktok.com/786a39c53bae673cd1ea7d826c95fbe6/62cee623/video/tos/useast2a/tos-useast2a-pve-0037-aiso/31d068b8133a42909e3a702e4ccc289c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2744&bt=1372&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z3.VXwe2NacQml7Gb&mime_type=video_mp4&qs=0&rc=ZGY3aGVoaTY8OGZmZmZkPEBpanF4ODQ6ZjlsPDMzZjgzM0A1YWMuNDZjX2MxM2NiXjEwYSMwNG8ucjQwc2hgLS1kL2Nzcw%3D%3D&l=202207130933410102451582250003AC39.mp4',
+        caption: 'Review university of information technology',
+        channelName: 'hoanghi',
+        musicName: 'Song #5',
+        likes: 321,
+        comments: 841,
+        avatarUri: 'https://i.pinimg.com/564x/a3/b9/52/a3b952d943dffc98eff5f07101f7fe6c.jpg',
+    },
+    {
+        id: 6,
+        uri: 'https://v16-webapp.tiktok.com/76ba7a3df717195b52dc806506cdfe8d/62cee649/video/tos/useast2a/tos-useast2a-pve-0037-aiso/1b6845fa31cb4bff9a6f5722976ad79b/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4492&bt=2246&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZtwVXwe2NFIBml7Gb&mime_type=video_mp4&qs=0&rc=OTxlNzdkZjRnM2Y4Njs2Z0BpajhqODw6Znc1ZDMzZjgzM0A1LTAxNmJeXjExNl4xYDIvYSNfZW8ycjRvMWFgLS1kL2Nzcw%3D%3D&l=202207130934130102450191061D040C61.mp4',
+        caption: 'Today I teach cooking',
+        channelName: 'nguyengiaky',
+        musicName: 'Song #6',
+        likes: 210,
+        comments: 841,
+        avatarUri: 'https://i.pinimg.com/564x/f7/90/31/f790313cb687c341018038bde8508301.jpg',
+    },
+]

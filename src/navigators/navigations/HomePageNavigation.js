@@ -50,6 +50,7 @@ const ExploreScreen = () => {
         name="ExplorePage"
         component={Explore}
         options={{
+          headerShown: false,
           headerTitle: () => (
             <TouchableOpacity onPress={navigateToSearch}>
               <View
