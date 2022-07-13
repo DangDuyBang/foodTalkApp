@@ -5,7 +5,7 @@ export const { width: windowWidth, height: windowHeight } = Dimensions.get('wind
 export const data = [
     {
         id: 1,
-        uri: 'https://v16-webapp.tiktok.com/16f1dd163ac5cd8b5976308d1e93a1e1/62ceb8ac/video/tos/useast2a/tos-useast2a-pve-0037-aiso/14c143d02f9640c0a1dd7d55950ef6bb/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4166&bt=2083&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZET4Xwe2NVzQml7Gb&mime_type=video_mp4&qs=0&rc=ZGdkZGk5NGczNDtnZGk8aUBpamlkaTg6ZjpxZDMzZjgzM0AwLmJfLjYuNS8xLl9jNC4vYSNmZDVncjQwMF9gLS1kL2Nzcw%3D%3D&l=202207130620430102452480471912D935.mp4',
+        uri: 'https://v16-webapp.tiktok.com/8b04a2a757ddfd5f78fc410326224710/62cf3c15/video/tos/useast2a/tos-useast2a-pve-0037-aiso/18b5e0664c5d48b998f3071668b01ee4/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4874&bt=2437&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZJdqXwe2NUPQml7Gb&mime_type=video_mp4&qs=0&rc=M2RoZTM4ZWQ2OmdkaDRpZ0Bpamd3NmU6ZnA3ZDMzZjgzM0AvYF80NWBiXi8xYy4wY2JeYSNiLmNtcjRfb25gLS1kL2Nzcw%3D%3D&l=202207131541290102440030261334B6EE.mp4',
         caption: 'Cute dog shaking the hand',
         channelName: 'cutedog',
         musicName: 'Song #1',
@@ -45,7 +45,7 @@ export const data = [
     },
     {
         id: 5,
-        uri: 'https://v16-webapp.tiktok.com/786a39c53bae673cd1ea7d826c95fbe6/62cee623/video/tos/useast2a/tos-useast2a-pve-0037-aiso/31d068b8133a42909e3a702e4ccc289c/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=2744&bt=1372&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8Z3.VXwe2NacQml7Gb&mime_type=video_mp4&qs=0&rc=ZGY3aGVoaTY8OGZmZmZkPEBpanF4ODQ6ZjlsPDMzZjgzM0A1YWMuNDZjX2MxM2NiXjEwYSMwNG8ucjQwc2hgLS1kL2Nzcw%3D%3D&l=202207130933410102451582250003AC39.mp4',
+        uri: 'https://v16-webapp.tiktok.com/2a33bea4956c7dd86a6f617d942888c4/62cf3ced/video/tos/maliva/tos-maliva-ve-0068c799-us/eb8f703eaed14207b8876d3be3157bba/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=5208&bt=2604&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZGVqXwe2NA9Uml7Gb&mime_type=video_mp4&qs=0&rc=Z2g8ZTQ7Zmk3O2lnZWU3Z0BpanE7b2c6ZnMzZTMzZzczNEBhYDZgXmAuXy0xMGI1XzE2YSNsLWJgcjRfMDFgLS1kMS9zcw%3D%3D&l=202207131545100102451001170734B7E5.mp4',
         caption: 'Review university of information technology',
         channelName: 'hoanghi',
         musicName: 'Song #5',
@@ -55,7 +55,7 @@ export const data = [
     },
     {
         id: 6,
-        uri: 'https://v16-webapp.tiktok.com/76ba7a3df717195b52dc806506cdfe8d/62cee649/video/tos/useast2a/tos-useast2a-pve-0037-aiso/1b6845fa31cb4bff9a6f5722976ad79b/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4492&bt=2246&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZtwVXwe2NFIBml7Gb&mime_type=video_mp4&qs=0&rc=OTxlNzdkZjRnM2Y4Njs2Z0BpajhqODw6Znc1ZDMzZjgzM0A1LTAxNmJeXjExNl4xYDIvYSNfZW8ycjRvMWFgLS1kL2Nzcw%3D%3D&l=202207130934130102450191061D040C61.mp4',
+        uri: 'https://v16-webapp.tiktok.com/4b26aac4ec090f9dde1c5269d7968b5d/62cf3d57/video/tos/useast2a/tos-useast2a-pve-0037-aiso/f098ea9ca2014b3992b99599f418592d/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3548&bt=1774&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZOzqXwe2Ns2hml7Gb&mime_type=video_mp4&qs=0&rc=PGQ1OTdoNzM0ZTk0Zzg6OUBpamllZTk6Zm5sZDMzZjgzM0AxNDQ0YC8tXjYxLjBjYzAvYSMzbW4ucjRnY21gLS1kL2Nzcw%3D%3D&l=202207131546340102440820400F34168A.mp4',
         caption: 'Today I teach cooking',
         channelName: 'nguyengiaky',
         musicName: 'Song #6',
