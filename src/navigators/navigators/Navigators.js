@@ -76,8 +76,8 @@ const Navigators = () => {
     navigation.navigate("ForgotPassword");
   };
 
-  const navigateToPostCreate = () => {
-    navigation.navigate("PostCreate");
+  const navigateToCreatePost = () => {
+    navigation.navigate("CreatePostNavigation");
   };
 
   const navigateToPostReacter = (post_id) => {
@@ -91,7 +91,7 @@ const Navigators = () => {
   return {
     navigateToPostComment,
     navigateToPostReacter,
-    navigateToPostCreate,
+    navigateToCreatePost,
     navigateToForgotPassword,
     navigateToSignUp,
     navigateToMoreSetting,

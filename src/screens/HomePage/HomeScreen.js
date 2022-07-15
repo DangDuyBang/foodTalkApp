@@ -16,7 +16,7 @@ import Navigators from "../../navigators/navigators/Navigators";
 const HomeScreen = () => {
   const {
     navigateToPostComment,
-    navigateToPostCreate,
+    navigateToCreatePost,
     navigateToNewRecipe,
     navigateToAccount,
     navigateToPostReacter,
@@ -66,7 +66,7 @@ const HomeScreen = () => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={navigateToPostCreate}>
+            <TouchableOpacity onPress={navigateToCreatePost}>
               <View
                 style={{
                   backgroundColor: color.inputColor,
@@ -91,7 +91,7 @@ const HomeScreen = () => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={navigateToPostCreate}>
+            <TouchableOpacity onPress={navigateToCreatePost}>
               <MaterialIcons
                 name="photo-library"
                 size={28}

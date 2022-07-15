@@ -133,7 +133,7 @@ const AppNavigation = () => {
             }}
           />
           <Stack.Screen
-            name="PostCreate"
+            name="CreatePostNavigation"
             component={CreatePostNavigation}
             options={{
               headerShown: false,
