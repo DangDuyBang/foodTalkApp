@@ -5,14 +5,14 @@ import { useSelector } from "react-redux";
 import Navigators from "../../navigators/navigators/Navigators";
 
 const AvatarUser = (props) => {
-  const { navigateToAccount, navigateToPersonalPage } = Navigators();
+  const { navigateToAccount, navigateToAccountFriend } = Navigators();
   const currentUser = useSelector((state) => state.user.currentUser.data);
 
   const handlePress = () => {
     if (props.profile._id === currentUser._id) {
       navigateToAccount();
     } else {
-      navigateToPersonalPage(props.profile);
+      navigateToAccountFriend(props.profile);
     }
   };
 

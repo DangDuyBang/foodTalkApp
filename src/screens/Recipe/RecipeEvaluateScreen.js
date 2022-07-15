@@ -20,7 +20,7 @@ import { createRateFood, fetchAllRates } from "../../services/FoodServices";
 import { Ionicons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 
-const EvaluateRecipeScreen = () => {
+const RecipeEvaluateScreen = () => {
   const currentFood = useSelector((state) => state.food.currentFood);
   const dispatch = useDispatch();
 
@@ -159,7 +159,7 @@ const EvaluateRecipeScreen = () => {
   );
 };
 
-export default EvaluateRecipeScreen;
+export default RecipeEvaluateScreen;
 
 const styles = StyleSheet.create({
   container: {

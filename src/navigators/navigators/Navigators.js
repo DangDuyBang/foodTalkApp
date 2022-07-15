@@ -28,9 +28,9 @@ const Navigators = () => {
     navigation.navigate("Account");
   };
 
-  const navigateToPersonalPage = (profile) => {
+  const navigateToAccountFriend = (profile) => {
     dispatch(setSelectedUserProfile(profile));
-    navigation.navigate("PersonalPage");
+    navigation.navigate("AccountFriend");
   };
 
   const navigateToChat = () => {
@@ -45,8 +45,8 @@ const Navigators = () => {
     navigation.navigate("HomePage");
   };
 
-  const navigateToNewRecipe = () => {
-    navigation.navigate("NewRecipe");
+  const navigateToRecipeCreate = () => {
+    navigation.navigate("RecipeCreate");
   };
 
   const navigateToEditProfile = () => {
@@ -99,11 +99,11 @@ const Navigators = () => {
     navigateToFeedBack,
     navigateToChangePassword,
     navigateToEditProfile,
-    navigateToNewRecipe,
+    navigateToRecipeCreate,
     navigateToHomePage,
     navigateToSearch,
     navigateToChat,
-    navigateToPersonalPage,
+    navigateToAccountFriend,
     navigateToAccount,
     navigateToDetailRecipe,
     navigateToDetailPost,

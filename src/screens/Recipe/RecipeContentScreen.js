@@ -4,7 +4,7 @@ import color from "../../assets/color/color";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
 
-const ContentRecipeScreen = () => {
+const RecipeContentScreen = () => {
   const currentFood = useSelector((state) => state.food.currentFood.data);
 
   return (
@@ -35,7 +35,7 @@ const ContentRecipeScreen = () => {
   );
 };
 
-export default ContentRecipeScreen;
+export default RecipeContentScreen;
 
 const styles = StyleSheet.create({
   container: {

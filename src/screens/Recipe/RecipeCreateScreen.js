@@ -19,7 +19,7 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import uuid from "react-native-uuid";
 
-const NewRecipeScreen = ({ navigation }) => {
+const RecipeCreateScreen = ({ navigation }) => {
   const {
     name,
     processList,
@@ -192,7 +192,7 @@ const NewRecipeScreen = ({ navigation }) => {
   );
 };
 
-export default NewRecipeScreen;
+export default RecipeCreateScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import color from "../../assets/color/color";
 
-const RecipePostScreen = () => {
+const RecipeFriendScreen = () => {
   return (
     <View style={styles.container}>
       <View
@@ -28,7 +28,7 @@ const RecipePostScreen = () => {
   );
 };
 
-export default RecipePostScreen;
+export default RecipeFriendScreen;
 
 const styles = StyleSheet.create({
   container: {

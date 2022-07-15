@@ -17,7 +17,7 @@ const HomeScreen = () => {
   const {
     navigateToPostComment,
     navigateToCreatePost,
-    navigateToNewRecipe,
+    navigateToRecipeCreate,
     navigateToAccount,
     navigateToPostReacter,
   } = Navigators();
@@ -109,7 +109,7 @@ const HomeScreen = () => {
                 nameShortcut="Add Recipe"
                 iconShortcut="silverware-clean"
                 iconColor={color.primary}
-                onFunction={navigateToNewRecipe}
+                onFunction={navigateToRecipeCreate}
               />
               <Shortcut
                 nameShortcut="Recent Restaurant"

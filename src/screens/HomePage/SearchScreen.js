@@ -12,7 +12,7 @@ const SearchScreen = ({ navigation }) => {
   const usersSearch = useSelector((state) => state.user.usersSearch);
   const foodsSearch = useSelector((state) => state.food.foodsSearch);
 
-  const { navigateToAccount, navigateToPersonalPage } = Navigators();
+  const { navigateToAccount, navigateToAccountFriend } = Navigators();
   useEffect(() => {
     navigation.setOptions({
       title: "",
@@ -54,7 +54,7 @@ const SearchScreen = ({ navigation }) => {
       if (user._id === currentUser._id) {
         navigateToAccount();
       } else {
-        navigateToPersonalPage(user);
+        navigateToAccountFriend(user);
       }
       //dispatch(setSelectedUserProfile(props.user))
     };

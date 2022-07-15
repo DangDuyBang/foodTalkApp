@@ -22,7 +22,7 @@ const ImagePic = {
     "https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg",
 };
 
-const PublicPostScreen = () => {
+const PostFriendScreen = () => {
   const posts = useSelector((state) => state.user.selectedUserProfile.posts);
   const { fetchSelectedUserPosts } = useFetchPost();
 
@@ -78,7 +78,7 @@ const PublicPostScreen = () => {
   );
 };
 
-export default PublicPostScreen;
+export default PostFriendScreen;
 
 const styles = StyleSheet.create({
   container: {

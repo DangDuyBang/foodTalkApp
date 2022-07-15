@@ -323,7 +323,7 @@ export default HomePageNavigation;
 const styles = StyleSheet.create({
   iconRightTop: {
     flexDirection: "row",
-    marginRight: 16,
+    //marginRight: 16,
   },
   searchUserFrame: {
     marginRight: 20,
@@ -333,6 +333,7 @@ const styles = StyleSheet.create({
   chatFrame: {
     justifyContent: "center",
     alignItems: "center",
+    marginRight: 15
   },
   container: {
     flex: 1,
