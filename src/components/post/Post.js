@@ -168,7 +168,7 @@ const Post = (props) => {
                 </View>
             </View>
             <View style={styles.botPost}>
-                <TouchableOpacity onPress={() => props.onUserReactionList(props.post._id)}>
+                <TouchableOpacity onPress={() => props.onReacterList(props.post._id)}>
                     <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
                 </TouchableOpacity>
 

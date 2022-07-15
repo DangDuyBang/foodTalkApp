@@ -76,22 +76,22 @@ const Navigators = () => {
     navigation.navigate("ForgotPassword");
   };
 
-  const navigateToNewPost = () => {
-    navigation.navigate("NewPost");
+  const navigateToPostCreate = () => {
+    navigation.navigate("PostCreate");
   };
 
-  const navigateToUserReaction = (post_id) => {
-    navigation.navigate("UserReactionList", { post_id: post_id });
+  const navigateToPostReacter = (post_id) => {
+    navigation.navigate("PostReacter", { post_id: post_id });
   };
 
-  const navigateToCommentList = (post_id) => {
-    navigation.navigate("CommentList", { post_id: post_id });
+  const navigateToPostComment = (post_id) => {
+    navigation.navigate("PostComment", { post_id: post_id });
   };
 
   return {
-    navigateToCommentList,
-    navigateToUserReaction,
-    navigateToNewPost,
+    navigateToPostComment,
+    navigateToPostReacter,
+    navigateToPostCreate,
     navigateToForgotPassword,
     navigateToSignUp,
     navigateToMoreSetting,

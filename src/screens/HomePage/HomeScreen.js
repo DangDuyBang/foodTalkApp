@@ -15,11 +15,11 @@ import Navigators from "../../navigators/navigators/Navigators";
 
 const HomeScreen = () => {
   const {
-    navigateToCommentList,
-    navigateToNewPost,
+    navigateToPostComment,
+    navigateToPostCreate,
     navigateToNewRecipe,
     navigateToAccount,
-    navigateToUserReaction,
+    navigateToPostReacter,
   } = Navigators();
   const { useFetchAllPost } = useFetchPost();
   const posts = useSelector((state) => state.post.posts);
@@ -66,7 +66,7 @@ const HomeScreen = () => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={navigateToNewPost}>
+            <TouchableOpacity onPress={navigateToPostCreate}>
               <View
                 style={{
                   backgroundColor: color.inputColor,
@@ -91,7 +91,7 @@ const HomeScreen = () => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={navigateToNewPost}>
+            <TouchableOpacity onPress={navigateToPostCreate}>
               <MaterialIcons
                 name="photo-library"
                 size={28}
@@ -136,8 +136,8 @@ const HomeScreen = () => {
               <Post
                 post={post}
                 key={uuid.v4()}
-                onCommentList={navigateToCommentList}
-                onUserReactionList={navigateToUserReaction}
+                onCommentList={navigateToPostComment}
+                onReacterList={navigateToPostReacter}
               ></Post>
             ))
           ) : (

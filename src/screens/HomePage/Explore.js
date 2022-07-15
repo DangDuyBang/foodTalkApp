@@ -4,7 +4,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import color from "../../assets/color/color";
 import VideoItem from "../../components/video/videoItem";
 import { data, windowHeight, windowWidth } from '../../constants/Constants'
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import Navigators from "../../navigators/navigators/Navigators";
 
 const Explore = ({ navigation }) => {
@@ -77,7 +77,7 @@ const Explore = ({ navigation }) => {
               height: 40,
               borderColor: color.background,
               borderWidth: 1.5,
-              width: windowWidth - 30
+              width: windowWidth - 80
             }}
           >
             <FontAwesome
@@ -98,6 +98,17 @@ const Explore = ({ navigation }) => {
             </Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={styles.createVideoView}>
+            <MaterialCommunityIcons
+              name="video-plus-outline"
+              size={35}
+              style={{
+                color: color.background,
+              }}
+            ></MaterialCommunityIcons>
+          </View>
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -114,6 +125,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     top: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
+  },
+  createVideoView: {
+    marginLeft: 10,
+    justifyContent: 'center',
     alignItems: 'center'
   }
 });

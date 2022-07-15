@@ -17,7 +17,7 @@ import RecipeShowed from "../../components/recipe/RecipeShowed";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
 
-const NewPostScreen = ({ navigation, route }) => {
+const PostCreateScreen = ({ navigation, route }) => {
   //cập nhật thêm checkin với foods
 
   const {
@@ -200,7 +200,7 @@ const NewPostScreen = ({ navigation, route }) => {
   );
 };
 
-export default NewPostScreen;
+export default PostCreateScreen;
 
 const styles = StyleSheet.create({
   container: {
