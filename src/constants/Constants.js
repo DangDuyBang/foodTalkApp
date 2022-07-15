@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 3,
-        uri: 'https://v16-webapp.tiktok.com/81907c5ef11d49652026381850651e5d/62cee679/video/tos/maliva/tos-maliva-ve-0068c799-us/dda924ea669b4f50a4fe442bafeab7e4/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4774&bt=2387&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZtwVXwe2NFIBml7Gb&mime_type=video_mp4&qs=0&rc=NmVkNmY6ZmU3ZGg6OThmO0BpajtpOTk6Znd4ZDMzZzczNEBiYC5gYi0wXjQxYTFgXi0wYSNsMDVycjRfZnBgLS1kMS9zcw%3D%3D&l=202207130934130102450191061D040C61.mp4',
+        uri: 'https://v16-webapp.tiktok.com/1c20851f7fbdbb9490bbe68e189025bb/62d1670e/video/tos/useast2a/tos-useast2a-pve-0037-aiso/47cca478afbc4e27afa0bd808fa2c39f/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=3174&bt=1587&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZefMgwe2NLthml7Gb&mime_type=video_mp4&qs=0&rc=OjNkOzVlPDU0ZGk1ZmVkZUBpMzR2eWU6ZmQ4PDMzZjgzM0BiYWMxXzQyNTQxMjVfLzIuYSNnZGtucjRvXl9gLS1kL2Nzcw%3D%3D&l=202207150709120102452461031F047B0C.mp4',
         caption: 'Hot new',
         channelName: 'newnews',
         musicName: 'Song #3',

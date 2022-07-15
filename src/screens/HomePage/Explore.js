@@ -15,31 +15,32 @@ const Explore = ({ navigation }) => {
 
   const bottomTabHeight = useBottomTabBarHeight();
 
-  // //Focus Event: to be fired when the HomeScreen is focused.
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     console.log('Focus');
-  //     //Every time the screen is focused the Video starts playing
-  //     if (video) {
-  //       video.playAsync();
-  //     }
-  //   });
+  //Focus Event: to be fired when the HomeScreen is focused.
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // console.log('Focus');
+      // //Every time the screen is focused the Video starts playing
+      // if (video) {
+      //   video.playAsync();
+      // }
+    });
 
-  //   return unsubscribe;
-  // }, [navigation]);
+    return unsubscribe;
+  }, [navigation]);
 
-  // //Blur Event: to be fired when the HomeScreen loses focus.
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('blur', () => {
-  //     console.log('Blur');
-  //     //Every time the screen loses focus the Video is paused
-  //     if (video) {
-  //       video.pauseAsync();
-  //     }
-  //   });
+  //Blur Event: to be fired when the HomeScreen loses focus.
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      // console.log('Blur');
+      // //Every time the screen loses focus the Video is paused
+      // if (video) {
+      //   video.pauseAsync();
+      // }
+      setActiveVideoIndex(false);
+    });
 
-  //   return unsubscribe;
-  // }, [navigation]);
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

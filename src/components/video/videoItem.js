@@ -131,7 +131,7 @@ export default function VideoItem({ data, isActive }, props) {
             <Video
                 source={{ uri }}
                 style={styles.video}
-                resizeMode="contain"
+                resizeMode="cover"
                 shouldPlay={isActive}
                 isLooping
                 isMuted={false}
@@ -202,6 +202,7 @@ export default function VideoItem({ data, isActive }, props) {
 const styles = StyleSheet.create({
     container: {
         width: windowWidth,
+        backgroundColor: color.post
     },
     video: {
         position: 'absolute',
