@@ -29,6 +29,8 @@ import { logoutUser } from "../../services/AuthServices";
 import axios from "axios";
 import Navigators from "../../navigators/navigators/Navigators";
 
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
+
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
@@ -308,7 +310,11 @@ const AccountScreen = () => {
             tabBarOptions={{
               showLabel: false,
               showIcon: true,
-              style: {},
+              style: {
+                backgroundColor: "#222222",
+                borderTopWidth: 1,
+                borderColor: "#BFBFBF"
+              },
               paddingHorizontal: 15,
             }}
           >
@@ -332,7 +338,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="ios-create-outline"
                         size={25}
-                        color={focused ? color.textBlack : color.hideColor}
+                        color={focused ? color.background : color.hideColor}
                       ></Ionicons>
                     </View>
                   </View>
@@ -359,7 +365,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="heart-outline"
                         size={25}
-                        color={focused ? color.textBlack : color.hideColor}
+                        color={focused ? color.background : color.hideColor}
                       ></Ionicons>
                     </View>
                   </View>
@@ -386,7 +392,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="lock-closed-outline"
                         size={25}
-                        color={focused ? color.textBlack : color.hideColor}
+                        color={focused ? color.background : color.hideColor}
                       ></Ionicons>
                     </View>
                   </View>
@@ -413,7 +419,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="book-outline"
                         size={25}
-                        color={focused ? color.textBlack : color.hideColor}
+                        color={focused ? color.background : color.hideColor}
                       ></Ionicons>
                     </View>
                   </View>
@@ -432,7 +438,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
   },
   top: {
     flexDirection: "row",
@@ -444,7 +450,7 @@ const styles = StyleSheet.create({
   },
   nameUser: {
     fontSize: 22,
-    color: color.textGray,
+    color: darkTheme.SECOND_BACKGROUND_COLOR,
     fontWeight: "bold",
   },
   mid: {
@@ -492,7 +498,7 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 20,
-    color: color.textGray,
+    color: darkTheme.SECOND_BACKGROUND_COLOR,
     fontWeight: "bold",
     marginRight: 10,
     marginLeft: 40,
@@ -516,7 +522,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "Roboto",
     fontSize: 16,
-    color: color.textGray,
+    color: darkTheme.SECOND_BACKGROUND_COLOR,
   },
   aboutText: {
     textAlign: "center",
@@ -524,6 +530,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
+    color: darkTheme.SECOND_BACKGROUND_COLOR
   },
   panel: {
     backgroundColor: color.background,

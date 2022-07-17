@@ -1,11 +1,30 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Switch } from "react-native";
+import React, { useState } from "react";
 import color from "../../assets/color/color";
 import { FontAwesome } from "@expo/vector-icons";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const MoreSettingScreen = ({ navigation }) => {
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [descript, setDescript] = useState("You are in light mode.")
+
+  const toggleSwitch = () => {
+    if (isDarkMode) {
+      setDescript("You are in light mode.")
+    } else {
+      setDescript("You are in dark mode.// Chưa hoàn thiện")
+    }
+
+    setIsDarkMode(previousState => !previousState)
+  }
+
   navigation.setOptions({
     title: "More Settings",
+    headerStyle: {
+      backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    },
+    headerTintColor: darkTheme.SECOND_TEXT_COLOR
   });
 
   const eventDisableAccount = () => {
@@ -29,6 +48,27 @@ const MoreSettingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.modeView}>
+        <Text style={styles.titleText}>Dark mode</Text>
+        <Switch
+          trackColor={{ false: 'gray', true: 'tomato' }}
+          thumbColor={isDarkMode ? "white" : "gray"}
+          onValueChange={toggleSwitch}
+          value={isDarkMode}
+        />
+      </View>
+
+      <Text style={styles.descriptionText}>
+        {descript}
+      </Text>
+
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <View style={styles.lineView}></View>
+      </View>
+
       <Text style={styles.titleText}>Account</Text>
       <Text style={styles.descriptionText}>
         This means that your account has been locked. After you do it, you will
@@ -53,7 +93,7 @@ export default MoreSettingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
   },
   optionMore: {
     flexDirection: "row",
@@ -63,7 +103,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: "Roboto",
-    color: color.textBlack,
+    color: darkTheme.SECOND_TEXT_COLOR,
     fontSize: 19,
     fontWeight: "bold",
     marginLeft: 20,
@@ -81,4 +121,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  lineView: {
+    width: 370,
+    borderWidth: 0.5,
+    marginVertical: 15,
+    borderColor: darkTheme.HIDE_ICON_COLOR
+  },
+  modeView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 13
+  }
 });

@@ -85,7 +85,7 @@ const ChatNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.post,
+                    backgroundColor: color.background,
                     marginBottom: 15,
                   }}
                 ></View>
@@ -120,7 +120,7 @@ const ChatNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: focused ? color.primary : color.post,
+                    backgroundColor: color.background,
                     marginBottom: 12,
                   }}
                 ></View>

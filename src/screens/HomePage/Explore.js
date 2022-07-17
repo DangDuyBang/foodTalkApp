@@ -71,13 +71,14 @@ const Explore = ({ navigation }) => {
               width: "100%",
               flexDirection: "row",
               backgroundColor: "transparent",
+              opacity: 0.6,
               paddingHorizontal: 15,
               borderRadius: 25,
               alignItems: "center",
               height: 40,
               borderColor: color.background,
               borderWidth: 1.5,
-              width: windowWidth - 80
+              width: windowWidth - 80,
             }}
           >
             <FontAwesome
@@ -105,6 +106,7 @@ const Explore = ({ navigation }) => {
               size={35}
               style={{
                 color: color.background,
+                opacity: 0.6,
               }}
             ></MaterialCommunityIcons>
           </View>

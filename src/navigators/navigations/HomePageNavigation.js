@@ -149,7 +149,7 @@ const HomePageNavigation = () => {
         showLabel: false,
 
         style: {
-          backgroundColor: color.background,
+          backgroundColor: "#222222",
           //position: "absolute",
           //bottom: 5,
           //marginHorizontal: 10,
@@ -189,7 +189,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: color.background,
+                    backgroundColor: "#222222",
                     marginBottom: 15,
                   }}
                 ></View>
@@ -224,7 +224,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: color.background,
+                    backgroundColor: "#222222",
                     marginBottom: 12,
                   }}
                 ></View>
@@ -260,7 +260,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: color.background,
+                    backgroundColor: "#222222",
                     marginBottom: 14,
                   }}
                 ></View>
@@ -300,7 +300,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: color.background,
+                    backgroundColor: "#222222",
                     marginBottom: 14,
                   }}
                 ></View>
