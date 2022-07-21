@@ -28,12 +28,13 @@ import useFetchFood from "../hooks/fetch/useFetchFood";
 import { logoutUser } from "../../services/AuthServices";
 import axios from "axios";
 import Navigators from "../../navigators/navigators/Navigators";
-
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
   const currentUser = useSelector((state) => state.user.currentUser.data);
   const dispatch = useDispatch();
   const {
@@ -116,12 +117,7 @@ const AccountScreen = () => {
         />
         <Text
           onPress={() => bs.current.snapTo(1)}
-          style={{
-            fontFamily: "Roboto",
-            fontSize: 22,
-            fontWeight: "bold",
-            color: color.textGray,
-          }}
+          style={styles.titleSetting}
         >
           Setting
         </Text>
@@ -204,6 +200,13 @@ const AccountScreen = () => {
     fetchUserFoodsList();
   }, []);
 
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   return (
     <View style={styles.container}>
       <Portal name="modal">
@@ -272,11 +275,20 @@ const AccountScreen = () => {
                   {currentUser.first_name + " " + currentUser.last_name}
                 </Text>
                 <TouchableOpacity onPress={eventEditProfile}>
-                  <Ionicons
-                    name="pencil"
-                    size={18}
-                    color={color.textIconSmall}
-                  ></Ionicons>
+                  {
+                    theme.mode === "light" ?
+                      <Ionicons
+                        name="pencil"
+                        size={18}
+                        color={lightTheme.SECOND_ICON_COLOR}
+                      ></Ionicons>
+                      :
+                      <Ionicons
+                        name="pencil"
+                        size={18}
+                        color={darkTheme.SECOND_BUTTON_COLOR}
+                      ></Ionicons>
+                  }
                 </TouchableOpacity>
               </View>
             </View>
@@ -310,11 +322,7 @@ const AccountScreen = () => {
             tabBarOptions={{
               showLabel: false,
               showIcon: true,
-              style: {
-                backgroundColor: "#222222",
-                borderTopWidth: 1,
-                borderColor: "#BFBFBF"
-              },
+              style: styles.tabAccount,
               paddingHorizontal: 15,
             }}
           >
@@ -338,7 +346,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="ios-create-outline"
                         size={25}
-                        color={focused ? color.background : color.hideColor}
+                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                       ></Ionicons>
                     </View>
                   </View>
@@ -365,7 +373,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="heart-outline"
                         size={25}
-                        color={focused ? color.background : color.hideColor}
+                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                       ></Ionicons>
                     </View>
                   </View>
@@ -392,7 +400,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="lock-closed-outline"
                         size={25}
-                        color={focused ? color.background : color.hideColor}
+                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                       ></Ionicons>
                     </View>
                   </View>
@@ -419,7 +427,7 @@ const AccountScreen = () => {
                       <Ionicons
                         name="book-outline"
                         size={25}
-                        color={focused ? color.background : color.hideColor}
+                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                       ></Ionicons>
                     </View>
                   </View>
@@ -435,10 +443,10 @@ const AccountScreen = () => {
 
 export default AccountScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
   },
   top: {
     flexDirection: "row",
@@ -450,7 +458,7 @@ const styles = StyleSheet.create({
   },
   nameUser: {
     fontSize: 22,
-    color: darkTheme.SECOND_BACKGROUND_COLOR,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
   },
   mid: {
@@ -470,7 +478,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     position: "absolute",
     marginRight: 10,
     marginTop: 10,
@@ -480,7 +488,7 @@ const styles = StyleSheet.create({
     height: 110,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderRadius: 120,
     position: "absolute",
     marginTop: 195,
@@ -498,7 +506,7 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 20,
-    color: darkTheme.SECOND_BACKGROUND_COLOR,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     marginRight: 10,
     marginLeft: 40,
@@ -516,13 +524,13 @@ const styles = StyleSheet.create({
   followText: {
     fontFamily: "Roboto",
     fontSize: 16,
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
   },
   followNumberText: {
     fontWeight: "bold",
     fontFamily: "Roboto",
     fontSize: 16,
-    color: darkTheme.SECOND_BACKGROUND_COLOR,
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   aboutText: {
     textAlign: "center",
@@ -530,22 +538,28 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
-    color: darkTheme.SECOND_BACKGROUND_COLOR
+    color: lightTheme.SECOND_TEXT_COLOR
   },
   panel: {
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
   },
+  titleSetting: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: lightTheme.SECOND_TEXT_COLOR,
+  },
   optionSetting: {
     fontFamily: "Roboto",
     fontSize: 16,
     marginLeft: 5,
     marginTop: 20,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "900",
   },
   frameOptionSetting: {
@@ -557,4 +571,144 @@ const styles = StyleSheet.create({
   bot: {
     marginBottom: 35,
   },
+  tabAccount: {
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    borderTopWidth: 1,
+    borderColor: lightTheme.SECOND_ICON_COLOR
+  }
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+  },
+  top: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 15,
+    paddingTop: 12,
+    paddingBottom: 8,
+  },
+  nameUser: {
+    fontSize: 22,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+  },
+  mid: {
+    marginTop: 5,
+    flexDirection: "row-reverse",
+  },
+  imageFrame: {
+    alignItems: "center",
+  },
+  coverImage: {
+    width: 420,
+    height: 250,
+  },
+  chatFrame: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    position: "absolute",
+    marginRight: 10,
+    marginTop: 10,
+  },
+  avatarFrame: {
+    width: 110,
+    height: 110,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderRadius: 120,
+    position: "absolute",
+    marginTop: 195,
+  },
+  avatarImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 150,
+  },
+  fullNameFrame: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 55,
+  },
+  fullName: {
+    fontSize: 20,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    marginRight: 10,
+    marginLeft: 40,
+  },
+  followView: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 35,
+  },
+  followingView: {
+    alignItems: "center",
+    width: 80,
+    height: 30,
+  },
+  followText: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    color: darkTheme.THIRD_TEXT_COLOR,
+  },
+  followNumberText: {
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    fontSize: 16,
+    color: darkTheme.SECOND_TEXT_COLOR,
+  },
+  aboutText: {
+    textAlign: "center",
+    marginVertical: 35,
+    fontFamily: "Roboto",
+    fontSize: 15,
+    marginHorizontal: 30,
+    color: darkTheme.SECOND_TEXT_COLOR
+  },
+  panel: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+  },
+  titleSetting: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: darkTheme.SECOND_TEXT_COLOR,
+  },
+  optionSetting: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    marginLeft: 5,
+    marginTop: 20,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "900",
+  },
+  frameOptionSetting: {
+    paddingHorizontal: 25,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  bot: {
+    marginBottom: 35,
+  },
+  tabAccount: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopWidth: 1,
+    borderColor: darkTheme.SECOND_ICON_COLOR
+  }
 });

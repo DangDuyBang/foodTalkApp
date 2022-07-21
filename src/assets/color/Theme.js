@@ -1,5 +1,5 @@
 export const lightTheme = {
-    model: "light",
+    mode: "light",
     FIRST_BACKGROUND_COLOR: "#FFFFFF", // màu trắng
     SECOND_BACKGROUND_COLOR: "#F5E7E7", // màu hồng
     FIRST_TEXT_COLOR: "#F28705", // màu cam 
@@ -17,9 +17,9 @@ export const lightTheme = {
 }
 
 export const darkTheme = {
-    model: "dark",
+    mode: "dark",
     FIRST_BACKGROUND_COLOR: "#222222", // màu đen
-    SECOND_BACKGROUND_COLOR: "#F5E7E7", // màu hồng
+    SECOND_BACKGROUND_COLOR: "#555555", // màu hồng
     FIRST_TEXT_COLOR: "#F28705", // màu cam 
     SECOND_TEXT_COLOR: "#FFFFFF", // màu trắng
     THIRD_TEXT_COLOR: "#948989", // màu xám mờ nhạt

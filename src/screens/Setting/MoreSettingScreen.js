@@ -2,30 +2,49 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert, Switch } from "react-n
 import React, { useState } from "react";
 import color from "../../assets/color/color";
 import { FontAwesome } from "@expo/vector-icons";
+import { switchTheme } from '../../redux/themeReducer'
+import { useSelector, useDispatch } from 'react-redux'
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const MoreSettingScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+  const dark = useSelector((state) => state.theme.dark);
+  const dispatch = useDispatch();
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(dark);
   const [descript, setDescript] = useState("You are in light mode.")
 
   const toggleSwitch = () => {
     if (isDarkMode) {
       setDescript("You are in light mode.")
+      dispatch(switchTheme(lightTheme))
     } else {
-      setDescript("You are in dark mode.// Chưa hoàn thiện")
+      setDescript("You are in dark mode.")
+      dispatch(switchTheme(darkTheme))
     }
 
     setIsDarkMode(previousState => !previousState)
   }
 
-  navigation.setOptions({
-    title: "More Settings",
-    headerStyle: {
-      backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
-    },
-    headerTintColor: darkTheme.SECOND_TEXT_COLOR
-  });
+  {
+    theme.mode === "light" ?
+      navigation.setOptions({
+        title: "More Settings",
+        headerStyle: {
+          backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+        },
+        headerTintColor: lightTheme.SECOND_TEXT_COLOR
+      })
+      : navigation.setOptions({
+        title: "More Settings",
+        headerStyle: {
+          backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+        },
+        headerTintColor: darkTheme.SECOND_TEXT_COLOR
+      });
+  }
+
+
 
   const eventDisableAccount = () => {
     Alert.alert(
@@ -46,8 +65,15 @@ const MoreSettingScreen = ({ navigation }) => {
     return true;
   };
 
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   return (
-    <View style={styles.container}>
+    <View View style={styles.container} >
       <View style={styles.modeView}>
         <Text style={styles.titleText}>Dark mode</Text>
         <Switch
@@ -90,7 +116,52 @@ const MoreSettingScreen = ({ navigation }) => {
 
 export default MoreSettingScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+  },
+  optionMore: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    width: "100%",
+  },
+  titleText: {
+    fontFamily: "Roboto",
+    color: lightTheme.SECOND_TEXT_COLOR,
+    fontSize: 19,
+    fontWeight: "bold",
+    marginLeft: 20,
+  },
+  descriptionText: {
+    marginHorizontal: 20,
+    fontFamily: "Roboto",
+    color: color.textIconSmall,
+    marginVertical: 5,
+  },
+  optionText: {
+    color: color.errorColor,
+    marginLeft: 30,
+    fontFamily: "Roboto",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  lineView: {
+    width: 370,
+    borderWidth: 0.5,
+    marginVertical: 15,
+    borderColor: lightTheme.HIDE_ICON_COLOR
+  },
+  modeView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 13
+  }
+});
+
+const styles_dark = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,

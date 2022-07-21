@@ -3,12 +3,22 @@ import React from "react";
 import color from "../../assets/color/color";
 import moment from "moment";
 import AvatarUser from "../../components/user/AvatarUser";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { seenNotification } from "../../redux/uiReducer";
 import { seenNoti } from "../../services/UserServices";
 import Navigators from "../../navigators/navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const NotifyPreview = (props) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const dispatch = useDispatch();
 
   const { navigateToDetailPost } = Navigators();
@@ -76,7 +86,7 @@ const NotifyPreview = (props) => {
 
 export default NotifyPreview;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     paddingVertical: 15,
@@ -99,7 +109,52 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   Username: {
-    color: color.textBlack,
+    color: lightTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    fontSize: 17,
+  },
+  notificationType: {
+    color: color.textIconSmall,
+    fontFamily: "Roboto",
+    fontSize: 16,
+  },
+  tinyAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+  },
+  timeNotify: {
+    fontFamily: "Roboto",
+    fontSize: 14,
+    color: color.textIconSmall,
+    marginLeft: 16,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  avatarAndName: {
+    flexDirection: "row",
+  },
+  AvatarFrame: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: "pink",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textContain: {
+    marginLeft: 10,
+    justifyContent: "center",
+  },
+  Username: {
+    color: darkTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     fontSize: 17,
   },

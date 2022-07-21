@@ -7,8 +7,10 @@ import InfinityScrollView from "../../components/view/InfinityScrollView";
 import useFetchPost from "../hooks/fetch/useFetchPost";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const ComunityPostScreen = () => {
+  const theme = useSelector((state) => state.theme.theme);
   const currentUser = useSelector((state) => state.user.currentUser);
   const { fetchUserPosts } = useFetchPost();
 
@@ -34,6 +36,13 @@ const ComunityPostScreen = () => {
         </Text>
       </View>
     );
+  }
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
   }
 
   return (
@@ -68,10 +77,22 @@ const ComunityPostScreen = () => {
 
 export default ComunityPostScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    // paddingHorizontal: 10,
+    paddingTop: 5,
+    paddingBottom: 130,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     // paddingHorizontal: 10,
     paddingTop: 5,
     paddingBottom: 130,

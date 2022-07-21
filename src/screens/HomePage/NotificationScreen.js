@@ -5,9 +5,19 @@ import { createStackNavigator } from "@react-navigation/stack";
 import NotifyPreview from "../../components/view/NotifyPreview";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const Stack = createStackNavigator();
+
 const NotificationScreen = () => {
+  const theme = useSelector((state) => state.theme.theme);
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const notifications = useSelector((state) => state.ui.notifications);
 
   return (
@@ -27,10 +37,24 @@ const NotificationScreen = () => {
 
 export default NotificationScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    paddingBottom: 70,
+  },
+  chatFrame: {
+    marginRight: 16,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     paddingBottom: 70,
   },
   chatFrame: {

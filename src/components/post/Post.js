@@ -12,8 +12,17 @@ import { likePost, unLikePost } from '../../redux/postReducer'
 import useUserAction from '../../screens/hooks/action/useUserAction'
 import AvatarUser from '../user/AvatarUser'
 import uuid from 'react-native-uuid';
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const Post = (props) => {
+    const theme = useSelector((state) => state.theme.theme);
+
+    let styles;
+    {
+        theme.mode === "light" ?
+            styles = styles_light
+            : styles = styles_dark;
+    }
 
     const { useFollow } = useUserAction()
 
@@ -116,12 +125,11 @@ const Post = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.contentPost}>
-                {props.post.content ? <Text style={{
-                    marginLeft: 25,
-                    marginBottom: 10
-                }}>
-                    {props.post.content}
-                </Text> : null}
+                {props.post.content ?
+                    <Text style={styles.contentCaption}>
+                        {props.post.content}
+                    </Text>
+                    : null}
 
                 <View style={styles.imageFrame}>
                     {props.post.photos && props.post.photos.length > 0 ? <SwipeSlide photos={props.post.photos} /> : null}
@@ -169,11 +177,20 @@ const Post = (props) => {
             </View>
             <View style={styles.botPost}>
                 <TouchableOpacity onPress={() => props.onReacterList(props.post._id)}>
-                    <Text style={styles.heartNumber}>{props.post.num_heart === 0 ? 'Give your first reaction' : isLikedUser() ? `Liked by you and ${props.post.num_heart - 1} others people` : `Liked by ${props.post.num_heart} others people`}</Text>
+                    <Text style={styles.heartNumber}>
+                        {props.post.num_heart === 0 ?
+                            'Give your first reaction'
+                            : isLikedUser() ?
+                                `Liked by you and ${props.post.num_heart - 1} others people`
+                                : `Liked by ${props.post.num_heart} others people`}
+                    </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => props.onCommentList(props.post._id)}>
-                    <Text style={styles.commentNumber}>{props.post.num_comment === 0 ? 'No comment' : `View all ${props.post.num_comment} comments`}</Text>
+                    <Text style={styles.commentNumber}>{props.post.num_comment === 0 ?
+                        'No comment'
+                        : `View all ${props.post.num_comment} comments`}
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -182,9 +199,9 @@ const Post = (props) => {
 
 export default Post
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
     container: {
-        backgroundColor: color.background,
+        backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
         marginVertical: 5,
         paddingVertical: 12,
     },
@@ -202,23 +219,29 @@ const styles = StyleSheet.create({
     },
     nameUserText: {
         fontFamily: 'Roboto',
-        color: color.textGray,
+        color: lightTheme.SECOND_TEXT_COLOR,
         fontWeight: 'bold',
         fontSize: 16,
     },
     timePost: {
         fontFamily: 'Roboto',
-        color: color.textIconSmall,
+        color: lightTheme.THIRD_TEXT_COLOR,
         fontSize: 12
     },
     followText: {
         fontFamily: 'Roboto',
-        color: color.primary,
+        color: lightTheme.FIRST_TEXT_COLOR,
         fontWeight: 'bold',
         fontSize: 16,
     },
     contentPost: {
-        marginTop: 10
+        marginTop: 10,
+        color: lightTheme.SECOND_TEXT_COLOR
+    },
+    contentCaption: {
+        marginLeft: 25,
+        marginBottom: 10,
+        color: lightTheme.SECOND_TEXT_COLOR
     },
     imageFrame: {
         width: '100%',
@@ -250,7 +273,130 @@ const styles = StyleSheet.create({
         marginRight: 20,
     },
     commentNumber: {
+        color: lightTheme.SECOND_TEXT_COLOR
+    },
+    shareIcon: {
+        marginRight: 5,
+    },
+    heartCommentShareView: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    midPost: {
+        marginVertical: 0,
+    },
+    botPost: {
+        justifyContent: 'space-between',
+        marginHorizontal: 16,
+    },
+    avatarAndNameViewCommenter: {
+        flexDirection: 'row'
+    },
+    avatarFrameCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+        backgroundColor: color.textGray,
+        marginRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    avatarCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    nameUserCommenter: {
+        fontFamily: 'Roboto',
+        color: color.textGray,
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    timeComment: {
+        fontFamily: 'Roboto',
+        color: color.textIconSmall,
+        fontSize: 12,
+    },
+    firstCommentText: {
+        marginHorizontal: 50
+    }
+});
 
+const styles_dark = StyleSheet.create({
+    container: {
+        backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+        marginVertical: 5,
+        paddingVertical: 12,
+    },
+    topPost: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 20
+    },
+    avatarAndNameView: {
+        flexDirection: 'row'
+    },
+    nameAndTimeView: {
+        width: 220,
+        marginLeft: 10
+    },
+    nameUserText: {
+        fontFamily: 'Roboto',
+        color: darkTheme.SECOND_TEXT_COLOR,
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    timePost: {
+        fontFamily: 'Roboto',
+        color: darkTheme.THIRD_TEXT_COLOR,
+        fontSize: 12
+    },
+    followText: {
+        fontFamily: 'Roboto',
+        color: darkTheme.FIRST_TEXT_COLOR,
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    contentPost: {
+        marginTop: 10,
+        color: darkTheme.SECOND_TEXT_COLOR
+    },
+    contentCaption: {
+        marginLeft: 25,
+        marginBottom: 10,
+        color: darkTheme.SECOND_TEXT_COLOR
+    },
+    imageFrame: {
+        width: '100%',
+        //height: 250,
+        backgroundColor: color.textIconSmall,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    imagePost: {
+        width: '100%',
+        //height: 250,
+    },
+    heartCommentShareAndBookView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    heartIcon: {
+        marginRight: 5,
+    },
+    heartIconLottie: {
+        width: 60,
+        height: 60,
+    },
+    heartNumber: {
+        color: color.primary,
+        fontWeight: 'bold',
+    },
+    commentIcon: {
+        marginRight: 20,
+    },
+    commentNumber: {
+        color: darkTheme.SECOND_TEXT_COLOR
     },
     shareIcon: {
         marginRight: 5,

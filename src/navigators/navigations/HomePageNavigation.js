@@ -10,11 +10,26 @@ import HomeScreen from "../../screens/HomePage/HomeScreen";
 import Explore from "../../screens/HomePage/Explore";
 import NotificationScreen from "../../screens/HomePage/NotificationScreen";
 import Navigators from "../navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const NotiNavigation = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
+
   const { navigateToChat } = Navigators();
 
   return (
@@ -24,6 +39,10 @@ const NotiNavigation = () => {
         component={NotificationScreen}
         options={{
           title: "Notifications",
+          headerStyle: {
+            backgroundColor: background_COLOR,
+          },
+          headerTintColor: text_COLOR,
           headerRight: () => (
             <View style={styles.chatFrame}>
               <TouchableOpacity onPress={navigateToChat}>
@@ -102,6 +121,19 @@ const ExploreScreen = () => {
 };
 
 const HomePage = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
   const { navigateToChat, navigateToSearch } = Navigators();
 
   return (
@@ -111,6 +143,10 @@ const HomePage = () => {
         component={HomeScreen}
         options={{
           title: "Food Talk",
+          headerStyle: {
+            backgroundColor: background_COLOR,
+          },
+          headerTintColor: text_COLOR,
           headerRight: () => (
             <View style={styles.iconRightTop}>
               <View style={styles.searchUserFrame}>
@@ -141,6 +177,14 @@ const HomePage = () => {
 
 const HomePageNavigation = () => {
   const notifications = useSelector((state) => state.ui.notifications);
+  const theme = useSelector((state) => state.theme.theme);
+
+  let background_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR
+  }
 
   return (
     <Tab.Navigator
@@ -149,7 +193,7 @@ const HomePageNavigation = () => {
         showLabel: false,
 
         style: {
-          backgroundColor: "#222222",
+          backgroundColor: background_COLOR,
           //position: "absolute",
           //bottom: 5,
           //marginHorizontal: 10,
@@ -189,7 +233,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: "#222222",
+                    backgroundColor: background_COLOR,
                     marginBottom: 15,
                   }}
                 ></View>
@@ -224,7 +268,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: "#222222",
+                    backgroundColor: background_COLOR,
                     marginBottom: 12,
                   }}
                 ></View>
@@ -260,7 +304,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: "#222222",
+                    backgroundColor: background_COLOR,
                     marginBottom: 14,
                   }}
                 ></View>
@@ -300,7 +344,7 @@ const HomePageNavigation = () => {
                   style={{
                     width: 65,
                     height: 2,
-                    backgroundColor: "#222222",
+                    backgroundColor: background_COLOR,
                     marginBottom: 14,
                   }}
                 ></View>

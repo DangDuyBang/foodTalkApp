@@ -12,8 +12,11 @@ import Shortcut from "../../components/button/BtnFunction";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const HomeScreen = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
   const {
     navigateToPostComment,
     navigateToCreatePost,
@@ -33,20 +36,20 @@ const HomeScreen = () => {
     useLoads();
   }, []);
 
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <InfinityScrollView
         showsVerticalScrollIndicator={false}
         useLoads={useLoads}
       >
-        <View
-          style={{
-            backgroundColor: color.background,
-            marginBottom: 3,
-            marginTop: 5,
-            paddingTop: 10,
-          }}
-        >
+        <View style={styles.createPostFrame}>
           <View
             style={{
               flexDirection: "row",
@@ -67,16 +70,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={navigateToCreatePost}>
-              <View
-                style={{
-                  backgroundColor: color.inputColor,
-                  paddingVertical: 12,
-                  paddingRight: 16,
-                  paddingLeft: 8,
-                  borderRadius: 100,
-                  justifyContent: "center",
-                }}
-              >
+              <View style={styles.createPostView} >
                 <Text
                   style={{
                     fontFamily: "Roboto",
@@ -165,10 +159,10 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     // paddingBottom: 80,
   },
   top: {
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 15,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
   },
   iconRightTop: {
     flexDirection: "row",
@@ -203,8 +197,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   body: {
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     paddingBottom: 80,
+  },
+  createPostFrame: {
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    marginBottom: 3,
+    //marginTop: 5,
+    paddingTop: 15,
+  },
+  createPostView: {
+    backgroundColor: lightTheme.INPUT_COLOR,
+    paddingVertical: 12,
+    paddingRight: 16,
+    paddingLeft: 8,
+    borderRadius: 100,
+    justifyContent: "center",
   },
   shortcutView: {
     borderColor: color.textIconSmall,
@@ -215,3 +223,69 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F2F2",
   },
 });
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    // paddingBottom: 80,
+  },
+  top: {
+    borderBottomWidth: 0.5,
+    flexDirection: "row",
+    paddingTop: 30,
+    paddingVertical: 5,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 15,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+  },
+  iconRightTop: {
+    flexDirection: "row",
+    marginRight: 16,
+  },
+  searchUserFrame: {
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
+    marginRight: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  chatFrame: {
+    // backgroundColor: color.post,
+    // width: 50,
+    // height: 50,
+    // borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  body: {
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    paddingBottom: 80,
+  },
+  createPostFrame: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    marginBottom: 3,
+    //marginTop: 5,
+    paddingTop: 15,
+  },
+  createPostView: {
+    backgroundColor: darkTheme.INPUT_COLOR,
+    paddingVertical: 12,
+    paddingRight: 16,
+    paddingLeft: 8,
+    borderRadius: 100,
+    justifyContent: "center",
+  },
+  shortcutView: {
+    borderColor: color.textIconSmall,
+    flexDirection: "row",
+    paddingLeft: 20,
+    paddingTop: 10,
+    marginTop: 10,
+    backgroundColor: "#313131",
+  },
+});
+
