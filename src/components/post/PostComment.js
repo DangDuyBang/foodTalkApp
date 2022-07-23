@@ -3,14 +3,23 @@ import React from 'react'
 import color from '../../assets/color/color'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const PostComment = (props) => {
+    const theme = useSelector((state) => state.theme.theme);
+
+    let styles;
+    {
+        theme.mode === "light" ?
+            styles = styles_light
+            : styles = styles_dark;
+    }
 
     const handleReply = () => {
         if (props.onReplyPress)
             props.onReplyPress(props.comment.author.username, props.comment._id)
     }
-    
+
     return (
         <View style={[styles.container, { marginLeft: props.leftMargin }]}>
             <View style={styles.frameColor}>
@@ -39,15 +48,15 @@ const PostComment = (props) => {
 
 export default PostComment
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
     container: {
         justifyContent: 'space-between',
         marginHorizontal: 8,
-        backgroundColor: color.background,
+        backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
         marginBottom: 5,
     },
     frameColor: {
-        backgroundColor: color.post,
+        backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
         paddingHorizontal: 10,
         paddingVertical: 6,
         borderRadius: 25,
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 40,
-        backgroundColor: color.textGray,
+        backgroundColor: lightTheme.SECOND_TEXT_COLOR,
         marginRight: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -74,21 +83,84 @@ const styles = StyleSheet.create({
     },
     nameUserCommenter: {
         fontFamily: 'Roboto',
-        color: color.textGray,
+        color: lightTheme.SECOND_TEXT_COLOR,
         fontWeight: 'bold',
         fontSize: 16
     },
     timeComment: {
         fontFamily: 'Roboto',
-        color: color.textIconSmall,
+        color: lightTheme.THIRD_TEXT_COLOR,
         fontSize: 12,
     },
     firstCommentText: {
-        maxWidth: 310
+        maxWidth: 310,
+        color: lightTheme.SECOND_TEXT_COLOR
     },
     replyButton: {
         fontFamily: 'Roboto',
-        color: color.textIconSmall,
+        color: lightTheme.THIRD_TEXT_COLOR,
+        marginLeft: 12,
+        fontWeight: 'bold',
+    },
+
+    botAction: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 16,
+    }
+});
+
+const styles_dark = StyleSheet.create({
+    container: {
+        justifyContent: 'space-between',
+        marginHorizontal: 8,
+        backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+        marginBottom: 5,
+    },
+    frameColor: {
+        backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderRadius: 25,
+        flexDirection: 'row',
+    },
+
+    nameAndTimeViewCommenter: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    avatarFrameCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+        backgroundColor: darkTheme.SECOND_TEXT_COLOR,
+        marginRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    avatarCommenter: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    nameUserCommenter: {
+        fontFamily: 'Roboto',
+        color: darkTheme.SECOND_TEXT_COLOR,
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    timeComment: {
+        fontFamily: 'Roboto',
+        color: darkTheme.THIRD_TEXT_COLOR,
+        fontSize: 12,
+    },
+    firstCommentText: {
+        maxWidth: 310,
+        color: darkTheme.SECOND_TEXT_COLOR
+    },
+    replyButton: {
+        fontFamily: 'Roboto',
+        color: darkTheme.THIRD_TEXT_COLOR,
         marginLeft: 12,
         fontWeight: 'bold',
     },

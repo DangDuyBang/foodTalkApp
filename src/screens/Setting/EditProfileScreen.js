@@ -14,8 +14,25 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import useEditProfile from "./hooks/useEditProfile";
 import { useSelector } from "react-redux";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const EditProfileScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
+  let text_COLOR;
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
+
   const {
     uriCover,
     uriAvatar,
@@ -75,7 +92,7 @@ const EditProfileScreen = ({ navigation }) => {
             fontFamily: "Roboto",
             fontSize: 22,
             fontWeight: "bold",
-            color: color.textGray,
+            color: text_COLOR,
             marginBottom: 10,
           }}
         >
@@ -201,7 +218,7 @@ const EditProfileScreen = ({ navigation }) => {
                     >
                       <Image
                         style={styles.avatarImage}
-                        resizeMode="stretch"
+                        resizeMode='contain'
                         source={uriAvatar}
                       />
                       {/* <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={25} color={color.textGray}></Ionicons> */}
@@ -247,6 +264,7 @@ const EditProfileScreen = ({ navigation }) => {
                   style={styles.inputInfo}
                   editable={false}
                   placeholder={currentUser.email}
+                  placeholderTextColor={darkTheme.HIDE_ICON_COLOR}
                 />
               </View>
               <View style={styles.infoOptionView}>
@@ -270,10 +288,10 @@ const EditProfileScreen = ({ navigation }) => {
 
 export default EditProfileScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
   },
   topView: {
     flexDirection: "row",
@@ -291,7 +309,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 22,
     fontWeight: "bold",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     marginLeft: 15,
   },
   mid: {
@@ -316,15 +334,15 @@ const styles = StyleSheet.create({
     height: 110,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: color.background,
-    borderRadius: 120,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    borderRadius: 200,
     position: "absolute",
     marginTop: 200,
   },
   avatarImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 150,
+    width: 110,
+    height: 110,
+    borderRadius: 200,
   },
   infomationView: {
     paddingHorizontal: 20,
@@ -335,7 +353,7 @@ const styles = StyleSheet.create({
   },
   inforOptions: {
     fontFamily: "Roboto",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     fontSize: 18,
   },
@@ -345,9 +363,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     textAlignVertical: "top",
+    color: lightTheme.SECOND_TEXT_COLOR,
+    borderColor: lightTheme.LINE_COLOR
   },
   panel: {
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
     borderLeftWidth: 1,
@@ -358,7 +378,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 16,
     marginLeft: 5,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "900",
   },
   frameOptionSetting: {
@@ -369,6 +389,111 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 15,
     borderRadius: 15,
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+  },
+  topView: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 7,
+    paddingHorizontal: 15,
+  },
+  topLeftView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  topText: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    marginLeft: 15,
+  },
+  mid: {
+    marginTop: 5,
+  },
+  imageFrame: {
+    alignItems: "center",
+    paddingBottom: 30,
+  },
+  coverFrame: {
+    width: 420,
+    height: 250,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  coverImage: {
+    width: 420,
+    height: 250,
+  },
+  avatarFrame: {
+    width: 110,
+    height: 110,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderRadius: 200,
+    position: "absolute",
+    marginTop: 200,
+  },
+  avatarImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 200,
+  },
+  infomationView: {
+    paddingHorizontal: 20,
+    marginTop: 30,
+  },
+  infoOptionView: {
+    marginBottom: 10,
+  },
+  inforOptions: {
+    fontFamily: "Roboto",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  inputInfo: {
+    borderBottomWidth: 0.2,
+    paddingVertical: 5,
+    fontSize: 16,
+    paddingHorizontal: 10,
+    textAlignVertical: "top",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    borderColor: darkTheme.LINE_COLOR
+  },
+  panel: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+  },
+  optionSetting: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    marginLeft: 5,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "900",
+  },
+  frameOptionSetting: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    marginHorizontal: 20,
+    marginTop: 10,
+    paddingVertical: 15,
+    borderRadius: 15,
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
   },
 });

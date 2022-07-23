@@ -9,8 +9,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteCurrentPost } from "../../redux/postReducer";
 import { createComment } from "../../services/PostServices";
 import uuid from "react-native-uuid";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const PostCommentScreen = ({ route }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const { post_id } = route.params;
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.post.currentPost.comments);
@@ -170,11 +180,24 @@ const PostCommentScreen = ({ route }) => {
 
 export default PostCommentScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     justifyContent: "space-between",
+    paddingTop: 5
+  },
+  commentTypeView: {
+    paddingTop: 5,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    justifyContent: "space-between",
+    paddingTop: 5
   },
   commentTypeView: {
     paddingTop: 5,

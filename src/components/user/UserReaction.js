@@ -3,8 +3,18 @@ import React from 'react'
 import color from '../../assets/color/color'
 import AvatarUser from './AvatarUser'
 import LottieView from 'lottie-react-native'
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { useSelector } from "react-redux";
 
 const UserReaction = (props) => {
+    const theme = useSelector((state) => state.theme.theme);
+
+    let styles;
+    {
+        theme.mode === "light" ?
+            styles = styles_light
+            : styles = styles_dark;
+    }
 
     const animation = React.useRef(null);
     React.useEffect(() => {
@@ -49,7 +59,7 @@ const UserReaction = (props) => {
 
 export default UserReaction
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
     container: {
         paddingHorizontal: 15,
         paddingVertical: 15,
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
-        backgroundColor: 'pink',
+        backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -74,13 +84,54 @@ const styles = StyleSheet.create({
     },
     chatFullname: {
         fontFamily: 'Roboto',
-        color: color.textBlack,
+        color: lightTheme.SECOND_TEXT_COLOR,
         fontWeight: 'bold',
         fontSize: 17,
     },
     chatUsername: {
         fontFamily: 'Roboto',
-        color: color.textIconSmall,
+        color: lightTheme.THIRD_TEXT_COLOR,
+        fontSize: 12,
+    },
+    tinyAvatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+    },
+});
+
+const styles_dark = StyleSheet.create({
+    container: {
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    avatarAndName: {
+        flexDirection: 'row',
+    },
+    chatAvatarFrame: {
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textContain: {
+        marginLeft: 10,
+        justifyContent: 'center',
+        width: '80  %',
+    },
+    chatFullname: {
+        fontFamily: 'Roboto',
+        color: darkTheme.SECOND_TEXT_COLOR,
+        fontWeight: 'bold',
+        fontSize: 17,
+    },
+    chatUsername: {
+        fontFamily: 'Roboto',
+        color: darkTheme.THIRD_TEXT_COLOR,
         fontSize: 12,
     },
     tinyAvatar: {

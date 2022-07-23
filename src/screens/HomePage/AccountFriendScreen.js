@@ -19,10 +19,20 @@ import useFetchFood from "../hooks/fetch/useFetchFood";
 import { removeSelectedUserProfile } from "../../redux/userReducer";
 import useUserAction from "../hooks/action/useUserAction";
 import Navigators from "../../navigators/navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountFriendScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const dispatch = useDispatch();
   const selectedUserProfile = useSelector(
     (state) => state.user.selectedUserProfile
@@ -102,7 +112,7 @@ const AccountFriendScreen = ({ navigation }) => {
             <View style={styles.avatarFrame}>
               <Image
                 style={styles.avatarImage}
-                resizeMode="cover"
+                resizeMode='contain'
                 source={{
                   // uri: currentUser.avatar_url,
                   uri: selectedUserProfile.data.avatar_url,
@@ -190,7 +200,7 @@ const AccountFriendScreen = ({ navigation }) => {
           tabBarOptions={{
             showLabel: false,
             showIcon: true,
-            style: {},
+            style: styles.tabAccount,
             paddingHorizontal: 15,
           }}
         >
@@ -214,7 +224,7 @@ const AccountFriendScreen = ({ navigation }) => {
                     <Ionicons
                       name="ios-create-outline"
                       size={25}
-                      color={focused ? color.textBlack : color.hideColor}
+                      color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                     ></Ionicons>
                   </View>
                 </View>
@@ -242,7 +252,7 @@ const AccountFriendScreen = ({ navigation }) => {
                     <Ionicons
                       name="book-outline"
                       size={25}
-                      color={focused ? color.textBlack : color.hideColor}
+                      color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
                     ></Ionicons>
                   </View>
                 </View>
@@ -257,10 +267,10 @@ const AccountFriendScreen = ({ navigation }) => {
 
 export default AccountFriendScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
   },
   mid: {
     flexDirection: "row-reverse",
@@ -278,7 +288,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     position: "absolute",
     marginRight: 10,
     marginTop: 10,
@@ -288,15 +298,15 @@ const styles = StyleSheet.create({
     height: 110,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: color.background,
-    borderRadius: 120,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
+    borderRadius: 200,
     position: "absolute",
     marginTop: 200,
   },
   avatarImage: {
-    width: 90,
-    height: 90,
-    borderRadius: 150,
+    width: 110,
+    height: 110,
+    borderRadius: 200,
   },
   fullNameFrame: {
     flexDirection: "row",
@@ -306,7 +316,7 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 20,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     marginRight: 10,
   },
@@ -323,13 +333,13 @@ const styles = StyleSheet.create({
   followText: {
     fontFamily: "Roboto",
     fontSize: 16,
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
   },
   followNumberText: {
     fontWeight: "bold",
     fontFamily: "Roboto",
     fontSize: 16,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   aboutText: {
     textAlign: "center",
@@ -337,5 +347,100 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
+    color: darkTheme.SECOND_TEXT_COLOR
   },
+  tabAccount: {
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    borderTopWidth: 1,
+    borderColor: lightTheme.SECOND_ICON_COLOR
+  }
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+  },
+  mid: {
+    flexDirection: "row-reverse",
+  },
+  imageFrame: {
+    alignItems: "center",
+  },
+  coverImage: {
+    width: 420,
+    height: 250,
+  },
+  chatFrame: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    position: "absolute",
+    marginRight: 10,
+    marginTop: 10,
+  },
+  avatarFrame: {
+    width: 110,
+    height: 110,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    borderRadius: 200,
+    position: "absolute",
+    marginTop: 200,
+  },
+  avatarImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 200,
+  },
+  fullNameFrame: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 55,
+  },
+  fullName: {
+    fontSize: 20,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    marginRight: 10,
+  },
+  followView: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 15,
+  },
+  followingView: {
+    alignItems: "center",
+    width: 80,
+    height: 30,
+  },
+  followText: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    color: darkTheme.THIRD_TEXT_COLOR,
+  },
+  followNumberText: {
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    fontSize: 16,
+    color: darkTheme.SECOND_TEXT_COLOR,
+  },
+  aboutText: {
+    textAlign: "center",
+    marginVertical: 35,
+    fontFamily: "Roboto",
+    fontSize: 15,
+    marginHorizontal: 30,
+    color: darkTheme.SECOND_TEXT_COLOR
+  },
+  tabAccount: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopWidth: 1,
+    borderColor: darkTheme.SECOND_ICON_COLOR
+  }
 });

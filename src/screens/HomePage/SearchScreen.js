@@ -7,10 +7,32 @@ import { useSelector } from "react-redux";
 import RecipePreview from "../../components/recipe/RecipePreview";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const SearchScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const usersSearch = useSelector((state) => state.user.usersSearch);
   const foodsSearch = useSelector((state) => state.food.foodsSearch);
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
 
   const { navigateToAccount, navigateToAccountFriend } = Navigators();
   useEffect(() => {
@@ -21,7 +43,7 @@ const SearchScreen = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            backgroundColor: color.background,
+            backgroundColor: background_COLOR,
             paddingTop: 10,
             paddingRight: 80,
           }}
@@ -31,7 +53,7 @@ const SearchScreen = ({ navigation }) => {
               style={styles.iconLeft}
               name="arrowleft"
               size={26}
-              color={color.textGray}
+              color={text_COLOR}
             ></AntDesign>
           </TouchableOpacity>
 
@@ -108,10 +130,10 @@ const SearchScreen = ({ navigation }) => {
 
 export default SearchScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     paddingTop: 15,
   },
   userContainer: {
@@ -136,7 +158,7 @@ const styles = StyleSheet.create({
     width: 57,
     height: 57,
     borderRadius: 100,
-    backgroundColor: color.primary,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     marginRight: 15,
   },
   avatarImage: {
@@ -148,13 +170,13 @@ const styles = StyleSheet.create({
   nameUserText: {
     fontFamily: "Roboto",
     fontSize: 17,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     marginBottom: 3,
   },
   textModePost: {
     fontFamily: "Roboto",
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
     fontSize: 11,
   },
   rateStarView: {
@@ -166,7 +188,70 @@ const styles = StyleSheet.create({
   markText: {
     fontFamily: "Roboto",
     fontSize: 13,
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
+    marginRight: 5,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    paddingTop: 15,
+  },
+  userContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  users: {
+    flexDirection: "row",
+    marginBottom: 10,
+    paddingHorizontal: 15,
+    alignItems: "center",
+  },
+  iconLeft: {
+    marginHorizontal: 15,
+  },
+  infoPostUser: {
+    flexDirection: "row",
+    paddingHorizontal: 15,
+    alignItems: "center",
+  },
+  avatarFrame: {
+    width: 57,
+    height: 57,
+    borderRadius: 100,
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    marginRight: 15,
+  },
+  avatarImage: {
+    width: 57,
+    height: 57,
+    borderRadius: 150,
+  },
+  nameUserView: {},
+  nameUserText: {
+    fontFamily: "Roboto",
+    fontSize: 17,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    marginBottom: 3,
+  },
+  textModePost: {
+    fontFamily: "Roboto",
+    color: darkTheme.THIRD_TEXT_COLOR,
+    fontSize: 11,
+  },
+  rateStarView: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingRight: 30,
+    flexDirection: "row",
+  },
+  markText: {
+    fontFamily: "Roboto",
+    fontSize: 13,
+    color: darkTheme.THIRD_TEXT_COLOR,
     marginRight: 5,
   },
 });

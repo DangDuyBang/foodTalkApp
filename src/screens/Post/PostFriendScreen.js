@@ -4,9 +4,10 @@ import color from "../../assets/color/color";
 import PostInAccount from "../../components/post/PostInAccount";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import { useSelector } from "react-redux";
- import useFetchPost from "../hooks/fetch/useFetchPost";
+import useFetchPost from "../hooks/fetch/useFetchPost";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
+import { darkTheme, lightTheme } from "../../assets/color/Theme";
 
 const ImagePic = {
   imagePost_first:
@@ -23,6 +24,27 @@ const ImagePic = {
 };
 
 const PostFriendScreen = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
+
   const posts = useSelector((state) => state.user.selectedUserProfile.posts);
   const { fetchSelectedUserPosts } = useFetchPost();
 
@@ -32,7 +54,7 @@ const PostFriendScreen = () => {
         style={{
           alignItems: "center",
           width: "100%",
-          backgroundColor: color.background,
+          backgroundColor: background_COLOR,
         }}
       >
         <Text
@@ -41,6 +63,7 @@ const PostFriendScreen = () => {
             fontSize: 16,
             marginTop: 50,
             textAlign: "center",
+            color: text_COLOR
           }}
         >
           There's no thing at all {"\n"}
@@ -80,10 +103,22 @@ const PostFriendScreen = () => {
 
 export default PostFriendScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    //paddingHorizontal: 10,
+    paddingTop: 5,
+    paddingBottom: 25,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     //paddingHorizontal: 10,
     paddingTop: 5,
     paddingBottom: 25,

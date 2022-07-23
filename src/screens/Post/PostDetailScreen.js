@@ -23,7 +23,7 @@ import {
   unLikePost,
 } from "../../redux/postReducer";
 import { likeDislikePost, createComment } from "../../services/PostServices";
- import useFetchPost from "../hooks/fetch/useFetchPost";
+import useFetchPost from "../hooks/fetch/useFetchPost";
 import InputComment from "../../components/input/InputComment";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import BottomSheet from "reanimated-bottom-sheet";
@@ -31,8 +31,30 @@ import Animated from "react-native-reanimated";
 import { setToast } from "../../redux/uiReducer";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const PostDetailScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
+
   const currentUser = useSelector((state) => state.user.currentUser.data);
   const dispatch = useDispatch();
   const currentPost = useSelector((state) => state.post.currentPost);
@@ -122,6 +144,10 @@ const PostDetailScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerStyle: {
+        backgroundColor: background_COLOR,
+      },
+      headerTintColor: text_COLOR,
       headerTitle: () => (
         <Text style={styles.nameUserText}>
           {currentPost.data.author.username}
@@ -136,7 +162,7 @@ const PostDetailScreen = ({ navigation }) => {
             name="search"
             size={22}
             style={{
-              color: color.textIconSmall,
+              color: lightTheme.THIRD_TEXT_COLOR,
               marginRight: 10,
             }}
           ></FontAwesome>
@@ -240,7 +266,7 @@ const PostDetailScreen = ({ navigation }) => {
             height: 4,
             width: 65,
             borderRadius: 100,
-            backgroundColor: color.textIconSmall,
+            backgroundColor: darkTheme.HIDE_ICON_COLOR,
             marginTop: 15,
           }}
         />
@@ -273,7 +299,7 @@ const PostDetailScreen = ({ navigation }) => {
     <View style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={["7%", -300]}
+        snapPoints={["8%", -300]}
         borderRadius={10}
         renderContent={renderInner}
         renderHeader={renderHeader}
@@ -344,6 +370,7 @@ const PostDetailScreen = ({ navigation }) => {
                 style={{
                   marginLeft: 25,
                   marginBottom: 10,
+                  color: text_COLOR
                 }}
               >
                 {currentPost.data.content}
@@ -400,8 +427,8 @@ const PostDetailScreen = ({ navigation }) => {
 
                 {currentPost.data.foods && currentPost.data.foods.length > 0
                   ? currentPost.data.foods.map((food) => (
-                      <RecipeShowed food={food} key={uuid.v4()} />
-                    ))
+                    <RecipeShowed food={food} key={uuid.v4()} />
+                  ))
                   : null}
               </ScrollView>
             </View>
@@ -412,10 +439,9 @@ const PostDetailScreen = ({ navigation }) => {
                 {currentPost.data.num_heart === 0
                   ? "Give your first reaction"
                   : isLikedUser()
-                  ? `Liked by you and ${
-                      currentPost.data.num_heart - 1
+                    ? `Liked by you and ${currentPost.data.num_heart - 1
                     } others people`
-                  : `Liked by ${currentPost.data.num_heart} others people`}
+                    : `Liked by ${currentPost.data.num_heart} others people`}
               </Text>
             </TouchableOpacity>
 
@@ -484,11 +510,11 @@ const PostDetailScreen = ({ navigation }) => {
 
 export default PostDetailScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
-    paddingVertical: 12,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    paddingTop: 12,
     alignItems: "center",
   },
   topPost: {
@@ -505,18 +531,18 @@ const styles = StyleSheet.create({
   },
   nameUserText: {
     fontFamily: "Roboto",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     fontSize: 16,
   },
   timePost: {
     fontFamily: "Roboto",
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
     fontSize: 12,
   },
   followText: {
     fontFamily: "Roboto",
-    color: color.primary,
+    color: lightTheme.FIRST_TEXT_COLOR,
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -526,7 +552,7 @@ const styles = StyleSheet.create({
   imageFrame: {
     width: "100%",
     //height: 250,
-    backgroundColor: color.textIconSmall,
+    backgroundColor: lightTheme.THIRD_TEXT_COLOR,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -546,7 +572,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   heartNumber: {
-    color: color.primary,
+    color: lightTheme.FIRST_TEXT_COLOR,
     fontWeight: "bold",
   },
   commentIcon: {
@@ -574,7 +600,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   panel: {
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     borderLeftWidth: 0.5,
@@ -585,7 +611,120 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 18,
     marginLeft: 5,
-    color: color.errorColor,
+    color: lightTheme.ERROR_COLOR,
+    fontWeight: "bold",
+  },
+  frameOptionSetting: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomWidth: 0.5,
+    paddingVertical: 12,
+    flexDirection: "row",
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    paddingTop: 12,
+    alignItems: "center",
+  },
+  topPost: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 20,
+  },
+  avatarAndNameView: {
+    flexDirection: "row",
+  },
+  nameAndTimeView: {
+    width: 220,
+    marginLeft: 10,
+  },
+  nameUserText: {
+    fontFamily: "Roboto",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  timePost: {
+    fontFamily: "Roboto",
+    color: darkTheme.THIRD_TEXT_COLOR,
+    fontSize: 12,
+  },
+  followText: {
+    fontFamily: "Roboto",
+    color: darkTheme.FIRST_TEXT_COLOR,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  contentPost: {
+    marginTop: 10,
+  },
+  imageFrame: {
+    width: "100%",
+    //height: 250,
+    backgroundColor: darkTheme.THIRD_TEXT_COLOR,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imagePost: {
+    width: "100%",
+    //height: 250,
+  },
+  heartCommentShareAndBookView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  heartIcon: {
+    marginRight: 5,
+  },
+  heartIconLottie: {
+    width: 60,
+    height: 60,
+  },
+  heartNumber: {
+    color: darkTheme.FIRST_TEXT_COLOR,
+    fontWeight: "bold",
+  },
+  commentIcon: {
+    marginRight: 20,
+  },
+  commentNumber: {},
+  shareIcon: {
+    marginRight: 5,
+  },
+  heartCommentShareView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  midPost: {
+    marginVertical: 0,
+  },
+  botPost: {
+    justifyContent: "space-between",
+    marginHorizontal: 16,
+  },
+  commentListView: {
+    paddingVertical: 10,
+  },
+  commentTypeView: {
+    paddingTop: 5,
+  },
+  panel: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
+    borderTopWidth: 0.5,
+  },
+  optionSetting: {
+    fontFamily: "Roboto",
+    fontSize: 18,
+    marginLeft: 5,
+    color: darkTheme.ERROR_COLOR,
     fontWeight: "bold",
   },
   frameOptionSetting: {

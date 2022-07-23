@@ -4,8 +4,19 @@ import color from "../../assets/color/color";
 import { Ionicons } from "@expo/vector-icons";
 import InputPass from "../../components/input/InputPass";
 import BtnNoLogo from "../../components/button/BtnNoLogo";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { useSelector } from "react-redux";
 
 const ChangePasswordScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   navigation.setOptions({
     title: "Change password",
     headerRight: () => (
@@ -42,10 +53,10 @@ const ChangePasswordScreen = ({ navigation }) => {
 
 export default ChangePasswordScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     paddingBottom: 10,
   },
   topView: {
@@ -60,7 +71,34 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 22,
     fontWeight: "bold",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
+    marginLeft: 15,
+  },
+  bodyView: {
+    paddingTop: 20,
+    alignItems: "center",
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    paddingBottom: 10,
+  },
+  topView: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingBottom: 7,
+    paddingHorizontal: 15,
+  },
+  topText: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: darkTheme.SECOND_TEXT_COLOR,
     marginLeft: 15,
   },
   bodyView: {

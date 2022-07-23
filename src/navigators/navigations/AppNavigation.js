@@ -46,6 +46,8 @@ import PostDetailScreen from "../../screens/Post/PostDetailScreen";
 import RecipeContentScreen from "../../screens/Recipe/RecipeContentScreen";
 import RecipeEvaluateScreen from "../../screens/Recipe/RecipeEvaluateScreen";
 
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
+
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
@@ -61,6 +63,20 @@ const DetailRecipeNavigation = () => {
 const AppNavigation = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const currentFood = useSelector((state) => state.food.currentFood.data);
+
+  const theme = useSelector((state) => state.theme.theme);
+
+  let background_COLOR, text_COLOR;
+  {
+    theme.mode === "light" ?
+      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
+      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
+  }
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
 
   return (
     <NavigationContainer>
@@ -123,6 +139,7 @@ const AppNavigation = () => {
               headerShown: false,
             }}
           />
+
           <Stack.Screen
             name="ChatNavigation"
             component={ChatNavigation}
@@ -132,6 +149,7 @@ const AppNavigation = () => {
               headerShown: false,
             }}
           />
+
           <Stack.Screen
             name="CreatePostNavigation"
             component={CreatePostNavigation}
@@ -140,13 +158,51 @@ const AppNavigation = () => {
               gestureEnabled: false,
             }}
           />
-          <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
+          />
+
           <Stack.Screen
             name="ChangePassword"
             component={ChangePasswordScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
           />
-          <Stack.Screen name="Feedback" component={FeedbackScreen} />
-          <Stack.Screen name="TermOfService" component={TermOfServiceScreen} />
+
+          <Stack.Screen
+            name="Feedback"
+            component={FeedbackScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
+
+          />
+
+          <Stack.Screen
+            name="TermOfService"
+            component={TermOfServiceScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
+          />
+
           <Stack.Screen name="MoreSetting" component={MoreSettingScreen} />
 
           <Stack.Screen
@@ -154,6 +210,10 @@ const AppNavigation = () => {
             component={PostReacterScreen}
             options={{
               title: "Reaction",
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
               gestureEnabled: true,
               gestureDirection: "vertical",
               transitionSpec: {
@@ -170,6 +230,10 @@ const AppNavigation = () => {
             component={PostCommentScreen}
             options={{
               title: "Comments",
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
               gestureEnabled: true,
               gestureDirection: "vertical",
               transitionSpec: {
@@ -180,8 +244,20 @@ const AppNavigation = () => {
                 CardStyleInterpolators.forModalPresentationIOS,
             }}
           />
-          <Stack.Screen name="RecipeCreate" component={RecipeCreateScreen} />
+
+          <Stack.Screen
+            name="RecipeCreate"
+            component={RecipeCreateScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
+          />
+
           <Stack.Screen name="RecipeList" component={RecipeListScreen} />
+          
           <Stack.Screen
             name="DetailRecipe"
             component={DetailRecipeNavigation}
@@ -202,7 +278,17 @@ const AppNavigation = () => {
             }
           />
           <Stack.Screen name="ChatMessage" component={ChatMessageScreen} />
-          <Stack.Screen name="AccountFriend" component={AccountFriendScreen} />
+
+          <Stack.Screen
+            name="AccountFriend"
+            component={AccountFriendScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: background_COLOR,
+              },
+              headerTintColor: text_COLOR,
+            }}
+          />
 
           <Stack.Screen
             name="Search"
@@ -216,7 +302,6 @@ const AppNavigation = () => {
             name="PostDetail"
             component={PostDetailScreen}
             options={{
-              title: "Reaction",
               gestureEnabled: true,
               gestureDirection: "horizontal",
               transitionSpec: {

@@ -18,8 +18,19 @@ import useNewReceipt from "./hooks/useRecipeCreate";
 import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import uuid from "react-native-uuid";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { useSelector } from "react-redux";
 
 const RecipeCreateScreen = ({ navigation }) => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
   const {
     name,
     processList,
@@ -70,7 +81,7 @@ const RecipeCreateScreen = ({ navigation }) => {
             fontFamily: "Roboto",
             fontSize: 22,
             fontWeight: "bold",
-            color: color.textGray,
+            color: text_COLOR,
             marginBottom: 10,
           }}
         >
@@ -110,6 +121,13 @@ const RecipeCreateScreen = ({ navigation }) => {
   const bs = React.createRef();
   const fall = new Animated.Value(1);
 
+  let text_COLOR;
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
+
   return (
     <View style={styles.container}>
       <BottomSheet
@@ -147,13 +165,8 @@ const RecipeCreateScreen = ({ navigation }) => {
             <Text style={styles.ingredientTittle}>Food Name</Text>
             <TextInput
               placeholder="Type name of food"
-              style={{
-                fontFamily: "Roboto",
-                borderBottomWidth: 0.5,
-                paddingVertical: 10,
-                fontSize: 16,
-                paddingHorizontal: 10,
-              }}
+              placeholderTextColor={text_COLOR}
+              style={styles.inputTitle}
               value={name}
               onChangeText={handleChangeName}
             />
@@ -194,10 +207,10 @@ const RecipeCreateScreen = ({ navigation }) => {
 
 export default RecipeCreateScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
   },
   topView: {
     flexDirection: "row",
@@ -215,7 +228,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 22,
     fontWeight: "bold",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     marginLeft: 15,
   },
   body: {
@@ -229,12 +242,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
+    borderColor: lightTheme.LINE_COLOR
+  },
+  inputTitle: {
+    fontFamily: "Roboto",
+    borderBottomWidth: 0.5,
+    paddingVertical: 10,
+    fontSize: 16,
+    paddingHorizontal: 10,
+    borderColor: lightTheme.LINE_COLOR,
+    color: lightTheme.SECOND_TEXT_COLOR
   },
   ingredientTittle: {
     marginTop: 10,
     fontFamily: "Roboto",
     fontSize: 18,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
   },
   image: {
@@ -244,7 +267,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   panel: {
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
     borderLeftWidth: 1,
@@ -255,7 +278,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 16,
     marginLeft: 5,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "900",
   },
   frameOptionSetting: {
@@ -266,6 +289,92 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 15,
     borderRadius: 15,
-    backgroundColor: color.post,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+  },
+  topView: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 7,
+    paddingHorizontal: 15,
+  },
+  topLeftView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  topText: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    marginLeft: 15,
+  },
+  body: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  imageFoodFrame: {
+    width: "100%",
+    height: 250,
+    borderRadius: 20,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: darkTheme.LINE_COLOR
+  },
+  inputTitle: {
+    fontFamily: "Roboto",
+    borderBottomWidth: 0.5,
+    paddingVertical: 10,
+    fontSize: 16,
+    paddingHorizontal: 10,
+    borderColor: darkTheme.LINE_COLOR,
+    color: darkTheme.SECOND_TEXT_COLOR
+  },
+  ingredientTittle: {
+    marginTop: 10,
+    fontFamily: "Roboto",
+    fontSize: 18,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+  },
+  image: {
+    resizeMode: "cover",
+    width: 370,
+    height: 250,
+    borderRadius: 20,
+  },
+  panel: {
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+  },
+  optionSetting: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    marginLeft: 5,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "900",
+  },
+  frameOptionSetting: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    marginHorizontal: 20,
+    marginTop: 10,
+    paddingVertical: 15,
+    borderRadius: 15,
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
   },
 });

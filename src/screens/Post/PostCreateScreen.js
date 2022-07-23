@@ -16,9 +16,25 @@ import { useCreatePost } from "./hooks/useCreatePost";
 import RecipeShowed from "../../components/recipe/RecipeShowed";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
+import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const PostCreateScreen = ({ navigation, route }) => {
   //cập nhật thêm checkin với foods
+  const theme = useSelector((state) => state.theme.theme);
+
+  let styles;
+  {
+    theme.mode === "light" ?
+      styles = styles_light
+      : styles = styles_dark;
+  }
+
+  let text_COLOR;
+  {
+    theme.mode === "light" ?
+      text_COLOR = lightTheme.SECOND_TEXT_COLOR
+      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
+  }
 
   const {
     isPublic,
@@ -126,6 +142,7 @@ const PostCreateScreen = ({ navigation, route }) => {
           <TextInput
             style={[styles.inputCaption]}
             placeholder="Let's share your food"
+            placeholderTextColor={text_COLOR}
             multiline={true}
             onChangeText={handleContentChange}
             defaultValue={content}
@@ -202,17 +219,17 @@ const PostCreateScreen = ({ navigation, route }) => {
 
 export default PostCreateScreen;
 
-const styles = StyleSheet.create({
+const styles_light = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     paddingBottom: 10,
   },
   topText: {
     fontFamily: "Roboto",
     fontSize: 22,
     fontWeight: "bold",
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     marginLeft: 15,
   },
   bodyView: {
@@ -227,7 +244,7 @@ const styles = StyleSheet.create({
     width: 57,
     height: 57,
     borderRadius: 100,
-    backgroundColor: color.primary,
+    backgroundColor: lightTheme.SECOND_BACKGROUND_COLOR,
     marginRight: 15,
   },
   avatarImage: {
@@ -239,7 +256,7 @@ const styles = StyleSheet.create({
   nameUserText: {
     fontFamily: "Roboto",
     fontSize: 18,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     marginBottom: 3,
   },
@@ -252,12 +269,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 5,
     justifyContent: "space-between",
-    borderColor: color.textIconSmall,
+    borderColor: lightTheme.THIRD_TEXT_COLOR,
   },
   iconModePost: {},
   textModePost: {
     fontFamily: "Roboto",
-    color: color.textIconSmall,
+    color: lightTheme.THIRD_TEXT_COLOR,
     fontSize: 12,
   },
   downModePost: {},
@@ -267,7 +284,7 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     fontFamily: "Roboto",
     fontSize: 18,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   botView: {},
   addRecipeView: {
@@ -277,6 +294,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
+    borderColor: lightTheme.LINE_COLOR
   },
   addPictureView: {
     flexDirection: "row",
@@ -285,6 +303,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
+    borderColor: lightTheme.LINE_COLOR
   },
   addPositionView: {
     flexDirection: "row",
@@ -292,11 +311,114 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
     marginBottom: 8,
+    borderColor: lightTheme.LINE_COLOR
   },
   textFunct: {
     fontFamily: "Roboto",
     fontSize: 16,
-    color: color.textGray,
+    color: lightTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+});
+
+const styles_dark = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    paddingBottom: 10,
+  },
+  topText: {
+    fontFamily: "Roboto",
+    fontSize: 22,
+    fontWeight: "bold",
+    color: darkTheme.SECOND_TEXT_COLOR,
+    marginLeft: 15,
+  },
+  bodyView: {
+    marginTop: 10,
+  },
+  infoPostUser: {
+    flexDirection: "row",
+    paddingHorizontal: 15,
+    //alignItems: 'center'
+  },
+  avatarFrame: {
+    width: 57,
+    height: 57,
+    borderRadius: 100,
+    backgroundColor: darkTheme.SECOND_BACKGROUND_COLOR,
+    marginRight: 15,
+  },
+  avatarImage: {
+    width: 57,
+    height: 57,
+    borderRadius: 150,
+  },
+  nameUserView: {},
+  nameUserText: {
+    fontFamily: "Roboto",
+    fontSize: 18,
+    color: darkTheme.SECOND_TEXT_COLOR,
+    fontWeight: "bold",
+    marginBottom: 3,
+  },
+  modeFrame: {
+    width: 90,
+    height: 22,
+    borderWidth: 0.5,
+    borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 5,
+    justifyContent: "space-between",
+    borderColor: darkTheme.THIRD_TEXT_COLOR,
+  },
+  iconModePost: {},
+  textModePost: {
+    fontFamily: "Roboto",
+    color: darkTheme.THIRD_TEXT_COLOR,
+    fontSize: 12,
+  },
+  inputCaption: {
+    marginTop: 15,
+    marginBottom: 10,
+    paddingLeft: 22,
+    fontFamily: "Roboto",
+    fontSize: 18,
+    color: darkTheme.SECOND_TEXT_COLOR,
+  },
+  botView: {},
+  addRecipeView: {
+    flexDirection: "row",
+    paddingLeft: 20,
+    alignItems: "center",
+    marginBottom: 5,
+    borderBottomWidth: 0.5,
+    paddingVertical: 5,
+    borderColor: darkTheme.LINE_COLOR
+  },
+  addPictureView: {
+    flexDirection: "row",
+    paddingLeft: 20,
+    alignItems: "center",
+    marginBottom: 5,
+    borderBottomWidth: 0.5,
+    paddingVertical: 5,
+    borderColor: darkTheme.LINE_COLOR
+  },
+  addPositionView: {
+    flexDirection: "row",
+    paddingLeft: 20,
+    alignItems: "center",
+    paddingVertical: 5,
+    marginBottom: 8,
+    borderColor: darkTheme.LINE_COLOR
+  },
+  textFunct: {
+    fontFamily: "Roboto",
+    fontSize: 16,
+    color: darkTheme.SECOND_TEXT_COLOR,
     fontWeight: "bold",
     marginLeft: 10,
   },
