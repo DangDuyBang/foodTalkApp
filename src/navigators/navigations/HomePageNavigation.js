@@ -199,7 +199,7 @@ const HomePageNavigation = () => {
           //marginHorizontal: 10,
           //borderRadius: 10,
 
-          height: 60,
+          //height: 60,
 
 
           shadowColor: "#000",

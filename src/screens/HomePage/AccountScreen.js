@@ -212,7 +212,7 @@ const AccountScreen = () => {
       <Portal name="modal">
         <BottomSheet
           ref={bs}
-          snapPoints={["41%", -300]}
+          snapPoints={["38%", -300]}
           borderRadius={10}
           renderContent={renderInner}
           renderHeader={renderHeader}
@@ -318,7 +318,7 @@ const AccountScreen = () => {
             )}
           </View>
 
-          <Tab.Navigator
+          {/* <Tab.Navigator
             tabBarOptions={{
               showLabel: false,
               showIcon: true,
@@ -434,7 +434,7 @@ const AccountScreen = () => {
                 ),
               }}
             />
-          </Tab.Navigator>
+          </Tab.Navigator> */}
         </ScrollView>
       </Animated.View>
     </View>
@@ -447,6 +447,7 @@ const styles_light = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
+    paddingTop: 40
   },
   top: {
     flexDirection: "row",
@@ -582,6 +583,7 @@ const styles_dark = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
+    paddingTop: 40
   },
   top: {
     flexDirection: "row",

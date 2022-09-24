@@ -31,6 +31,16 @@ const useSignIn = () => {
     const handleLoginUser = async (e) => {
         setLoading(true)
 
+        if(initialState.email === '' || initialState.password === '') {
+            dispatch(setToast({
+                type: 'error',
+                text1: 'Login failed',
+                text2: 'Email or password was wrong',
+            }))
+            setLoading(false);
+            return;
+        }
+
         try {
 
             const { data } = await loginUser(initialState)

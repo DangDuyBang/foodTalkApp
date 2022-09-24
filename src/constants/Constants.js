@@ -5,7 +5,7 @@ export const { width: windowWidth, height: windowHeight } = Dimensions.get('wind
 export const data = [
     {
         id: 1,
-        uri: 'https://v16-webapp.tiktok.com/8b04a2a757ddfd5f78fc410326224710/62cf3c15/video/tos/useast2a/tos-useast2a-pve-0037-aiso/18b5e0664c5d48b998f3071668b01ee4/?a=1988&ch=0&cr=0&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C0&cv=1&br=4874&bt=2437&btag=80000&cs=0&ds=3&ft=eXd.6Hk_Myq8ZJdqXwe2NUPQml7Gb&mime_type=video_mp4&qs=0&rc=M2RoZTM4ZWQ2OmdkaDRpZ0Bpamd3NmU6ZnA3ZDMzZjgzM0AvYF80NWBiXi8xYy4wY2JeYSNiLmNtcjRfb25gLS1kL2Nzcw%3D%3D&l=202207131541290102440030261334B6EE.mp4',
+        uri: 'https://v16-webapp.tiktok.com/c7b96dea2d63294d93ecee04e38987fa/63259a18/video/tos/useast2a/tos-useast2a-pve-0037-aiso/be4786724ee648f886739d76457b5c50/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3606&bt=1803&cs=0&ds=3&ft=eXd.6Hk_Myq8ZrG6dhe2NN_nml7Gb&mime_type=video_mp4&qs=0&rc=aGVoNjo7ZDs2M2c6NmgzZEBpanhrcTc6Zm02PDMzZjgzM0AwNS0yNjNjNWMxNi5iXzAuYSNsaF4wcjRvNHNgLS1kL2Nzcw%3D%3D&l=20220917035659010244012214066F69B9&btag=80000',
         caption: 'Cute dog shaking the hand',
         channelName: 'cutedog',
         musicName: 'Song #1',

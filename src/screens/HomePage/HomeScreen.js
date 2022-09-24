@@ -45,7 +45,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <InfinityScrollView
+      {/* <InfinityScrollView
         showsVerticalScrollIndicator={false}
         useLoads={useLoads}
       >
@@ -152,7 +152,7 @@ const HomeScreen = () => {
             </View>
           )}
         </View>
-      </InfinityScrollView>
+      </InfinityScrollView> */}
     </SafeAreaView>
   );
 };

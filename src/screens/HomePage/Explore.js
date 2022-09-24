@@ -16,17 +16,17 @@ const Explore = ({ navigation }) => {
   const bottomTabHeight = useBottomTabBarHeight();
 
   //Focus Event: to be fired when the HomeScreen is focused.
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      // console.log('Focus');
-      // //Every time the screen is focused the Video starts playing
-      // if (video) {
-      //   video.playAsync();
-      // }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     // console.log('Focus');
+  //     // //Every time the screen is focused the Video starts playing
+  //     // if (video) {
+  //     //   video.playAsync();
+  //     // }
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   //Blur Event: to be fired when the HomeScreen loses focus.
   useEffect(() => {
@@ -45,7 +45,7 @@ const Explore = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      <FlatList
+      {/* <FlatList
         data={data}
         pagingEnabled
         renderItem={({ item, index }) => (
@@ -62,7 +62,7 @@ const Explore = ({ navigation }) => {
           );
           setActiveVideoIndex(index);
         }}
-      />
+      /> */}
 
       <View style={styles.topView}>
         <TouchableOpacity onPress={navigateToSearch} >
@@ -121,12 +121,13 @@ export default Explore;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: color.textBlack
   },
   topView: {
     position: 'absolute',
     width: '100%',
-    top: 30,
+    top: 55,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'

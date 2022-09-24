@@ -60,6 +60,7 @@ const InputPass = (props) => {
           style={styles.iconLeftStyle}
         ></Entypo>
         <TextInput
+          placeholderTextColor={color.textIconSmall}
           style={[styles.inputStyle]}
           placeholder={props.inputName}
           secureTextEntry={data.secureTextEntry ? true : false}
@@ -96,17 +97,17 @@ export default InputPass;
 const styles = StyleSheet.create({
   containerBig: {
     marginHorizontal: 25,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   container: {
     justifyContent: "center",
     flexDirection: "row",
     backgroundColor: color.inputColor,
     paddingHorizontal: 15,
-    paddingVertical: 10,
     borderRadius: 25,
     alignItems: "center",
     marginBottom: 5,
+    height: 45 
   },
   iconLeftStyle: {
     color: color.textIconSmall,

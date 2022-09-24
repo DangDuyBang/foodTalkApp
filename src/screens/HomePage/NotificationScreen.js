@@ -22,7 +22,7 @@ const NotificationScreen = () => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
+      {/* <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={notifications.slice(0).reverse()}
           keyExtractor={() => uuid.v4()}
@@ -30,7 +30,7 @@ const NotificationScreen = () => {
             return <NotifyPreview data={item} />;
           }}
         />
-      </SafeAreaView>
+      </SafeAreaView> */}
     </View>
   );
 };

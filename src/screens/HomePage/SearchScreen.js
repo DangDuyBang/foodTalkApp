@@ -44,7 +44,7 @@ const SearchScreen = ({ navigation }) => {
             flexDirection: "row",
             alignItems: "center",
             backgroundColor: background_COLOR,
-            paddingTop: 10,
+            paddingTop: 60,
             paddingRight: 80,
           }}
         >
