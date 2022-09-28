@@ -1,31 +1,33 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import color from "../../assets/color/color";
 import RecipePreview from "../../components/recipe/RecipePreview";
-import useFetchFood from "../hooks/fetch/useFetchFood";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import FoodServices from "../../services/FoodServices";
 
 const RecipePublicScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  const { fetchUserFoodsList } = useFetchFood();
-  const foods = useSelector((state) => state.user.currentUser.foods);
+  const { fetchPersonalFoods } = FoodServices();
+  const foods = useSelector((state) => state.food.userFoods);
 
   return (
     <View style={styles.container}>
-      <InfinityScrollView onLoads={fetchUserFoodsList}>
+      <InfinityScrollView
+        onLoads={
+          foods.count !== 0 && foods.rows.length > foods.count
+            ? null
+            : fetchPersonalFoods(foods.currentPage, 20)
+        }
+      >
         {foods &&
-          foods.map((food) => <RecipePreview data={food} key={uuid.v4()} />)}
+          foods.rows.map((food) => (
+            <RecipePreview data={food} key={uuid.v4()} />
+          ))}
         {/* Sử dụng Component RecipePreview để hiển thị ở trang này */}
         {/* <RecipePreview /> */}
       </InfinityScrollView>

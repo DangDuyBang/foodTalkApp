@@ -1,37 +1,56 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setNoti } from "../redux/reducers/uiReducer";
+import { setUsersSearch } from "../redux/reducers/userReducer";
 
-export const fetchCurrentUser = async () => {
-  return axios.get(`/api/user/me`);
-};
+export default function () {
+  const dispatch = useDispatch();
 
-/**
- * @param {params} params userID string
- */
-export const fetchUserById = async (params) => {
-  return axios.get(`/api/user/fetchUserById/${params}`);
-};
+  const fetchNoti = (page, limit) =>
+    axios
+      .get(`/notifications?page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setNoti(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-/**
- * @param {params} params user search key string
- */
-export const searchUser = async (params) => {
-  return axios.get(`/api/user/searchUsers/${params}`);
-};
+  const searchUsers = ( key, page, limit ) =>
+    axios
+      .get(`/users?q=${key}&page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setUsersSearch(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-/**
- * @param {params} params user_id string
- */
-export const followUser = async (params) => {
-  return axios.post(`/api/user/follow/${params}`);
-};
+  const followUsers = (user_id) =>
+    axios
+      .post(`/users/follow/${user_id}`)
+      .then((response) => console.log(response.data))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-/**
- * @param {params} params user_id string
- */
-export const unfollowUser = async (params) => {
-  return axios.post(`/api/user/unfollow/${params}`);
-};
+  const unfollowUsers = (user) =>
+    axios
+      .post(`/users/unfollow/${user._id}`)
+      .then((response) => console.log(response.data))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-export const seenNoti = async (params) => {
-  return axios.post(`/api/user/seen-noti/${params}`);
-};
+  const seenNoti = (noti_id) =>
+    axios
+      .post(`/notifications/${noti_id}/seen`)
+      .then((response) => console.log(response.data))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
+
+  return {
+    fetchNoti,
+    searchUsers,
+    followUsers,
+    unfollowUsers,
+    seenNoti,
+  };
+}

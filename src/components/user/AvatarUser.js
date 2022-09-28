@@ -6,7 +6,7 @@ import Navigators from "../../navigators/navigators/Navigators";
 
 const AvatarUser = (props) => {
   const { navigateToAccount, navigateToAccountFriend } = Navigators();
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const handlePress = () => {
     if (props.profile._id === currentUser._id) {

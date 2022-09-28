@@ -1,35 +1,31 @@
-import { StyleSheet, View, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import React from "react";
-import color from "../../assets/color/color";
-import { createStackNavigator } from "@react-navigation/stack";
 import NotifyPreview from "../../components/view/NotifyPreview";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
-
-const Stack = createStackNavigator();
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import InfinityScrollView from "../../components/view/InfinityScrollView";
+import UserServices from "../../services/UserServices";
 
 const NotificationScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   const notifications = useSelector((state) => state.ui.notifications);
+  const { fetchNoti } = UserServices();
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <FlatList
-          data={notifications.slice(0).reverse()}
-          keyExtractor={() => uuid.v4()}
-          renderItem={({ item }) => {
-            return <NotifyPreview data={item} />;
-          }}
-        />
+        <InfinityScrollView
+          showsVerticalScrollIndicator={false}
+          useLoads={() => fetchNoti(notifications.currentPage, 20)}
+        >
+          {notifications.rows
+            .map((item) => (
+              <NotifyPreview data={item} key={uuid.v4()} />
+            ))}
+        </InfinityScrollView>
       </SafeAreaView>
     </View>
   );

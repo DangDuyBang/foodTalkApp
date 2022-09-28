@@ -1,41 +1,141 @@
-import { async } from "@firebase/util";
 import axios from "axios";
-import { getStorage } from "../utils/Storage";
+import { useDispatch } from "react-redux";
+import config from "../config";
+import { setToast } from "../redux/reducers/uiReducer";
+import { setCurrentUser, setToken } from "../redux/reducers/userReducer";
 
-export const loginUser = (userData) => {
-  return axios.post("/api/auth/login", userData);
-};
+export default () => {
+  const dispatch = useDispatch();
 
-export const logoutUser = async () => {
-  return axios.post("/api/auth/logout");
-};
+  const loginUser = (userData) =>
+    axios
+      .post(
+        "/auth",
+        { access_token: config.access_token },
+        {
+          auth: {
+            username: userData.email,
+            password: userData.password,
+          },
+        }
+      )
+      .then((response) => {
+        dispatch(setToken(response.data.token));
+        dispatch(setCurrentUser(response.data.user));
+        dispatch(
+          setToast({
+            type: "success",
+            text1: "Wellcome",
+            text2: "Take your time to cook some recipes",
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              text1: err.response.data,
+              text2: "Wrong password, enter again",
+            })
+          );
+        }
+      });
 
-/**
- * @param {userData} userData { first_name, last_name, email, password, username, avatar_url }
- */
-export const signUpUser = async (userData) => {
-  return axios.post("/api/auth/signup", userData);
-};
+  const signUpUser = (userData) =>
+    axios
+      .post(
+        "/users",
+        Object.assign(userData, { access_token: config.access_token })
+      )
+      .then((response) => {
+        dispatch(setToken(response.data.token));
+        dispatch(setCurrentUser(response.data.user));
+        dispatch(
+          setToast({
+            type: "success",
+            text1: "Wellcome",
+            text2: "Take your time to cook some recipes",
+          })
+        );
+      })
+      .catch((err) => {
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              text1: "Error",
+              text2: err.response.data,
+            })
+          );
+        }
+      });
 
-/**
- * @param {payload} payload { currentPassword, newPassword }
- */
-export const changePassword = async (payload) => {
-  return axios.post("/api/auth/change-password", payload);
-};
+  const changePassword = ({ password, email, currentPassword }) =>
+    axios
+      .put(
+        "/users/me/password",
+        { password: password },
+        {
+          auth: {
+            username: email,
+            password: currentPassword,
+          },
+        }
+      )
+      .then((response) =>
+        dispatch(
+          setToast({
+            type: "success",
+            text1: "Success",
+            text2: "Your password has been updated",
+          })
+        )
+      )
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              text1: "Error",
+              text2: err.response.data,
+            })
+          );
+        }
+      });
 
-export const resetPassword = async () => {
-  return axios.post("/api/auth/reset-password");
-};
+  const updateProfile = (userData) =>
+    axios
+      .put("/users/me", userData)
+      .then((response) => {
+        dispatch(setCurrentUser(response.data));
+        dispatch(
+          setToast({
+            type: "success",
+            text1: "Success",
+            text2: "Your profile has been updated",
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              text1: "Error",
+              text2: err.response.data,
+            })
+          );
+        }
+      });
 
-export const updateProfile = async (payload) => {
-  return axios.post("/api/auth/update-profile", payload);
-};
-
-export const updateCoverPic = async (payload) => {
-  return axios.post("/api/auth/update-cover", payload);
-};
-
-export const updateAvatarPic = async (payload) => {
-  return axios.post("/api/auth/update-avatar", payload);
+  return {
+    loginUser,
+    signUpUser,
+    changePassword,
+    updateProfile,
+  };
 };

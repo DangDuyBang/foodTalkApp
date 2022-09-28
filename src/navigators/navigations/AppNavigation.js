@@ -66,17 +66,15 @@ const AppNavigation = () => {
 
   const theme = useSelector((state) => state.theme.theme);
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+      
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   return (
     <NavigationContainer>
@@ -266,7 +264,7 @@ const AppNavigation = () => {
                 title: currentFood.name,
                 headerRight: () => (
                   <View style={styles.rightView}>
-                    <Text style={styles.markText}>{currentFood.avg_score}</Text>
+                    <Text style={styles.markText}>{currentFood.score/ currentFood.num_rate}</Text>
                     <FontAwesome
                       name="star"
                       size={20}

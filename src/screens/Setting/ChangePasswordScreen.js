@@ -10,12 +10,7 @@ import { useSelector } from "react-redux";
 const ChangePasswordScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   navigation.setOptions({
     title: "Change password",

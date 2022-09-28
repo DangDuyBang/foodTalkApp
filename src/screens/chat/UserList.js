@@ -1,32 +1,34 @@
-import { StyleSheet, View, SafeAreaView } from "react-native";
 import React from "react";
+import { useSelector } from "react-redux";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import InputSearch from "../../components/input/InputSearch";
 import color from "../../assets/color/color";
 import User from "../../components/user/User";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
-import { useSelector } from "react-redux";
-import { createChatRoom } from "../../services/ChatServices";
+import useChatService from "../../services/ChatServices";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
 
 const UserList = () => {
-  const followers = useSelector(
-    (state) => state.user.currentUser.data.following
-  );
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  const userList = [...currentUser.following, ...currentUser.follower];
+
+  const { createChat } = useChatService();
+
   const chats = useSelector((state) => state.chat.chats);
+
   const { navigateToDetailChat } = Navigators();
 
   const fetchChatRoom = (user) => {
-    const index = chats.indexOf(
+    const index = chats.rows.indexOf(
       (i) => i.user_1._id === user._id || i.user_2._id === user._id
     );
-    if (index != -1) {
-      navigateToDetailChat(chats[index]);
+    if (index !== -1) {
+      navigateToDetailChat(chats.rows[index]);
     } else {
-      createChatRoom(user._id)
-        .then((res) => {
-          navigateToDetailChat(res.data.room);
-        })
+      createChat(user._id)
+        .then((res) => navigateToDetailChat(res.data))
         .catch((err) => {
           if (err.response) {
             console.log(err.response.data.error);
@@ -51,8 +53,8 @@ const UserList = () => {
 
       <SafeAreaView style={{ flex: 1 }}>
         <InfinityScrollView>
-          {followers &&
-            followers.map((user) => (
+          {userList &&
+            userList.map((user) => (
               <User
                 key={uuid.v4()}
                 fetchChatRoom={fetchChatRoom}

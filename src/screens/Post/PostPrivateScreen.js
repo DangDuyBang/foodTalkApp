@@ -1,18 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import color from "../../assets/color/color";
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
 import { useSelector } from "react-redux";
 
 const PrivatePostScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <View style={styles.container}>

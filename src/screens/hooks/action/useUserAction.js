@@ -1,6 +1,6 @@
 import { followUser, unfollowUser } from '../../../services/UserServices'
 import { useDispatch } from 'react-redux'
-import { follow, unfollow } from '../../../redux/userReducer'
+import { follow, unfollow } from '../../../redux/reducers/userReducer'
 import { useState } from 'react'
 
 const useUserAction = () => {

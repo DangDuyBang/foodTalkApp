@@ -8,12 +8,7 @@ import { useSelector } from "react-redux";
 const Shortcut = (props) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <TouchableOpacity onPress={props.onFunction}>

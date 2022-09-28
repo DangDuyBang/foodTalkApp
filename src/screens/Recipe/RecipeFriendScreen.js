@@ -7,24 +7,17 @@ import { useSelector } from "react-redux";
 const RecipeFriendScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+      
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   return (
     <View style={styles.container}>

@@ -1,18 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit'
-import foodReducer from './foodReducer'
-import postReducer from './postReducer'
-import uiReducer from './uiReducer'
-import userReducer from './userReducer'
-import chatReducer from './chatReducer'
-import themeReducer from './themeReducer'
+import { configureStore } from "@reduxjs/toolkit";
+import foodReducer from "./reducers/foodReducer";
+import postReducer from "./reducers/postReducer";
+import uiReducer from "./reducers/uiReducer";
+import userReducer from "./reducers/userReducer";
+import chatReducer from "./reducers/chatReducer";
+import themeReducer from "./reducers/themeReducer";
+import monitorReducerEnhancer from "./enhancers/monitorReducer";
+import loggerMiddleware from "./midlleware/logger";
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    post: postReducer,
-    ui: uiReducer,
-    food: foodReducer,
-    chat: chatReducer,
-    theme: themeReducer,
-  },
-})
+export default function configureAppStore(preloadedState) {
+  return configureStore({
+    reducer: {
+      user: userReducer,
+      post: postReducer,
+      ui: uiReducer,
+      food: foodReducer,
+      chat: chatReducer,
+      theme: themeReducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(loggerMiddleware),
+    preloadedState,
+    enhancers: [monitorReducerEnhancer],
+  });
+}

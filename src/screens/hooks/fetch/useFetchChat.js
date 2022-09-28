@@ -1,22 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllChat, fetchAllMessage } from '../../../services/ChatServices'
-import { setChat, setChatPaginations, setMessages, setMessagesPagination } from '../../../redux/chatReducer'
+import { setChat, setChatPaginations, setMessages, setMessagesPagination } from '../../../redux/reducers/chatReducer'
 
 const useFetchChat = () => {
 
     const dispatch = useDispatch()
-    const chatPaginations = useSelector(state => state.chat.chatPaginations)
+    const chatCount = useSelector(state => state.chat.chats)
     const messagesPagination = useSelector(state => state.chat.messagesPagination)
     
     const fetchChat = async () => {
-        await fetchAllChat(0).then(response => {
-            dispatch(setChat(response.data))
-        }).catch(error => {
-            if (error.response) {
-                console.log(error.response.data.error);
-            }
-        })
+        if(chatCount.count > )
     }
 
     const fetchMoreChat = async () => {

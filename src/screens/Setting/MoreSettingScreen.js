@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert, Switch } from "react-n
 import React, { useState } from "react";
 import color from "../../assets/color/color";
 import { FontAwesome } from "@expo/vector-icons";
-import { switchTheme } from '../../redux/themeReducer'
+import { switchTheme } from '../../redux/reducers/themeReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
@@ -65,12 +65,7 @@ const MoreSettingScreen = ({ navigation }) => {
     return true;
   };
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <View View style={styles.container} >

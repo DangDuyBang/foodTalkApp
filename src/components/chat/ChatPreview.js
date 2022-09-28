@@ -17,7 +17,7 @@ const ChatPreview = (props) => {
     );
   };
 
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const user = () => {
     if (props.data.user_1._id === currentUser._id) return props.data.user_2;

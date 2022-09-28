@@ -16,46 +16,44 @@ import RecipeFriendScreen from "../Recipe/RecipeFriendScreen";
 import { useDispatch, useSelector } from "react-redux";
 import useFetchPost from "../hooks/fetch/useFetchPost";
 import useFetchFood from "../hooks/fetch/useFetchFood";
-import { removeSelectedUserProfile } from "../../redux/userReducer";
+import { follow, removeSelectedUser, unfollow } from "../../redux/reducers/userReducer";
 import useUserAction from "../hooks/action/useUserAction";
 import Navigators from "../../navigators/navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import UserServices from "../../services/UserServices";
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountFriendScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   const dispatch = useDispatch();
-  const selectedUserProfile = useSelector(
-    (state) => state.user.selectedUserProfile
+  const selectedUser = useSelector(
+    (state) => state.user.selectedUser
   );
-  const { useFollow, useUnfollow } = useUserAction();
 
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const { navigateToChat } = Navigators();
+  const { followUsers, unfollowUsers} = UserServices()
 
   const isFollowing = () => {
-    const index = currentUser.data.following.findIndex(
-      (f) => f._id === selectedUserProfile.data._id
+    const index = currentUser.following.findIndex(
+      (f) => f._id === selectedUser._id
     );
     return index !== -1;
   };
 
   const eventFollowing = () => {
-    useFollow(selectedUserProfile.data._id);
+    dispatch(follow(selectedUser))
+    followUsers(selectedUser._id)
   };
 
   const eventUnfollowing = async () => {
-    await useUnfollow(selectedUserProfile.data._id);
+    dispatch(unfollow(selectedUser))
+    unfollowUsers(selectedUser._id)
   };
 
   const { fetchSelectedUserPosts } = useFetchPost();
@@ -63,7 +61,7 @@ const AccountFriendScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: selectedUserProfile.data.username,
+      title: selectedUser.username,
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
           {isFollowing() ? (
@@ -88,11 +86,8 @@ const AccountFriendScreen = ({ navigation }) => {
       ),
     });
 
-    fetchSelectedUserPosts();
-    fetchSelectedUserFoodsList();
-
     return () => {
-      dispatch(removeSelectedUserProfile());
+      dispatch(removeSelectedUser());
     };
   }, []);
 
@@ -106,25 +101,23 @@ const AccountFriendScreen = ({ navigation }) => {
               style={styles.coverImage}
               resizeMode="stretch"
               source={{
-                uri: selectedUserProfile.data.cover_url,
+                uri: selectedUser.cover_url,
               }}
             />
             <View style={styles.avatarFrame}>
               <Image
                 style={styles.avatarImage}
-                resizeMode='contain'
+                resizeMode="contain"
                 source={{
                   // uri: currentUser.avatar_url,
-                  uri: selectedUserProfile.data.avatar_url,
+                  uri: selectedUser.avatar_url,
                 }}
               />
             </View>
 
             <View style={styles.fullNameFrame}>
               <Text style={styles.fullName}>
-                {selectedUserProfile.data.first_name +
-                  " " +
-                  selectedUserProfile.data.last_name}
+                {selectedUser.name}
               </Text>
             </View>
           </View>
@@ -158,13 +151,13 @@ const AccountFriendScreen = ({ navigation }) => {
             <View style={styles.followingView}>
               <Text style={styles.followText}>Following</Text>
               <Text style={styles.followNumberText}>
-                {selectedUserProfile.data.following.length || 0}
+                {selectedUser.following.length || 0}
               </Text>
             </View>
             <View style={styles.followingView}>
               <Text style={styles.followText}>Follower</Text>
               <Text style={styles.followNumberText}>
-                {selectedUserProfile.data.follower.length || 0}
+                {selectedUser.follower.length || 0}
               </Text>
             </View>
             <View style={styles.followingView}>
@@ -173,7 +166,7 @@ const AccountFriendScreen = ({ navigation }) => {
             </View>
           </View>
 
-          <Text style={styles.aboutText}>{selectedUserProfile.data.about}</Text>
+          <Text style={styles.aboutText}>{selectedUser.about}</Text>
         </View>
 
         {/* <TouchableOpacity>
@@ -224,7 +217,11 @@ const AccountFriendScreen = ({ navigation }) => {
                     <Ionicons
                       name="ios-create-outline"
                       size={25}
-                      color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                      color={
+                        focused
+                          ? lightTheme.SECOND_ICON_COLOR
+                          : lightTheme.HIDE_ICON_COLOR
+                      }
                     ></Ionicons>
                   </View>
                 </View>
@@ -252,7 +249,11 @@ const AccountFriendScreen = ({ navigation }) => {
                     <Ionicons
                       name="book-outline"
                       size={25}
-                      color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                      color={
+                        focused
+                          ? lightTheme.SECOND_ICON_COLOR
+                          : lightTheme.HIDE_ICON_COLOR
+                      }
                     ></Ionicons>
                   </View>
                 </View>
@@ -347,13 +348,13 @@ const styles_light = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
-    color: darkTheme.SECOND_TEXT_COLOR
+    color: darkTheme.SECOND_TEXT_COLOR,
   },
   tabAccount: {
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopWidth: 1,
-    borderColor: lightTheme.SECOND_ICON_COLOR
-  }
+    borderColor: lightTheme.SECOND_ICON_COLOR,
+  },
 });
 
 const styles_dark = StyleSheet.create({
@@ -436,11 +437,11 @@ const styles_dark = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
-    color: darkTheme.SECOND_TEXT_COLOR
+    color: darkTheme.SECOND_TEXT_COLOR,
   },
   tabAccount: {
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     borderTopWidth: 1,
-    borderColor: darkTheme.SECOND_ICON_COLOR
-  }
+    borderColor: darkTheme.SECOND_ICON_COLOR,
+  },
 });

@@ -3,16 +3,16 @@ import React, { useEffect } from "react";
 import color from "../../assets/color/color";
 import ChatPreview from "../../components/chat/ChatPreview";
 import InputSearch from "../../components/input/InputSearch";
-import useFetchChat from "../hooks/fetch/useFetchChat";
 import { useSelector } from "react-redux";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
+import useChatService from "../../services/ChatServices"
 
 const Chat = () => {
-  const { fetchChat, fetchMoreChat } = useFetchChat();
   const chats = useSelector((state) => state.chat.chats);
   const { navigateToDetailChat } = Navigators();
+  const { fetchChat, setChats } = useChatService()
 
   const deleteItem = (index) => {
     const arr = [...lists];
@@ -20,8 +20,13 @@ const Chat = () => {
     setLists(arr);
   };
 
+  const useLoads = () => {
+    if (chats.rows.length >= chats.count) return;
+    fetchChat(chats.currentPage, 20)
+  };
+
   useEffect(() => {
-    fetchChat();
+    if(chats.rows.length === 0) setChats()
   }, []);
 
   const eventDetailChat = (chat) => {
@@ -39,9 +44,9 @@ const Chat = () => {
       </View>
 
       <SafeAreaView style={{ flex: 1 }}>
-        <InfinityScrollView useLoads={fetchMoreChat}>
-          {chats &&
-            chats.map((chat, index) => (
+        <InfinityScrollView useLoads={useLoads}>
+          {chats.rows &&
+            chats.rows.map((chat, index) => (
               <ChatPreview
                 data={chat}
                 key={uuid.v4()}

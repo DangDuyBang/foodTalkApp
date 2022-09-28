@@ -1,20 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import color from "../../assets/color/color";
-import PostInAccount from "../../components/post/PostInAccount";
 import { useSelector } from "react-redux";
-import InfinityScrollView from "../../components/view/InfinityScrollView";
-import useFetchPost from "../hooks/fetch/useFetchPost";
+import { StyleSheet, Text, View } from "react-native";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
+import color from "../../assets/color/color";
+import PostInAccount from "../../components/post/PostInAccount";
+import InfinityScrollView from "../../components/view/InfinityScrollView";
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import PostServices from "../../services/PostServices";
 
 const ComunityPostScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const { fetchUserPosts } = useFetchPost();
+  const userPosts = useSelector(state => state.post.userPosts)
+  const {fetchPersonalPosts} = PostServices()
+  
+  const fetchUPost = () => {
+    if (posts.rows.length >= posts.count) return;
+    fetchPersonalPosts(posts.currentPage, 20);
+  };
 
-  if (currentUser.posts.length === 0) {
+  if (userPosts.rows.length === 0) {
     return (
       <View
         style={{
@@ -38,18 +43,13 @@ const ComunityPostScreen = () => {
     );
   }
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
-    <InfinityScrollView useLoads={fetchUserPosts}>
+    <InfinityScrollView useLoads={fetchUPost}>
       <View style={styles.container}>
-        {currentUser.posts && currentUser.posts.length > 0 ? (
-          currentUser.posts.map((post) => (
+        {userPosts.rows && userPosts.rows.length > 0 ? (
+          userPosts.rows.map((post) => (
             <PostInAccount key={uuid.v4()} post={post} />
           ))
         ) : (

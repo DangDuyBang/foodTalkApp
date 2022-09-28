@@ -21,44 +21,37 @@ import {
   deleteCurrentPost,
   likePost,
   unLikePost,
-} from "../../redux/postReducer";
-import { likeDislikePost, createComment } from "../../services/PostServices";
-import useFetchPost from "../hooks/fetch/useFetchPost";
+} from "../../redux/reducers/postReducer";
+import PostServices from "../../services/PostServices";
 import InputComment from "../../components/input/InputComment";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
-import { setToast } from "../../redux/uiReducer";
+import { setToast } from "../../redux/reducers/uiReducer";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 
 const PostDetailScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
 
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
+
+  const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const currentPost = useSelector((state) => state.post.currentPost);
-  const { useFetchComment, useFetchReaction } = useFetchPost();
+  const { fetchAllComment, fetchAllReaction, createComment, likeDislikePost } =
+    PostServices();
   const [payload, setPayload] = useState({
     post: currentPost.data._id,
     content: "",
@@ -70,6 +63,15 @@ const PostDetailScreen = ({ navigation }) => {
   const [nameUser, setNameUser] = useState("");
 
   const { navigateToSearch } = Navigators();
+
+  const fetchComment = () => {
+    if (
+      currentPost.comments.count !== 0 &&
+      currentPost.comments.rows.length >= currentPost.comments.count
+    )
+      return;
+    fetchAllComment(currentPost.data._id, currentPost.comments.currentPage, 20);
+  };
 
   const handleReplyPress = (nameUserComment, comment_id) => {
     if (isReplyPress === false) {
@@ -93,45 +95,23 @@ const PostDetailScreen = ({ navigation }) => {
     }
   };
 
-  const handleAddComment = async () => {
-    setLoading(true);
-    await createComment(payload)
-      .then(() => {
+  const handleAddComment = () =>
+    createComment(payload).then(() => {
+      setPayload({
+        post: currentPost.data._id,
+        content: "",
+      });
+    });
+
+  const handleAddReplyComment = () => {
+    if (isReplyPress) {
+      createComment(payload).then(() => {
         setPayload({
           post: currentPost.data._id,
           content: "",
         });
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response) {
-          console.log(err.response.data.error);
-          // setError(...err, err.response.data.error)
-        }
+        setIsReplyPress(false);
       });
-  };
-
-  const handleAddReplyComment = async () => {
-    if (isReplyPress) {
-      setLoading(true);
-      await createComment(payload)
-        .then(() => {
-          setPayload({
-            post: currentPost.data._id,
-            content: "",
-          });
-          setIsReplyPress(false);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-
-          if (err.response) {
-            console.log(err.response.data.error);
-            // setError(...err, err.response.data.error)
-          }
-        });
     }
   };
 
@@ -170,8 +150,7 @@ const PostDetailScreen = ({ navigation }) => {
       ),
     });
 
-    useFetchComment(currentPost.data._id);
-    useFetchReaction(currentPost.data._id);
+    if (currentPost.comments.rows.length === 0) fetchComment();
 
     return () => {
       dispatch(deleteCurrentPost());
@@ -219,16 +198,7 @@ const PostDetailScreen = ({ navigation }) => {
       dispatch(likePost({ post: currentPost.data, user: currentUser }));
     }
 
-    await likeDislikePost(currentPost.data._id)
-      .then((res) => {
-        console.log(res.data.message);
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data.error);
-          // setError(...err, err.response.data.error)
-        }
-      });
+    likeDislikePost(currentPost.data._id)
   };
 
   const deleteEvent = () => {
@@ -313,7 +283,7 @@ const PostDetailScreen = ({ navigation }) => {
           opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
         }}
       >
-        <InfinityScrollView useLoads={useFetchComment}>
+        <InfinityScrollView useLoads={fetchComment}>
           <View style={styles.topPost}>
             <View style={styles.avatarAndNameView}>
               <AvatarUser sizeImage={40} profile={currentPost.data.author} />
@@ -370,7 +340,7 @@ const PostDetailScreen = ({ navigation }) => {
                 style={{
                   marginLeft: 25,
                   marginBottom: 10,
-                  color: text_COLOR
+                  color: text_COLOR,
                 }}
               >
                 {currentPost.data.content}
@@ -427,8 +397,8 @@ const PostDetailScreen = ({ navigation }) => {
 
                 {currentPost.data.foods && currentPost.data.foods.length > 0
                   ? currentPost.data.foods.map((food) => (
-                    <RecipeShowed food={food} key={uuid.v4()} />
-                  ))
+                      <RecipeShowed food={food} key={uuid.v4()} />
+                    ))
                   : null}
               </ScrollView>
             </View>
@@ -436,12 +406,13 @@ const PostDetailScreen = ({ navigation }) => {
           <View style={styles.botPost}>
             <TouchableOpacity>
               <Text style={styles.heartNumber}>
-                {currentPost.data.num_heart === 0
+                {currentPost.data.reactions.length === 0
                   ? "Give your first reaction"
                   : isLikedUser()
-                    ? `Liked by you and ${currentPost.data.num_heart - 1
+                  ? `Liked by you and ${
+                      currentPost.data.reactions.length - 1
                     } others people`
-                    : `Liked by ${currentPost.data.num_heart} others people`}
+                  : `Liked by ${currentPost.data.length} others people`}
               </Text>
             </TouchableOpacity>
 
@@ -451,8 +422,8 @@ const PostDetailScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.commentListView}>
-            {currentPost.comments &&
-              currentPost.comments.map((comment) => {
+            {currentPost.comments.rows &&
+              currentPost.comments.rows.map((comment) => {
                 return (
                   <>
                     <PostComment

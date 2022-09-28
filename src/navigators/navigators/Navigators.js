@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setCurrentChat } from "../../redux/chatReducer";
-import { setCurrenFood } from "../../redux/foodReducer";
-import { setCurrentPost } from "../../redux/postReducer";
-import { setSelectedUserProfile } from "../../redux/userReducer";
+import { setCurrentChat } from "../../redux/reducers/chatReducer";
+import { setCurrenFood } from "../../redux/reducers/foodReducer";
+import { setCurrentPost } from "../../redux/reducers/postReducer";
+import { setSelectedUser } from "../../redux/reducers/userReducer";
 
 const Navigators = () => {
   const navigation = useNavigation();
@@ -29,7 +29,7 @@ const Navigators = () => {
   };
 
   const navigateToAccountFriend = (profile) => {
-    dispatch(setSelectedUserProfile(profile));
+    dispatch(setSelectedUser(profile));
     navigation.navigate("AccountFriend");
   };
 

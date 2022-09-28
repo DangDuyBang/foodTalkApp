@@ -1,54 +1,38 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import color from "../../assets/color/color";
+import React, {useEffect} from "react";
 import PostInAccount from "../../components/post/PostInAccount";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import { useSelector } from "react-redux";
-import useFetchPost from "../hooks/fetch/useFetchPost";
+import PostServices from "../../services/PostServices"
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
 import { darkTheme, lightTheme } from "../../assets/color/Theme";
 
-const ImagePic = {
-  imagePost_first:
-    "https://i.pinimg.com/564x/3f/32/94/3f32941eb6f31b5b7b972da29aefa329.jpg",
-
-  imagePost_fith:
-    "https://i.pinimg.com/564x/fd/c9/c4/fdc9c4dc5ac319f37d2072054acec0b2.jpg",
-
-  imagePost_sixth:
-    "https://i.pinimg.com/564x/3b/38/bc/3b38bc462ced2aab576dc3965515fda7.jpg",
-
-  imagePost_seventh:
-    "https://i.pinimg.com/736x/99/4e/de/994ede70d8621abfd4d7ec7e4d12dced.jpg",
-};
-
 const PostFriendScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+      
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
-  const posts = useSelector((state) => state.user.selectedUserProfile.posts);
-  const { fetchSelectedUserPosts } = useFetchPost();
+  const posts = useSelector((state) => state.post.selectedUserPost);
+  const selectedUser = useSelector(state=> state.user.selectedUser)
+  const { fetchUserPosts } = PostServices();
 
-  if (posts.length === 0) {
+  useEffect(() => {
+    fetchUserPosts(selectedUser._id, posts.currentPage, 20)
+  }, [])
+  
+
+  if (posts.rows.length === 0) {
     return (
       <View
         style={{
@@ -63,7 +47,7 @@ const PostFriendScreen = () => {
             fontSize: 16,
             marginTop: 50,
             textAlign: "center",
-            color: text_COLOR
+            color: text_COLOR,
           }}
         >
           There's no thing at all {"\n"}
@@ -74,10 +58,10 @@ const PostFriendScreen = () => {
   }
 
   return (
-    <InfinityScrollView onLoads={fetchSelectedUserPosts}>
+    <InfinityScrollView onLoads={posts.rows.length > posts.count? null: ()=> fetchUserPosts(selectedUser._id, posts.currentPage, 20)}>
       <View style={styles.container}>
-        {posts && posts.length > 0 ? (
-          posts.map((post) => <PostInAccount post={post} key={uuid.v4()} />)
+        {posts && posts.rows.length > 0 ? (
+          posts.rows.map((post) => <PostInAccount post={post} key={uuid.v4()} />)
         ) : (
           <View
             style={{

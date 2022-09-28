@@ -1,24 +1,27 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import color from "../../assets/color/color";
 import InputChat from "../../components/input/InputChat";
 import { useDispatch, useSelector } from "react-redux";
-import useFetchChat from "../hooks/fetch/useFetchChat";
-import { removeMessages } from "../../redux/chatReducer";
+import { removeMessages, setMessages } from "../../redux/reducers/chatReducer";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
 import MessageText from "../../components/chat/MessageText";
-import useChatAction from "../hooks/action/useChatAction";
+import useChatServices from "../../services/ChatServices";
 import moment from "moment";
 import uuid from "react-native-uuid";
 
 const ChatMessageScreen = ({ navigation }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const messages = useSelector((state) => state.chat.messages);
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  const { setMessage, fetchMessage, createMessage } = useChatServices();
   const dispatch = useDispatch();
 
-  const { fetchMessages, fetchMoreMessages } = useFetchChat();
-  const { createMessage } = useChatAction();
+  const useLoads = () => {
+    if (messages.rows.length >= messages.count) return;
+    fetchMessage(currentChat._id, messages.currentPage, 50);
+  };
 
   const user = () => {
     if (currentChat.user_1._id === currentUser._id) return currentChat.user_2;
@@ -47,7 +50,7 @@ const ChatMessageScreen = ({ navigation }) => {
       ),
     });
 
-    fetchMessages(currentChat._id);
+    if (messages.rows.length === 0) setMessage(currentChat._id, 50);
 
     return () => {
       dispatch(removeMessages());
@@ -59,10 +62,10 @@ const ChatMessageScreen = ({ navigation }) => {
       <InfinityScrollView
         scrollEnd={true}
         reverse={true}
-        useLoadReverse={() => fetchMoreMessages(currentChat._id)}
+        useLoadReverse={() => useLoads()}
       >
-        {messages &&
-          messages
+        {messages.rows &&
+          messages.rows
             .slice(0)
             .reverse()
             .map((message) => (

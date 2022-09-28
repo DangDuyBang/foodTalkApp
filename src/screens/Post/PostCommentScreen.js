@@ -1,38 +1,32 @@
 import { StyleSheet, View } from "react-native";
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import uuid from "react-native-uuid";
 import PostComment from "../../components/post/PostComment";
-import color from "../../assets/color/color";
 import InputComment from "../../components/input/InputComment";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
-import useFetchPost from "../hooks/fetch/useFetchPost";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteCurrentPost } from "../../redux/postReducer";
-import { createComment } from "../../services/PostServices";
-import uuid from "react-native-uuid";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { deleteCurrentPost } from "../../redux/reducers/postReducer";
+import PostServices from "../../services/PostServices";
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 
 const PostCommentScreen = ({ route }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   const { post_id } = route.params;
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.post.currentPost.comments);
 
-  const { useFetchComment } = useFetchPost();
+  const { fetchAllComment, createComment } = PostServices();
 
   const fetchComment = () => {
-    useFetchComment(post_id);
+    if (comments.count !== 0 && comments.rows.length >= comments.count) return;
+    fetchAllComment(post_id, comments.currentPage, 20);
   };
 
   useEffect(() => {
-    fetchComment()
+    if (comments.rows.length === 0) fetchComment();
 
     return () => {
       dispatch(deleteCurrentPost());
@@ -70,45 +64,24 @@ const PostCommentScreen = ({ route }) => {
     }
   };
 
-  const handleAddComment = async () => {
-    setLoading(true);
-    await createComment(payload)
-      .then(() => {
+  const handleAddComment = () =>
+    createComment(payload).then(() => {
+      setPayload({
+        post: post_id,
+        content: "",
+      });
+    });
+
+  const handleAddReplyComment = () => {
+    if (isReplyPress) {
+      createComment(payload).then(() => {
         setPayload({
           post: post_id,
           content: "",
         });
+        setIsReplyPress(false);
         setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err.response) {
-          console.log(err.response.data.error);
-          // setError(...err, err.response.data.error)
-        }
       });
-  };
-
-  const handleAddReplyComment = async () => {
-    if (isReplyPress) {
-      setLoading(true);
-      await createComment(payload)
-        .then(() => {
-          setPayload({
-            post: post_id,
-            content: "",
-          });
-          setIsReplyPress(false);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-
-          if (err.response) {
-            console.log(err.response.data.error);
-            // setError(...err, err.response.data.error)
-          }
-        });
     }
   };
 
@@ -122,32 +95,31 @@ const PostCommentScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <InfinityScrollView useLoads={fetchComment}>
-        {comments &&
-          comments.map((item) => {
-            return (
-              <>
-                <PostComment
-                  key={uuid.v4()}
-                  comment={item}
-                  onReplyPress={handleReplyPress}
-                  reply
-                />
+        {comments.rows.map((item) => {
+          return (
+            <>
+              <PostComment
+                key={uuid.v4()}
+                comment={item}
+                onReplyPress={handleReplyPress}
+                reply
+              />
 
-                {item.children &&
-                  item.children.map((i) => {
-                    return (
-                      <PostComment
-                        key={uuid.v4()}
-                        comment={i}
-                        onReplyPress={handleReplyPress}
-                        leftMargin={60}
-                        display="none"
-                      />
-                    );
-                  })}
-              </>
-            );
-          })}
+              {item.children &&
+                item.children.map((i) => {
+                  return (
+                    <PostComment
+                      key={uuid.v4()}
+                      comment={i}
+                      onReplyPress={handleReplyPress}
+                      leftMargin={60}
+                      display="none"
+                    />
+                  );
+                })}
+            </>
+          );
+        })}
       </InfinityScrollView>
       <View style={styles.commentTypeView}>
         {isReplyPress ? (
@@ -185,7 +157,7 @@ const styles_light = StyleSheet.create({
     flex: 1,
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     justifyContent: "space-between",
-    paddingTop: 5
+    paddingTop: 5,
   },
   commentTypeView: {
     paddingTop: 5,
@@ -197,7 +169,7 @@ const styles_dark = StyleSheet.create({
     flex: 1,
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     justifyContent: "space-between",
-    paddingTop: 5
+    paddingTop: 5,
   },
   commentTypeView: {
     paddingTop: 5,

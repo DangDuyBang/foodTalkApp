@@ -7,12 +7,7 @@ import { useSelector } from "react-redux";
 const ProcessShow = (props) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <View style={styles.container}>

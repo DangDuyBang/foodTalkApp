@@ -43,7 +43,7 @@ const RecipePreviewPlus = (props) => {
           </View>
           <View style={styles.rateStarView}>
             <Text style={styles.markText}>
-              {props.data.avg_score.toFixed(1)}
+              {(props.data.score / props.data.num_rate).toFixed(1)}
             </Text>
             <FontAwesome
               name="star"

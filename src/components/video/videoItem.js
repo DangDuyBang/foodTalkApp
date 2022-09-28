@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     musicNameIcon: {
-        color: color.background,
+        backgroundColor: color.background,
         width: 20,
         height: 20,
         marginRight: 8

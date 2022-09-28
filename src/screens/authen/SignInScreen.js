@@ -21,13 +21,9 @@ import Navigators from "../../navigators/navigators/Navigators";
 const SignInScreen = () => {
   const { navigateToSignUp, navigateToForgotPassword, navigateToHomePage } =
     Navigators();
-  const {
-    loading,
-    error,
-    handleLoginUser,
-    handlePasswordChange,
-    handleEmailChange,
-  } = useSignIn();
+
+  const { loading, handleLoginUser, handlePasswordChange, handleEmailChange } =
+    useSignIn();
 
   return (
     <>
@@ -72,13 +68,8 @@ const SignInScreen = () => {
                 inputName="Password"
                 setPassText={handlePasswordChange}
               />
-              {error ? (
-                <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text style={styles.errorPassword}>{error}</Text>
-                </Animatable.View>
-              ) : null}
               <BtnNoLogo
-                loading={loading}
+                // loading={loading}
                 eventButton={(e) => handleLoginUser(e)}
                 nameButton="SIGN IN"
                 colorView={color.background}
@@ -129,7 +120,7 @@ const SignInScreen = () => {
           </Animatable.View>
         </ScrollView>
       </View>
-      {loading ? <LoadingScreen /> : null}
+      {loading && <LoadingScreen />}
     </>
   );
 };

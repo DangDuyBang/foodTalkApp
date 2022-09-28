@@ -18,18 +18,13 @@ import useNewReceipt from "./hooks/useRecipeCreate";
 import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import uuid from "react-native-uuid";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 import { useSelector } from "react-redux";
 
 const RecipeCreateScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   const {
     name,
@@ -43,7 +38,7 @@ const RecipeCreateScreen = ({ navigation }) => {
     handleDeleteProcess,
     handleDeleteIngredient,
     openImagePickerAsync,
-  } = useNewReceipt({ navigation });
+  } = useNewReceipt();
 
   useEffect(() => {
     navigation.setOptions({
@@ -121,12 +116,10 @@ const RecipeCreateScreen = ({ navigation }) => {
   const bs = React.createRef();
   const fall = new Animated.Value(1);
 
-  let text_COLOR;
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   return (
     <View style={styles.container}>
@@ -242,7 +235,7 @@ const styles_light = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: lightTheme.LINE_COLOR
+    borderColor: lightTheme.LINE_COLOR,
   },
   inputTitle: {
     fontFamily: "Roboto",
@@ -251,7 +244,7 @@ const styles_light = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     borderColor: lightTheme.LINE_COLOR,
-    color: lightTheme.SECOND_TEXT_COLOR
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   ingredientTittle: {
     marginTop: 10,
@@ -328,7 +321,7 @@ const styles_dark = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: darkTheme.LINE_COLOR
+    borderColor: darkTheme.LINE_COLOR,
   },
   inputTitle: {
     fontFamily: "Roboto",
@@ -337,7 +330,7 @@ const styles_dark = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     borderColor: darkTheme.LINE_COLOR,
-    color: darkTheme.SECOND_TEXT_COLOR
+    color: darkTheme.SECOND_TEXT_COLOR,
   },
   ingredientTittle: {
     marginTop: 10,

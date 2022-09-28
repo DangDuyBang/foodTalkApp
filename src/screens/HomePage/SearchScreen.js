@@ -7,34 +7,28 @@ import { useSelector } from "react-redux";
 import RecipePreview from "../../components/recipe/RecipePreview";
 import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 
 const SearchScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  const usersSearch = useSelector((state) => state.user.usersSearch);
-  const foodsSearch = useSelector((state) => state.food.foodsSearch);
+  const usersSearch = useSelector((state) => state.user.searchUser);
+  const foodsSearch = useSelector((state) => state.food.searchFoods);
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+      
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   const { navigateToAccount, navigateToAccountFriend } = Navigators();
+
   useEffect(() => {
     navigation.setOptions({
       title: "",
@@ -71,14 +65,14 @@ const SearchScreen = ({ navigation }) => {
   }, []);
 
   const Users = ({ user }) => {
-    const currentUser = useSelector((state) => state.user.currentUser.data);
+    const currentUser = useSelector((state) => state.user.currentUser);
     const handlePress = () => {
       if (user._id === currentUser._id) {
         navigateToAccount();
       } else {
         navigateToAccountFriend(user);
       }
-      //dispatch(setSelectedUserProfile(props.user))
+      //dispatch(setselectedUser(props.user))
     };
     return (
       <TouchableOpacity onPress={handlePress}>
@@ -119,9 +113,9 @@ const SearchScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {usersSearch &&
-        usersSearch.map((user) => <Users user={user} key={uuid.v4()} />)}
+        usersSearch.rows.map((user) => <Users user={user} key={uuid.v4()} />)}
       {foodsSearch &&
-        foodsSearch.map((food) => (
+        foodsSearch.rows.map((food) => (
           <RecipePreview data={food} key={uuid.v4()} />
         ))}
     </View>

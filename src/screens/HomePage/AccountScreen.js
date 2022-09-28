@@ -8,34 +8,31 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect } from "react";
-import color from "../../assets/color/color";
 import { Ionicons } from "@expo/vector-icons";
-
-import PostPublicScreen from "../Post/PostPublicScreen";
-import PostHeartedScreen from "../Post/PostHeartedScreen";
-import PostPrivateScreen from "../Post/PostPrivateScreen";
-import RecipePublicScreen from "../Recipe/RecipePublicScreen";
-
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
 import BottomSheet from "reanimated-bottom-sheet";
 import Animated from "react-native-reanimated";
 import { Portal } from "@gorhom/portal";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/userReducer";
-import useFetchPost from "../hooks/fetch/useFetchPost";
-import useFetchFood from "../hooks/fetch/useFetchFood";
+import color from "../../assets/color/color";
+import PostPublicScreen from "../Post/PostPublicScreen";
+import PostHeartedScreen from "../Post/PostHeartedScreen";
+import PostPrivateScreen from "../Post/PostPrivateScreen";
+import RecipePublicScreen from "../Recipe/RecipePublicScreen";
+import { logout } from "../../redux/reducers/userReducer";
 import { logoutUser } from "../../services/AuthServices";
 import axios from "axios";
 import Navigators from "../../navigators/navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import PostServices from "../../services/PostServices";
+import FoodServices from "../../services/FoodServices";
 
 const Tab = createMaterialTopTabNavigator();
 
 const AccountScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const {
     navigateToChat,
@@ -115,10 +112,7 @@ const AccountScreen = () => {
             marginTop: 15,
           }}
         />
-        <Text
-          onPress={() => bs.current.snapTo(1)}
-          style={styles.titleSetting}
-        >
+        <Text onPress={() => bs.current.snapTo(1)} style={styles.titleSetting}>
           Setting
         </Text>
       </View>
@@ -192,20 +186,27 @@ const AccountScreen = () => {
   const bs = React.createRef();
   const fall = new Animated.Value(1);
 
-  const { fetchUserPosts } = useFetchPost();
-  const { fetchUserFoodsList } = useFetchFood();
+  const posts = useSelector((state) => state.post.userPosts);
+  const foods = useSelector((state) => state.food.userFoods);
+  const { fetchPersonalPosts } = PostServices();
+  const { fetchPersonalFoods } = FoodServices();
+
+  const fetchUPost = () => {
+    if (posts.rows.length > posts.count) return;
+    fetchPersonalPosts(posts.currentPage, 20);
+  };
+
+  const fetchUFood = () => {
+    if (foods.rows.length > foods.count) return;
+    fetchPersonalFoods(foods.currentPage, 20);
+  };
 
   useEffect(() => {
-    fetchUserPosts();
-    fetchUserFoodsList();
+    if (posts.rows.length === 0) fetchUPost();
+    if (foods.rows.length === 0) fetchUFood();
   }, []);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <View style={styles.container}>
@@ -272,23 +273,22 @@ const AccountScreen = () => {
 
               <View style={styles.fullNameFrame}>
                 <Text style={styles.fullName}>
-                  {currentUser.first_name + " " + currentUser.last_name}
+                  {currentUser.name}
                 </Text>
                 <TouchableOpacity onPress={eventEditProfile}>
-                  {
-                    theme.mode === "light" ?
-                      <Ionicons
-                        name="pencil"
-                        size={18}
-                        color={lightTheme.SECOND_ICON_COLOR}
-                      ></Ionicons>
-                      :
-                      <Ionicons
-                        name="pencil"
-                        size={18}
-                        color={darkTheme.SECOND_BUTTON_COLOR}
-                      ></Ionicons>
-                  }
+                  {theme.mode === "light" ? (
+                    <Ionicons
+                      name="pencil"
+                      size={18}
+                      color={lightTheme.SECOND_ICON_COLOR}
+                    ></Ionicons>
+                  ) : (
+                    <Ionicons
+                      name="pencil"
+                      size={18}
+                      color={darkTheme.SECOND_BUTTON_COLOR}
+                    ></Ionicons>
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
@@ -346,7 +346,11 @@ const AccountScreen = () => {
                       <Ionicons
                         name="ios-create-outline"
                         size={25}
-                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                        color={
+                          focused
+                            ? lightTheme.SECOND_ICON_COLOR
+                            : lightTheme.HIDE_ICON_COLOR
+                        }
                       ></Ionicons>
                     </View>
                   </View>
@@ -373,7 +377,11 @@ const AccountScreen = () => {
                       <Ionicons
                         name="heart-outline"
                         size={25}
-                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                        color={
+                          focused
+                            ? lightTheme.SECOND_ICON_COLOR
+                            : lightTheme.HIDE_ICON_COLOR
+                        }
                       ></Ionicons>
                     </View>
                   </View>
@@ -400,7 +408,11 @@ const AccountScreen = () => {
                       <Ionicons
                         name="lock-closed-outline"
                         size={25}
-                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                        color={
+                          focused
+                            ? lightTheme.SECOND_ICON_COLOR
+                            : lightTheme.HIDE_ICON_COLOR
+                        }
                       ></Ionicons>
                     </View>
                   </View>
@@ -427,7 +439,11 @@ const AccountScreen = () => {
                       <Ionicons
                         name="book-outline"
                         size={25}
-                        color={focused ? lightTheme.SECOND_ICON_COLOR : lightTheme.HIDE_ICON_COLOR}
+                        color={
+                          focused
+                            ? lightTheme.SECOND_ICON_COLOR
+                            : lightTheme.HIDE_ICON_COLOR
+                        }
                       ></Ionicons>
                     </View>
                   </View>
@@ -538,7 +554,7 @@ const styles_light = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
-    color: lightTheme.SECOND_TEXT_COLOR
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   panel: {
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
@@ -574,8 +590,8 @@ const styles_light = StyleSheet.create({
   tabAccount: {
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
     borderTopWidth: 1,
-    borderColor: lightTheme.SECOND_ICON_COLOR
-  }
+    borderColor: lightTheme.SECOND_ICON_COLOR,
+  },
 });
 
 const styles_dark = StyleSheet.create({
@@ -673,7 +689,7 @@ const styles_dark = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     marginHorizontal: 30,
-    color: darkTheme.SECOND_TEXT_COLOR
+    color: darkTheme.SECOND_TEXT_COLOR,
   },
   panel: {
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
@@ -709,6 +725,6 @@ const styles_dark = StyleSheet.create({
   tabAccount: {
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
     borderTopWidth: 1,
-    borderColor: darkTheme.SECOND_ICON_COLOR
-  }
+    borderColor: darkTheme.SECOND_ICON_COLOR,
+  },
 });

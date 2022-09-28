@@ -1,19 +1,28 @@
 import { registerRootComponent } from "expo";
 import { Component } from "react";
 
-import App from './App'
-import { store } from './redux/store'
-import { Provider } from 'react-redux'
+import App from "./App";
+import configureAppStore from "./redux/store";
+import { Provider } from "react-redux";
 
-class Main extends Component {
+import {decode, encode} from 'base-64'
 
-    render() {
-        return (
-            <Provider store={store}>
-                <App />
-            </Provider>
-        )
-    }
+if (!global.btoa) {
+    global.btoa = encode;
 }
 
-registerRootComponent(Main)
+if (!global.atob) {
+    global.atob = decode;
+}
+
+class Main extends Component {
+  render() {
+    return (
+      <Provider store={configureAppStore()}>
+        <App />
+      </Provider>
+    );
+  }
+}
+
+registerRootComponent(Main);

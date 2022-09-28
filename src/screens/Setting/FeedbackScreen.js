@@ -3,26 +3,18 @@ import React, { useState } from "react";
 import color from "../../assets/color/color";
 import { CheckBox } from "react-native-elements";
 import BtnNoLogo from "../../components/button/BtnNoLogo";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 import { useSelector } from "react-redux";
 
 const FeedbackScreen = ({ navigation }) => {
-
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let text_COLOR;
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   navigation.setOptions({
     title: "Feed back",
@@ -167,7 +159,7 @@ const styles_light = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     textAlignVertical: "top",
-    color: lightTheme.SECOND_TEXT_COLOR
+    color: lightTheme.SECOND_TEXT_COLOR,
   },
   inputContent: {
     marginTop: 5,
@@ -237,7 +229,7 @@ const styles_dark = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     textAlignVertical: "top",
-    color: darkTheme.SECOND_TEXT_COLOR
+    color: darkTheme.SECOND_TEXT_COLOR,
   },
   inputContent: {
     marginTop: 5,

@@ -1,5 +1,5 @@
-import { lightTheme } from '../assets/color/Theme'
-import { darkTheme } from '../assets/color/Theme'
+import { lightTheme } from '../../assets/color/Theme'
+import { darkTheme } from '../../assets/color/Theme'
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 

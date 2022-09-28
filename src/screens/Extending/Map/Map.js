@@ -13,7 +13,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import useMapHooks from "./hooks/useMapHooks";
 
 const locationDelta = { latitudeDelta: 0.0922, longitudeDelta: 0.0421 };
-const googleApiKey = "AIzaSyCc-7cU3-_x1VTV5eW3g2pVnl3vi9lvv7w";
+const googleApiKey = "AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY";
 
 function IMLocationSelectorModal({ route, navigation }) {
   const { onCancel, isVisible, onDone } = route.params;

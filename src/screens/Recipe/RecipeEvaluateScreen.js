@@ -11,39 +11,24 @@ import color from "../../assets/color/color";
 import RecipeComment from "../../components/recipe/RecipeComment";
 import { useDispatch, useSelector } from "react-redux";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
-import {
-  addRate,
-  deleteCurrentFood,
-  setRate,
-} from "../../redux/foodReducer";
-import { createRateFood, fetchAllRates } from "../../services/FoodServices";
+import { deleteCurrentFood } from "../../redux/reducers/foodReducer";
+import FoodServices from "../../services/FoodServices";
 import { Ionicons } from "@expo/vector-icons";
 import uuid from "react-native-uuid";
 
 const RecipeEvaluateScreen = () => {
   const currentFood = useSelector((state) => state.food.currentFood);
+  const { fetchAllRates, createRateFood } = FoodServices();
   const dispatch = useDispatch();
 
-  const fetchRate = async () => {
+  const fetchRate = () => {
     if (
-      currentFood.ratePagination.currentPage >
-      currentFood.ratePagination.totalPage
-    ) {
+      currentFood.rates.count !== 0 &&
+      currentFood.rates.count <= currentFood.rates.rows.length
+    ) 
       return;
-    }
-    await fetchAllRates(
-      currentFood.data._id,
-      currentFood.ratePagination.currentPage
-    )
-      .then((response) => {
-        dispatch(setRate(response.data));
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data.error);
-          // setError(...err, err.response.data.error)
-        }
-      });
+    
+    fetchAllRates(currentFood.data._id, currentFood.rates.currentPage, 20);
   };
 
   const [payload, setPayload] = useState({
@@ -58,21 +43,13 @@ const RecipeEvaluateScreen = () => {
   const starImgCorner =
     "https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true";
 
-  const handleComment = async () => {
-    await createRateFood(payload)
-      .then((response) => {
-        dispatch(addRate(response.data));
-
-        setPayload({
-          ...payload,
-          content: "",
-        });
+  const handleComment = () => {
+    createRateFood(payload).then(
+      setPayload({
+        food: currentFood.data._id,
+        score: 10,
       })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data.error);
-        }
-      });
+    );
   };
 
   const onContentChange = (text) => {
@@ -84,7 +61,7 @@ const RecipeEvaluateScreen = () => {
   };
 
   useEffect(() => {
-    fetchRate();
+    if (currentFood.rates.rows.length === 0) fetchRate();
 
     return () => {
       dispatch(deleteCurrentFood());
@@ -120,8 +97,8 @@ const RecipeEvaluateScreen = () => {
     <View style={styles.container}>
       <View style={styles.commentListView}>
         <InfinityScrollView useLoads={fetchRate}>
-          {currentFood.rates &&
-            currentFood.rates.map((item) => {
+          {currentFood.rates.rows &&
+            currentFood.rates.rows.map((item) => {
               return <RecipeComment key={uuid.v4()} rate={item} />;
             })}
         </InfinityScrollView>

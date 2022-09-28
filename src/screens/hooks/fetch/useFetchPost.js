@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllComment, fetchAllPost, fetchAllReaction, fetchUserPost } from "../../../services/PostServices"
-import { setComment, setPosts, setReactions } from '../../../redux/postReducer'
-import { setSelectedUserPosts, setUserPosts } from "../../../redux/userReducer"
+import { setComment, setPosts, setReactions } from '../../../redux/reducers/postReducer'
+import { setSelectedUserPosts, setUserPosts } from "../../../redux/reducers/userReducer"
 
 const useFetchPost = () => {
     const [loading, setLoading] = useState(false)
@@ -10,7 +10,7 @@ const useFetchPost = () => {
     const commentPagination = useSelector(state => state.post.currentPost.commentPagination)
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser)
-    const selectedUserProfile = useSelector(state => state.user.selectedUserProfile)
+    const selectedUser = useSelector(state => state.user.selectedUser)
 
 
     const useFetchComment = async (post_id) => {
@@ -66,7 +66,7 @@ const useFetchPost = () => {
         if (currentUser.postPagination.currentPage > currentUser.postPagination.totalPage) {
             return
         }
-        await fetchUserPost(currentUser.data._id, currentUser.postPagination.currentPage).then(response => {
+        await fetchUserPost(currentUser._id, currentUser.postPagination.currentPage).then(response => {
             dispatch(setUserPosts(response.data))
         }).catch(err => {
             if (err.response) {
@@ -78,10 +78,10 @@ const useFetchPost = () => {
     }
 
     const fetchSelectedUserPosts = async () => {
-        if (selectedUserProfile.postPagination.currentPage > selectedUserProfile.postPagination.totalPage) {
+        if (selectedUser.postPagination.currentPage > selectedUser.postPagination.totalPage) {
             return
         }
-        await fetchUserPost(selectedUserProfile.data._id, selectedUserProfile.postPagination.currentPage).then(response => {
+        await fetchUserPost(selectedUser.data._id, selectedUser.postPagination.currentPage).then(response => {
             dispatch(setSelectedUserPosts(response.data))
         }).catch(err => {
             if (err.response) {

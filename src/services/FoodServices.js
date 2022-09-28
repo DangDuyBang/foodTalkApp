@@ -1,65 +1,124 @@
 import axios from "axios";
-import { getStorage } from "../utils/Storage";
+import { useDispatch } from "react-redux";
+import {
+  addFood,
+  addRate,
+  setMoreSearchFoods,
+  setPairingIngredient,
+  setRates,
+  setRecommendedIngredient,
+  setSearchFoods,
+  setSelectedUserFoods,
+  setUserFoods,
+} from "../redux/reducers/foodReducer";
+import { setToast } from "../redux/reducers/uiReducer";
 
-/**
- * @param {payload} payload { name, ingredients, recipe, about = '', photo = '' }
- */
-export const createFood = async (payload) => {
-  return axios.post(`/api/food/create`, payload);
-};
+export default function () {
+  const dispatch = useDispatch();
 
-/**
- * @param {payload} payload { food, content, score }
- */
-export const createRateFood = async (payload) => {
-  return axios.post(`/api/food/rate`, payload);
-};
+  const createFood = (payload) =>
+    axios
+      .post("/foods", payload)
+      .then((response) => {
+        dispatch(
+          setToast({
+            type: "success",
+            title: "Food created",
+            message: `Food created successfully!`,
+          })
+        );
+        dispatch(addFood(response.data));
+      })
+      .catch((err) => {
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              title: "Error creating food",
+              message: err.response.data,
+            })
+          );
+        }
+      });
 
-/**
- * @param {params} parmas food_id string
- */
-export const fetchFoodById = async (params) => {
-  return axios.get(`/api/food/foods/${params}`);
-};
+  const createRateFood = (payload) =>
+    axios
+      .post("/food-rates", payload)
+      .then((response) => dispatch(addRate(response.data)))
+      .catch((err) => {
+        if (err.response) {
+          dispatch(
+            setToast({
+              type: "error",
+              title: "Error creating comment",
+              message: err.response.data,
+            })
+          );
+        }
+      });
 
-/**
- * @param {params} parmas food_id string
- */
-export const searchFood = async (params) => {
-  return axios.get(`/api/food/search/${params}`);
-};
+  const searchFoods = (key, page, limit) =>
+    axios
+      .get(`/foods?q=${key}&page=${page}&limit=${limit}`)
+      .then((response) =>
+        page === 1
+          ? dispatch(setSearchFoods(response.data))
+          : dispatch(setMoreSearchFoods(response.data))
+      )
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-/**
- * @param {params} parmas food_id string
- */
-export const fetchAllRates = async (food_id, currentPage) => {
-  return axios.get(`/api/food/rate/${food_id}/?page=${currentPage}`);
-};
+  const fetchAllRates = (food_id, page, limit) =>
+    axios
+      .get(`/food-rates/${food_id}?page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setRates(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response);
+      });
 
-/**
- * @param {params} parmas ingredient name
- */
-export const recommendationIngr = async (params) => {
-  return axios.get(`/api/food/ingredients/${params}`);
-};
+  const fetchPersonalFoods = (page, limit) =>
+    axios
+      .get(`/foods/me?page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setUserFoods(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-/**
- * @param {ingrs} ingrs array of ingredients name
- */
-export const recommendationPairingIngr = async (ingrs) => {
-  return axios.get(`/api/food/pairing/ingredients`, {
-    params: {
-      ingrs: ingrs,
-    },
-  });
-};
+  const fetchUserFoods = (user_id, page, limit) =>
+    axios
+      .get(`/foods/${user_id}?page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setSelectedUserFoods(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-export const pairingIngr = async (params) => {
-  return axios.post("http://kitchenette.korea.ac.kr/api", {
-    name: params,
-  });
-};
+  const recommendationPairingIngr = (key, page, limit) =>
+    axios
+      .get(`/ingredients?key=${key}&page=${page}&limit=${limit}`)
+      .then((response) => dispatch(setRecommendedIngredient(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
 
-export const fetchUserFoods = async (user_id, currentPage) => {
-  return axios.get(`/api/food/user-foods/${user_id}/?page=${currentPage}`);
-};
+  const pairingIngredients = (key) =>
+    axios
+      .post("http://kitchenette.korea.ac.kr/api", {
+        name: key,
+      })
+      .then((response) => dispatch(setPairingIngredient(response.data)))
+      .catch((err) => {
+        if (err.response) console.log(err.response.data);
+      });
+
+  return {
+    createFood,
+    createRateFood,
+    searchFoods,
+    fetchAllRates,
+    fetchPersonalFoods,
+    fetchUserFoods,
+    recommendationPairingIngr,
+    pairingIngredients,
+  };
+}

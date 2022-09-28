@@ -23,8 +23,7 @@ const SignUpScreen = ({ navigation }) => {
     checked,
     handleCheckedChange,
     handleUsernameChange,
-    handleFirstNameChange,
-    handleLastNameChange,
+    handleNameChange,
     handleEmailChange,
     handlePasswordChange,
     handleConfirmPasswordChange,
@@ -54,17 +53,6 @@ const SignUpScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.body}>
-          {/* <TouchableOpacity onPress={() => openImagePickerAsync(false)}>
-            <View style={styles.avatarFrame}>
-              {uri ? <Image style={styles.avatar} source={uri} /> :
-                <FontAwesome
-                  name="camera"
-                  size={20}
-                  style={styles.iconCamera}
-                ></FontAwesome>}
-            </View>
-          </TouchableOpacity> */}
-
           <InputText
             inputIcon="user"
             inputName="Username"
@@ -72,13 +60,8 @@ const SignUpScreen = ({ navigation }) => {
           />
           <InputText
             inputIcon="pencil"
-            inputName="First Name"
-            setNameText={handleFirstNameChange}
-          />
-          <InputText
-            inputIcon="pencil"
-            inputName="Last Name"
-            setNameText={handleLastNameChange}
+            inputName="Full name"
+            setNameText={handleNameChange}
           />
           <InputText
             inputIcon="mail"

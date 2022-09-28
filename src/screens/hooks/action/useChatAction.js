@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { addMessage } from '../../../redux/chatReducer';
+import { addMessage } from '../../../redux/reducers/chatReducer';
 import { sendMessage } from '../../../services/ChatServices';
 
 const useChatAction = () => {

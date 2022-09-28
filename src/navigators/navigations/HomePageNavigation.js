@@ -10,7 +10,7 @@ import HomeScreen from "../../screens/HomePage/HomeScreen";
 import Explore from "../../screens/HomePage/Explore";
 import NotificationScreen from "../../screens/HomePage/NotificationScreen";
 import Navigators from "../navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,17 +18,15 @@ const Stack = createStackNavigator();
 const NotiNavigation = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   const { navigateToChat } = Navigators();
 
@@ -123,17 +121,16 @@ const ExploreScreen = () => {
 const HomePage = () => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let background_COLOR, text_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR;
-  }
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
+
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
+
   const { navigateToChat, navigateToSearch } = Navigators();
 
   return (
@@ -179,12 +176,10 @@ const HomePageNavigation = () => {
   const notifications = useSelector((state) => state.ui.notifications);
   const theme = useSelector((state) => state.theme.theme);
 
-  let background_COLOR;
-  {
-    theme.mode === "light" ?
-      background_COLOR = lightTheme.FIRST_BACKGROUND_COLOR
-      : background_COLOR = darkTheme.FIRST_BACKGROUND_COLOR
-  }
+  const background_COLOR =
+    theme.mode === "light"
+      ? lightTheme.FIRST_BACKGROUND_COLOR
+      : darkTheme.FIRST_BACKGROUND_COLOR;
 
   return (
     <Tab.Navigator
@@ -194,14 +189,7 @@ const HomePageNavigation = () => {
 
         style: {
           backgroundColor: background_COLOR,
-          //position: "absolute",
-          //bottom: 5,
-          //marginHorizontal: 10,
-          //borderRadius: 10,
-
           height: 60,
-
-
           shadowColor: "#000",
           shadowOpacity: 0.2,
           shadowOffset: {
@@ -318,9 +306,9 @@ const HomePageNavigation = () => {
           ),
 
           tabBarBadge:
-            notifications.filter((n) => n.is_seen === false).length === 0
+            notifications.rows.filter((n) => n.is_seen === false).length === 0
               ? null
-              : notifications.filter((n) => n.is_seen === false).length,
+              : notifications.rows.filter((n) => n.is_seen === false).length,
         }}
       />
       <Tab.Screen
@@ -377,7 +365,7 @@ const styles = StyleSheet.create({
   chatFrame: {
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 15
+    marginRight: 15,
   },
   container: {
     flex: 1,

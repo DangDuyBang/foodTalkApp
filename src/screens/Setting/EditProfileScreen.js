@@ -19,19 +19,12 @@ import { lightTheme, darkTheme } from "../../assets/color/Theme"
 const EditProfileScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let text_COLOR;
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+    const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   const {
     uriCover,
@@ -69,7 +62,7 @@ const EditProfileScreen = ({ navigation }) => {
     setIsAvatar(true);
   };
 
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const renderInner = () => (
     <View style={styles.panel}>

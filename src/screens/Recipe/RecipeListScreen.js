@@ -1,13 +1,13 @@
 import { StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
-import color from "../../assets/color/color";
-import { AntDesign } from "@expo/vector-icons";
-import InputSearch from "../../components/input/InputSearch";
-import RecipePreview from "../../components/recipe/RecipePreview";
-import useRecipeActions from "../hooks/action/useRecipeActions";
 import { useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
 import uuid from "react-native-uuid";
+import React from "react";
+import { AntDesign } from "@expo/vector-icons";
+import color from "../../assets/color/color";
+import InputSearch from "../../components/input/InputSearch";
+import RecipePreview from "../../components/recipe/RecipePreview";
+import useRecipeActions from "../hooks/action/useRecipeActions";
 import Navigators from "../../navigators/navigators/Navigators";
 
 const RecipeListScreen = ({ navigation }) => {

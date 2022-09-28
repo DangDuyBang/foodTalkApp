@@ -4,11 +4,11 @@ import { storage } from '../../../firebase/firebase';
 import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage';
 import { updateAvatarPic, updateCoverPic, updateProfile } from '../../../services/AuthServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser, updateAvatar, updateCover } from '../../../redux/userReducer';
-import { setToast } from '../../../redux/uiReducer';
+import { setCurrentUser, updateAvatar, updateCover } from '../../../redux/reducers/userReducer';
+import { setToast } from '../../../redux/reducers/uiReducer';
 
 function useEditProfile({ navigation }) {
-    const currentUser = useSelector(state => state.user.currentUser.data);
+    const currentUser = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch()
 
     const [uriCover, setUriCover] = useState(null)

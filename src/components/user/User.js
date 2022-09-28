@@ -30,7 +30,7 @@ const User = (props) => {
                     }
                     <View style={styles.textContain}>
                         <Text style={styles.chatFullname}>{props.data.username}</Text>
-                        <Text style={styles.chatUsername}>{props.data.last_name} {props.data.first_name}</Text>
+                        <Text style={styles.chatUsername}>{props.data.name}</Text>
                     </View>
                 </View>
             </View>

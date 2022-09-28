@@ -1,21 +1,23 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import color from "../../assets/color/color";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import Post from "../../components/post/Post";
-import useFetchPost from "../hooks/fetch/useFetchPost";
 import { useSelector } from "react-redux";
 import { ScrollView } from "@stream-io/flat-list-mvcp";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LottieView from "lottie-react-native";
+import uuid from "react-native-uuid";
+import color from "../../assets/color/color";
+import Post from "../../components/post/Post";
 import Shortcut from "../../components/button/BtnFunction";
 import InfinityScrollView from "../../components/view/InfinityScrollView";
-import uuid from "react-native-uuid";
 import Navigators from "../../navigators/navigators/Navigators";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import PostServices from "../../services/PostServices";
 
 const HomeScreen = () => {
   const theme = useSelector((state) => state.theme.theme);
+  const posts = useSelector((state) => state.post.posts);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const {
     navigateToPostComment,
@@ -24,24 +26,19 @@ const HomeScreen = () => {
     navigateToAccount,
     navigateToPostReacter,
   } = Navigators();
-  const { useFetchAllPost } = useFetchPost();
-  const posts = useSelector((state) => state.post.posts);
-  const currentUser = useSelector((state) => state.user.currentUser.data);
 
-  const useLoads = async () => {
-    await useFetchAllPost();
+  const { fetchAllPost } = PostServices();
+
+  const useLoads = () => {
+    if (posts.count !== 0 && posts.rows.length >= posts.count) return;
+    fetchAllPost(posts.currentPage, 20);
   };
 
   React.useEffect(() => {
-    useLoads();
+    if (posts.rows.length === 0) useLoads();
   }, []);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -70,7 +67,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={navigateToCreatePost}>
-              <View style={styles.createPostView} >
+              <View style={styles.createPostView}>
                 <Text
                   style={{
                     fontFamily: "Roboto",
@@ -125,8 +122,8 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.body}>
-          {posts && posts.length > 0 ? (
-            posts.map((post) => (
+          {posts && posts.rows.length > 0 ? (
+            posts.rows.map((post) => (
               <Post
                 post={post}
                 key={uuid.v4()}
@@ -288,4 +285,3 @@ const styles_dark = StyleSheet.create({
     backgroundColor: "#313131",
   },
 });
-

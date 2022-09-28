@@ -4,37 +4,31 @@ import color from "../../assets/color/color";
 import moment from "moment";
 import AvatarUser from "../../components/user/AvatarUser";
 import { useDispatch, useSelector } from "react-redux";
-import { seenNotification } from "../../redux/uiReducer";
-import { seenNoti } from "../../services/UserServices";
+import { seenNotification } from "../../redux/reducers/uiReducer";
+import UserServices from "../../services/UserServices";
 import Navigators from "../../navigators/navigators/Navigators";
 import { lightTheme, darkTheme } from "../../assets/color/Theme"
 
 const NotifyPreview = (props) => {
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
+  const {seenNoti} = UserServices()
 
   const dispatch = useDispatch();
 
-  const { navigateToDetailPost } = Navigators();
-  const handlePress = async () => {
-    if (props.data.notify_type === "POST") {
+  const { navigateToDetailPost, navigateToDetailRecipe } = Navigators();
+  const handlePress = () => {
+    if (props.data.type === "POST") {
       navigateToDetailPost(props.data.post_data);
+    }
+
+    if(props.data.type === "FOOD") {
+      navigateToDetailRecipe(props.data.food_data)
     }
     if (!props.data.is_seen) {
       dispatch(seenNotification(props.data._id));
-      await seenNoti(props.data._id)
-        .then((res) => console.log(res.data.message))
-        .catch((err) => {
-          if (err.response) {
-            console.log(err.response.data.error);
-          }
-        });
+      seenNoti(props.data._id)
     }
   };
 
@@ -49,15 +43,6 @@ const NotifyPreview = (props) => {
       >
         <View style={styles.avatarAndName}>
           <AvatarUser sizeImage={50} profile={props.data.author} />
-
-          {/* <View style={styles.AvatarFrame}>
-                        <Image
-                            style={styles.tinyAvatar}
-                            source={{
-                                uri: props.data.author.avatar_url ? props.data.author.avatar_url : "",
-                            }}
-                        />
-                    </View> */}
           <View style={styles.textContain}>
             <View>
               <View

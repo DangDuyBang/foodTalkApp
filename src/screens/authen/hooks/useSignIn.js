@@ -1,91 +1,45 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { loginUser } from '../../../services/AuthServices'
-import { fetchCurrentUser } from '../../../services/UserServices'
-import { saveStorage } from '../../../utils/Storage'
-import { useDispatch } from 'react-redux'
-import { setCurrentUser } from '../../../redux/userReducer'
-import { setToast, setNoti } from '../../../redux/uiReducer'
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import AuthServices from "../../../services/AuthServices";
+import UserServices from "../../../services/UserServices";
 
 const useSignIn = () => {
+  const [initialState, setInitialState] = useState({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const { loginUser } = AuthServices();
+  const { fetchNoti } = UserServices();
+  const notifications = useSelector((state) => state.ui.notifications);
 
-    const dispatch = useDispatch()
-
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const [initialState, setInitialState] = useState({
-        email: '',
-        password: '',
-    })
-
-    const handlePasswordChange = (text) => {
-        setInitialState({ ...initialState, password: text })
-        // setError({ ...error, password: '' })
+  useEffect(()=> {
+    if (loading === true){
+      loginUser(initialState)
+      .then(() => fetchNoti(notifications.currentPage, 20))
+      .then(() => setLoading(false))
     }
+  }, [loading])
 
-    const handleEmailChange = (text) => {
-        setInitialState({ ...initialState, email: text })
-        // setError({ ...error, email: '' })
-    }
+  const handlePasswordChange = (text) => {
+    setInitialState({ ...initialState, password: text });
+    // setError({ ...error, password: '' })
+  };
 
-    const handleLoginUser = async (e) => {
-        setLoading(true)
+  const handleEmailChange = (text) => {
+    setInitialState({ ...initialState, email: text });
+    // setError({ ...error, email: '' })
+  };
 
-        try {
+  const handleLoginUser = (e) =>
+    setLoading(true)
 
-            const { data } = await loginUser(initialState)
+  return {
+    loading,
+    handleLoginUser,
+    handleEmailChange,
+    handlePasswordChange,
+  };
+};
 
-            setLoading(false)
-
-            if (data) {
-
-                setLoading(true)
-                saveStorage('@token', data.data.token)
-                axios.defaults.headers.common['Authorization'] = `Bearer ${data.data.token}`;
-
-                const me = await fetchCurrentUser()
-
-                dispatch(setCurrentUser(me.data.user))
-                dispatch(setNoti(me.data.notifications))
-                console.log(me.data.notifications)
-
-                setLoading(false)
-
-                dispatch(setToast({
-                    type: 'success',
-                    text1: 'Wellcome',
-                    text2: 'Take your time to cook some recipes',
-                }))
-            }
-
-        } catch (err) {
-            setLoading(false)
-            console.log(err);
-            if (err.response) {
-                console.log(err.response.data.error)
-                dispatch(setToast({
-                    type: 'error',
-                    text1: 'Login failed',
-                    text2: err.response.data.error,
-                }))
-                setError(...err, err.response.data.error)
-            }
-        }
-
-    }
-
-    return {
-        loading,
-        error,
-        handleLoginUser,
-        handleEmailChange,
-        handlePasswordChange,
-    }
-
-}
-
-export default useSignIn
-
-
-
-
+export default useSignIn;

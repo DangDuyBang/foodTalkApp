@@ -5,7 +5,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 
 const MessageText = (props) => {
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [isShowedTime, setIsShowedTime] = useState(false);
 
   const isCurrentUser = () => {

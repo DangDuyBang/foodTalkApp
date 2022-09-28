@@ -8,26 +8,33 @@ import { LogBox } from "react-native";
 import Toast from "react-native-toast-message";
 import toastConfig from "./utils/ToastConfig";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, addPost, likeUnlikePost } from "./redux/postReducer";
-import { addNotification } from "./redux/uiReducer";
-import { addMessage } from "./redux/chatReducer";
-import { addRate } from "./redux/foodReducer";
+import {
+  addComment,
+  addPost,
+  likeUnlikePost,
+} from "./redux/reducers/postReducer";
+import { addNotification } from "./redux/reducers/uiReducer";
+import { addMessage } from "./redux/reducers/chatReducer";
+import { addRate } from "./redux/reducers/foodReducer";
+import config from "./config";
 
-axios.defaults.baseURL = "https://foodtalk-backend.herokuapp.com";
-
-LogBox.ignoreAllLogs(true);
+axios.defaults.baseURL = config.baseURL;
 
 export default function App() {
   const dispatch = useDispatch();
-  const toast = useSelector((state) => state.ui.toast);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const toast = useSelector((state) => state.ui.toast);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     if (isLoggedIn) {
-      let socketio = io("https://foodtalk-backend.herokuapp.com", {
+      let socketio = io(config.baseURL, {
         transports: ["websocket"],
+        extraHeaders: {
+          Authorization: `Bearer ${token}`
+        }
       });
-      //dispatch(setSocketio(socketio))
 
       socketio.on("connect", () => {
         console.log("connected");
@@ -95,7 +102,7 @@ export default function App() {
         console.log("disconnect");
       };
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, token]);
 
   useEffect(() => {
     if (toast) {

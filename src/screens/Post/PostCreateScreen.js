@@ -8,33 +8,26 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect } from "react";
-import color from "../../assets/color/color";
+import { useSelector } from "react-redux";
+import uuid from "react-native-uuid";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import color from "../../assets/color/color";
 import SwipeSlide from "../../components/view/SwipeSlide";
 import BtnNoLogo from "../../components/button/BtnNoLogo";
 import { useCreatePost } from "./hooks/useCreatePost";
 import RecipeShowed from "../../components/recipe/RecipeShowed";
-import { useSelector } from "react-redux";
-import uuid from "react-native-uuid";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 
 const PostCreateScreen = ({ navigation, route }) => {
   //cập nhật thêm checkin với foods
   const theme = useSelector((state) => state.theme.theme);
 
-  let styles;
-  {
-    theme.mode === "light" ?
-      styles = styles_light
-      : styles = styles_dark;
-  }
+  const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  let text_COLOR;
-  {
-    theme.mode === "light" ?
-      text_COLOR = lightTheme.SECOND_TEXT_COLOR
-      : text_COLOR = darkTheme.SECOND_TEXT_COLOR;
-  }
+  const text_COLOR =
+    theme.mode === "light"
+      ? lightTheme.SECOND_TEXT_COLOR
+      : darkTheme.SECOND_TEXT_COLOR;
 
   const {
     isPublic,
@@ -48,15 +41,22 @@ const PostCreateScreen = ({ navigation, route }) => {
     handleContentChange,
     onPressPhoto,
     onCreatePost,
-  } = useCreatePost({ navigation });
+    onRecipeConfirm
+  } = useCreatePost();
 
-  const currentUser = useSelector((state) => state.user.currentUser.data);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
-  useEffect(() => {
-    if (route.params?.chooseImage) {
-      onPressPhoto();
-    }
-  }, [route.params?.chooseImage]);
+  // useEffect(() => {
+  //   if (route.params?.chooseImage) {
+  //     onPressPhoto();
+  //   }
+  // }, [route.params?.chooseImage]);
+
+  // useEffect(() => {
+  //   if(route.params?.foods){
+  //     onRecipeConfirm(route.params.foods)
+  //   }
+  // }, [route.params?.foods]);
 
   return (
     <View style={styles.container}>
@@ -160,7 +160,7 @@ const PostCreateScreen = ({ navigation, route }) => {
                 borderColor: color.textIconSmall,
                 marginTop: 5,
               }}
-            >
+            >          
               {foods &&
                 foods.map((food) => (
                   <RecipeShowed key={uuid.v4()} food={food} />
@@ -294,7 +294,7 @@ const styles_light = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
-    borderColor: lightTheme.LINE_COLOR
+    borderColor: lightTheme.LINE_COLOR,
   },
   addPictureView: {
     flexDirection: "row",
@@ -303,7 +303,7 @@ const styles_light = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
-    borderColor: lightTheme.LINE_COLOR
+    borderColor: lightTheme.LINE_COLOR,
   },
   addPositionView: {
     flexDirection: "row",
@@ -311,7 +311,7 @@ const styles_light = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
     marginBottom: 8,
-    borderColor: lightTheme.LINE_COLOR
+    borderColor: lightTheme.LINE_COLOR,
   },
   textFunct: {
     fontFamily: "Roboto",
@@ -396,7 +396,7 @@ const styles_dark = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
-    borderColor: darkTheme.LINE_COLOR
+    borderColor: darkTheme.LINE_COLOR,
   },
   addPictureView: {
     flexDirection: "row",
@@ -405,7 +405,7 @@ const styles_dark = StyleSheet.create({
     marginBottom: 5,
     borderBottomWidth: 0.5,
     paddingVertical: 5,
-    borderColor: darkTheme.LINE_COLOR
+    borderColor: darkTheme.LINE_COLOR,
   },
   addPositionView: {
     flexDirection: "row",
@@ -413,7 +413,7 @@ const styles_dark = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
     marginBottom: 8,
-    borderColor: darkTheme.LINE_COLOR
+    borderColor: darkTheme.LINE_COLOR,
   },
   textFunct: {
     fontFamily: "Roboto",
