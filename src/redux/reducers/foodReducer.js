@@ -106,7 +106,7 @@ export const foodSlice = createSlice({
     },
 
     setRecommendedIngredient: (state, action) => {
-      state.recommendedIngredient = [...action.payload];
+      state.recommendedIngredient = action.payload.rows;
     },
 
     deleteRecomendedIngredient: (state) => {

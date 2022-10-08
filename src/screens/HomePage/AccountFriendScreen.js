@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import useFetchPost from "../hooks/fetch/useFetchPost";
 import useFetchFood from "../hooks/fetch/useFetchFood";
 import { follow, removeSelectedUser, unfollow } from "../../redux/reducers/userReducer";
-import useUserAction from "../hooks/action/useUserAction";
 import Navigators from "../../navigators/navigators/Navigators";
 import { lightTheme, darkTheme } from "../../assets/color/Theme";
 import UserServices from "../../services/UserServices";

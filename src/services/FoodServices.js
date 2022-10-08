@@ -93,9 +93,9 @@ export default function () {
         if (err.response) console.log(err.response.data);
       });
 
-  const recommendationPairingIngr = (key, page, limit) =>
+  const recommendationPairingIngr = (key) =>
     axios
-      .get(`/ingredients?key=${key}&page=${page}&limit=${limit}`)
+      .get(`/ingredients?q=${key}&page=1&limit=20&sort=-npmi`)
       .then((response) => dispatch(setRecommendedIngredient(response.data)))
       .catch((err) => {
         if (err.response) console.log(err.response.data);

@@ -9,20 +9,23 @@ import InputSearch from "../../components/input/InputSearch";
 import RecipePreview from "../../components/recipe/RecipePreview";
 import useRecipeActions from "../hooks/action/useRecipeActions";
 import Navigators from "../../navigators/navigators/Navigators";
+import { useEffect } from "react";
 
 const RecipeListScreen = ({ navigation }) => {
   const { navigateToNewRecipe } = Navigators();
-  navigation.setOptions({
-    title: "Explore Recipe",
-    headerRight: () => (
-      <TouchableOpacity
-        style={{ marginRight: 20 }}
-        onPress={navigateToNewRecipe}
-      >
-        <AntDesign name="plus" size={30} color={color.primary}></AntDesign>
-      </TouchableOpacity>
-    ),
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      title: "Explore Recipe",
+      headerRight: () => (
+        <TouchableOpacity
+          style={{ marginRight: 20 }}
+          onPress={navigateToNewRecipe}
+        >
+          <AntDesign name="plus" size={30} color={color.primary}></AntDesign>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   const { handleSearchChange } = useRecipeActions();
 

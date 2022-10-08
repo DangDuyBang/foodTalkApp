@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import uuid from "react-native-uuid";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -32,7 +32,6 @@ function useNewReceipt() {
     }
     console.log(pickerResult);
     if (!pickerResult.cancelled) {
-      console.log(pickerResult);
       setUri(pickerResult);
       bs;
     }

@@ -88,6 +88,13 @@ const Navigators = () => {
     navigation.navigate("PostComment", { post_id: post_id });
   };
 
+  const navigateToRecipeAttached = (onRecipeConfirm, foods) => {
+    navigation.navigate("RecipeAttached", {
+      onConfirm: onRecipeConfirm,
+      foods: foods,
+    });
+  };
+
   return {
     navigateToPostComment,
     navigateToPostReacter,
@@ -108,6 +115,7 @@ const Navigators = () => {
     navigateToDetailRecipe,
     navigateToDetailPost,
     navigateToDetailChat,
+    navigateToRecipeAttached
   };
 };
 

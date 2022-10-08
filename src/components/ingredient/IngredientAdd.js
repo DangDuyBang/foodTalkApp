@@ -27,20 +27,18 @@ const IngredientAdd = (props) => {
   });
   const { recommendationPairingIngr, pairingIngredients } = FoodServices();
   const [ingrList, setIngrList] = useState([]);
-  const [isRecommend, setIsRecommned] = useState(false);
+  const [isRecommend, setIsRecommned] = useState(true);
 
-//   useEffect(() => {
-//     if (ingredient.nameIngredient === "") {
-//       setIsRecommned(true);
-//     } else {
-//       setIsRecommned(false);
-//     }
-//     recommendationPairingIngr(
-//       ingredient.nameIngredient.toLowerCase().replace(/\s/g, "_"),
-//       1,
-//       20
-//     );
-//   }, [ingredient.nameIngredient]);
+  useEffect(() => {
+    if (ingredient.nameIngredient === "") {
+      setIsRecommned(true);
+    } else {
+      setIsRecommned(false);
+    }
+    recommendationPairingIngr(
+      ingredient.nameIngredient.toLowerCase().replace(/\s/g, "_")
+    );
+  }, [ingredient.nameIngredient]);
 
   useEffect(() => {
     pairingIngredients(ingrList[ingrList.length - 1]);
@@ -85,8 +83,6 @@ const IngredientAdd = (props) => {
 
   return (
     <View>
-      {/* {
-                ingredient.nameIngredient.length > 0 && ingredient.nameIngredient.length < 5 ? */}
       <ScrollView horizontal={true} paddingBottom={6}>
         {isRecommend
           ? pairingIngrs &&
@@ -98,52 +94,15 @@ const IngredientAdd = (props) => {
                 onTypeRecommend={handleTypeRecommend}
               />
             ))
-          : 
-            recommendedIngredient.length !== 0 &&
+          : recommendedIngredient.length !== 0 &&
             recommendedIngredient.map((ingr) => (
               <IngredientRecommend
                 key={uuid.v4()}
-                ingredientText={formatString(ingr._id)}
+                ingredientText={formatString(ingr.ingr)}
                 onTypeRecommend={handleTypeRecommend}
               />
             ))}
-        {/* <IngredientRecommend ingredientText='egg' />
-                        <IngredientRecommend
-                            onTypeRecommend={handleTypeRecommend}
-                            ingredientText='egg chicken'
-                        />
-                        <IngredientRecommend ingredientText='egg duck' />
-                        <IngredientRecommend ingredientText='cow egg' />
-                        <IngredientRecommend ingredientText='egg vegetables' />
-                        <IngredientRecommend ingredientText='egg turtle' />
-                        <IngredientRecommend ingredientText='egg boil' /> */}
       </ScrollView>
-      {/* :
-                    ingredient.nameIngredient.length > 4 && ingredient.nameIngredient.length < 6 ?
-                        <ScrollView
-                            horizontal={true}
-                            paddingBottom={6}
-                        >
-                            <IngredientRecommend
-                                onTypeRecommend={handleTypeRecommend}
-                                ingredientText='egg chicken' />
-                            <IngredientRecommend ingredientText='egg cat'
-                            />
-                        </ScrollView>
-                        :
-                        ingredient.nameIngredient.length > 5 && ingredient.nameIngredient.length < 11 ?
-                            <ScrollView
-                                horizontal={true}
-                                paddingBottom={6}
-                            >
-                                <IngredientRecommend
-                                    onTypeRecommend={handleTypeRecommend}
-                                    ingredientText='egg chicken'
-                                />
-                            </ScrollView>
-                            :
-                            null
-            } */}
 
       <View style={styles.container}>
         <TextInput

@@ -3,6 +3,7 @@ import { storage } from "../../../firebase/firebase";
 import PostServices from "../../../services/PostServices";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
+import Navigators from "../../../navigators/navigators/Navigators";
 
 export const useCreatePost = () => {
   const navigation = useNavigation()
@@ -13,6 +14,7 @@ export const useCreatePost = () => {
   const [location, setLocation] = useState("");
   const [region, setRegion] = useState({});
   const { createPost } = PostServices();
+  const {navigateToRecipeAttached} = Navigators()
 
   const eventChangeMode = () => {
     setIsPublic(!isPublic);
@@ -23,10 +25,7 @@ export const useCreatePost = () => {
   };
 
   const eventRecipeAttached = () => {
-    navigation.navigate("RecipeAttached", {
-      onConfirm: onRecipeConfirm,
-      foods: foods,
-    });
+    navigateToRecipeAttached(onRecipeConfirm, foods)
   };
 
   const onPressPhoto = () => {

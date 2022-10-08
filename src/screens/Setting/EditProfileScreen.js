@@ -14,14 +14,15 @@ import Animated from "react-native-reanimated";
 import BottomSheet from "reanimated-bottom-sheet";
 import useEditProfile from "./hooks/useEditProfile";
 import { useSelector } from "react-redux";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
+import { useEffect } from "react";
 
 const EditProfileScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
   const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-    const text_COLOR =
+  const text_COLOR =
     theme.mode === "light"
       ? lightTheme.SECOND_TEXT_COLOR
       : darkTheme.SECOND_TEXT_COLOR;
@@ -38,18 +39,20 @@ const EditProfileScreen = ({ navigation }) => {
     onChangeProfile,
   } = useEditProfile({ navigation });
 
-  navigation.setOptions({
-    title: "Update Profile",
-    headerRight: () => (
-      <TouchableOpacity style={{ marginRight: 16 }} onPress={onChangeProfile}>
-        <Ionicons
-          name="checkmark-sharp"
-          size={35}
-          color={color.primary}
-        ></Ionicons>
-      </TouchableOpacity>
-    ),
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      title: "Update Profile",
+      headerRight: () => (
+        <TouchableOpacity style={{ marginRight: 16 }} onPress={onChangeProfile}>
+          <Ionicons
+            name="checkmark-sharp"
+            size={35}
+            color={color.primary}
+          ></Ionicons>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
   const [isAvatar, setIsAvatar] = useState(true);
 
   const changeCover = () => {
@@ -211,7 +214,7 @@ const EditProfileScreen = ({ navigation }) => {
                     >
                       <Image
                         style={styles.avatarImage}
-                        resizeMode='contain'
+                        resizeMode="contain"
                         source={uriAvatar}
                       />
                       {/* <Ionicons style={{ position: 'absolute' }} name='camera-outline' size={25} color={color.textGray}></Ionicons> */}
@@ -357,7 +360,7 @@ const styles_light = StyleSheet.create({
     paddingHorizontal: 10,
     textAlignVertical: "top",
     color: lightTheme.SECOND_TEXT_COLOR,
-    borderColor: lightTheme.LINE_COLOR
+    borderColor: lightTheme.LINE_COLOR,
   },
   panel: {
     backgroundColor: lightTheme.FIRST_BACKGROUND_COLOR,
@@ -462,7 +465,7 @@ const styles_dark = StyleSheet.create({
     paddingHorizontal: 10,
     textAlignVertical: "top",
     color: darkTheme.SECOND_TEXT_COLOR,
-    borderColor: darkTheme.LINE_COLOR
+    borderColor: darkTheme.LINE_COLOR,
   },
   panel: {
     backgroundColor: darkTheme.FIRST_BACKGROUND_COLOR,
