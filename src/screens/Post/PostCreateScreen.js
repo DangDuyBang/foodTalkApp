@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import uuid from "react-native-uuid";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -40,23 +40,10 @@ const PostCreateScreen = ({ navigation, route }) => {
     onPressCheckIn,
     handleContentChange,
     onPressPhoto,
-    onCreatePost,
-    onRecipeConfirm
+    onCreatePost
   } = useCreatePost();
 
   const currentUser = useSelector((state) => state.user.currentUser);
-
-  // useEffect(() => {
-  //   if (route.params?.chooseImage) {
-  //     onPressPhoto();
-  //   }
-  // }, [route.params?.chooseImage]);
-
-  // useEffect(() => {
-  //   if(route.params?.foods){
-  //     onRecipeConfirm(route.params.foods)
-  //   }
-  // }, [route.params?.foods]);
 
   return (
     <View style={styles.container}>

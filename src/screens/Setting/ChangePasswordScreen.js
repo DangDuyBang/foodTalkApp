@@ -4,26 +4,29 @@ import color from "../../assets/color/color";
 import { Ionicons } from "@expo/vector-icons";
 import InputPass from "../../components/input/InputPass";
 import BtnNoLogo from "../../components/button/BtnNoLogo";
-import { lightTheme, darkTheme } from "../../assets/color/Theme"
+import { lightTheme, darkTheme } from "../../assets/color/Theme";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ChangePasswordScreen = ({ navigation }) => {
   const theme = useSelector((state) => state.theme.theme);
 
   const styles = theme.mode === "light" ? styles_light : styles_dark;
 
-  navigation.setOptions({
-    title: "Change password",
-    headerRight: () => (
-      <TouchableOpacity style={{ marginRight: 16 }}>
-        <Ionicons
-          name="checkmark-sharp"
-          size={35}
-          color={color.primary}
-        ></Ionicons>
-      </TouchableOpacity>
-    ),
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      title: "Change password",
+      headerRight: () => (
+        <TouchableOpacity style={{ marginRight: 16 }}>
+          <Ionicons
+            name="checkmark-sharp"
+            size={35}
+            color={color.primary}
+          ></Ionicons>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   const handleChangePassword = () => {
     alert("Change Password Successfully");

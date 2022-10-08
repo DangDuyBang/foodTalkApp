@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image, Animated, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Animated } from 'react-native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import React, { useRef, useEffect, useCallback, useState } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { Video } from 'expo-av';
 import color from '../../assets/color/color';
 import { Easing } from 'react-native-reanimated';
